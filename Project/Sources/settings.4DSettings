@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><preferences stamp="12">
+	<com.4d>
+		<deployment>
+			<options/>
+		</deployment>
+		<general component_classStore_name="ViewPro" execute_host_database_event="true">
+			<mover always_display_dialog="1" style_sheets="1"/>
+		</general>
+		<php ip_address="127.0.0.1"/>
+		<sql>
+			<publication port_number="19812"/>
+		</sql>
+		<web>
+			<standalone_server>
+				<configuration https_port_number="443" port_number="80"/>
+				<webservices>
+					<server allow_requests="false" name="A_WebService"/>
+				</webservices>
+				<options>
+					<keep_alive requests_number="100"/>
+					<cache cache_max_size="524288"/>
+				</options>
+			</standalone_server>
+		</web>
+		<server>
+			<network>
+				<options publish_at_startup="false" use_legacy_network_layer="false"/>
+				<sso spn=""/>
+			</network>
+		</server>
+		<compiler>
+			<options compilation_path="3" fat_binary="true" syntax_file="false"/>
+			<typage default_for_button="2"/>
+			<method_suffix arrays="" interprocess_arrays="" interprocess_variables="" methods="" variables=""/>
+		</compiler>
+		<interface>
+			<shortcuts>
+				<accept_input_form alt="false" command="false" ctrl="false" key_code="0" shift="false"/>
+				<cancel_input_form alt="false" command="false" ctrl="false" key_code="0" shift="false"/>
+				<add_subform alt="false" command="false" ctrl="false" key_code="0" shift="false"/>
+			</shortcuts>
+		</interface>
+		<database>
+			<cache flush_buffer_delay="20s"/>
+		</database>
+	</com.4d>
+</preferences>

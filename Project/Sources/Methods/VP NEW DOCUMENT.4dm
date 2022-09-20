@@ -1,0 +1,115 @@
+//%attributes = {"invisible":true,"shared":true}
+// The VP NEW DOCUMENT command loads and display a new, default document in the 4D View Pro form area object vpAreaName. The new empty document replaces any data already inserted in the area. 
+// Pass in vpAreaName the object name property of the area in the 4D form. If you pass an invalid name, an error is returned.  
+
+C_TEXT:C284($1)
+
+C_LONGINT:C283($nbParameters)
+C_TEXT:C284($filePath; $textBuffer; $fileName; $area)
+C_OBJECT:C1216($documentObject; $path)
+
+If (vp_initStorage)
+	
+	$nbParameters:=Count parameters:C259
+	
+	TRY
+	
+	If (Check_parameters_count(1; $nbParameters))
+		
+		$area:=$1
+		
+		If (vp_isReady($area; Current method name:C684))
+			
+			// Get host database default template path
+			$filePath:=Object to path:C1548(New object:C1471(\
+				"name"; "default"; \
+				"extension"; "4vp"; \
+				"parentFolder"; Get 4D folder:C485(Current resources folder:K5:16; *)+"viewPro"))
+			
+			If (Test path name:C476($filePath)#Is a document:K24:1)
+				
+				// Get internal default template path
+				$filePath:=Object to path:C1548(New object:C1471(\
+					"name"; "default"; \
+					"extension"; "4vp"; \
+					"parentFolder"; Get 4D folder:C485(Current resources folder:K5:16)+"viewPro"))
+				
+			End if 
+			
+			Case of 
+					
+					//______________________________________________________
+				: (Test path name:C476($filePath)#Is a document:K24:1)
+					
+					// File "{name}" not found ({path})
+					$path:=Path to object:C1547($filePath)
+					
+					THROW(New object:C1471(\
+						"component"; "xbox"; \
+						"code"; 600; \
+						"name"; $path.name+$path.extension; \
+						"path"; $filePath))
+					
+					//______________________________________________________
+				Else 
+					
+					$textBuffer:=Document to text:C1236($filePath)
+					
+					If (vp_continue)
+						
+						$documentObject:=JSON Parse:C1218($textBuffer)
+						
+						If (vp_continue)
+							
+							$documentObject.version:=Storage:C1525.ViewPro.version
+							$documentObject.spreadJS.version:=Storage:C1525.ViewPro.spreadJSVersion
+							
+							If ($documentObject.spreadJS.sheets.Sheet1.columnCount=Null:C1517)
+								
+								$documentObject.spreadJS.sheets.Sheet1.columnCount:=100
+								
+							End if 
+							
+							If ($documentObject.spreadJS.sheets.Sheet1.rowCount=Null:C1517)
+								
+								$documentObject.spreadJS.sheets.Sheet1.rowCount:=1000
+								
+							End if 
+							
+							C_OBJECT:C1216($obj)
+							$obj:=vp_getAreaVariable($area)
+							If ($obj.interface#"none")
+								
+								$documentObject.spreadJS.tabStripVisible:=True:C214
+								
+							End if 
+							
+							vp_runFunction($area; "import-json"; New object:C1471("doc"; $documentObject; "new"; True:C214))
+							
+						Else 
+							
+							THROW(New object:C1471(\
+								"code"; 7; \
+								"name"; $fileName))
+							
+						End if 
+						
+					Else 
+						
+						// Cannot open file "{name}" ({path})
+						THROW(New object:C1471(\
+							"component"; "xbox"; \
+							"code"; 602; \
+							"name"; $fileName; \
+							"path"; $filePath))
+						
+					End if 
+					
+					//______________________________________________________
+			End case 
+		End if 
+	End if 
+	
+	FINALLY
+	
+End if 

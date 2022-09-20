@@ -1,0 +1,407 @@
+{
+	"4DVP": {
+		"groups": [
+			"API",
+			"convert",
+			"err callback",
+			"objectOrientedAPI",
+			"private",
+			"svg_utilities"
+		]
+	},
+	"API": {
+		"groups": [
+			"clipboard",
+			"data context",
+			"document",
+			"events",
+			"names",
+			"printing",
+			"ranges",
+			"rows & columns",
+			"selection",
+			"sheets",
+			"spans",
+			"stylesheet",
+			"tables",
+			"utilities",
+			"values",
+			"workbook"
+		],
+		"methods": [
+			"COMPILER_API"
+		]
+	},
+	"build": {
+		"methods": [
+			"build_localizationFiles"
+		]
+	},
+	"clipboard": {
+		"methods": [
+			"VP Copy to object",
+			"VP MOVE CELLS",
+			"VP PASTE FROM OBJECT"
+		]
+	},
+	"convert": {
+		"methods": [
+			"COMPILER_convert",
+			"convert_apply_styleRanges",
+			"convert_BORDERS",
+			"convert_cellNames",
+			"convert_color",
+			"convert_columns",
+			"convert_datatable",
+			"convert_dateTimeFormat",
+			"convert_defaultStyle",
+			"convert_ensureRect",
+			"convert_fontObjectToText",
+			"convert_foreColor",
+			"convert_gatherFontStyle",
+			"convert_headerAndFooterTags",
+			"convert_headerStyles",
+			"convert_indexToLetters",
+			"convert_mergeFontStyle",
+			"convert_numericFormat",
+			"convert_pictures",
+			"convert_printSettings",
+			"convert_rows",
+			"convert_selectedRanges",
+			"convert_smartResize",
+			"convert_styleKey",
+			"convert_styleRanges",
+			"convert_styleSheets"
+		]
+	},
+	"data context": {
+		"methods": [
+			"VP Get binding path",
+			"VP Get data context",
+			"VP SET BINDING PATH",
+			"VP SET DATA CONTEXT"
+		]
+	},
+	"document": {
+		"methods": [
+			"VP EXPORT DOCUMENT",
+			"VP Export to object",
+			"VP IMPORT DOCUMENT",
+			"VP IMPORT FROM OBJECT",
+			"VP NEW DOCUMENT",
+			"VP REGISTER PDF FONTS"
+		]
+	},
+	"err": {
+		"methods": [
+			"CATCH",
+			"Check_parameters_count",
+			"COMPILER_err",
+			"FINALLY",
+			"noError",
+			"THROW",
+			"TRY"
+		]
+	},
+	"err callback": {
+		"methods": [
+			"CATCH_CALLBACK",
+			"COMPILER_err_callback",
+			"Continue_callback",
+			"FINALLY_CALLBACK",
+			"THROW_CALLBACK",
+			"TRY_CALLBACK"
+		]
+	},
+	"events": {
+		"methods": [
+			"VP ON EVENT"
+		]
+	},
+	"lib": {
+		"groups": [
+			"err",
+			"rgx"
+		]
+	},
+	"names": {
+		"methods": [
+			"VP ADD FORMULA NAME",
+			"VP ADD RANGE NAME",
+			"VP Get formula by name",
+			"VP Get names",
+			"VP REMOVE NAME"
+		]
+	},
+	"objectOrientedAPI": {
+		"methods": [
+			"vp_addRangeFormulas",
+			"vp_getSheetByName",
+			"vp_makeSheet",
+			"vp_setValue"
+		]
+	},
+	"printing": {
+		"methods": [
+			"VP Get print info",
+			"VP Get show print lines",
+			"VP PRINT",
+			"VP SET PRINT INFO",
+			"VP SET SHOW PRINT LINES"
+		],
+		"classes": [
+			"Margins",
+			"PaperSize",
+			"PrintInfos",
+			"Watermark"
+		]
+	},
+	"private": {
+		"methods": [
+			"COMPILER_private",
+			"vp_4DViewString",
+			"vp_callback",
+			"vp_computeFonts",
+			"vp_continue",
+			"vp_convert_from_stylesheet",
+			"vp_convert_to_stylesheet",
+			"vp_endInit",
+			"vp_eventsCallback",
+			"vp_fillStorage",
+			"vp_flush",
+			"vp_get_picture",
+			"vp_getAllowedMethods",
+			"vp_getAreaVariable",
+			"vp_getCellRange",
+			"vp_getCustomFunctions",
+			"vp_initStorage",
+			"vp_initStorage_no_licence_check",
+			"vp_isDocumentValid",
+			"vp_isNumeric",
+			"vp_isObjectValid",
+			"vp_isReady",
+			"vp_make_picture",
+			"vp_makeFont",
+			"vp_METADATA",
+			"vp_parse_collection_get",
+			"vp_parse_collection_set",
+			"vp_parse_element_get",
+			"vp_parse_element_set",
+			"vp_parse_object_get",
+			"vp_parse_object_set",
+			"vp_Path",
+			"vp_runCommand",
+			"vp_runFunction",
+			"vp_saveFile",
+			"vp_UPDATE",
+			"vp_UPDATE_SJS"
+		],
+		"classes": [
+			"_TTC_extractor"
+		]
+	},
+	"ranges": {
+		"methods": [
+			"VP All",
+			"VP Cell",
+			"VP Cells",
+			"VP Column",
+			"VP Combine ranges",
+			"VP Name",
+			"VP Row"
+		]
+	},
+	"rgx": {
+		"methods": [
+			"Compiler_Rgx",
+			"Rgx_ExtractText",
+			"Rgx_Get_Pattern",
+			"Rgx_MatchText",
+			"rgx_NO_ERROR",
+			"rgx_Options",
+			"Rgx_SplitText",
+			"Rgx_SubstituteText"
+		]
+	},
+	"rows & columns": {
+		"methods": [
+			"VP COLUMN AUTOFIT",
+			"VP DELETE COLUMNS",
+			"VP DELETE ROWS",
+			"VP Get column attributes",
+			"VP Get column count",
+			"VP Get frozen panes",
+			"VP Get row attributes",
+			"VP Get row count",
+			"VP INSERT COLUMNS",
+			"VP INSERT ROWS",
+			"VP ROW AUTOFIT",
+			"VP SET COLUMN ATTRIBUTES",
+			"VP SET COLUMN COUNT",
+			"VP SET FROZEN PANES",
+			"VP SET ROW ATTRIBUTES",
+			"VP SET ROW COUNT"
+		]
+	},
+	"selection": {
+		"methods": [
+			"VP ADD SELECTION",
+			"VP Get active cell",
+			"VP Get selection",
+			"VP RESET SELECTION",
+			"VP SET ACTIVE CELL",
+			"VP SET SELECTION",
+			"VP SHOW CELL"
+		]
+	},
+	"sheets": {
+		"methods": [
+			"VP ADD SHEET",
+			"VP Get current sheet",
+			"VP Get sheet count",
+			"VP Get sheet index",
+			"VP Get sheet name",
+			"VP Get sheet options",
+			"VP REMOVE SHEET",
+			"VP SET CURRENT SHEET",
+			"VP SET SHEET COUNT",
+			"VP SET SHEET NAME",
+			"VP SET SHEET OPTIONS",
+			"VP SET START SHEET"
+		]
+	},
+	"spans": {
+		"methods": [
+			"VP ADD SPAN",
+			"VP Get spans",
+			"VP REMOVE SPAN"
+		]
+	},
+	"stylesheet": {
+		"methods": [
+			"VP ADD STYLESHEET",
+			"VP Font to object",
+			"VP Get cell style",
+			"VP Get default style",
+			"VP Get stylesheet",
+			"VP Get stylesheets",
+			"VP Object to font",
+			"VP REMOVE STYLESHEET",
+			"VP SET BORDER",
+			"VP SET CELL STYLE",
+			"VP SET DEFAULT STYLE"
+		]
+	},
+	"svg_utilities": {
+		"methods": [
+			"COMPILER_svgConstant",
+			"COMPILER_svgUtilities",
+			"dom_xml_copy_element",
+			"svg_addBackColor",
+			"svg_addDDLine",
+			"svg_addDULine",
+			"svg_addHLine",
+			"svg_addLine",
+			"svg_addVLine",
+			"svg_applyLum",
+			"svg_cell_findOverflowL",
+			"svg_cell_findOverflowR",
+			"svg_cell_hasDefinedStyle",
+			"svg_checkColIndex",
+			"svg_checkColor",
+			"svg_convertBase64ToPicture",
+			"svg_convertUnitToPx",
+			"svg_defineColorConstant",
+			"svg_displayBox",
+			"svg_drawBackColor",
+			"svg_drawBgImg",
+			"svg_drawCellValue",
+			"svg_drawDoubleLine",
+			"svg_drawGridline",
+			"svg_drawLine",
+			"svg_findIntersection",
+			"svg_getBase64Image",
+			"svg_getCellMergeStatus",
+			"svg_getCellPadding",
+			"svg_getFontFamily",
+			"svg_getHTMLTextBox",
+			"svg_getPictSize",
+			"svg_getRotatedBox",
+			"svg_getSortedMapCell",
+			"svg_getTextBox",
+			"svg_getTextWidth",
+			"svg_getTranslatedBox",
+			"svg_getVerticalYPos",
+			"svg_getVTextHeight",
+			"svg_getWrappedLineBoxFromBigBox",
+			"svg_hasBorderPriority",
+			"svg_hasDoubleLineIntersection",
+			"svg_initDefaultTheme",
+			"svg_parseStyle",
+			"svg_printVerticalChar",
+			"svg_printVerticalText",
+			"svg_retrieveColor",
+			"svg_saturate",
+			"svg_sortLineMap"
+		]
+	},
+	"tables": {
+		"methods": [
+			"VP CREATE TABLE",
+			"VP Find table",
+			"VP Get table column attributes",
+			"VP Get table column index",
+			"VP Get table range",
+			"VP Get tables",
+			"VP INSERT TABLE COLUMNS",
+			"VP INSERT TABLE ROWS",
+			"VP REMOVE TABLE",
+			"VP REMOVE TABLE COLUMNS",
+			"VP REMOVE TABLE ROWS",
+			"VP RESIZE TABLE",
+			"VP SET TABLE COLUMN ATTRIBUTES"
+		]
+	},
+	"utilities": {
+		"methods": [
+			"VP Convert from 4D View",
+			"VP Convert to picture",
+			"VP Copy",
+			"VP Find",
+			"VP FLUSH COMMANDS",
+			"VP PASTE",
+			"VP RECOMPUTE FORMULAS",
+			"VP RESUME COMPUTING",
+			"VP Run offscreen area",
+			"VP SET ALLOWED METHODS",
+			"VP SET CUSTOM FUNCTIONS",
+			"VP SUSPEND COMPUTING"
+		]
+	},
+	"values": {
+		"methods": [
+			"VP Get formula",
+			"VP Get formulas",
+			"VP Get value",
+			"VP Get values",
+			"VP SET BOOLEAN VALUE",
+			"VP SET DATE TIME VALUE",
+			"VP SET DATE VALUE",
+			"VP SET FIELD",
+			"VP SET FORMULA",
+			"VP SET FORMULAS",
+			"VP SET NUM VALUE",
+			"VP SET TEXT VALUE",
+			"VP SET TIME VALUE",
+			"VP SET VALUE",
+			"VP SET VALUES"
+		]
+	},
+	"workbook": {
+		"methods": [
+			"VP Get workbook options",
+			"VP SET WORKBOOK OPTIONS"
+		]
+	},
+	"trash": {}
+}
