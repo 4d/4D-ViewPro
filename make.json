@@ -1,0 +1,8 @@
+{
+  "postBuild": {
+    "remove": [
+      "make.json",
+      "Resources/test.svg"
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+//%attributes = {"invisible":true,"shared":true}
+C_TEXT:C284($1)
+C_TEXT:C284($2)
+C_LONGINT:C283($3; $4)
+
+C_LONGINT:C283($nbParameters)
+C_OBJECT:C1216($params)
+C_LONGINT:C283($options; $sheet)
+C_TEXT:C284($name; $area)
+
+If (vp_initStorage)
+	
+	$nbParameters:=Count parameters:C259
+	
+	TRY
+	
+	If (Check_parameters_count(2; $nbParameters))
+		
+		$area:=$1
+		$name:=$2
+		
+		If (vp_isReady($area; Current method name:C684))
+			
+			If ($nbParameters>2)
+				$options:=$3
+			Else 
+				$options:=0
+			End if 
+			
+			If ($nbParameters>3)
+				$sheet:=$4
+			Else 
+				$sheet:=-1
+			End if 
+			
+			If ($sheet<-1)
+				THROW(New object:C1471("code"; 17))
+			Else 
+				If ($sheet>=VP Get sheet count($area))
+					THROW(New object:C1471("code"; 19))
+				Else 
+					
+					C_OBJECT:C1216($params)
+					$params:=New object:C1471()
+					
+					$params.name:=$name
+					$params.options:=$options
+					$params.sheet:=$sheet
+					
+					vp_runCommand($area; "remove-table"; $params)
+				End if 
+			End if 
+		End if 
+	End if 
+	
+	FINALLY
+	
+End if 
