@@ -570,6 +570,16 @@ document.addEventListener('DOMContentLoaded', function () {
         culture.NumberFormat.numberDecimalSeparator = obj.intl.decimalSeparator;
         culture.NumberFormat.numberGroupSeparator = obj.intl.thousandSeparator;
 
+        if (obj.intl.currency === "€") {
+            culture.predefinedFormats.Accounting = '#,##0. [$€-407]';
+            culture.predefinedFormats.Currency = [
+                '#,##0. [$€-407]',
+                '#,##0. [$€-407];[Red]#,##0. [$€-407]',
+                '#,##0. [$€-407];(-#,##0. [$€-407])',
+                '#,##0. [$€-407];([Red]-#,##0. [$€-407])'
+            ];
+        }
+
         culture.NumberFormat.arrayListSeparator = "\\";
 
         // not this information in 4D intl manager, 
