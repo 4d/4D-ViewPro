@@ -2,16 +2,20 @@
 # Ignore invisible files/folders
 #--------------------------------
 .*
-!.gitignore
+!.git*
+
+.git/
 
 #--------------------------------
 # Ignore data file
 #--------------------------------
 [dD][aA][tT][aA]/
 *.4DD
-*.journal
 *.4DIndx
+*.4DIndy
 *.Match
+*.journal
+
 #--------------------------------
 # Ignore derived data
 #--------------------------------
@@ -27,8 +31,10 @@ Logs/
 #--------------------------------
 Preferences/
 !4DPop AppMaker.*
+
 Settings/
-#!buildApp.4DSettings
+!buildApp.4DSettings
+
 userPreferences.*/
 
 #--------------------------------
@@ -38,3 +44,10 @@ userPreferences.*/
 *symbols.txt
 ehthumbs.db
 Thumbs.db
+
+#--------------------------------
+# Added by user
+#--------------------------------
+Project/Trash
+Resources/php.ini
+Libraries
