@@ -25,6 +25,7 @@ Utils.addCommand('create-table', function (params) {
         let options = {};
         let columns = [];
         let setAllowAutoExpand = false;
+        let minHeight = 1;
 
         if ((params.options != null) && (typeof params.options === 'object')) {
 
@@ -34,6 +35,9 @@ Utils.addCommand('create-table', function (params) {
 
             if (('showFooter' in params.options) && (typeof params.options.showFooter === 'boolean')) {
                 options.showFooter = params.options.showFooter;
+                if (options.showFooter) {
+                    minHeight++;
+                }
             }
 
             if (('useFooterDropDownList' in params.options) && (typeof params.options.useFooterDropDownList === 'boolean')) {
@@ -56,8 +60,9 @@ Utils.addCommand('create-table', function (params) {
         let tableTheme = GC.Spread.Sheets.Tables.TableThemes.light18;
 
         if ((params.source == null) || (typeof params.source === 'string')) {
-            if ((columns.length > 0) && (i.rowCount == 1)) {
-                i.rowCount = 2;
+
+            if (i.rowCount < minHeight) {
+                i.rowCount = minHeight;
             }
 
             let table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
