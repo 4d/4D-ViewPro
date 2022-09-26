@@ -51,7 +51,7 @@ Thumbs.db
 Project/Trash
 Resources/php.ini
 Libraries
-Resources/*.lproj/*.min.json
+Resources/*.lproj/*.min.js
 Resources/SpreadJS/*
 Resources/ui/ribbon/lib/css/*
 Resources/ui/ribbon/lib/scripts/*
