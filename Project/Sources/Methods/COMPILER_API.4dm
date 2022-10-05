@@ -485,6 +485,19 @@ If (False:C215)  // tables
 	C_TEXT:C284(VP Get table column index; $3)
 	C_LONGINT:C283(VP Get table column index; $4)
 	C_LONGINT:C283(VP Get table column index; $0)
+	
+	//___________________________________
+	C_TEXT:C284(VP Get table dirty rows; $1)
+	C_TEXT:C284(VP Get table dirty rows; $2)
+	C_BOOLEAN:C305(VP Get table dirty rows; $3)
+	C_LONGINT:C283(VP Get table dirty rows; $4)
+	C_COLLECTION:C1488(VP Get table dirty rows; $0)
+	
+	//___________________________________
+	C_TEXT:C284(VP SET TABLE STYLE; $1)
+	C_TEXT:C284(VP SET TABLE STYLE; $2)
+	C_OBJECT:C1216(VP SET TABLE STYLE; $3)
+	C_LONGINT:C283(VP SET TABLE STYLE; $4)
 End if 
 
 If (False:C215)  // utilities

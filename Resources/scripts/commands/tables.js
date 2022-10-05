@@ -308,3 +308,33 @@ Utils.addCommand('get-table-column-index', function (params) {
     return ret;
 });
 
+Utils.addCommand('get-table-dirty-rows', function (params) {
+
+    let sheet = Utils.resolveSheet(params.sheet);
+    let ret = { dirtyRows: null };
+
+    if (sheet != null) {
+        let table = sheet.tables.findByName(params.name);
+        if (table != null) {
+            ret.dirtyRows = table.getDirtyRows();
+            if (params.reset) {
+                table.clearPendingChanges();
+            }
+        }
+    }
+    return ret;
+
+});
+
+Utils.addCommand('set-table-style', function (params) {
+
+    let sheet = Utils.resolveSheet(params.sheet);
+
+    if (sheet != null) {
+        let table = sheet.tables.findByName(params.name);
+        if (table != null) {
+            table.style(params.style);
+        }
+    }
+
+});
