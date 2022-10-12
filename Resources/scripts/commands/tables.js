@@ -333,7 +333,74 @@ Utils.addCommand('set-table-style', function (params) {
     if (sheet != null) {
         let table = sheet.tables.findByName(params.name);
         if (table != null) {
-            table.style(params.style);
+
+            let tableTheme = new GC.Spread.Sheets.Tables.TableTheme();
+
+            [
+                "firstColumnStripSize",
+                "firstColumnStripStyle",
+                "firstFooterCellStyle",
+                "firstHeaderCellStyle",
+                "firstRowStripSize",
+                "firstRowStripStyle",
+                "footerRowStyle",
+                "headerRowStyle",
+                "highlightFirstColumnStyle",
+                "highlightLastColumnStyle",
+                "lastFooterCellStyle",
+                "lastHeaderCellStyle",
+                "secondColumnStripSize",
+                "secondColumnStripStyle",
+                "secondRowStripSize",
+                "secondRowStripStyle",
+                "wholeTableStyle"
+            ].forEach(function (styleName) {
+
+                if ((styleName in params.style) && (typeof (params.style[styleName]) === "object")) {
+
+                    let style = params.style[styleName];
+
+                    let tableStyle = new GC.Spread.Sheets.Tables.TableStyle();
+
+                    [
+                        "backColor",
+                        "foreColor",
+                        "font"
+                    ].forEach(function (attributeName) {
+                        if ((attributeName in style) && (typeof (style[attributeName]) === "string")) {
+                            tableStyle[attributeName] = style[attributeName];
+                        }
+                    });
+
+                    if (("textDecoration" in style) && (typeof (style.textDecoration) === "number")) {
+                        tableStyle.textDecoration = style.textDecoration;
+                    }
+
+                    [
+                        "borderBottom",
+                        "borderTop", 
+                        "borderLeft", 
+                        "borderRight"
+                    ].forEach(function (borderName) {
+                        if ((borderName in style) && (typeof (style[border]) === "object")) {
+                            let border = new GC.Spread.Sheets.LineBorder;
+                            if (("color" in style[borderName]) && (typeof (style[borderName].color) === "string")) {
+                                border.color = style[borderName].color;
+                            }
+                            if (("style" in style[borderName]) && (typeof (style[borderName].style) === "number")) {
+                                border.style = style[borderName].style;
+                            }
+                            tableStyle[borderName] = border;
+                        }
+                    });
+
+                    tableTheme[styleName](tableStyle);
+
+                }
+
+            });
+
+            table.style(tableTheme);
         }
     }
 
