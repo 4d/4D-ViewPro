@@ -200,6 +200,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         Utils.send4DEvent("onVPReady");
+
+        // BEGIN OF PATCH
+        // patch suggested by GrapeCity team as a workaround in case CAS-33873-K8Q7D0
+        // problem will be solved on their side, id is SJS-14667
+        
+        var getValueFn = GC.Spread.Sheets.Worksheet.prototype.getValue;
+        GC.Spread.Sheets.Worksheet.prototype.getValue = function () {
+            var value = getValueFn.apply(this, arguments);
+            if (typeof value === 'number') {
+                return +value.toFixed(13);
+            }
+            return value;
+        }
+        
+        // END OF PATCH
     }
 
 
