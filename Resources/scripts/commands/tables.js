@@ -336,12 +336,23 @@ Utils.addCommand('set-table-style', function (params) {
 
             let tableTheme = new GC.Spread.Sheets.Tables.TableTheme();
 
+
             [
                 "firstColumnStripSize",
+                "firstRowStripSize",
+                "secondColumnStripSize",
+                "secondRowStripSize"
+            ].forEach(function (size) {
+
+                if ((size in params.style) && (typeof (params.style[size]) === "number")) {
+                    tableTheme[size](params.style[size]);
+                }
+            });
+
+            [
                 "firstColumnStripStyle",
                 "firstFooterCellStyle",
                 "firstHeaderCellStyle",
-                "firstRowStripSize",
                 "firstRowStripStyle",
                 "footerRowStyle",
                 "headerRowStyle",
@@ -349,9 +360,7 @@ Utils.addCommand('set-table-style', function (params) {
                 "highlightLastColumnStyle",
                 "lastFooterCellStyle",
                 "lastHeaderCellStyle",
-                "secondColumnStripSize",
                 "secondColumnStripStyle",
-                "secondRowStripSize",
                 "secondRowStripStyle",
                 "wholeTableStyle"
             ].forEach(function (styleName) {
@@ -378,11 +387,11 @@ Utils.addCommand('set-table-style', function (params) {
 
                     [
                         "borderBottom",
-                        "borderTop", 
-                        "borderLeft", 
+                        "borderTop",
+                        "borderLeft",
                         "borderRight"
                     ].forEach(function (borderName) {
-                        if ((borderName in style) && (typeof (style[border]) === "object")) {
+                        if ((borderName in style) && (typeof (style[borderName]) === "object")) {
                             let border = new GC.Spread.Sheets.LineBorder;
                             if (("color" in style[borderName]) && (typeof (style[borderName].color) === "string")) {
                                 border.color = style[borderName].color;
