@@ -18,6 +18,82 @@
 
 Utils.addCommand('create-table', function (params) {
 
+    function buildTheme(theme) {
+        
+        let tableTheme = new GC.Spread.Sheets.Tables.TableTheme();
+
+        [
+            "firstColumnStripSize",
+            "firstRowStripSize",
+            "secondColumnStripSize",
+            "secondRowStripSize"
+        ].forEach(function (size) {
+
+            if ((size in theme) && (typeof (theme[size]) === "number")) {
+                tableTheme[size](theme[size]);
+            }
+        });
+
+        [
+            "firstColumnStripStyle",
+            "firstFooterCellStyle",
+            "firstHeaderCellStyle",
+            "firstRowStripStyle",
+            "footerRowStyle",
+            "headerRowStyle",
+            "highlightFirstColumnStyle",
+            "highlightLastColumnStyle",
+            "lastFooterCellStyle",
+            "lastHeaderCellStyle",
+            "secondColumnStripStyle",
+            "secondRowStripStyle",
+            "wholeTableStyle"
+        ].forEach(function (styleName) {
+
+            if ((styleName in theme) && (typeof (theme[styleName]) === "object")) {
+
+                let style = theme[styleName];
+
+                let tableStyle = new GC.Spread.Sheets.Tables.TableStyle();
+
+                [
+                    "backColor",
+                    "foreColor",
+                    "font"
+                ].forEach(function (attributeName) {
+                    if ((attributeName in style) && (typeof (style[attributeName]) === "string")) {
+                        tableStyle[attributeName] = style[attributeName];
+                    }
+                });
+
+                if (("textDecoration" in style) && (typeof (style.textDecoration) === "number")) {
+                    tableStyle.textDecoration = style.textDecoration;
+                }
+
+                [
+                    "borderBottom",
+                    "borderTop",
+                    "borderLeft",
+                    "borderRight"
+                ].forEach(function (borderName) {
+                    if ((borderName in style) && (typeof (style[borderName]) === "object")) {
+                        let border = new GC.Spread.Sheets.LineBorder;
+                        if (("color" in style[borderName]) && (typeof (style[borderName].color) === "string")) {
+                            border.color = style[borderName].color;
+                        }
+                        if (("style" in style[borderName]) && (typeof (style[borderName].style) === "number")) {
+                            border.style = style[borderName].style;
+                        }
+                        tableStyle[borderName] = border;
+                    }
+                });
+
+                tableTheme[styleName](tableStyle);
+            }
+        });
+        return tableTheme;
+    }
+
     if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
         let i = Utils.getFirstRange(params.ranges);
@@ -26,6 +102,9 @@ Utils.addCommand('create-table', function (params) {
         let columns = [];
         let setAllowAutoExpand = false;
         let minHeight = 1;
+        let tableTheme = GC.Spread.Sheets.Tables.TableThemes.light18;
+        let setBandColumns = false;
+        let setBandRows = false;
 
         if ((params.options != null) && (typeof params.options === 'object')) {
 
@@ -55,9 +134,20 @@ Utils.addCommand('create-table', function (params) {
             if (('allowAutoExpand' in params.options) && (typeof params.options.allowAutoExpand === 'boolean')) {
                 setAllowAutoExpand = true;
             }
-        }
 
-        let tableTheme = GC.Spread.Sheets.Tables.TableThemes.light18;
+            if (('style' in params.options) && (typeof params.options.style === 'object')) {
+                tableTheme = buildTheme(params.options.style);
+            }
+
+            if(('bandColumns' in params.options) &&(typeof params.options.bandColumns === 'boolean')){
+                setBandColumns = true;
+            }
+
+            if(('bandRows' in params.options) &&(typeof params.options.bandRows === 'boolean')){
+                setBandRows = true;
+            }
+
+        }
 
         if ((params.source == null) || (typeof params.source === 'string')) {
 
@@ -93,6 +183,12 @@ Utils.addCommand('create-table', function (params) {
                 }
                 if (setAllowAutoExpand) {
                     table.allowAutoExpand(params.options.allowAutoExpand);
+                }
+                if(setBandRows){
+                    table.bandRows(params.options.bandRows);
+                }
+                if(setBandColumns){
+                    table.bandColumns(params.options.bandColumns);
                 }
             }
         }
