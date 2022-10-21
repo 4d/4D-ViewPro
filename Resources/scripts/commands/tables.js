@@ -16,10 +16,10 @@
  * 
  */
 
-Utils.addCommand('create-table', function (params) {
+(function () {
 
     function buildTheme(theme) {
-        
+
         let tableTheme = new GC.Spread.Sheets.Tables.TableTheme();
 
         [
@@ -94,419 +94,361 @@ Utils.addCommand('create-table', function (params) {
         return tableTheme;
     }
 
-    if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
-        let i = Utils.getFirstRange(params.ranges);
+    Utils.addCommand('create-table', function (params) {
 
-        let options = {};
-        let columns = [];
-        let setAllowAutoExpand = false;
-        let minHeight = 1;
-        let tableTheme = GC.Spread.Sheets.Tables.TableThemes.light18;
-        let setBandColumns = false;
-        let setBandRows = false;
+        if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
-        if ((params.options != null) && (typeof params.options === 'object')) {
+            let i = Utils.getFirstRange(params.ranges);
 
-            if (('showHeader' in params.options) && (typeof params.options.showHeader === 'boolean')) {
-                options.showHeader = params.options.showHeader;
-            }
+            let options = {};
+            let columns = [];
+            let setAllowAutoExpand = false;
+            let minHeight = 1;
+            let tableTheme = GC.Spread.Sheets.Tables.TableThemes.light18;
+            let setBandColumns = false;
+            let setBandRows = false;
 
-            if (('showFooter' in params.options) && (typeof params.options.showFooter === 'boolean')) {
-                options.showFooter = params.options.showFooter;
-                if (options.showFooter) {
-                    minHeight++;
+            if ((params.options != null) && (typeof params.options === 'object')) {
+
+                if (('showHeader' in params.options) && (typeof params.options.showHeader === 'boolean')) {
+                    options.showHeader = params.options.showHeader;
                 }
-            }
 
-            if (('useFooterDropDownList' in params.options) && (typeof params.options.useFooterDropDownList === 'boolean')) {
-                options.useFooterDropDownList = params.options.useFooterDropDownList;
-            }
-
-            if (('showResizeHandle' in params.options) && (typeof params.options.showResizeHandle === 'boolean')) {
-                options.showResizeHandle = params.options.showResizeHandle;
-            }
-
-            if (('tableColumns' in params.options) && (params.options.tableColumns.constructor === Array)) {
-                columns = params.options.tableColumns;
-            }
-
-            if (('allowAutoExpand' in params.options) && (typeof params.options.allowAutoExpand === 'boolean')) {
-                setAllowAutoExpand = true;
-            }
-
-            if (('style' in params.options) && (typeof params.options.style === 'object')) {
-                tableTheme = buildTheme(params.options.style);
-            }
-
-            if(('bandColumns' in params.options) &&(typeof params.options.bandColumns === 'boolean')){
-                setBandColumns = true;
-            }
-
-            if(('bandRows' in params.options) &&(typeof params.options.bandRows === 'boolean')){
-                setBandRows = true;
-            }
-
-        }
-
-        if ((params.source == null) || (typeof params.source === 'string')) {
-
-            if (i.rowCount < minHeight) {
-                i.rowCount = minHeight;
-            }
-
-            let table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
-
-            if (table != null) {
-                if (columns.length > 0) {
-                    let tableColumns = [];
-                    columns.forEach(element => {
-                        let tableColumn = new GC.Spread.Sheets.Tables.TableColumn();
-                        if (typeof (element) === 'object') {
-                            if (('formatter' in element) && (typeof element.formatter === 'string')) {
-                                tableColumn.formatter(Utils.adjustFormat(element.formatter));
-                            }
-                            if (('dataField' in element) && (typeof element.dataField === 'string')) {
-                                tableColumn.dataField(element.dataField);
-                            }
-                            if (('name' in element) && (typeof element.name === 'string')) {
-                                tableColumn.name(element.name);
-                            }
-                        }
-                        tableColumns.push(tableColumn);
-                    });
-                    table.autoGenerateColumns(false);
-                    table.bindColumns(tableColumns);
-                }
-                if ((params.source == null) || (typeof params.source === 'string')) {
-                    table.bindingPath(params.source);
-                }
-                if (setAllowAutoExpand) {
-                    table.allowAutoExpand(params.options.allowAutoExpand);
-                }
-                if(setBandRows){
-                    table.bandRows(params.options.bandRows);
-                }
-                if(setBandColumns){
-                    table.bandColumns(params.options.bandColumns);
-                }
-            }
-        }
-    }
-});
-
-
-Utils.addCommand('remove-table', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-            sheet.tables.remove(table, params.options);
-        }
-    }
-});
-
-
-Utils.addCommand('get-tables', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-    let ret = { collection: [] };
-
-    if (sheet != null) {
-        let arr = sheet.tables.all();
-        for (let i = 0; i < arr.length; i++) {
-            ret.collection.push(arr[i].name());
-        }
-    }
-    return ret;
-});
-
-
-Utils.addCommand('insert-table-rows', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-            table.insertRows(params.row, params.count, params.isInsertAfter);
-        }
-    }
-});
-
-
-Utils.addCommand('insert-table-columns', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-            table.insertColumns(params.column, params.count, params.isInsertAfter);
-        }
-    }
-});
-
-
-
-Utils.addCommand('remove-table-rows', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-            table.deleteRows(params.row, params.count);
-        }
-    }
-});
-
-
-Utils.addCommand('remove-table-columns', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-            table.deleteColumns(params.column, params.count);
-        }
-    }
-});
-
-Utils.addCommand('resize-table', function (params) {
-
-    if (('ranges' in params) && (params.ranges.constructor === Array)) {
-
-        let i = Utils.getFirstRange(params.ranges);
-
-        let table = i.sheet.tables.findByName(params.name);
-        if (table != null) {
-            i.sheet.tables.resize(table, new GC.Spread.Sheets.Range(i.row, i.column, i.rowCount, i.columnCount));
-        }
-    }
-});
-
-Utils.addCommand('get-table-range', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-    let result = { row: 0, column: 0, rowCount: 0, columnCount: 0 };
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-            let r = {};
-            if (params.onlyData) {
-                r = table.range();
-            } else {
-                r = table.dataRange();
-            }
-            result.row = r.row;
-            result.column = r.col;
-            result.rowCount = r.rowCount;
-            result.columnCount = r.colCount;
-        }
-    }
-    return result;
-});
-
-
-Utils.addCommand('find-table', function (params) {
-    let ret = { table: '' };
-
-    if (('ranges' in params) && (params.ranges.constructor === Array)) {
-
-        let i = Utils.getFirstRange(params.ranges);
-
-        let table = i.sheet.tables.find(i.row, i.column);
-        if (table != null) {
-            ret.table = table.name();
-        }
-    }
-    return ret;
-});
-
-
-Utils.addCommand('set-table-column-attributes', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-            let index = params.index;
-            let attributes = params.attributes;
-            if (typeof (attributes) === 'object') {
-                if (('name' in attributes) && (typeof attributes.name === 'string')) {
-                    table.setColumnName(index, attributes.name);
-                }
-                if (('footerText' in attributes) && (typeof attributes.footerText === 'string')) {
-                    table.setColumnValue(index, attributes.footerText);
-                }
-                if (('footerFormula' in attributes) && (typeof attributes.footerFormula === 'string')) {
-                    table.setColumnFormula(index, attributes.footerFormula);
-                }
-                if (('dataField' in attributes) && (typeof attributes.dataField === 'string')) {
-                    table.setColumnDataField(index, attributes.dataField);
-                    table.bindingPath(table.bindingPath());
-                    sheet.repaint();
-                }
-                if (('formula' in attributes) && (typeof attributes.formula === 'string')) {
-                    table.setColumnDataFormula(index, attributes.formula);
-                }
-                if (('filterButtonVisible' in attributes) && (typeof attributes.filterButtonVisible === 'boolean')) {
-                    table.filterButtonVisible(index, attributes.filterButtonVisible);
-                }
-            }
-        }
-    }
-});
-
-
-Utils.addCommand('get-table-column-attributes', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-    let attributes = null;
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-            let index = params.index;
-            let range = table.range();
-            if ((index >= 0) && (index < range.colCount)) {
-                attributes = {
-                    name: table.getColumnName(index),
-                    footerText: table.getColumnValue(index),
-                    footerFormula: table.getColumnFormula(index),
-                    dataField: table.getColumnDataField(index),
-                    filterButtonVisible: table.filterButtonVisible(index)
-                };
-            }
-        }
-    }
-    return attributes;
-});
-
-
-Utils.addCommand('get-table-column-index', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-    let ret = { index: -1 };
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-            ret.index = table.getColumnIndexInTable(params.column);
-        }
-    }
-    return ret;
-});
-
-Utils.addCommand('get-table-dirty-rows', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-    let ret = { dirtyRows: null };
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-            ret.dirtyRows = table.getDirtyRows();
-            if (params.reset) {
-                table.clearPendingChanges();
-            }
-        }
-    }
-    return ret;
-
-});
-
-Utils.addCommand('set-table-style', function (params) {
-
-    let sheet = Utils.resolveSheet(params.sheet);
-
-    if (sheet != null) {
-        let table = sheet.tables.findByName(params.name);
-        if (table != null) {
-
-            let tableTheme = new GC.Spread.Sheets.Tables.TableTheme();
-
-
-            [
-                "firstColumnStripSize",
-                "firstRowStripSize",
-                "secondColumnStripSize",
-                "secondRowStripSize"
-            ].forEach(function (size) {
-
-                if ((size in params.style) && (typeof (params.style[size]) === "number")) {
-                    tableTheme[size](params.style[size]);
-                }
-            });
-
-            [
-                "firstColumnStripStyle",
-                "firstFooterCellStyle",
-                "firstHeaderCellStyle",
-                "firstRowStripStyle",
-                "footerRowStyle",
-                "headerRowStyle",
-                "highlightFirstColumnStyle",
-                "highlightLastColumnStyle",
-                "lastFooterCellStyle",
-                "lastHeaderCellStyle",
-                "secondColumnStripStyle",
-                "secondRowStripStyle",
-                "wholeTableStyle"
-            ].forEach(function (styleName) {
-
-                if ((styleName in params.style) && (typeof (params.style[styleName]) === "object")) {
-
-                    let style = params.style[styleName];
-
-                    let tableStyle = new GC.Spread.Sheets.Tables.TableStyle();
-
-                    [
-                        "backColor",
-                        "foreColor",
-                        "font"
-                    ].forEach(function (attributeName) {
-                        if ((attributeName in style) && (typeof (style[attributeName]) === "string")) {
-                            tableStyle[attributeName] = style[attributeName];
-                        }
-                    });
-
-                    if (("textDecoration" in style) && (typeof (style.textDecoration) === "number")) {
-                        tableStyle.textDecoration = style.textDecoration;
+                if (('showFooter' in params.options) && (typeof params.options.showFooter === 'boolean')) {
+                    options.showFooter = params.options.showFooter;
+                    if (options.showFooter) {
+                        minHeight++;
                     }
-
-                    [
-                        "borderBottom",
-                        "borderTop",
-                        "borderLeft",
-                        "borderRight"
-                    ].forEach(function (borderName) {
-                        if ((borderName in style) && (typeof (style[borderName]) === "object")) {
-                            let border = new GC.Spread.Sheets.LineBorder;
-                            if (("color" in style[borderName]) && (typeof (style[borderName].color) === "string")) {
-                                border.color = style[borderName].color;
-                            }
-                            if (("style" in style[borderName]) && (typeof (style[borderName].style) === "number")) {
-                                border.style = style[borderName].style;
-                            }
-                            tableStyle[borderName] = border;
-                        }
-                    });
-
-                    tableTheme[styleName](tableStyle);
-
                 }
 
-            });
+                if (('useFooterDropDownList' in params.options) && (typeof params.options.useFooterDropDownList === 'boolean')) {
+                    options.useFooterDropDownList = params.options.useFooterDropDownList;
+                }
 
-            table.style(tableTheme);
+                if (('showResizeHandle' in params.options) && (typeof params.options.showResizeHandle === 'boolean')) {
+                    options.showResizeHandle = params.options.showResizeHandle;
+                }
+
+                if (('tableColumns' in params.options) && (params.options.tableColumns.constructor === Array)) {
+                    columns = params.options.tableColumns;
+                }
+
+                if (('allowAutoExpand' in params.options) && (typeof params.options.allowAutoExpand === 'boolean')) {
+                    setAllowAutoExpand = true;
+                }
+
+                if (('style' in params.options) && (typeof params.options.style === 'object')) {
+                    tableTheme = buildTheme(params.options.style);
+                }
+
+                if (('bandColumns' in params.options) && (typeof params.options.bandColumns === 'boolean')) {
+                    setBandColumns = true;
+                }
+
+                if (('bandRows' in params.options) && (typeof params.options.bandRows === 'boolean')) {
+                    setBandRows = true;
+                }
+
+            }
+
+            if ((params.source == null) || (typeof params.source === 'string')) {
+
+                if (i.rowCount < minHeight) {
+                    i.rowCount = minHeight;
+                }
+
+                let table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
+
+                if (table != null) {
+                    if (columns.length > 0) {
+                        let tableColumns = [];
+                        columns.forEach(element => {
+                            let tableColumn = new GC.Spread.Sheets.Tables.TableColumn();
+                            if (typeof (element) === 'object') {
+                                if (('formatter' in element) && (typeof element.formatter === 'string')) {
+                                    tableColumn.formatter(Utils.adjustFormat(element.formatter));
+                                }
+                                if (('dataField' in element) && (typeof element.dataField === 'string')) {
+                                    tableColumn.dataField(element.dataField);
+                                }
+                                if (('name' in element) && (typeof element.name === 'string')) {
+                                    tableColumn.name(element.name);
+                                }
+                            }
+                            tableColumns.push(tableColumn);
+                        });
+                        table.autoGenerateColumns(false);
+                        table.bindColumns(tableColumns);
+                    }
+                    if ((params.source == null) || (typeof params.source === 'string')) {
+                        table.bindingPath(params.source);
+                    }
+                    if (setAllowAutoExpand) {
+                        table.allowAutoExpand(params.options.allowAutoExpand);
+                    }
+                    if (setBandRows) {
+                        table.bandRows(params.options.bandRows);
+                    }
+                    if (setBandColumns) {
+                        table.bandColumns(params.options.bandColumns);
+                    }
+                }
+            }
         }
-    }
+    });
 
-});
+
+    Utils.addCommand('remove-table', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+                sheet.tables.remove(table, params.options);
+            }
+        }
+    });
+
+
+    Utils.addCommand('get-tables', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+        let ret = { collection: [] };
+
+        if (sheet != null) {
+            let arr = sheet.tables.all();
+            for (let i = 0; i < arr.length; i++) {
+                ret.collection.push(arr[i].name());
+            }
+        }
+        return ret;
+    });
+
+
+    Utils.addCommand('insert-table-rows', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+                table.insertRows(params.row, params.count, params.isInsertAfter);
+            }
+        }
+    });
+
+
+    Utils.addCommand('insert-table-columns', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+                table.insertColumns(params.column, params.count, params.isInsertAfter);
+            }
+        }
+    });
+
+
+
+    Utils.addCommand('remove-table-rows', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+                table.deleteRows(params.row, params.count);
+            }
+        }
+    });
+
+
+    Utils.addCommand('remove-table-columns', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+                table.deleteColumns(params.column, params.count);
+            }
+        }
+    });
+
+    Utils.addCommand('resize-table', function (params) {
+
+        if (('ranges' in params) && (params.ranges.constructor === Array)) {
+
+            let i = Utils.getFirstRange(params.ranges);
+
+            let table = i.sheet.tables.findByName(params.name);
+            if (table != null) {
+                i.sheet.tables.resize(table, new GC.Spread.Sheets.Range(i.row, i.column, i.rowCount, i.columnCount));
+            }
+        }
+    });
+
+    Utils.addCommand('get-table-range', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+        let result = { row: 0, column: 0, rowCount: 0, columnCount: 0 };
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+                let r = {};
+                if (params.onlyData) {
+                    r = table.range();
+                } else {
+                    r = table.dataRange();
+                }
+                result.row = r.row;
+                result.column = r.col;
+                result.rowCount = r.rowCount;
+                result.columnCount = r.colCount;
+            }
+        }
+        return result;
+    });
+
+
+    Utils.addCommand('find-table', function (params) {
+        let ret = { table: '' };
+
+        if (('ranges' in params) && (params.ranges.constructor === Array)) {
+
+            let i = Utils.getFirstRange(params.ranges);
+
+            let table = i.sheet.tables.find(i.row, i.column);
+            if (table != null) {
+                ret.table = table.name();
+            }
+        }
+        return ret;
+    });
+
+
+    Utils.addCommand('set-table-column-attributes', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+                let index = params.index;
+                let attributes = params.attributes;
+                if (typeof (attributes) === 'object') {
+                    if (('name' in attributes) && (typeof attributes.name === 'string')) {
+                        table.setColumnName(index, attributes.name);
+                    }
+                    if (('footerText' in attributes) && (typeof attributes.footerText === 'string')) {
+                        table.setColumnValue(index, attributes.footerText);
+                    }
+                    if (('footerFormula' in attributes) && (typeof attributes.footerFormula === 'string')) {
+                        table.setColumnFormula(index, attributes.footerFormula);
+                    }
+                    if (('dataField' in attributes) && (typeof attributes.dataField === 'string')) {
+                        table.setColumnDataField(index, attributes.dataField);
+                        table.bindingPath(table.bindingPath());
+                        sheet.repaint();
+                    }
+                    if (('formula' in attributes) && (typeof attributes.formula === 'string')) {
+                        table.setColumnDataFormula(index, attributes.formula);
+                    }
+                    if (('filterButtonVisible' in attributes) && (typeof attributes.filterButtonVisible === 'boolean')) {
+                        table.filterButtonVisible(index, attributes.filterButtonVisible);
+                    }
+                }
+            }
+        }
+    });
+
+
+    Utils.addCommand('get-table-column-attributes', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+        let attributes = null;
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+                let index = params.index;
+                let range = table.range();
+                if ((index >= 0) && (index < range.colCount)) {
+                    attributes = {
+                        name: table.getColumnName(index),
+                        footerText: table.getColumnValue(index),
+                        footerFormula: table.getColumnFormula(index),
+                        dataField: table.getColumnDataField(index),
+                        filterButtonVisible: table.filterButtonVisible(index)
+                    };
+                }
+            }
+        }
+        return attributes;
+    });
+
+
+    Utils.addCommand('get-table-column-index', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+        let ret = { index: -1 };
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+                ret.index = table.getColumnIndexInTable(params.column);
+            }
+        }
+        return ret;
+    });
+
+    Utils.addCommand('get-table-dirty-rows', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+        let ret = { dirtyRows: null };
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+                ret.dirtyRows = table.getDirtyRows();
+                if (params.reset) {
+                    table.clearPendingChanges();
+                }
+            }
+        }
+        return ret;
+
+    });
+
+    Utils.addCommand('set-table-style', function (params) {
+
+        let sheet = Utils.resolveSheet(params.sheet);
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+
+                if (('bandColumns' in params.style) && (typeof params.style.bandColumns === 'boolean')) {
+                    table.bandColumns(params.style.bandColumns);
+                }
+
+                if (('bandRows' in params.style) && (typeof params.style.bandRows === 'boolean')) {
+                    table.bandRows(params.style.bandRows);
+                }
+
+                if (('style' in params.style) && (typeof params.style.style === 'object')) {
+                    let tableTheme = buildTheme(params.style.style);
+                    table.style(tableTheme);
+                }
+
+            }
+        }
+
+    });
+
+})();
