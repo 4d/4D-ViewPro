@@ -18,79 +18,159 @@
 
 (function () {
 
-    function buildTheme(theme) {
+    var stripSizeArray = [
+        "firstColumnStripSize",
+        "firstRowStripSize",
+        "secondColumnStripSize",
+        "secondRowStripSize"
+    ];
 
-        let tableTheme = new GC.Spread.Sheets.Tables.TableTheme();
+    var stripStyleArray = [
+        "firstColumnStripStyle",
+        "firstFooterCellStyle",
+        "firstHeaderCellStyle",
+        "firstRowStripStyle",
+        "footerRowStyle",
+        "headerRowStyle",
+        "highlightFirstColumnStyle",
+        "highlightLastColumnStyle",
+        "lastFooterCellStyle",
+        "lastHeaderCellStyle",
+        "secondColumnStripStyle",
+        "secondRowStripStyle",
+        "wholeTableStyle"
+    ];
 
-        [
-            "firstColumnStripSize",
-            "firstRowStripSize",
-            "secondColumnStripSize",
-            "secondRowStripSize"
-        ].forEach(function (size) {
+    var styleAttributesArray = [
+        "backColor",
+        "foreColor",
+        "font"
+    ];
 
-            if ((size in theme) && (typeof (theme[size]) === "number")) {
-                tableTheme[size](theme[size]);
+    var bordersArray = [
+        "borderBottom",
+        "borderTop",
+        "borderLeft",
+        "borderRight"
+    ];
+
+    function getTheme(gcTheme) {
+        let theme = {};
+
+        stripSizeArray.forEach(function (size) {
+
+            if (gcTheme[size] != undefined) {
+                theme[size] = gcTheme[size]();
             }
         });
 
-        [
-            "firstColumnStripStyle",
-            "firstFooterCellStyle",
-            "firstHeaderCellStyle",
-            "firstRowStripStyle",
-            "footerRowStyle",
-            "headerRowStyle",
-            "highlightFirstColumnStyle",
-            "highlightLastColumnStyle",
-            "lastFooterCellStyle",
-            "lastHeaderCellStyle",
-            "secondColumnStripStyle",
-            "secondRowStripStyle",
-            "wholeTableStyle"
-        ].forEach(function (styleName) {
+        stripStyleArray.forEach(styleName => {
 
-            if ((styleName in theme) && (typeof (theme[styleName]) === "object")) {
+            let gcStyle = gcTheme[styleName]();
 
-                let style = theme[styleName];
+            if (gcStyle != undefined) {
 
-                let tableStyle = new GC.Spread.Sheets.Tables.TableStyle();
+                let style = {};
 
-                [
-                    "backColor",
-                    "foreColor",
-                    "font"
-                ].forEach(function (attributeName) {
-                    if ((attributeName in style) && (typeof (style[attributeName]) === "string")) {
-                        tableStyle[attributeName] = style[attributeName];
+                styleAttributesArray.forEach(attributeName => {
+                    if (gcStyle[attributeName] != undefined) {
+                        style[attributeName] = gcStyle[attributeName];
                     }
                 });
 
-                if (("textDecoration" in style) && (typeof (style.textDecoration) === "number")) {
-                    tableStyle.textDecoration = style.textDecoration;
+                if (gcStyle.textDecoration != undefined) {
+                    style.textDecoration = gcStyle.textDecoration;
                 }
 
-                [
-                    "borderBottom",
-                    "borderTop",
-                    "borderLeft",
-                    "borderRight"
-                ].forEach(function (borderName) {
-                    if ((borderName in style) && (typeof (style[borderName]) === "object")) {
-                        let border = new GC.Spread.Sheets.LineBorder;
-                        if (("color" in style[borderName]) && (typeof (style[borderName].color) === "string")) {
-                            border.color = style[borderName].color;
+                bordersArray.forEach(borderName => {
+                    if (gcStyle[borderName] != undefined) {
+                        let border = {};
+                        if (gcStyle[borderName].color != undefined) {
+                            border.color = gcStyle[borderName].color;
                         }
-                        if (("style" in style[borderName]) && (typeof (style[borderName].style) === "number")) {
-                            border.style = style[borderName].style;
+                        if (gcStyle[borderName].style != undefined) {
+                            border.style = gcStyle[borderName].style;
                         }
-                        tableStyle[borderName] = border;
+
+                        style[borderName] = border;
                     }
                 });
 
-                tableTheme[styleName](tableStyle);
+                theme[styleName] = style;
             }
         });
+
+        return theme;
+    }
+
+
+    function buildTheme(theme) {
+
+        tableTheme = new GC.Spread.Sheets.Tables.TableTheme();
+
+        if (typeof theme === 'string') {
+
+            let themeNames = [];
+
+            [
+                { name: 'dark', limit: 11 },
+                { name: 'light', limit: 21 },
+                { name: 'medium', limit: 28 },
+                { name: 'professional', limit: 24 }
+            ].forEach(element => {
+                for (let i = 1; i <= element.limit; i++) {
+                    themeNames.push(element.name + i);
+                }
+            });
+
+            if (themeNames.includes(theme)) {
+                tableTheme = GC.Spread.Sheets.Tables.TableThemes[theme];
+            }
+
+        } else {
+
+            stripSizeArray.forEach(function (size) {
+
+                if ((size in theme) && (typeof theme[size] === "number")) {
+                    tableTheme[size](theme[size]);
+                }
+            });
+
+            stripStyleArray.forEach(styleName => {
+
+                if ((styleName in theme) && (typeof theme[styleName] === "object")) {
+
+                    let style = theme[styleName];
+
+                    let tableStyle = new GC.Spread.Sheets.Tables.TableStyle();
+
+                    styleAttributesArray.forEach(attributeName => {
+                        if ((attributeName in style) && (typeof style[attributeName] === "string")) {
+                            tableStyle[attributeName] = style[attributeName];
+                        }
+                    });
+
+                    if (("textDecoration" in style) && (typeof style.textDecoration === "number")) {
+                        tableStyle.textDecoration = style.textDecoration;
+                    }
+
+                    bordersArray.forEach(borderName => {
+                        if ((borderName in style) && (typeof style[borderName] === "object")) {
+                            let border = new GC.Spread.Sheets.LineBorder;
+                            if (("color" in style[borderName]) && (typeof style[borderName].color === "string")) {
+                                border.color = style[borderName].color;
+                            }
+                            if (("style" in style[borderName]) && (typeof style[borderName].style === "number")) {
+                                border.style = style[borderName].style;
+                            }
+                            tableStyle[borderName] = border;
+                        }
+                    });
+
+                    tableTheme[styleName](tableStyle);
+                }
+            });
+        }
         return tableTheme;
     }
 
@@ -138,8 +218,12 @@
                     setAllowAutoExpand = true;
                 }
 
-                if (('style' in params.options) && (typeof params.options.style === 'object')) {
-                    tableTheme = buildTheme(params.options.style);
+                if (('theme' in params.options)
+                    && (
+                        (typeof params.options.theme === 'object')
+                        || (typeof params.options.theme === 'string')
+                    )) {
+                    tableTheme = buildTheme(params.options.theme);
                 }
 
                 if (('bandColumns' in params.options) && (typeof params.options.bandColumns === 'boolean')) {
@@ -425,7 +509,7 @@
 
     });
 
-    Utils.addCommand('set-table-style', function (params) {
+    Utils.addCommand('set-table-theme', function (params) {
 
         let sheet = Utils.resolveSheet(params.sheet);
 
@@ -433,22 +517,48 @@
             let table = sheet.tables.findByName(params.name);
             if (table != null) {
 
-                if (('bandColumns' in params.style) && (typeof params.style.bandColumns === 'boolean')) {
-                    table.bandColumns(params.style.bandColumns);
+                if (('bandColumns' in params.theme) && (typeof params.theme.bandColumns === 'boolean')) {
+                    table.bandColumns(params.theme.bandColumns);
                 }
 
-                if (('bandRows' in params.style) && (typeof params.style.bandRows === 'boolean')) {
-                    table.bandRows(params.style.bandRows);
+                if (('bandRows' in params.theme) && (typeof params.theme.bandRows === 'boolean')) {
+                    table.bandRows(params.theme.bandRows);
                 }
 
-                if (('style' in params.style) && (typeof params.style.style === 'object')) {
-                    let tableTheme = buildTheme(params.style.style);
+                if (('theme' in params.theme)
+                    && (
+                        (typeof params.theme.theme === 'object')
+                        || (typeof params.theme.theme === 'string')
+                    )) {
+                    let tableTheme = buildTheme(params.theme.theme);
                     table.style(tableTheme);
                 }
-
             }
         }
 
     });
+
+    Utils.addCommand('get-table-theme', function (params) {
+
+        let ret = null;
+
+        let sheet = Utils.resolveSheet(params.sheet);
+
+        if (sheet != null) {
+            let table = sheet.tables.findByName(params.name);
+            if (table != null) {
+
+                ret = {
+                    bandColumns: table.bandColumns(),
+                    bandRows: table.bandRows(),
+                    theme: getTheme(table.style())
+                }
+            }
+        }
+
+        return ret;
+
+    });
+
 
 })();

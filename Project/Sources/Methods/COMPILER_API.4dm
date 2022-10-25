@@ -494,10 +494,17 @@ If (False:C215)  // tables
 	C_COLLECTION:C1488(VP Get table dirty rows; $0)
 	
 	//___________________________________
-	C_TEXT:C284(VP SET TABLE STYLE; $1)
-	C_TEXT:C284(VP SET TABLE STYLE; $2)
-	C_OBJECT:C1216(VP SET TABLE STYLE; $3)
-	C_LONGINT:C283(VP SET TABLE STYLE; $4)
+	C_TEXT:C284(VP SET TABLE THEME; $1)
+	C_TEXT:C284(VP SET TABLE THEME; $2)
+	C_OBJECT:C1216(VP SET TABLE THEME; $3)
+	C_LONGINT:C283(VP SET TABLE THEME; $4)
+	
+	//___________________________________
+	C_OBJECT:C1216(VP Get table theme; $0)
+	C_TEXT:C284(VP Get table theme; $1)
+	C_TEXT:C284(VP Get table theme; $2)
+	C_LONGINT:C283(VP Get table theme; $3)
+	
 End if 
 
 If (False:C215)  // utilities
