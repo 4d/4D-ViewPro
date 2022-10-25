@@ -40,7 +40,6 @@ If (vp_initStorage)
 				$options:=$4
 			End if 
 			
-			C_OBJECT:C1216($params)
 			$params:=New object:C1471()
 			
 			$params.ranges:=$ranges.ranges

@@ -34,7 +34,6 @@ If (vp_initStorage)
 					THROW(New object:C1471("code"; 19))
 				Else 
 					
-					C_OBJECT:C1216($params)
 					$params:=New object:C1471()
 					
 					$params.sheet:=$sheet

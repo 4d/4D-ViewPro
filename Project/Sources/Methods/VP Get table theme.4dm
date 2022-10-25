@@ -1,12 +1,11 @@
 //%attributes = {"invisible":true,"shared":true}
+C_OBJECT:C1216($0)
 C_TEXT:C284($1)
 C_TEXT:C284($2)
-C_OBJECT:C1216($3)
-C_LONGINT:C283($4)
+C_LONGINT:C283($3)
 
 C_LONGINT:C283($nbParameters; $sheet)
 C_OBJECT:C1216($params)
-C_OBJECT:C1216($style)
 C_TEXT:C284($name; $area)
 
 If (vp_initStorage)
@@ -15,16 +14,15 @@ If (vp_initStorage)
 	
 	TRY
 	
-	If (Check_parameters_count(3; $nbParameters))
+	If (Check_parameters_count(2; $nbParameters))
 		
 		$area:=$1
 		$name:=$2
-		$style:=$3
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			If ($nbParameters>3)
-				$sheet:=$4
+			If ($nbParameters>2)
+				$sheet:=$3
 			Else 
 				$sheet:=-1
 			End if 
@@ -36,15 +34,12 @@ If (vp_initStorage)
 					THROW(New object:C1471("code"; 19))
 				Else 
 					
-					C_OBJECT:C1216($params)
 					$params:=New object:C1471()
 					
 					$params.name:=$name
-					$params.style:=$style
 					$params.sheet:=$sheet
 					
-					C_OBJECT:C1216($ret)
-					$ret:=vp_runFunction($area; "set-table-style"; $params)
+					$0:=vp_runFunction($area; "get-table-theme"; $params)
 				End if 
 			End if 
 			

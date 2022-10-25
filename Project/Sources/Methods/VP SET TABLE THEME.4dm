@@ -1,15 +1,13 @@
 //%attributes = {"invisible":true,"shared":true}
 C_TEXT:C284($1)
 C_TEXT:C284($2)
-C_LONGINT:C283($3)
+C_OBJECT:C1216($3)
 C_LONGINT:C283($4)
-C_LONGINT:C283($5)
-C_LONGINT:C283($6)
 
-C_LONGINT:C283($nbParameters; $sheet; $column; $count)
+C_LONGINT:C283($nbParameters; $sheet)
 C_OBJECT:C1216($params)
+C_OBJECT:C1216($theme)
 C_TEXT:C284($name; $area)
-C_BOOLEAN:C305($isInsertAfter)
 
 If (vp_initStorage)
 	
@@ -21,24 +19,12 @@ If (vp_initStorage)
 		
 		$area:=$1
 		$name:=$2
-		$column:=$3
+		$theme:=$3
 		
 		If (vp_isReady($area; Current method name:C684))
 			
 			If ($nbParameters>3)
-				$count:=$4
-			Else 
-				$count:=1
-			End if 
-			
-			If ($nbParameters>4)
-				$isInsertAfter:=($5#0)
-			Else 
-				$isInsertAfter:=False:C215
-			End if 
-			
-			If ($nbParameters>5)
-				$sheet:=$6
+				$sheet:=$4
 			Else 
 				$sheet:=-1
 			End if 
@@ -53,13 +39,11 @@ If (vp_initStorage)
 					$params:=New object:C1471()
 					
 					$params.name:=$name
-					$params.column:=$column
-					$params.count:=$count
-					$params.isInsertAfter:=$isInsertAfter
+					$params.theme:=$theme
 					$params.sheet:=$sheet
 					
 					C_OBJECT:C1216($ret)
-					$ret:=vp_runFunction($area; "insert-table-columns"; $params)
+					$ret:=vp_runFunction($area; "set-table-theme"; $params)
 				End if 
 			End if 
 			

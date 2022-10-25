@@ -353,6 +353,7 @@
 			"VP Get table column index",
 			"VP Get table dirty rows",
 			"VP Get table range",
+			"VP Get table theme",
 			"VP Get tables",
 			"VP INSERT TABLE COLUMNS",
 			"VP INSERT TABLE ROWS",
@@ -361,7 +362,7 @@
 			"VP REMOVE TABLE ROWS",
 			"VP RESIZE TABLE",
 			"VP SET TABLE COLUMN ATTRIBUTES",
-			"VP SET TABLE STYLE"
+			"VP SET TABLE THEME"
 		]
 	},
 	"utilities": {
