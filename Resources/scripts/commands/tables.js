@@ -51,7 +51,9 @@
         "borderBottom",
         "borderTop",
         "borderLeft",
-        "borderRight"
+        "borderRight",
+        "borderHorizontal",
+        "borderVertical"
     ];
 
     function getTheme(gcTheme) {
