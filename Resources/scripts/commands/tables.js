@@ -190,6 +190,8 @@
             let tableTheme = GC.Spread.Sheets.Tables.TableThemes.light18;
             let setBandColumns = false;
             let setBandRows = false;
+            let setHighlightFirstColumn = false;
+            let setHighlightLastColumn = false;
 
             if ((params.options != null) && (typeof params.options === 'object')) {
 
@@ -236,6 +238,14 @@
                     setBandRows = true;
                 }
 
+                if (('highlightFirstColumn' in params.options) && (typeof params.options.highlightFirstColumn === 'boolean')) {
+                    setHighlightFirstColumn = true;
+                }
+
+                if (('highlightLastColumn' in params.options) && (typeof params.options.highlightLastColumn === 'boolean')) {
+                    setHighlightLastColumn = true;
+                }
+
             }
 
             if ((params.source == null) || (typeof params.source === 'string')) {
@@ -278,6 +288,12 @@
                     }
                     if (setBandColumns) {
                         table.bandColumns(params.options.bandColumns);
+                    }
+                    if (setHighlightFirstColumn) {
+                        table.highlightFirstColumn(params.options.highlightFirstColumn);
+                    }
+                    if (setHighlightLastColumn) {
+                        table.highlightLastColumn(params.options.highlightLastColumn);
                     }
                 }
             }
@@ -527,6 +543,14 @@
                     table.bandRows(params.theme.bandRows);
                 }
 
+                if (('highlightFirstColumn' in params.theme) && (typeof params.theme.highlightFirstColumn === 'boolean')) {
+                    table.highlightFirstColumn(params.theme.highlightFirstColumn);
+                }
+
+                if (('highlightLastColumn' in params.theme) && (typeof params.theme.highlightLastColumn === 'boolean')) {
+                    table.highlightLastColumn(params.theme.highlightLastColumn);
+                }
+
                 if (('theme' in params.theme)
                     && (
                         (typeof params.theme.theme === 'object')
@@ -553,6 +577,8 @@
                 ret = {
                     bandColumns: table.bandColumns(),
                     bandRows: table.bandRows(),
+                    highlightLastColumn: table.highlightLastColumn(),
+                    highlightFirstColumn: table.highlightFirstColumn(),
                     theme: getTheme(table.style())
                 }
             }
