@@ -648,6 +648,14 @@ For each ($col; $Obj_d4._cells)
 						
 					End if 
 					
+					// if there are some carriage returns in the string applies the wordWrap
+					// style to be sure they are correctly displayed
+					If ($Obj_cell.valueType="string")
+						If (Position:C15(Char:C90(13); $obj_cell.value)>0)
+							$obj_style.wordWrap:=True:C214
+						End if 
+					End if 
+					
 					//#redmine:95674 [
 					If (Not:C34(OB Is empty:C1297($Obj_style)))
 						
