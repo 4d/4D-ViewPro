@@ -650,9 +650,11 @@ For each ($col; $Obj_d4._cells)
 					
 					// if there are some carriage returns in the string applies the wordWrap
 					// style to be sure they are correctly displayed
-					If ($Obj_cell.valueType="string")
-						If (Position:C15(Char:C90(13); $obj_cell.value)>0)
-							$obj_style.wordWrap:=True:C214
+					If ($Obj_cell.valueType#Null:C1517)
+						If ($Obj_cell.valueType="string")
+							If (Position:C15(Char:C90(13); $obj_cell.value)>0)
+								$obj_style.wordWrap:=True:C214
+							End if 
 						End if 
 					End if 
 					
