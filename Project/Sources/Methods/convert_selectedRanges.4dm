@@ -118,11 +118,11 @@ For ($Lon_i; 0; $Obj_d4.selectedRanges.length-1; 1)
 	End if 
 	
 	If ($Obj_selection[String:C10($Lon_i)].col>=$Obj_d4.columnCount)
-		$Obj_selection[String:C10($Lon_i)].col:=$Obj_d4.colCount-1
+		$Obj_selection[String:C10($Lon_i)].col:=$Obj_d4.columnCount-1
 		$Obj_selection[String:C10($Lon_i)].colCount:=1
 	Else 
 		If (($Obj_selection[String:C10($Lon_i)].col+$Obj_selection[String:C10($Lon_i)].colCount)>=$Obj_d4.columnCount)
-			$Obj_selection[String:C10($Lon_i)].colCount:=$Obj_d4.colCount-$Obj_selection[String:C10($Lon_i)].col
+			$Obj_selection[String:C10($Lon_i)].colCount:=$Obj_d4.columnCount-$Obj_selection[String:C10($Lon_i)].col
 		End if 
 	End if 
 	
