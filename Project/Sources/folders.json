@@ -148,12 +148,6 @@
 			"VP PRINT",
 			"VP SET PRINT INFO",
 			"VP SET SHOW PRINT LINES"
-		],
-		"classes": [
-			"Margins",
-			"PaperSize",
-			"PrintInfos",
-			"Watermark"
 		]
 	},
 	"private": {
