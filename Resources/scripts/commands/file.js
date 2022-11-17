@@ -91,7 +91,10 @@ Utils.addCommand('export-excel', function (params) {
   if (params["password"] != null)
     options.password = params.password;
 
-  var excelIO = new GC.Spread.Excel.IO();
+  if (params["includeBindingSource"] != null)
+    options.includeBindingSource = params.includeBindingSource;
+
+   var excelIO = new GC.Spread.Excel.IO();
   excelIO.save(json,
     function (blob) {
       var reader = new FileReader();
