@@ -37,6 +37,16 @@
 			"build_localizationFiles"
 		]
 	},
+	"classes": {
+		"classes": [
+			"LineBorder",
+			"TableColumn",
+			"TableOptions",
+			"TableStyle",
+			"TableTheme",
+			"TableThemeOptions"
+		]
+	},
 	"clipboard": {
 		"methods": [
 			"VP Copy to object",
