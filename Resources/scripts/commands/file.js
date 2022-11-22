@@ -85,14 +85,14 @@ Utils.addCommand('export-excel', function (params) {
   if (params["valuesOnly"] != null)
     serializationOption.ignoreFormula = params.valuesOnly;
 
+  if (params["includeBindingSource"] != null)
+    serializationOption.includeBindingSource = params.includeBindingSource;
+
   let json = Utils.spread.toJSON(serializationOption);
 
   let options = {};
   if (params["password"] != null)
     options.password = params.password;
-
-  if (params["includeBindingSource"] != null)
-    options.includeBindingSource = params.includeBindingSource;
 
    var excelIO = new GC.Spread.Excel.IO();
   excelIO.save(json,
