@@ -152,7 +152,8 @@ If (vp_initStorage)
 							$callback.command:="export-excel"
 							$callback.password:=$params.password
 							$callback.valuesOnly:=$params.valuesOnly
-							
+                            $callback.includeBindingSource:=$params.includeBindingSource
+														
 							//……………………………………………………………………………………
 						: ($pathObject.extension=".pdf")
 							
