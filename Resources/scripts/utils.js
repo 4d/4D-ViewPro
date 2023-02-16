@@ -416,7 +416,9 @@ Utils.initEvents = function () {
     function prepareEvent(data) {
 
         let sheet = null;
+        let fromSheet = null;
         let hasSheet = false;
+        let hasFromSheet = false;
 
         // don't put the whole sheet object in the event
         // so temporarily remove it from the data
@@ -426,10 +428,20 @@ Utils.initEvents = function () {
             hasSheet = true;
         }
 
+        if ('fromSheet' in data) {
+            fromSheet = data.fromSheet;
+            delete data.fromSheet;
+            hasFromSheet = true;
+        }
+
         let copyed = JSON.parse(JSON.stringify(data));
 
         if (hasSheet) {
             data.sheet = sheet;
+        }
+
+        if (hasFromSheet) {
+            data.fromSheet = fromSheet;
         }
 
         return copyed;
