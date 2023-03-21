@@ -143,6 +143,11 @@ Case of
 						
 						// v15 open v11 doc, adjust minor version
 						$Boo_updated:=True:C214
+						
+					: ($Lon_sjsMajor=16)
+						
+						// v16 open v11 doc, adjust minor version
+						$Boo_updated:=True:C214
 						// ........................................
 				End case 
 				
@@ -170,6 +175,11 @@ Case of
 						
 						// v15 open v12 doc, adjust minor version
 						$Boo_updated:=True:C214
+						
+					: ($Lon_sjsMajor=16)
+						
+						// v16 open v12 doc, adjust minor version
+						$Boo_updated:=True:C214
 						// ........................................
 				End case 
 				//……………………………………………………………………………………………………………………………………………………………………
@@ -192,6 +202,11 @@ Case of
 						
 						// v13 open v15 doc, adjust minor version
 						$Boo_updated:=True:C214
+						
+					: ($Lon_sjsMajor=16)
+						
+						// v16 open v13 doc, adjust minor version
+						$Boo_updated:=True:C214
 						// ........................................
 				End case 
 				//……………………………………………………………………………………………………………………………………………………………………
@@ -209,6 +224,12 @@ Case of
 						
 						// v15 open v14 doc, adjust minor version
 						$Boo_updated:=True:C214
+						
+					: ($Lon_sjsMajor=16)
+						
+						// v16 open v14 doc, adjust minor version
+						$Boo_updated:=True:C214
+						
 						// ........................................
 				End case 
 				//……………………………………………………………………………………………………………………………………………………………………
@@ -219,6 +240,22 @@ Case of
 					: ($Lon_sjsMajor=15)
 						
 						// v15 open v15 doc, adjust minor version
+						$Boo_updated:=True:C214
+						
+					: ($Lon_sjsMajor=16)
+						
+						// v16 open v15 doc, adjust minor version
+						$Boo_updated:=True:C214
+						// ........................................
+				End case 
+				
+			: ($Lon_docMajor=16)
+				
+				Case of 
+						
+					: ($Lon_sjsMajor=16)
+						
+						// v16 open v15 doc, adjust minor version
 						$Boo_updated:=True:C214
 						// ........................................
 				End case 
