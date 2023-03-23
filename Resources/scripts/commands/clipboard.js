@@ -38,6 +38,8 @@ Utils.addCommand('move-cells', function (params) {
 			}
 		}
 
+		Utils.spread.resumeCalcService(false);
+
 		spread.commandManager().execute({
 			cmd: "clipboardPaste",
 			sheetName: dest.sheet.name(), fromSheet: src.sheet, fromRanges: srcRange,
@@ -45,6 +47,7 @@ Utils.addCommand('move-cells', function (params) {
 			pasteOption: pasteOptions
 		});
 
+		Utils.spread.suspendCalcService(false);
 	}
 
 });
@@ -80,6 +83,8 @@ Utils.addCommand('copy-cells', function (params) {
 		sheet.setRowCount(src.sheet.getRowCount());
 		sheet.setColumnCount(src.sheet.getColumnCount());
 
+		Utils.spread.resumeCalcService(false);
+
 		spread.commandManager().execute({
 			cmd: "clipboardPaste",
 			sheetName: sheet.name(), fromSheet: src.sheet, fromRanges: srcRange,
@@ -88,6 +93,9 @@ Utils.addCommand('copy-cells', function (params) {
 		});
 
 		let savedSheet = sheet.toJSON();
+		
+		Utils.spread.suspendCalcService(false);
+
 		ret = { sheet: savedSheet, src: { row: src.row, column: src.column, rowCount: src.rowCount, columnCount: src.columnCount } };
 		Utils.spread.removeSheet(0);
 		Utils.spread.setActiveSheet(activeSheetName);
@@ -123,6 +131,9 @@ Utils.addCommand('paste-cells', function (params) {
 			sheet.visible(false);
 			sheet.setRowCount(dest.sheet.getRowCount());
 			sheet.setColumnCount(dest.sheet.getColumnCount());
+
+			Utils.spread.resumeCalcService(false);
+
 			sheet.fromJSON(params.obj.sheet);
 
 			spread.commandManager().execute({
@@ -131,6 +142,8 @@ Utils.addCommand('paste-cells', function (params) {
 				pastedRanges: destRange, isCutting: false, clipboardText: "",
 				pasteOption: pasteOptions
 			});
+
+			Utils.spread.suspendCalcService(false);
 
 			Utils.spread.removeSheet(0);
 			Utils.spread.setActiveSheet(activeSheetName);
