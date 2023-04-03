@@ -28,6 +28,6 @@ Else
 End if 
 
 // feature flags
-with_ObjectAPI:=True:C214
+with_ObjectAPI:=False:C215
 
 $0:=Storage:C1525.ViewPro.available
