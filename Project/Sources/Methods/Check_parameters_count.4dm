@@ -30,7 +30,7 @@ If ($nbParameters>0)
 				"code"; 3; \
 				"received"; $Lon_received; \
 				"expected"; $Lon_expected; \
-				"deffered"; True:C214))
+				"deferred"; True:C214))
 			
 		End if 
 	End if 
@@ -42,7 +42,7 @@ Else
 		"component"; "4DEV"; \
 		"code"; 1; \
 		"expected"; $Lon_expected; \
-		"deffered"; True:C214))
+		"deferred"; True:C214))
 	
 End if 
 

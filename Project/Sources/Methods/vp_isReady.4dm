@@ -44,7 +44,7 @@ If ($obj=Null:C1517)
 		"component"; "4DEV"; \
 		"code"; 5; \
 		"object"; $area; \
-		"deffered"; True:C214))
+		"deferred"; True:C214))
 	
 Else 
 	
