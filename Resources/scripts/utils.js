@@ -561,24 +561,26 @@ Utils.initEvents = function () {
         function makeSelection(name) {
             let sheetIndex = Utils.spread.getSheetIndex(obj.sheetName);
             obj[name] = { 'area': Utils.areaName, 'ranges': obj[name] };
-            obj[name].ranges.forEach(element => {
-                element.column = element.col;
-                element.columnCount = element.colCount;
-                delete element.col;
-                delete element.colCount;
+            if(obj[name].ranges != null) {
+                obj[name].ranges.forEach(element => {
+                    element.column = element.col;
+                    element.columnCount = element.colCount;
+                    delete element.col;
+                    delete element.colCount;
 
-                if (element.column == -1) {
-                    delete element.column;
-                    delete element.columnCount;
-                }
+                    if (element.column == -1) {
+                        delete element.column;
+                        delete element.columnCount;
+                    }
 
-                if (element.row == -1) {
-                    delete element.row;
-                    delete element.rowCount;
-                }
+                    if (element.row == -1) {
+                        delete element.row;
+                        delete element.rowCount;
+                    }
 
-                element.sheet = sheetIndex;
-            });
+                    element.sheet = sheetIndex;
+                });
+            }
         }
 
         makeSelection('oldSelections');
