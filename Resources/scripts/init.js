@@ -576,6 +576,48 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+    function installHookForNumericKeyPadDecimalSeparator()
+    {
+        // Override the activateEditor method
+        let oldActivateEditorFn = GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor;
+        GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor = function (editorContext, cellStyle, cellRect, context) {
+            editorContext.addEventListener("keydown", function (event) {
+                if (event.code === "NumpadDecimal" && event.type === "keydown" ) {
+                    // Prevent the default event
+                    event.preventDefault();
+    
+                    // Add the "," to the end of the editable div
+                    event.target.innerText += ",";
+    
+                    // Set the cursor to the very end
+                    const el = event.target;
+                    const selection = window.getSelection();
+                    const range = document.createRange();
+                    selection.removeAllRanges();
+                    range.selectNodeContents(el);
+                    range.collapse(false);
+                    selection.addRange(range);
+                }
+            });
+            return oldActivateEditorFn.apply(this, arguments);
+        }
+    
+    
+        // Override the isReservedKey method
+        let oldisReservedKeyFn = GC.Spread.Sheets.CellTypes.Text.prototype.isReservedKey;
+        GC.Spread.Sheets.CellTypes.Text.prototype.isReservedKey = function (e, context) {
+            if (e.code === "NumpadDecimal" && e.type === "keydown" && !context.isEditing) {
+                setTimeout(() => {
+                    context.sheet.startEdit(false, ",");
+                })
+                return true;
+            }
+            return oldisReservedKeyFn.apply(this, arguments);
+        }       
+    }
+
+
     function getCulture(obj) {
         let culture = new GC.Spread.Common.CultureInfo();
 
@@ -602,6 +644,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (obj.intl.decimalSeparator == ",") {
             culture.NumberFormat.arrayGroupSeparator = ";";
             culture.NumberFormat.listSeparator = ";";
+            installHookForNumericKeyPadDecimalSeparator();
         } else {
             culture.NumberFormat.arrayGroupSeparator = ",";
             culture.NumberFormat.listSeparator = ",";
