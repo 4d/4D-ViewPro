@@ -17,7 +17,7 @@ If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY
+	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
@@ -46,7 +46,7 @@ If (vp_initStorage)
 				: (Length:C16($path)=0)
 					
 					// Output document path is empty.
-					THROW(New object:C1471(\
+					err_THROW(New object:C1471(\
 						"component"; "xbox"; \
 						"code"; 3107))
 					
@@ -56,14 +56,14 @@ If (vp_initStorage)
 					// Gets the json description of the area content
 					$documentObject:=vp_runFunction($area; "export-json"; $params)
 					
-					If (vp_continue)
+					If (err_continue)
 						
 						Case of 
 								
 								//………………………………………………………………………………………
 							: ($documentObject=Null:C1517)
 								
-								THROW(New object:C1471(\
+								err_THROW(New object:C1471(\
 									"code"; 2; \
 									"message"; "export-json"))
 								
@@ -82,7 +82,7 @@ If (vp_initStorage)
 									
 								End if 
 								
-								If (vp_continue)
+								If (err_continue)
 									
 									If ($params.formula#Null:C1517)
 										
@@ -152,8 +152,8 @@ If (vp_initStorage)
 							$callback.command:="export-excel"
 							$callback.password:=$params.password
 							$callback.valuesOnly:=$params.valuesOnly
-                            $callback.includeBindingSource:=$params.includeBindingSource
-														
+							$callback.includeBindingSource:=$params.includeBindingSource
+							
 							//……………………………………………………………………………………
 						: ($pathObject.extension=".pdf")
 							
@@ -166,15 +166,15 @@ If (vp_initStorage)
 							//……………………………………………………………………………………
 					End case 
 					
-					// check 
+					// check
 					If (OB Get type:C1230($callback; "sheetIndex")#Is real:K8:4)
-						THROW(New object:C1471("code"; 21))
+						err_THROW(New object:C1471("code"; 21))
 					Else 
 						If ($callback.sheetIndex<-2)
-							THROW(New object:C1471("code"; 17))
+							err_THROW(New object:C1471("code"; 17))
 						Else 
 							If ($callback.sheetIndex>=VP Get sheet count($area))
-								THROW(New object:C1471("code"; 19))
+								err_THROW(New object:C1471("code"; 19))
 							Else 
 								
 								// Launch export
@@ -197,19 +197,19 @@ If (vp_initStorage)
 					End if 
 					
 					If (Value type:C1509($Obj_csvParams.csvOptions.range)#Is object:K8:27)
-						THROW(New object:C1471("code"; 22))
+						err_THROW(New object:C1471("code"; 22))
 					Else 
 						// Gets the json description of the area content
 						$documentObject:=vp_runFunction($area; "export-csv"; $Obj_csvParams.csvOptions)
 						
-						If (vp_continue)
+						If (err_continue)
 							
 							Case of 
 									
 									//………………………………………………………………………………………
 								: ($documentObject=Null:C1517)
 									
-									THROW(New object:C1471(\
+									err_THROW(New object:C1471(\
 										"code"; 2; \
 										"message"; "export-csv"))
 									
@@ -222,7 +222,7 @@ If (vp_initStorage)
 										TEXT TO DOCUMENT:C1237($path; $documentObject.csv; "UTF-8"; Document unchanged:K24:18)
 									End if 
 									
-									If (vp_continue)
+									If (err_continue)
 										
 										If ($params.formula#Null:C1517)
 											
@@ -258,7 +258,7 @@ If (vp_initStorage)
 			If ((err.count#Null:C1517))
 				
 				// Main error
-				THROW(New object:C1471(\
+				err_THROW(New object:C1471(\
 					"code"; 8; \
 					"name"; Path to object:C1547($path).name))  // Cannot create file "{name}".
 				
@@ -266,5 +266,5 @@ If (vp_initStorage)
 		End if 
 	End if 
 	
-	FINALLY
+	err_FINALLY
 End if 

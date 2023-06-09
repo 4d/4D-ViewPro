@@ -10,7 +10,7 @@ $formulas:=$2
 
 If (vp_initStorage)
 	
-	TRY
+	err_TRY
 	
 	If (Check_parameters_count(2; Count parameters:C259))
 		
@@ -97,6 +97,6 @@ If (vp_initStorage)
 		End if   // If ($result.success)
 	End if   // If (Check_parameters_count (1;Count parameters))
 	
-	FINALLY
+	err_FINALLY
 	
 End if 

@@ -1,6 +1,6 @@
 //%attributes = {"invisible":true,"shared":true}
 // ----------------------------------------------------
-// Project method : VP ADD SHEET 
+// Project method : VP ADD SHEET
 // Database: 4D ViewPro
 // ID[5101AAB9EE104650B8B96DB1D581A124]
 // Created #18-10-2018 by Francois Marchal
@@ -29,7 +29,7 @@ If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY
+	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
@@ -60,6 +60,6 @@ If (vp_initStorage)
 		
 	End if 
 	
-	FINALLY
+	err_FINALLY
 	
 End if 

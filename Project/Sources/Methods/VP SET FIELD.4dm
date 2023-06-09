@@ -23,7 +23,7 @@ End if
 
 $nbParameters:=Count parameters:C259
 
-TRY
+err_TRY
 
 If (Check_parameters_count(2; $nbParameters))
 	
@@ -66,6 +66,6 @@ If (Check_parameters_count(2; $nbParameters))
 	End if 
 End if 
 
-FINALLY
+err_FINALLY
 
 

@@ -104,13 +104,14 @@
 	},
 	"err": {
 		"methods": [
-			"CATCH",
 			"Check_parameters_count",
 			"COMPILER_err",
-			"FINALLY",
-			"noError",
-			"THROW",
-			"TRY"
+			"err_CATCH",
+			"err_continue",
+			"err_FINALLY",
+			"err_THROW",
+			"err_TRY",
+			"noError"
 		]
 	},
 	"err callback": {
@@ -166,7 +167,6 @@
 			"vp_4DViewString",
 			"vp_callback",
 			"vp_computeFonts",
-			"vp_continue",
 			"vp_convert_from_stylesheet",
 			"vp_convert_to_stylesheet",
 			"vp_endInit",

@@ -1,13 +1,13 @@
 //%attributes = {"invisible":true,"shared":true}
-  // ----------------------------------------------------
-  // Project method : VP Cells
-  // Database: 4D ViewPro
-  // ID[5101BAB9EE104650B8B95DB1D501A124]
-  // Created #12-7-2018 by Francois Marchal
-  // ----------------------------------------------------
-  // Description: Create a target for a range of cells
-  // ----------------------------------------------------
-  // ----- Declarations
+// ----------------------------------------------------
+// Project method : VP Cells
+// Database: 4D ViewPro
+// ID[5101BAB9EE104650B8B95DB1D501A124]
+// Created #12-7-2018 by Francois Marchal
+// ----------------------------------------------------
+// Description: Create a target for a range of cells
+// ----------------------------------------------------
+// ----- Declarations
 
 C_OBJECT:C1216($0)
 C_TEXT:C284($1)
@@ -26,22 +26,22 @@ C_LONGINT:C283($sheet)
 C_LONGINT:C283($nbParameters)
 
 If (False:C215)
-	C_OBJECT:C1216(VP Cells ;$0)
-	C_TEXT:C284(VP Cells ;$1)
-	C_LONGINT:C283(VP Cells ;$2)
-	C_LONGINT:C283(VP Cells ;$3)
-	C_LONGINT:C283(VP Cells ;$4)
-	C_LONGINT:C283(VP Cells ;$5)
-	C_LONGINT:C283(VP Cells ;$6)
+	C_OBJECT:C1216(VP Cells; $0)
+	C_TEXT:C284(VP Cells; $1)
+	C_LONGINT:C283(VP Cells; $2)
+	C_LONGINT:C283(VP Cells; $3)
+	C_LONGINT:C283(VP Cells; $4)
+	C_LONGINT:C283(VP Cells; $5)
+	C_LONGINT:C283(VP Cells; $6)
 End if 
 
-If (vp_initStorage )
+If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY 
+	err_TRY
 	
-	If (Check_parameters_count (5;$nbParameters))
+	If (Check_parameters_count(5; $nbParameters))
 		
 		$area:=$1
 		$column:=$2
@@ -50,16 +50,16 @@ If (vp_initStorage )
 		$Lon_rowCount:=$5
 		
 		If ($column<0)
-			THROW (New object:C1471("code";13))
+			err_THROW(New object:C1471("code"; 13))
 		Else 
 			If ($row<0)
-				THROW (New object:C1471("code";14))
+				err_THROW(New object:C1471("code"; 14))
 			Else 
 				If ($Lon_columnCount<1)
-					THROW (New object:C1471("code";15))
+					err_THROW(New object:C1471("code"; 15))
 				Else 
 					If ($Lon_rowCount<1)
-						THROW (New object:C1471("code";16))
+						err_THROW(New object:C1471("code"; 16))
 					Else 
 						
 						If ($nbParameters>5)
@@ -73,26 +73,26 @@ If (vp_initStorage )
 						End if 
 						
 						If ($sheet<-1)
-							THROW (New object:C1471("code";17))
+							err_THROW(New object:C1471("code"; 17))
 						Else 
 							
 							C_OBJECT:C1216($ranges)
 							
 							$ranges:=New object:C1471(\
-								"column";$column;\
-								"row";$row;\
-								"columnCount";$Lon_columnCount;\
-								"rowCount";$Lon_rowCount)
+								"column"; $column; \
+								"row"; $row; \
+								"columnCount"; $Lon_columnCount; \
+								"rowCount"; $Lon_rowCount)
 							
 							If ($sheet#-1)
 								$ranges.sheet:=$sheet
 							End if 
 							
 							$0:=New object:C1471(\
-								"area";$area;\
-								"ranges";New collection:C1472($ranges))
+								"area"; $area; \
+								"ranges"; New collection:C1472($ranges))
 							
-							vp_addRangeFormulas ($0)
+							vp_addRangeFormulas($0)
 							
 						End if 
 					End if 
@@ -101,6 +101,6 @@ If (vp_initStorage )
 		End if 
 	End if 
 	
-	FINALLY 
+	err_FINALLY
 	
 End if 

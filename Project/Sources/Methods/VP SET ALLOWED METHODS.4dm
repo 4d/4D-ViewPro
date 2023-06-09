@@ -1,10 +1,10 @@
-﻿//%attributes = {"invisible":true,"shared":true}
+//%attributes = {"invisible":true,"shared":true}
 C_OBJECT:C1216($1)
 C_OBJECT:C1216($methods)
 
 $methods:=$1
 
-TRY
+err_TRY
 
 If (Check_parameters_count(1; Count parameters:C259))
 	
@@ -94,4 +94,4 @@ If (Check_parameters_count(1; Count parameters:C259))
 	End if   // If ($result.success)
 End if   // If (Check_parameters_count (1;Count parameters))
 
-FINALLY
+err_FINALLY

@@ -18,7 +18,7 @@ If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY
+	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
@@ -64,7 +64,7 @@ If (vp_initStorage)
 						$isOK:=False:C215
 						
 						// File "{name}" not found ({path})
-						THROW(New object:C1471("component"; "xbox"; "code"; 600; "name"; $fileName; "path"; $filePath))
+						err_THROW(New object:C1471("component"; "xbox"; "code"; 600; "name"; $fileName; "path"; $filePath))
 						
 						//________________________________________
 				End case 
@@ -77,11 +77,11 @@ If (vp_initStorage)
 							
 							$textBuffer:=Document to text:C1236($filePath; "UTF-8")
 							
-							If (vp_continue)
+							If (err_continue)
 								
 								$documentObject:=JSON Parse:C1218($textBuffer)
 								
-								If (vp_continue)
+								If (err_continue)
 									
 									If ($documentObject.spreadJS#Null:C1517)
 										
@@ -125,26 +125,26 @@ If (vp_initStorage)
 									Else 
 										
 										// The file "{name}" is not a valid 4D View Pro file.
-										THROW(New object:C1471("code"; 4; "name"; $fileName))
+										err_THROW(New object:C1471("code"; 4; "name"; $fileName))
 										
 									End if 
 									
 								Else 
 									
-									THROW(New object:C1471("code"; 7; "name"; $fileName))
+									err_THROW(New object:C1471("code"; 7; "name"; $fileName))
 									
 								End if 
 								
 							Else 
 								
 								// Cannot open file "{name}" ({path})
-								THROW(New object:C1471("component"; "xbox"; "code"; 602; "name"; $fileName; "path"; $filePath))
+								err_THROW(New object:C1471("component"; "xbox"; "code"; 602; "name"; $fileName; "path"; $filePath))
 								
 							End if 
 						: ($filePath="@.xlsx")
 							DOCUMENT TO BLOB:C525($filePath; $blobBuffer)
 							
-							If (vp_continue)
+							If (err_continue)
 								BASE64 ENCODE:C895($blobBuffer; $textBuffer)
 								
 								If (Length:C16($textBuffer)>0)
@@ -197,7 +197,7 @@ If (vp_initStorage)
 								$params.rowDelimiter:=Char:C90(Line feed:K15:40)
 							End if 
 							
-							If (vp_continue)
+							If (err_continue)
 								vp_runFunction($area; "import-csv"; $params)
 								// Is there a user callback method to execute ?
 								
@@ -228,18 +228,18 @@ If (vp_initStorage)
 			Else   //-----
 				
 				// Output document path is empty.
-				THROW(New object:C1471("component"; "xbox"; "code"; 3107))
+				err_THROW(New object:C1471("component"; "xbox"; "code"; 3107))
 				
 			End if 
 			
 			If (Not:C34($isOK))
 				
-				THROW(New object:C1471("code"; 7; "name"; $fileName))
+				err_THROW(New object:C1471("code"; 7; "name"; $fileName))
 				
 			End if 
 		End if 
 	End if 
 	
-	FINALLY
+	err_FINALLY
 	
 End if 

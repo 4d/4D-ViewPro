@@ -1,9 +1,9 @@
 //%attributes = {"invisible":true}
 /*
 path := ***vp_Path*** ( path ; Param_2 )
- -> path (Text)
- -> Param_2 (Text)
- <- path (Object)
+-> path (Text)
+-> Param_2 (Text)
+<- path (Object)
 ________________________________________________________
 */
 
@@ -71,7 +71,7 @@ If (Length:C16($pathObject.name)>0)
 		If (Test path name:C476($pathObject.parentFolder)#Is a folder:K24:2)
 			
 			// Folder "{name}" not found ({path}).
-			THROW(New object:C1471(\
+			err_THROW(New object:C1471(\
 				"component"; "xbox"; \
 				"code"; 650; \
 				"name"; Path to object:C1547($pathObject.parentFolder).name; \

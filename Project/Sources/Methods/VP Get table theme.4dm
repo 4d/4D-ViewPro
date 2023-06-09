@@ -12,7 +12,7 @@ If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY
+	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
@@ -28,10 +28,10 @@ If (vp_initStorage)
 			End if 
 			
 			If ($sheet<-1)
-				THROW(New object:C1471("code"; 17))
+				err_THROW(New object:C1471("code"; 17))
 			Else 
 				If ($sheet>=VP Get sheet count($area))
-					THROW(New object:C1471("code"; 19))
+					err_THROW(New object:C1471("code"; 19))
 				Else 
 					
 					$params:=New object:C1471()
@@ -46,6 +46,6 @@ If (vp_initStorage)
 		End if 
 	End if 
 	
-	FINALLY
+	err_FINALLY
 	
 End if 

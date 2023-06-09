@@ -1,7 +1,7 @@
 //%attributes = {"invisible":true}
 /*
 ***vp_METADATA*** ( document )
- -> document (Object)
+-> document (Object)
 ________________________________________________________
 */
 C_OBJECT:C1216($1)
@@ -14,7 +14,7 @@ C_OBJECT:C1216($documentObject)
 // Initialisations
 $nbParameters:=Count parameters:C259
 
-TRY
+err_TRY
 
 If (Check_parameters_count(1; $nbParameters))
 	
@@ -39,4 +39,4 @@ If (Check_parameters_count(1; $nbParameters))
 	
 End if 
 
-FINALLY
+err_FINALLY

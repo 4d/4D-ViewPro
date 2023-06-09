@@ -5,7 +5,7 @@
 // ID[5101BAB9EE104650B8B95DB1D501A125]
 // Created #03-06-2019 by Francois Marchal
 // ----------------------------------------------------
-// Description: 
+// Description:
 // ----------------------------------------------------
 // ----- Declarations
 
@@ -27,7 +27,7 @@ If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY
+	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
@@ -76,6 +76,6 @@ If (vp_initStorage)
 		End if 
 	End if 
 	
-	FINALLY
+	err_FINALLY
 	
 End if 

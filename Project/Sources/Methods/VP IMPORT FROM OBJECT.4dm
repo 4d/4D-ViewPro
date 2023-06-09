@@ -15,7 +15,7 @@ If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY
+	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
@@ -36,21 +36,21 @@ If (vp_initStorage)
 					: ($viewProObject=Null:C1517)
 						
 						// Invalid object
-						THROW(New object:C1471(\
+						err_THROW(New object:C1471(\
 							"code"; 1))
 						
 						//______________________________________________________
 					: ($viewProObject.version=Null:C1517)
 						
 						// Invalid object
-						THROW(New object:C1471(\
+						err_THROW(New object:C1471(\
 							"code"; 1))
 						
 						//______________________________________________________
 					: ($viewProObject.spreadJS.version#Storage:C1525.ViewPro.spreadJSVersion)
 						
 						// Invalid object
-						THROW(New object:C1471(\
+						err_THROW(New object:C1471(\
 							"code"; 1))
 						
 						//______________________________________________________
@@ -63,7 +63,7 @@ If (vp_initStorage)
 						Else 
 							
 							// Invalid object
-							THROW(New object:C1471(\
+							err_THROW(New object:C1471(\
 								"code"; 1))
 							
 						End if 
@@ -74,6 +74,6 @@ If (vp_initStorage)
 		End if 
 	End if 
 	
-	FINALLY
+	err_FINALLY
 	
 End if 
