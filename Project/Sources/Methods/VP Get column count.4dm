@@ -1,13 +1,13 @@
 //%attributes = {"invisible":true,"shared":true}
-  // ----------------------------------------------------
-  // Project method : VP get column count
-  // Database: 4D ViewPro
-  // ID[5101BAB9E3104650B8B96DB1D501A124]
-  // Created #18-10-2018 by Francois Marchal
-  // ----------------------------------------------------
-  // Description: Get sheet column count
-  // ----------------------------------------------------
-  //----- Declarations
+// ----------------------------------------------------
+// Project method : VP get column count
+// Database: 4D ViewPro
+// ID[5101BAB9E3104650B8B96DB1D501A124]
+// Created #18-10-2018 by Francois Marchal
+// ----------------------------------------------------
+// Description: Get sheet column count
+// ----------------------------------------------------
+//----- Declarations
 
 C_LONGINT:C283($0)
 C_TEXT:C284($1)
@@ -18,18 +18,18 @@ C_LONGINT:C283($Lon_sheetIndex)
 C_LONGINT:C283($nbParameters)
 
 If (False:C215)
-	C_LONGINT:C283(VP Get column count ;$0)
-	C_TEXT:C284(VP Get column count ;$1)
-	C_LONGINT:C283(VP Get column count ;$2)
+	C_LONGINT:C283(VP Get column count; $0)
+	C_TEXT:C284(VP Get column count; $1)
+	C_LONGINT:C283(VP Get column count; $2)
 End if 
 
-If (vp_initStorage )
+If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY 
+	err_TRY
 	
-	If (Check_parameters_count (1;$nbParameters))
+	If (Check_parameters_count(1; $nbParameters))
 		
 		$area:=$1
 		
@@ -39,18 +39,18 @@ If (vp_initStorage )
 			$Lon_sheetIndex:=-1
 		End if 
 		
-		If (vp_isReady ($area;Current method name:C684))
+		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($params;$Obj_result)
-			$params:=New object:C1471("sheetIndex";$Lon_sheetIndex)
+			C_OBJECT:C1216($params; $Obj_result)
+			$params:=New object:C1471("sheetIndex"; $Lon_sheetIndex)
 			
-			$Obj_result:=vp_runFunction ($area;"get-column-count";$params)
+			$Obj_result:=vp_runFunction($area; "get-column-count"; $params)
 			
 			$0:=$Obj_result.result
 			
 		End if 
 	End if 
 	
-	FINALLY 
+	err_FINALLY
 	
 End if 

@@ -13,7 +13,7 @@ If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY
+	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
@@ -33,18 +33,18 @@ If (vp_initStorage)
 			
 			$viewProObject:=vp_runFunction($areaName; "export-json"; $params)
 			
-			If (vp_continue)
+			If (err_continue)
 				Case of 
 						
 						//………………………………………………………………………………………
 					: ($viewProObject=Null:C1517)
 						
-						THROW(New object:C1471(\
+						err_THROW(New object:C1471(\
 							"code"; 2; \
 							"message"; "'export-json'"))
 						
 						//………………………………………………………………………………………
-					: (vp_continue)
+					: (err_continue)
 						
 						vp_METADATA($viewProObject)
 						
@@ -57,7 +57,7 @@ If (vp_initStorage)
 		End if 
 	End if 
 	
-	FINALLY
+	err_FINALLY
 	
 	// ----------------------------------------------------
 	// Return

@@ -1,5 +1,5 @@
 //%attributes = {"invisible":true,"shared":true}
-// The VP Get binding path command returns the name of the attribute 
+// The VP Get binding path command returns the name of the attribute
 // bound to the cell specified in the cell range passed as parameter
 
 C_TEXT:C284($0)
@@ -18,7 +18,7 @@ If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY
+	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
@@ -39,6 +39,6 @@ If (vp_initStorage)
 		End if 
 	End if 
 	
-	FINALLY
+	err_FINALLY
 	
 End if 

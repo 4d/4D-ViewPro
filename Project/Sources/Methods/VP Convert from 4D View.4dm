@@ -1,8 +1,8 @@
 //%attributes = {"invisible":true,"shared":true,"preemptive":"capable"}
 /*
 viewPro := ***VP Convert from 4D View*** ( view )
- -> view (BLOB)
- <- viewPro (Object)
+-> view (BLOB)
+<- viewPro (Object)
 ________________________________________________________
 */
 // ----------------------------------------------------
@@ -32,7 +32,7 @@ vp_initStorage_no_licence_check
 
 $nbParameters:=Count parameters:C259
 
-TRY
+err_TRY
 
 If (Check_parameters_count(1; $nbParameters))
 	
@@ -43,7 +43,7 @@ End if
 If (BLOB size:C605($Blb_view)=0)
 	
 	// Error Load 4D View document
-	THROW(New object:C1471(\
+	err_THROW(New object:C1471(\
 		"component"; "MISC"; \
 		"code"; 10600))
 	
@@ -53,7 +53,7 @@ Else
 	
 	If (OB Is defined:C1231($obj_d4; "error"))
 		
-		THROW(New object:C1471("code"; 20))
+		err_THROW(New object:C1471("code"; 20))
 		
 	Else 
 		
@@ -404,7 +404,7 @@ Else
 	End if 
 End if 
 
-FINALLY
+err_FINALLY
 
 // ----------------------------------------------------
 // Return

@@ -1,9 +1,9 @@
 //%attributes = {"invisible":true}
 /*
 Object := ***vp_runFunction*** ( Param_1 ; Param_2 ; params )
- -> Param_1 (Text)
- -> Param_2 (Text)
- -> params (Object)
+-> Param_1 (Text)
+-> Param_2 (Text)
+-> params (Object)
 ________________________________________________________
 */
 // ----------------------------------------------------
@@ -51,7 +51,7 @@ If (Count parameters:C259>=2)
 	$0:=$Obj_result.result
 	
 	If ($Obj_result.error#"")
-		THROW(New object:C1471("code"; 2; "message"; $Obj_result.error))
+		err_THROW(New object:C1471("code"; 2; "message"; $Obj_result.error))
 	End if 
 	
 End if 

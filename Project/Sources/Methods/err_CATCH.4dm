@@ -1,10 +1,12 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($1)
+#DECLARE($error : Object)
 
-C_TEXT:C284($Txt_key)
-C_OBJECT:C1216(err)
+If (False:C215)
+	C_OBJECT:C1216(err_CATCH; $1)
+End if 
 
-// ----------------------------------------------------
+var $key : Text
+
 If (Count parameters:C259=0)  // Catching
 	
 	err.count:=Num:C11(err.count)+1
@@ -15,9 +17,9 @@ Else   // Populate
 	
 	If (Not:C34(OB Is empty:C1297(err)))
 		
-		For each ($Txt_key; $1)
+		For each ($key; $error)
 			
-			err[$Txt_key]:=$1[$Txt_key]
+			err[$key]:=$error[$key]
 			
 		End for each 
 	End if 

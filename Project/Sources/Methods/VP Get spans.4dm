@@ -1,37 +1,37 @@
 //%attributes = {"invisible":true,"shared":true}
-  // ----------------------------------------------------
-  // Project method : VP Get spans
-  // Database: 4D ViewPro
-  // ID[5101BAB9EE104650B8B95DB1D501A124]
-  // Created #28-06-2019 by Francois Marchal
-  // ----------------------------------------------------
-  // Description: recompute formulas
-  // ----------------------------------------------------
-  // ----- Declarations
+// ----------------------------------------------------
+// Project method : VP Get spans
+// Database: 4D ViewPro
+// ID[5101BAB9EE104650B8B95DB1D501A124]
+// Created #28-06-2019 by Francois Marchal
+// ----------------------------------------------------
+// Description: recompute formulas
+// ----------------------------------------------------
+// ----- Declarations
 
-C_OBJECT:C1216($1;$0)
+C_OBJECT:C1216($1; $0)
 
 C_LONGINT:C283($nbParameters)
 C_OBJECT:C1216($ranges)
 C_TEXT:C284($area)
 
 If (False:C215)
-	C_OBJECT:C1216(VP Get spans ;$0)
-	C_OBJECT:C1216(VP Get spans ;$1)
+	C_OBJECT:C1216(VP Get spans; $0)
+	C_OBJECT:C1216(VP Get spans; $1)
 End if 
 
-If (vp_initStorage )
+If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY 
+	err_TRY
 	
-	If (Check_parameters_count (1;$nbParameters))
+	If (Check_parameters_count(1; $nbParameters))
 		
 		$ranges:=$1
 		$area:=$ranges.area
 		
-		If (vp_isReady ($area;Current method name:C684))
+		If (vp_isReady($area; Current method name:C684))
 			
 			C_OBJECT:C1216($params)
 			$params:=New object:C1471()
@@ -40,7 +40,7 @@ If (vp_initStorage )
 				$params.ranges:=$ranges.ranges
 				
 				C_OBJECT:C1216($ret)
-				$ret:=vp_runFunction ($area;"get-spans";$params)
+				$ret:=vp_runFunction($area; "get-spans"; $params)
 				
 				If (Value type:C1509($ret.ranges)=Is collection:K8:32)
 					$ret.area:=$area
@@ -51,6 +51,6 @@ If (vp_initStorage )
 		End if 
 	End if 
 	
-	FINALLY 
+	err_FINALLY
 	
 End if 

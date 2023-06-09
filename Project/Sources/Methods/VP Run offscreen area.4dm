@@ -2,11 +2,11 @@
 C_OBJECT:C1216($1)
 C_VARIANT:C1683($0)
 
-If (vp_initStorage )
+If (vp_initStorage)
 	
-	TRY 
+	err_TRY
 	
-	If (Check_parameters_count (1;Count parameters:C259))
+	If (Check_parameters_count(1; Count parameters:C259))
 		
 		C_OBJECT:C1216($config)
 		$config:=$1
@@ -19,6 +19,6 @@ If (vp_initStorage )
 		
 	End if 
 	
-	FINALLY 
+	err_FINALLY
 	
 End if 

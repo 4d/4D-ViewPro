@@ -12,7 +12,7 @@ If (vp_initStorage)
 	
 	$nbParameters:=Count parameters:C259
 	
-	TRY
+	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
@@ -44,7 +44,7 @@ If (vp_initStorage)
 					// File "{name}" not found ({path})
 					$path:=Path to object:C1547($filePath)
 					
-					THROW(New object:C1471(\
+					err_THROW(New object:C1471(\
 						"component"; "xbox"; \
 						"code"; 600; \
 						"name"; $path.name+$path.extension; \
@@ -55,11 +55,11 @@ If (vp_initStorage)
 					
 					$textBuffer:=Document to text:C1236($filePath)
 					
-					If (vp_continue)
+					If (err_continue)
 						
 						$documentObject:=JSON Parse:C1218($textBuffer)
 						
-						If (vp_continue)
+						If (err_continue)
 							
 							$documentObject.version:=Storage:C1525.ViewPro.version
 							$documentObject.spreadJS.version:=Storage:C1525.ViewPro.spreadJSVersion
@@ -88,7 +88,7 @@ If (vp_initStorage)
 							
 						Else 
 							
-							THROW(New object:C1471(\
+							err_THROW(New object:C1471(\
 								"code"; 7; \
 								"name"; $fileName))
 							
@@ -97,7 +97,7 @@ If (vp_initStorage)
 					Else 
 						
 						// Cannot open file "{name}" ({path})
-						THROW(New object:C1471(\
+						err_THROW(New object:C1471(\
 							"component"; "xbox"; \
 							"code"; 602; \
 							"name"; $fileName; \
@@ -110,6 +110,6 @@ If (vp_initStorage)
 		End if 
 	End if 
 	
-	FINALLY
+	err_FINALLY
 	
 End if 

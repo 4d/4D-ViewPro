@@ -1,9 +1,9 @@
 //%attributes = {"invisible":true}
 /*
 OK := ***vp_isReady*** ( vpAreaName ; command )
- -> vpAreaName (Text)
- -> command (Text)
- <- OK (Boolean)
+-> vpAreaName (Text)
+-> command (Text)
+<- OK (Boolean)
 ________________________________________________________
 */
 
@@ -52,7 +52,7 @@ Else
 	
 	If (Not:C34($0))
 		
-		THROW(New object:C1471(\
+		err_THROW(New object:C1471(\
 			"code"; 5; \
 			"object"; $area; \
 			"command"; $commandName))

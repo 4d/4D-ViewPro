@@ -1,5 +1,5 @@
 //%attributes = {"invisible":true,"shared":true,"preemptive":"capable"}
-TRY
+err_TRY
 
 C_OBJECT:C1216($1; $vpObject; $2; $cells; $range)
 
@@ -1778,4 +1778,4 @@ $0:=$svgImg
 //$0:=Null
 //End if
 
-FINALLY
+err_FINALLY
