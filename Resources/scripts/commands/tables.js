@@ -376,7 +376,12 @@
         if (sheet != null) {
             let table = sheet.tables.findByName(params.name);
             if (table != null) {
+                try {
                 table.deleteColumns(params.column, params.count);
+                } catch(err) {
+                    // temporary turn-aroud
+                    // to be removed when Grape City will fix the bug
+                }
             }
         }
     });
