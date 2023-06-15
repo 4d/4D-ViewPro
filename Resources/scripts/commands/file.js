@@ -455,14 +455,21 @@ Utils.addFormatedText = function (json) {
       var leftPadding = 0;
       var rightPadding = 0;
 
-      topPadding = parseInt(paddingArray[0]);
-      bottomPadding = parseInt(paddingArray[2]);
-
+	  if (paddingArray.length == 1) {
+		  topPadding = parseInt(cellPadding);
+		  bottomPadding = parseInt(cellPadding);
+		  leftPadding = parseInt(cellPadding);
+		  rightPadding = parseInt(cellPadding);
+	  }
+	  else {
+		  topPadding = parseInt(paddingArray[0]);
+		  bottomPadding = parseInt(paddingArray[2]);
+		  
+		  leftPadding = parseInt(paddingArray[3]);
+		  rightPadding = parseInt(paddingArray[1]);
+	  }
+	  
       rowHeight = rowHeight - topPadding - bottomPadding;
-
-      leftPadding = parseInt(paddingArray[3]);
-      rightPadding = parseInt(paddingArray[1]);
-
       columnWidth = columnWidth - leftPadding - rightPadding;
     }
 
