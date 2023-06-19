@@ -2,6 +2,7 @@
 C_TEXT:C284($1; $padStr)
 C_OBJECT:C1216($2; $cellPadding)
 C_LONGINT:C283($i; $j)
+var $count : Integer
 
 $padStr:=$1
 $cellPadding:=$2
