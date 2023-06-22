@@ -49,6 +49,32 @@ Utils.addCommand('import-json', function (params) {
   //vp_resetOptimizer();
 });
 
+
+Utils.addCommand('export-sjs', function(params) {
+
+  var options = null;
+  if (('sjsOptions' in params) && (typeof (params.sjsOptions) === 'object')) {
+    options = params.sjsOptions;
+  }
+
+  Utils.spread.save(
+    function (blob) {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        params.content = reader.result.substr(reader.result.indexOf(',') + 1);
+        $4d._vp_callback(params);
+      }
+      reader.readAsDataURL(blob);
+    },
+    function (e) {
+      params.error = e;
+      $4d._vp_callback(params);
+    },
+    options
+  );
+});
+
+
 Utils.addCommand('export-json', function (params) {
   let doc = {};
   let document = Utils.currentDocument;

@@ -50,8 +50,10 @@ If (OB Is defined:C1231($Obj_callback; "command"))
 	$Bool_runCmd:=False:C215
 	$Bool_result:=False:C215
 	Case of 
-		: (($Obj_callback.command="export-excel") | ($Obj_callback.command="export-pdf"))
-			// ----- excel export
+		: (($Obj_callback.command="export-excel")\
+			 | ($Obj_callback.command="export-pdf")\
+			 | ($Obj_callback.command="export-sjs"))
+			// ----- excel/pdf/sjs export
 			$Bool_runCmd:=True:C214
 			If (OB Is defined:C1231($Obj_callback; "content"))
 				// Content is encoded
@@ -74,6 +76,7 @@ If (OB Is defined:C1231($Obj_callback; "command"))
 				End if 
 			End if 
 		: (($Obj_callback.command="import-excel")\
+			 | ($Obj_callback.command="import-sjs")\
 			 | ($Obj_callback.command="export-4VP")\
 			 | ($Obj_callback.command="import-4VP")\
 			 | ($Obj_callback.command="export-csv")\

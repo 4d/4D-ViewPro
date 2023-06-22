@@ -115,7 +115,8 @@ If (vp_initStorage)
 					
 					//______________________________________________________
 				: ($pathObject.extension=".xlsx")\
-					 | ($pathObject.extension=".pdf")
+					 | ($pathObject.extension=".pdf")\
+					 | ($pathObject.extension=".sjs")
 					
 					// We must keep parameters for later use
 					// when the asynchronous export will be ending
@@ -144,41 +145,48 @@ If (vp_initStorage)
 						
 					End if 
 					
-					Case of 
-							
-							//……………………………………………………………………………………
-						: ($pathObject.extension=".xlsx")
-							
-							$callback.command:="export-excel"
-							$callback.password:=$params.password
-							$callback.valuesOnly:=$params.valuesOnly
-							$callback.includeBindingSource:=$params.includeBindingSource
-							
-							//……………………………………………………………………………………
-						: ($pathObject.extension=".pdf")
-							
-							$callback.command:="export-pdf"
-							$callback.pdfOptions:=$params.pdfOptions
-							If (OB Is defined:C1231($params; "sheetIndex"))
-								$callback.sheetIndex:=$params.sheetIndex
-							End if 
-							
-							//……………………………………………………………………………………
-					End case 
-					
-					// check
-					If (OB Get type:C1230($callback; "sheetIndex")#Is real:K8:4)
-						err_THROW(New object:C1471("code"; 21))
+					If ($pathObject.extension=".sjs")
+						$callback.command:="export-sjs"
+						$callback.sjsOptions:=$params.sjsOptions
+						
+						$documentObject:=vp_runFunction($area; $callback.command; $callback)
 					Else 
-						If ($callback.sheetIndex<-2)
-							err_THROW(New object:C1471("code"; 17))
-						Else 
-							If ($callback.sheetIndex>=VP Get sheet count($area))
-								err_THROW(New object:C1471("code"; 19))
-							Else 
+						Case of 
 								
-								// Launch export
-								$documentObject:=vp_runFunction($area; $callback.command; $callback)
+								//……………………………………………………………………………………
+							: ($pathObject.extension=".xlsx")
+								
+								$callback.command:="export-excel"
+								$callback.password:=$params.password
+								$callback.valuesOnly:=$params.valuesOnly
+								$callback.includeBindingSource:=$params.includeBindingSource
+								
+								//……………………………………………………………………………………
+							: ($pathObject.extension=".pdf")
+								
+								$callback.command:="export-pdf"
+								$callback.pdfOptions:=$params.pdfOptions
+								If (OB Is defined:C1231($params; "sheetIndex"))
+									$callback.sheetIndex:=$params.sheetIndex
+								End if 
+								
+								//……………………………………………………………………………………
+						End case 
+						
+						// check
+						If (OB Get type:C1230($callback; "sheetIndex")#Is real:K8:4)
+							err_THROW(New object:C1471("code"; 21))
+						Else 
+							If ($callback.sheetIndex<-2)
+								err_THROW(New object:C1471("code"; 17))
+							Else 
+								If ($callback.sheetIndex>=VP Get sheet count($area))
+									err_THROW(New object:C1471("code"; 19))
+								Else 
+									
+									// Launch export
+									$documentObject:=vp_runFunction($area; $callback.command; $callback)
+								End if 
 							End if 
 						End if 
 					End if 
