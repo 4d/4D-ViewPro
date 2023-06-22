@@ -182,6 +182,47 @@ If (vp_initStorage)
 								
 							End if 
 							
+						: ($filePath="@.sjs")
+							DOCUMENT TO BLOB:C525($filePath; $blobBuffer)
+							
+							If (err_continue)
+								BASE64 ENCODE:C895($blobBuffer; $textBuffer)
+								
+								If (Length:C16($textBuffer)>0)
+									
+									// Keep the export file destination pathname
+									$callback:=New object:C1471
+									$callback.path:=$filePath
+									$callback.content:=$textBuffer
+									$callback.command:="import-sjs"
+									$callback.areaName:=$area
+									$callback.sjsOptions:=$params.sjsOptions
+									
+									// Is there a user callback method to execute ?
+									If ($params.formula#Null:C1517)
+										
+										// Get an UUID to associate with the callback method
+										$callback.uuid:=Generate UUID:C1066
+										
+										// Keep the callback method
+										
+										$areaVariable:=vp_getAreaVariable($area)
+										
+										If ($areaVariable#Null:C1517)
+											If (Value type:C1509($areaVariable.callbacks)=Is object:K8:27)
+												$areaVariable.callbacks[$callback.uuid]:=$params
+											End if 
+										End if 
+										
+									End if 
+									
+									// Launch export
+									$documentObject:=vp_runFunction($area; "import-sjs"; $callback)
+									
+								End if 
+								
+							End if 
+							
 						Else   // if not xls or 4VP then csv
 							C_OBJECT:C1216($params)
 							If ($params.csvOptions#Null:C1517)
