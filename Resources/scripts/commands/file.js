@@ -56,7 +56,7 @@ Utils.addCommand('import-sjs', function (params) {
   if (params.sjsOptions != null)
     options = params.sjsOptions;
 
-  Utils.open(blob,
+  Utils.spread.open(blob,
     function () {
       $4d._vp_callback(params);
     },
