@@ -2,9 +2,11 @@ name: Lint Code Base
 
 on:
   push:
-    branches: [ "main" ]
+    paths:
+      - '**.xlf'
   pull_request:
-    branches: [ "main" ]
+    paths:
+      - '**.xlf'
 jobs:
   run-lint:
     runs-on: ubuntu-latest
