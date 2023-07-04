@@ -1,6 +1,7 @@
 {
   "postBuild": {
     "remove": [
+      "LICENSE.md",
       "make.json",
       "Resources/test.svg"
     ]
