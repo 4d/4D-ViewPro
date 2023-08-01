@@ -67,11 +67,15 @@ Utils.addCommand('import-sjs', function (params) {
     options);
 });
 
-Utils.addCommand('export-sjs', function(params) {
+Utils.addCommand('export-sjs', function (params) {
 
-  var options = null;
+  var options = {};
   if (('sjsOptions' in params) && (typeof (params.sjsOptions) === 'object')) {
     options = params.sjsOptions;
+  }
+
+  if (options.includeBindingSource == null) {
+    options.includeBindingSource = true;
   }
 
   Utils.spread.save(
@@ -101,7 +105,7 @@ Utils.addCommand('export-json', function (params) {
   if (document.d4DateModified) doc.dateModified = document.d4DateModified;
   if (document.d4Meta) doc.meta = document.d4Meta;
 
-  let serializationOption = {includeBindingSource:true};
+  let serializationOption = { includeBindingSource: true };
 
   if (("valuesOnly" in params) && (typeof params.valuesOnly == "boolean"))
     serializationOption.ignoreFormula = params.valuesOnly;
@@ -137,7 +141,7 @@ Utils.addCommand('export-excel', function (params) {
   if (params["password"] != null)
     options.password = params.password;
 
-   var excelIO = new GC.Spread.Excel.IO();
+  var excelIO = new GC.Spread.Excel.IO();
   excelIO.save(json,
     function (blob) {
       var reader = new FileReader();
@@ -498,20 +502,20 @@ Utils.addFormatedText = function (json) {
       var leftPadding = 0;
       var rightPadding = 0;
 
-	  if (paddingArray.length == 1) {
-		  topPadding = parseInt(cellPadding);
-		  bottomPadding = parseInt(cellPadding);
-		  leftPadding = parseInt(cellPadding);
-		  rightPadding = parseInt(cellPadding);
-	  }
-	  else {
-		  topPadding = parseInt(paddingArray[0]);
-		  bottomPadding = parseInt(paddingArray[2]);
-		  
-		  leftPadding = parseInt(paddingArray[3]);
-		  rightPadding = parseInt(paddingArray[1]);
-	  }
-	  
+      if (paddingArray.length == 1) {
+        topPadding = parseInt(cellPadding);
+        bottomPadding = parseInt(cellPadding);
+        leftPadding = parseInt(cellPadding);
+        rightPadding = parseInt(cellPadding);
+      }
+      else {
+        topPadding = parseInt(paddingArray[0]);
+        bottomPadding = parseInt(paddingArray[2]);
+
+        leftPadding = parseInt(paddingArray[3]);
+        rightPadding = parseInt(paddingArray[1]);
+      }
+
       rowHeight = rowHeight - topPadding - bottomPadding;
       columnWidth = columnWidth - leftPadding - rightPadding;
     }
