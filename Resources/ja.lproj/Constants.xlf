@@ -659,6 +659,10 @@ This file is distributed under the same license as the product package.-->
 					<source>vk table data range</source>
 					<target>vk table data range</target>
 				</trans-unit>
+				<trans-unit d4:value=".sjs" id="89_164">
+					<source>vk sjs format</source>
+					<target>vk sjs format</target>
+				</trans-unit>
 			</group>
     </body>
   </file>
