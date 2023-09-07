@@ -579,30 +579,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function installHookForNumericKeyPadDecimalSeparator()
     {
+        function handleKeyDown(event) {
+            // Prevent the default event
+            event.preventDefault();
+
+            // Add the "," to the end of the editable div
+            event.target.innerText += ",";
+
+            // Set the cursor to the very end
+            const el = event.target;
+            const selection = window.getSelection();
+            const range = document.createRange();
+            selection.removeAllRanges();
+            range.selectNodeContents(el);
+            range.collapse(false);
+            selection.addRange(range);
+        }
+
         // Override the activateEditor method
         let oldActivateEditorFn = GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor;
         GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor = function (editorContext, cellStyle, cellRect, context) {
             editorContext.addEventListener("keydown", function (event) {
                 if (event.code === "NumpadDecimal" && event.type === "keydown" ) {
-                    // Prevent the default event
-                    event.preventDefault();
-    
-                    // Add the "," to the end of the editable div
-                    event.target.innerText += ",";
-    
-                    // Set the cursor to the very end
-                    const el = event.target;
-                    const selection = window.getSelection();
-                    const range = document.createRange();
-                    selection.removeAllRanges();
-                    range.selectNodeContents(el);
-                    range.collapse(false);
-                    selection.addRange(range);
+                    handleKeyDown(event);
                 }
             });
             return oldActivateEditorFn.apply(this, arguments);
         }
     
+		// Handle the keydown on formula text box
+		let formulaTextBoxEl = document.querySelector("div[gcuielement='gcAttachedFormulaTextBox']");
+		formulaTextBoxEl.addEventListener("keydown", function (event) {
+			if (event.code === "NumpadDecimal" && event.type === "keydown" ) {
+				handleKeyDown(event);
+			}
+		})
     
         // Override the isReservedKey method
         let oldisReservedKeyFn = GC.Spread.Sheets.CellTypes.Text.prototype.isReservedKey;
