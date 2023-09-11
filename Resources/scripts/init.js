@@ -609,11 +609,13 @@ document.addEventListener('DOMContentLoaded', function () {
     
 		// Handle the keydown on formula text box
 		let formulaTextBoxEl = document.querySelector("div[gcuielement='gcAttachedFormulaTextBox']");
-		formulaTextBoxEl.addEventListener("keydown", function (event) {
-			if (event.code === "NumpadDecimal" && event.type === "keydown" ) {
-				handleKeyDown(event);
-			}
-		})
+		if ( formulaTextBoxEl != null) {
+            formulaTextBoxEl.addEventListener("keydown", function (event) {
+	    		if (event.code === "NumpadDecimal" && event.type === "keydown" ) {
+		    		handleKeyDown(event);
+			    }
+		    })
+        }
     
         // Override the isReservedKey method
         let oldisReservedKeyFn = GC.Spread.Sheets.CellTypes.Text.prototype.isReservedKey;
