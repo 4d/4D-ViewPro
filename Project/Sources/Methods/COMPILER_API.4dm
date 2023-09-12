@@ -59,6 +59,11 @@ If (False:C215)  // document
 	C_OBJECT:C1216(VP IMPORT FROM OBJECT; $2)
 	
 	//___________________________________
+	C_TEXT:C284(VP IMPORT FROM BLOB; $1)
+	C_OBJECT:C1216(VP IMPORT FROM BLOB; $2)
+	C_OBJECT:C1216(VP IMPORT FROM BLOB; $3)
+	
+	//___________________________________
 	C_TEXT:C284(VP NEW DOCUMENT; $1)
 	
 	//___________________________________

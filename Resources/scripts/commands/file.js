@@ -49,6 +49,26 @@ Utils.addCommand('import-json', function (params) {
   //vp_resetOptimizer();
 });
 
+
+Utils.addCommand('import-blob', function (params) {
+  var blob = Utils.b64ToBlob(params.blob);
+
+  let options = {};
+  if (params.options != null)
+    options = params.options;
+
+  Utils.spread.open(blob,
+    function () {
+      $4d._vp_callback(params);
+    },
+    function (e) {
+      params.error = e;
+      $4d._vp_callback(params);
+    },
+    options);
+});
+
+
 Utils.addCommand('import-sjs', function (params) {
   var blob = Utils.b64ToBlob(params.content);
 
