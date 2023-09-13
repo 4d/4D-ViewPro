@@ -21,7 +21,7 @@ ________________________________________________________
 // Declarations
 C_OBJECT:C1216($1)
 C_LONGINT:C283($nbParameters)
-C_OBJECT:C1216($Obj_callback; $Obj_userObject; $Obj_formula; $Obj_status; $Obj_areaVariable)
+C_OBJECT:C1216($Obj_callback; $Obj_userObject; $Obj_formula; $Obj_status; $Obj_areaVariable; $Obj_blob)
 C_TEXT:C284($Txt_content; $Txt_uuid; $File_pathname)
 C_BOOLEAN:C305($Bool_result; $Bool_runCmd)
 C_BLOB:C604($Blb_content)
@@ -84,6 +84,10 @@ If (OB Is defined:C1231($Obj_callback; "command"))
 			$File_pathname:=String:C10($Obj_callback.path)
 			$Bool_result:=True:C214
 			$Bool_runCmd:=True:C214
+		: ($Obj_callback.command="import-blob")
+			$Bool_result:=True:C214
+			$Bool_runCmd:=True:C214
+			$File_pathname:=""
 	End case 
 	
 	If ($Bool_runCmd)
@@ -112,7 +116,13 @@ If (OB Is defined:C1231($Obj_callback; "command"))
 									$Obj_status.success:=False:C215
 								End if 
 							End if 
-							$Obj_formula.call(Null:C1517; $Obj_callback.areaName; $File_pathname; $Obj_userObject; $Obj_status)
+							If ($Obj_callback.command="import-blob")
+								$obj_Blob:=$Obj_userObject.blob
+								OB REMOVE:C1226($Obj_userObject; "blob")
+								$Obj_formula.call(Null:C1517; $Obj_callback.areaName; $obj_Blob; $Obj_userObject; $Obj_status)
+							Else 
+								$Obj_formula.call(Null:C1517; $Obj_callback.areaName; $File_pathname; $Obj_userObject; $Obj_status)
+							End if 
 						End if 
 					End if 
 				End if 
