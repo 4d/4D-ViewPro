@@ -51,7 +51,7 @@ Utils.addCommand('import-json', function (params) {
 
 
 Utils.addCommand('import-blob', function (params) {
-  var blob = Utils.b64ToBlob(params.blob);
+  var blob = Utils.b64ToBlob(params.content);
 
   let options = {};
   if (params.options != null)

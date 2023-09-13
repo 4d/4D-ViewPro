@@ -9,7 +9,7 @@ C_OBJECT:C1216($2)
 
 C_LONGINT:C283($nbParameters)
 C_TEXT:C284($areaName; $textBuffer)
-C_OBJECT:C1216($viewProBlobObject; $params; $options)
+C_OBJECT:C1216($viewProBlobObject; $callback; $options; $areaVariable)
 
 If (vp_initStorage)
 	
@@ -41,12 +41,35 @@ If (vp_initStorage)
 				
 				If (OB Instance of:C1731($viewProBlobObject; 4D:C1709.Blob))
 					
+					$options.blob:=$viewProBlobObject
+					
 					BASE64 ENCODE:C895($viewProBlobObject; $textBuffer)
 					
-					$params:=New object:C1471
-					$params.blob:=$textBuffer
-					$params.options:=$options
-					vp_runFunction($areaName; "import-blob"; New object:C1471("buffer"; $textBuffer))
+					$callback:=New object:C1471
+					$callback.content:=$textBuffer
+					$callback.command:="import-blob"
+					$callback.areaName:=$areaName
+					$callback.options:=$options
+					
+					// Is there a user callback method to execute ?
+					If ($options.formula#Null:C1517)
+						
+						// Get an UUID to associate with the callback method
+						$callback.uuid:=Generate UUID:C1066
+						
+						// Keep the callback method
+						
+						$areaVariable:=vp_getAreaVariable($areaName)
+						
+						If ($areaVariable#Null:C1517)
+							If (Value type:C1509($areaVariable.callbacks)=Is object:K8:27)
+								$areaVariable.callbacks[$callback.uuid]:=$options
+							End if 
+						End if 
+						
+					End if 
+					
+					vp_runFunction($areaName; "import-blob"; $callback)
 					
 				Else 
 					
