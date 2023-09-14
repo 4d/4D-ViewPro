@@ -24,7 +24,6 @@ C_LONGINT:C283($nbParameters)
 C_OBJECT:C1216($Obj_callback; $Obj_userObject; $Obj_formula; $Obj_status; $Obj_areaVariable; $Obj_blob)
 C_TEXT:C284($Txt_content; $Txt_uuid; $File_pathname)
 C_BOOLEAN:C305($Bool_result; $Bool_runCmd)
-C_BLOB:C604($Blb_content)
 If (False:C215)
 	C_OBJECT:C1216(vp_callback; $1)
 End if 
@@ -52,27 +51,31 @@ If (OB Is defined:C1231($Obj_callback; "command"))
 	Case of 
 		: (($Obj_callback.command="export-excel")\
 			 | ($Obj_callback.command="export-pdf")\
-			 | ($Obj_callback.command="export-sjs"))
+			 | ($Obj_callback.command="export-sjs")\
+			 | ($Obj_callback.command="export-blob"))
 			// ----- excel/pdf/sjs export
 			$Bool_runCmd:=True:C214
 			If (OB Is defined:C1231($Obj_callback; "content"))
 				// Content is encoded
 				$Txt_content:=$Obj_callback.content
 				OB REMOVE:C1226($Obj_callback; "content")  // Free memory as soon as possible
-				BASE64 DECODE:C896($Txt_content; $Blb_content)
+				$obj_Blob:=4D:C1709.Blob.new()
+				BASE64 DECODE:C896($Txt_content; $obj_Blob)
 				$Txt_content:=""  // Free memory as soon as possible
-				If (BLOB size:C605($Blb_content)>0)
-					$File_pathname:=String:C10($Obj_callback.path)
-					// Create-update the document
-					BLOB TO DOCUMENT:C526($File_pathname; $Blb_content)
-					SET BLOB SIZE:C606($Blb_content; 0)  // Free memory as soon as possible
-					If (Continue_callback)
-						$Bool_result:=True:C214
+				If ($Obj_callback.command#"export-blob")
+					If ($obj_Blob.size>0)
+						$File_pathname:=String:C10($Obj_callback.path)
+						// Create-update the document
+						BLOB TO DOCUMENT:C526($File_pathname; $obj_Blob)
+						SET BLOB SIZE:C606($obj_Blob; 0)  // Free memory as soon as possible
+						If (Continue_callback)
+							$Bool_result:=True:C214
+						Else 
+							THROW_CALLBACK(1; "Error, impossible to write file "+Path to object:C1547($File_pathname).name+", check if file is not locked or in use.")
+						End if 
 					Else 
-						THROW_CALLBACK(1; "Error, impossible to write file "+Path to object:C1547($File_pathname).name+", check if file is not locked or in use.")
+						THROW_CALLBACK(2; "Internal error, empty document returned")
 					End if 
-				Else 
-					THROW_CALLBACK(2; "Internal error, empty document returned")
 				End if 
 			End if 
 		: (($Obj_callback.command="import-excel")\
@@ -116,9 +119,12 @@ If (OB Is defined:C1231($Obj_callback; "command"))
 									$Obj_status.success:=False:C215
 								End if 
 							End if 
-							If ($Obj_callback.command="import-blob")
-								$obj_Blob:=$Obj_userObject.blob
-								OB REMOVE:C1226($Obj_userObject; "blob")
+							If (($Obj_callback.command="import-blob")\
+								 | ($Obj_callback.command="export-blob"))
+								If ($Obj_callback.command="import-blob")
+									$obj_Blob:=$Obj_userObject.blob
+									OB REMOVE:C1226($Obj_userObject; "blob")
+								End if 
 								$Obj_formula.call(Null:C1517; $Obj_callback.areaName; $obj_Blob; $Obj_userObject; $Obj_status)
 							Else 
 								$Obj_formula.call(Null:C1517; $Obj_callback.areaName; $File_pathname; $Obj_userObject; $Obj_status)

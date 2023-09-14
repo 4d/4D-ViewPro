@@ -95,6 +95,7 @@
 	"document": {
 		"methods": [
 			"VP EXPORT DOCUMENT",
+			"VP EXPORT TO BLOB",
 			"VP Export to object",
 			"VP IMPORT DOCUMENT",
 			"VP IMPORT FROM BLOB",

@@ -32,8 +32,6 @@ If (vp_initStorage)
 			
 		End if 
 		
-		
-		
 		If (vp_isReady($areaName; Current method name:C684))
 			If (($viewProBlobObject=Null:C1517) | (OB Is empty:C1297($viewProBlobObject)))
 				VP NEW DOCUMENT($areaName)
@@ -49,7 +47,7 @@ If (vp_initStorage)
 					$callback.content:=$textBuffer
 					$callback.command:="import-blob"
 					$callback.areaName:=$areaName
-					$callback.options:=$options
+					$callback.sjsOptions:=$options
 					
 					// Is there a user callback method to execute ?
 					If ($options.formula#Null:C1517)
@@ -69,7 +67,7 @@ If (vp_initStorage)
 						
 					End if 
 					
-					vp_runFunction($areaName; "import-blob"; $callback)
+					vp_runFunction($areaName; "import-sjs"; $callback)
 					
 				Else 
 					
