@@ -50,6 +50,10 @@ If (False:C215)  // document
 	C_OBJECT:C1216(VP Export to object; $2)
 	
 	//___________________________________
+	C_TEXT:C284(VP EXPORT TO BLOB; $1)
+	C_OBJECT:C1216(VP EXPORT TO BLOB; $2)
+	
+	//___________________________________
 	C_TEXT:C284(VP IMPORT DOCUMENT; $1)
 	C_TEXT:C284(VP IMPORT DOCUMENT; $2)
 	C_OBJECT:C1216(VP IMPORT DOCUMENT; $3)
