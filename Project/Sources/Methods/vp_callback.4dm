@@ -62,7 +62,9 @@ If (OB Is defined:C1231($Obj_callback; "command"))
 				$obj_Blob:=4D:C1709.Blob.new()
 				BASE64 DECODE:C896($Txt_content; $obj_Blob)
 				$Txt_content:=""  // Free memory as soon as possible
-				If ($Obj_callback.command#"export-blob")
+				If ($Obj_callback.command="export-blob")
+					$Bool_result:=True:C214
+				Else 
 					If ($obj_Blob.size>0)
 						$File_pathname:=String:C10($Obj_callback.path)
 						// Create-update the document
