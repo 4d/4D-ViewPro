@@ -69,7 +69,6 @@ If (OB Is defined:C1231($Obj_callback; "command"))
 						$File_pathname:=String:C10($Obj_callback.path)
 						// Create-update the document
 						BLOB TO DOCUMENT:C526($File_pathname; $obj_Blob)
-						SET BLOB SIZE:C606($obj_Blob; 0)  // Free memory as soon as possible
 						If (Continue_callback)
 							$Bool_result:=True:C214
 						Else 
