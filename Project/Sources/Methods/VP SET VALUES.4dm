@@ -54,8 +54,12 @@ If (vp_initStorage)
 						
 						For ($col; 0; $Obj_values[$row].length-1)
 							
+							C_DATE:C307($date)
+							C_TIME:C306($time)
+							
 							C_LONGINT:C283($Lon_type)
 							$Lon_type:=Value type:C1509($Obj_values[$row][$col])
+							
 							C_OBJECT:C1216($val)
 							$val:=New object:C1471("value"; Null:C1517)
 							
@@ -64,7 +68,6 @@ If (vp_initStorage)
 									$val.value:=$Obj_values[$row][$col]
 								: ($Lon_type=Is date:K8:7)
 									$val.value:=New object:C1471()
-									C_DATE:C307($date)
 									$date:=Date:C102($Obj_values[$row][$col])
 									$val.value.day:=Day of:C23($date)
 									$val.value.month:=Month of:C24($date)
@@ -77,7 +80,6 @@ If (vp_initStorage)
 											$val.value:=$Obj_values[$row][$col].value
 										: ($Lon_type=Is date:K8:7)
 											$val.value:=New object:C1471()
-											C_DATE:C307($date)
 											$date:=Date:C102($Obj_values[$row][$col].value)
 											$val.value.day:=Day of:C23($date)
 											$val.value.month:=Month of:C24($date)
@@ -91,7 +93,6 @@ If (vp_initStorage)
 										End if 
 										
 										If (Value type:C1509($val.value)=Is object:K8:27)
-											C_TIME:C306($time)
 											$time:=Time:C179($Obj_values[$row][$col].time)
 											$val.value.hours:=$time\3600
 											$val.value.minutes:=($time%3600)\60
