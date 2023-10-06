@@ -29,7 +29,13 @@ If (vp_initStorage)
 			$callback.areaName:=$areaName
 			
 			// Is there a user callback method to execute ?
-			If ($options.formula#Null:C1517)
+			If ($options.formula=Null:C1517)
+				
+				err_THROW(New object:C1471(\
+					"code"; 2; \
+					"message"; "export-blob"))
+				
+			Else 
 				
 				// Get an UUID to associate with the callback method
 				$callback.uuid:=Generate UUID:C1066
@@ -47,10 +53,9 @@ If (vp_initStorage)
 					End if 
 				End if 
 				
+				vp_runFunction($areaName; "export-sjs"; $callback)
+				
 			End if 
-			
-			vp_runFunction($areaName; "export-sjs"; $callback)
-			
 		End if 
 	End if 
 	
