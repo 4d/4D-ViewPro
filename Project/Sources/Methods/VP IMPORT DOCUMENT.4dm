@@ -224,7 +224,7 @@ If (vp_initStorage)
 							End if 
 							
 						Else   // if not xls or 4VP then csv
-							C_OBJECT:C1216($params)
+							
 							If ($params.csvOptions#Null:C1517)
 								$params:=OB Copy:C1225($params.csvOptions)
 							Else 
