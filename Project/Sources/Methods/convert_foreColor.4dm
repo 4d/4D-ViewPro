@@ -121,90 +121,94 @@ End case
 C_TEXT:C284($format; $newFormat)
 $format:=$Obj_style.formatter
 
-C_BOOLEAN:C305($isHour)
-
-$isHour:=(String:C10($Obj_cell.valueType)="hour") | (($Obj_cell.valueType=Null:C1517) & (Position:C15("[h"; $format)=1))
-
-If ($format="")
-	If ($isHour)
-		$format:="[h]:mm:ss"
-	Else 
-		$format:="General"
-	End if 
-End if 
-
-C_LONGINT:C283($pos_semicolon; $pos_semicolon2)
-$pos_semicolon:=Position:C15(";"; $format)
-
-If ($pos_semicolon=0)
-	If ($isHour)
-		If (($Zero_color#"") & ($Zero_color#"black"))
-			$newFormat:="[=0]["+$Zero_color+"]"+$format+";"+$format
-		End if 
-	Else 
-		If (($Negative_color#"") & ($Negative_color#"black"))
-			$newFormat:=$format+";["+$Negative_color+"]-"+$format
-		End if 
-		
-		If (($Zero_color#"") & ($Zero_color#"black"))
-			If ($newFormat="")
-				$newFormat:=$format+";-"+$format
-			End if 
-			$newFormat:=$newFormat+";["+$Zero_color+"]"+$format
+If (Not:C34((Length:C16($format)=1) & (Character code:C91($format)=64)))
+	
+	C_BOOLEAN:C305($isHour)
+	
+	$isHour:=(String:C10($Obj_cell.valueType)="hour") | (($Obj_cell.valueType=Null:C1517) & (Position:C15("[h"; $format)=1))
+	
+	If ($format="")
+		If ($isHour)
+			$format:="[h]:mm:ss"
+		Else 
+			$format:="General"
 		End if 
 	End if 
-Else 
 	
-	C_TEXT:C284($positiveFormat; $negativeFormat; $zeroFormat)
+	C_LONGINT:C283($pos_semicolon; $pos_semicolon2)
+	$pos_semicolon:=Position:C15(";"; $format)
 	
-	$positiveFormat:=Substring:C12($Format; 1; $pos_semicolon-1)
-	
-	$pos_semicolon2:=Position:C15(";"; $format; $pos_semicolon+1)
-	
-	If ($pos_semicolon2=0)
-		$negativeFormat:=Substring:C12($format; $pos_semicolon+1)
-	Else 
-		$negativeFormat:=Substring:C12($format; $pos_semicolon+1; $pos_semicolon2-$pos_semicolon-1)
-		$zeroFormat:=Substring:C12($format; $pos_semicolon2+1)
-	End if 
-	
-	If ($isHour)
-		If (($Zero_color#"") & ($Zero_color#"black"))
-			$newFormat:="[=0]["+$Zero_color+"]"+$zeroFormat+";"+$positiveFormat
-		End if 
-	Else 
-		
-		$newFormat:=$positiveFormat+";"
-		
-		If (($Negative_color#"") & ($Negative_color#"black"))
-			$newFormat:=$newFormat+"["+$Negative_color+"]"
-		End if 
-		
-		If ($negativeFormat#"")
-			$newFormat:=$newFormat+$negativeFormat
-		End if 
-		
-		If ($pos_semicolon2#0)
-			
-			$newFormat:=$newFormat+";"
-			
+	If ($pos_semicolon=0)
+		If ($isHour)
 			If (($Zero_color#"") & ($Zero_color#"black"))
-				$newFormat:=$newFormat+"["+$Zero_color+"]"
-			End if 
-			
-			If ($zeroFormat#"")
-				$newFormat:=$newFormat+$zeroFormat
+				$newFormat:="[=0]["+$Zero_color+"]"+$format+";"+$format
 			End if 
 		Else 
-			If (($zero_color#"") & ($Zero_color#"black"))
-				$newFormat:=$newFormat+";["+$Zero_color+"]"+$positiveFormat
+			If (($Negative_color#"") & ($Negative_color#"black"))
+				$newFormat:=$format+";["+$Negative_color+"]-"+$format
+			End if 
+			
+			If (($Zero_color#"") & ($Zero_color#"black"))
+				If ($newFormat="")
+					$newFormat:=$format+";-"+$format
+				End if 
+				$newFormat:=$newFormat+";["+$Zero_color+"]"+$format
+			End if 
+		End if 
+	Else 
+		
+		C_TEXT:C284($positiveFormat; $negativeFormat; $zeroFormat)
+		
+		$positiveFormat:=Substring:C12($Format; 1; $pos_semicolon-1)
+		
+		$pos_semicolon2:=Position:C15(";"; $format; $pos_semicolon+1)
+		
+		If ($pos_semicolon2=0)
+			$negativeFormat:=Substring:C12($format; $pos_semicolon+1)
+		Else 
+			$negativeFormat:=Substring:C12($format; $pos_semicolon+1; $pos_semicolon2-$pos_semicolon-1)
+			$zeroFormat:=Substring:C12($format; $pos_semicolon2+1)
+		End if 
+		
+		If ($isHour)
+			If (($Zero_color#"") & ($Zero_color#"black"))
+				$newFormat:="[=0]["+$Zero_color+"]"+$zeroFormat+";"+$positiveFormat
+			End if 
+		Else 
+			
+			$newFormat:=$positiveFormat+";"
+			
+			If (($Negative_color#"") & ($Negative_color#"black"))
+				$newFormat:=$newFormat+"["+$Negative_color+"]"
+			End if 
+			
+			If ($negativeFormat#"")
+				$newFormat:=$newFormat+$negativeFormat
+			End if 
+			
+			If ($pos_semicolon2#0)
+				
+				$newFormat:=$newFormat+";"
+				
+				If (($Zero_color#"") & ($Zero_color#"black"))
+					$newFormat:=$newFormat+"["+$Zero_color+"]"
+				End if 
+				
+				If ($zeroFormat#"")
+					$newFormat:=$newFormat+$zeroFormat
+				End if 
+			Else 
+				If (($zero_color#"") & ($Zero_color#"black"))
+					$newFormat:=$newFormat+";["+$Zero_color+"]"+$positiveFormat
+				End if 
 			End if 
 		End if 
 	End if 
-End if 
-
-If ($newFormat#"")
-	$Obj_style.formatter:=$newFormat
+	
+	If ($newFormat#"")
+		$Obj_style.formatter:=$newFormat
+	End if 
+	
 End if 
 // ----------------------------------------------------
 // Return
