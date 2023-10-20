@@ -54,10 +54,6 @@ If ($nbParameters>=2)
 				
 				$obj.commandBuffers.push(New object:C1471("command"; $Txt_command; "params"; OB Copy:C1225($params)))
 				
-				If ($obj.commandBuffers.length>100)
-					vp_flush($area)
-				End if 
-				
 			End if 
 		End if 
 	End if 
