@@ -1040,9 +1040,9 @@ End for each
 				
 			Else 
 				C_LONGINT:C283($step)
-				C_REAL:C285($offset; $stickX; $stickY; $lastX)
+				C_REAL:C285($offset; $stickX; $stickY)
 				C_TEXT:C284($HStickCorner; $VStickCorner)
-				C_OBJECT:C1216($rotatedTextBox; $translatedTextBox; $initialTextBox; $rotatedBigBox; $translatedBigBox; $initialBigBox; $line)
+				C_OBJECT:C1216($rotatedTextBox; $translatedTextBox; $initialTextBox; $rotatedBigBox; $translatedBigBox; $initialBigBox)
 				
 				$lineHeight:=$valObj.wordWrapInfo.lineHeight
 				$boxWidth:=$valObj.wordWrapInfo.boxWidth
@@ -1156,7 +1156,7 @@ End for each
 					$translatedTextBox:=svg_getTranslatedBox($rotatedTextBox; $translationX; $translationY)
 					
 					If ($lastX=-1) & ($valObj.borderOrientation) & ($valObj.textOrientation#90) & ($valObj.textOrientation#-90)
-						C_OBJECT:C1216($P)
+						
 						Case of 
 							: ($valObj.hAlign=LEFT_HORIZONTAL_ALIGN)
 								$P:=svg_findIntersection($translatedBigBox[$HStickCorner].x; $translatedBigBox[$HStickCorner].y; $valObj.x; $valObj.y+$valObj.height; $valObj.x+$valObj.borderOffset; $valObj.y)
@@ -1308,8 +1308,6 @@ End for each
 							
 					End case 
 					
-					C_OBJECT:C1216($translatedBox)
-					
 					$translatedBox:=svg_getTranslatedBox($rotatedBox; $translationX; $translationY)
 					
 					/// OFFSET WHEN TEXT BOX IS TO HEIGH
@@ -1430,7 +1428,6 @@ End for each
 				: ($valObj.strPart#Null:C1517)
 					C_TEXT:C284($part1Ref)
 					C_TEXT:C284($part2Ref)
-					C_REAL:C285($yPos)
 					
 					DOM GET XML ATTRIBUTE BY NAME:C728($elemRef; "y"; $yPos)
 					$part1Ref:=DOM Create XML element:C865($elemRef; "text")

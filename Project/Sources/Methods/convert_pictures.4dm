@@ -125,7 +125,7 @@ C_OBJECT:C1216($2)
 C_BLOB:C604($Blb_buffer)
 C_LONGINT:C283($kLon_centered; $kLon_none; $kLon_stretch; $kLon_zoom; $Lon_height)
 C_LONGINT:C283($Lon_i; $nbParameters; $Lon_picture; $Lon_width; $Lon_x; $Lon_y)
-C_LONGINT:C283($wanted_codec; $Lon_i)
+C_LONGINT:C283($wanted_codec)
 C_PICTURE:C286($Pic_buffer)
 C_TEXT:C284($Dom_pattern; $Dom_rect; $Dom_svg; $Txt_image; $Txt_pictureName; $codec)
 C_OBJECT:C1216($Obj_default; $Obj_picture; $Obj_viewPro)
@@ -389,7 +389,6 @@ For ($Lon_picture; 0; $Col_pictures.length-1; 1)
 			: (Num:C11($Col_pictures[$Lon_picture].drawingMode)=3)  // pv mapping replicated
 				
 				// Define the picture as pattern
-				var $svg : Text
 				$svg:=DOM Create XML Ref:C861("svg"; "http://www.w3.org/2000/svg"; \
 					"xmlns:xlink"; "http://www.w3.org/1999/xlink")
 				
@@ -399,7 +398,6 @@ For ($Lon_picture; 0; $Col_pictures.length-1; 1)
 					"width"; $Lon_width; \
 					"height"; $Lon_height)
 				
-				var $encoded; $image : Text
 				PICTURE TO BLOB:C692($Pic_buffer; $Blb_buffer; $codec)
 				BASE64 ENCODE:C895($Blb_buffer; $encoded)
 				SET BLOB SIZE:C606($Blb_buffer; 0)
