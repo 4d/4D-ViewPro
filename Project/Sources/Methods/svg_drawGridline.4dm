@@ -1,8 +1,8 @@
-﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($svgRef;$1)
-C_OBJECT:C1216($lineObj;$2;$bcObj;$3;$range;$4;$gridInfo;$7)
-C_POINTER:C301($colPos;$5;$rowPos;$6)
-C_COLLECTION:C1488($mergeTab;$8)
+//%attributes = {"invisible":true,"preemptive":"capable"}
+C_TEXT:C284($svgRef; $1)
+C_OBJECT:C1216($lineObj; $2; $bcObj; $3; $range; $4; $gridInfo; $7)
+C_POINTER:C301($colPos; $5; $rowPos; $6)
+C_COLLECTION:C1488($mergeTab; $8)
 
 $svgRef:=$1
 $lineObj:=$2
@@ -22,9 +22,9 @@ Case of
 	: ($gridInfo=Null:C1517)
 	: ($gridInfo.color=Null:C1517)
 	: (Value type:C1509($gridInfo.color)=Is text:K8:3)
-		$color:=svg_retrieveColor ($gridInfo.color)
+		$color:=svg_retrieveColor($gridInfo.color)
 	Else 
-		ASSERT:C1129(Structure file:C489#Structure file:C489(*);"grid info.color is not a text value")
+		ASSERT:C1129(Structure file:C489#Structure file:C489(*); "grid info.color is not a text value")
 End case 
 
 C_BOOLEAN:C305($drawVGrid)
@@ -51,19 +51,19 @@ End case
 
 If ($drawHGrid)
 	
-	C_LONGINT:C283($X;$Y)
+	C_LONGINT:C283($X; $Y)
 	C_OBJECT:C1216($lineH)
 	C_BOOLEAN:C305($noBgH)
 	C_BOOLEAN:C305($noBrdH)
 	C_TEXT:C284($elemRef)
 	
-	For ($Y;$range.y1;$range.y2+1)
+	For ($Y; $range.y1; $range.y2+1)
 		
 		$lineH:=Null:C1517
 		
-		For ($X;$range.x1;$range.x2)
+		For ($X; $range.x1; $range.x2)
 			
-			$cellMergeStatus:=svg_getCellMergeStatus ($Y;$X;$mergeTab)
+			$cellMergeStatus:=svg_getCellMergeStatus($Y; $X; $mergeTab)
 			
 			$noBgH:=True:C214
 			
@@ -94,8 +94,8 @@ End if*/
 			
 			If ($lineObj#Null:C1517)
 				If ($lineObj.sortedMap#Null:C1517)
-					If (svg_checkColIndex ($lineObj.sortedMap;$Y))
-						If (svg_checkColIndex ($lineObj.sortedMap[$Y];$X))
+					If (svg_checkColIndex($lineObj.sortedMap; $Y))
+						If (svg_checkColIndex($lineObj.sortedMap[$Y]; $X))
 							If ($lineObj.sortedMap[$Y][$X].H#Null:C1517)
 								If ($lineObj.sortedMap[$y][$x].H.isOriented=False:C215)
 									$noBrdH:=False:C215
@@ -129,7 +129,7 @@ End if*/
 				End if 
 			Else 
 				If ($lineH#Null:C1517)
-					$elemRef:=DOM Create XML element:C865($svgRef;"line";"x1";$lineH.x1;"x2";$lineH.x2;"y1";$lineH.y1;"y2";$lineH.y2;"stroke";$color;"vector-effect";"non-scalling-stroke";"stroke-width";1;"shape-rendering";"crispEdges")
+					$elemRef:=DOM Create XML element:C865($svgRef; "line"; "x1"; $lineH.x1; "x2"; $lineH.x2; "y1"; $lineH.y1; "y2"; $lineH.y2; "stroke"; $color; "vector-effect"; "non-scalling-stroke"; "stroke-width"; 1; "shape-rendering"; "crispEdges")
 					$lineH:=Null:C1517
 				End if 
 			End if 
@@ -137,7 +137,7 @@ End if*/
 		End for 
 		
 		If ($lineH#Null:C1517)
-			$elemRef:=DOM Create XML element:C865($svgRef;"line";"x1";$lineH.x1;"x2";$lineH.x2;"y1";$lineH.y1;"y2";$lineH.y2;"stroke";$color;"vector-effect";"non-scalling-stroke";"stroke-width";1;"shape-rendering";"crispEdges")
+			$elemRef:=DOM Create XML element:C865($svgRef; "line"; "x1"; $lineH.x1; "x2"; $lineH.x2; "y1"; $lineH.y1; "y2"; $lineH.y2; "stroke"; $color; "vector-effect"; "non-scalling-stroke"; "stroke-width"; 1; "shape-rendering"; "crispEdges")
 			$lineH:=Null:C1517
 		End if 
 		
@@ -147,19 +147,17 @@ End if
 
 If ($drawVGrid)
 	
-	C_LONGINT:C283($X;$Y)
 	C_OBJECT:C1216($lineV)
 	C_BOOLEAN:C305($noBgV)
 	C_BOOLEAN:C305($noBrdV)
-	C_TEXT:C284($elemRef)
 	
-	For ($X;$range.x1;$range.x2+1)
+	For ($X; $range.x1; $range.x2+1)
 		
 		$lineV:=Null:C1517
 		
-		For ($Y;$range.y1;$range.y2)
+		For ($Y; $range.y1; $range.y2)
 			
-			$cellMergeStatus:=svg_getCellMergeStatus ($Y;$X;$mergeTab)
+			$cellMergeStatus:=svg_getCellMergeStatus($Y; $X; $mergeTab)
 			
 			$noBgV:=True:C214
 			
@@ -188,8 +186,8 @@ End if */
 			
 			If ($lineObj#Null:C1517)
 				If ($lineObj.sortedMap#Null:C1517)
-					If (svg_checkColIndex ($lineObj.sortedMap;$Y))
-						If (svg_checkColIndex ($lineObj.sortedMap[$Y];$X))
+					If (svg_checkColIndex($lineObj.sortedMap; $Y))
+						If (svg_checkColIndex($lineObj.sortedMap[$Y]; $X))
 							If ($lineObj.sortedMap[$Y][$X].V#Null:C1517)
 								$noBrdV:=False:C215
 							End if 
@@ -218,7 +216,7 @@ End if */
 				End if 
 			Else 
 				If ($lineV#Null:C1517)
-					$elemRef:=DOM Create XML element:C865($svgRef;"line";"x1";$lineV.x1;"x2";$lineV.x2;"y1";$lineV.y1;"y2";$lineV.y2;"stroke";$color;"vector-effect";"non-scalling-stroke";"stroke-width";1;"shape-rendering";"crispEdges")
+					$elemRef:=DOM Create XML element:C865($svgRef; "line"; "x1"; $lineV.x1; "x2"; $lineV.x2; "y1"; $lineV.y1; "y2"; $lineV.y2; "stroke"; $color; "vector-effect"; "non-scalling-stroke"; "stroke-width"; 1; "shape-rendering"; "crispEdges")
 					$lineV:=Null:C1517
 				End if 
 			End if 
@@ -226,7 +224,7 @@ End if */
 		End for 
 		
 		If ($lineV#Null:C1517)
-			$elemRef:=DOM Create XML element:C865($svgRef;"line";"x1";$lineV.x1;"x2";$lineV.x2;"y1";$lineV.y1;"y2";$lineV.y2;"stroke";$color;"vector-effect";"non-scalling-stroke";"stroke-width";1;"shape-rendering";"crispEdges")
+			$elemRef:=DOM Create XML element:C865($svgRef; "line"; "x1"; $lineV.x1; "x2"; $lineV.x2; "y1"; $lineV.y1; "y2"; $lineV.y2; "stroke"; $color; "vector-effect"; "non-scalling-stroke"; "stroke-width"; 1; "shape-rendering"; "crispEdges")
 			$lineV:=Null:C1517
 		End if 
 		

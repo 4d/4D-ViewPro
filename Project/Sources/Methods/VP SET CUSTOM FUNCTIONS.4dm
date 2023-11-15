@@ -1,12 +1,15 @@
 //%attributes = {"invisible":true,"shared":true}
-C_TEXT:C284($1)
-C_TEXT:C284($area)
+#DECLARE($area : Text; $formulas : Object)
 
-C_OBJECT:C1216($2)
-C_OBJECT:C1216($formulas)
+If (False:C215)
+	C_TEXT:C284(VP SET CUSTOM FUNCTIONS; $1)
+	C_OBJECT:C1216(VP SET CUSTOM FUNCTIONS; $2)
+End if 
 
-$area:=$1
-$formulas:=$2
+var $key; $spreadJSMethod : Text
+
+var $i : Integer
+var $arrayFormula; $formula; $o; $parameter; $result; $schema : Object
 
 If (vp_initStorage)
 	
@@ -14,88 +17,70 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(2; Count parameters:C259))
 		
-		C_OBJECT:C1216($result; $schema)
-		$schema:=JSON Parse:C1218(Document to text:C1236(Get 4D folder:C485(Current resources folder:K5:16)+"schemas"+Folder separator:K24:12+"allowedFormulas.json"))
-		
+		$schema:=JSON Parse:C1218(File:C1566("/RESOURCES/schemas/allowedFormulas.json").getText())
 		$result:=JSON Validate:C1456($formulas; $schema)
 		
 		If ($result.success)
 			
-			C_OBJECT:C1216($obj)
+			$o:=OBJECT Get value:C1743($area)
 			
-			$obj:=OBJECT Get value:C1743($area)
-			
-			If ($obj=Null:C1517)
-				$obj:=New object:C1471
-				OBJECT SET VALUE:C1742($area; $obj)
+			If ($o=Null:C1517)
+				
+				$o:={}
+				OBJECT SET VALUE:C1742($area; $o)
+				
 			End if 
 			
-			If ($obj.ViewPro=Null:C1517)
-				$obj.ViewPro:=New object:C1471
-			End if 
+			$o.ViewPro:=$o.ViewPro || {}
+			$o.ViewPro.formulas:=$o.ViewPro.formulas || {}
+			$o.ViewPro.formulas.array:=[]
+			$o.ViewPro.formulas.map:={}
 			
-			If ($obj.ViewPro.formulas=Null:C1517)
-				$obj.ViewPro.formulas:=New object:C1471
-			End if 
-			
-			$obj.ViewPro.formulas.array:=New collection:C1472()
-			$obj.ViewPro.formulas.map:=New object:C1471()
-			
-			ARRAY TEXT:C222($properties; 0)
+			ARRAY TEXT:C222($properties; 0x0000)
 			OB GET PROPERTY NAMES:C1232($formulas; $properties)
-			C_LONGINT:C283($i; $j)
-			C_OBJECT:C1216($arrayFormula; $arrayParameter; $formula; $parameter)
-			C_TEXT:C284($spreadJSMethod)
 			
-			For ($i; 1; Size of array:C274($properties))
+			For ($i; 1; Size of array:C274($properties); 1)
 				
 				$formula:=$formulas[$properties{$i}]
 				
-				$arrayFormula:=New object:C1471()
+				$arrayFormula:={}
+				$o.ViewPro.formulas.array.push($arrayFormula)
 				
-				$obj.ViewPro.formulas.array.push($arrayFormula)
 				$spreadJSMethod:=Uppercase:C13($properties{$i})
 				$arrayFormula.spreadJSMethod:=$spreadJSMethod
-				$obj.ViewPro.formulas.map[$spreadJSMethod]:=OB Copy:C1225($formula.formula)
+				$o.ViewPro.formulas.map[$spreadJSMethod]:=OB Copy:C1225($formula.formula)
 				
-				If (OB Is defined:C1231($formula; "summary"))
-					$arrayFormula.summary:=$formula.summary
-				End if 
-				
-				If (OB Is defined:C1231($formula; "minParams"))
-					$arrayFormula.minParams:=$formula.minParams
-				End if 
-				
-				If (OB Is defined:C1231($formula; "maxParams"))
-					$arrayFormula.maxParams:=$formula.maxParams
-				End if 
-				
-				If (OB Is defined:C1231($formula; "parameters"))
+				For each ($key; ["summary"; "minParams"; "maxParams"])
 					
-					$arrayFormula.parameters:=New collection:C1472
-					$arrayFormula.parametersType:=New collection:C1472
+					If ($formula[$key]=Null:C1517)
+						
+						continue
+						
+					End if 
 					
-					For ($j; 0; $formula.parameters.length-1)
-						
-						$parameter:=$formula.parameters[$j]
-						
-						$arrayParameter:=New object:C1471
-						
-						$arrayParameter.name:=$parameter.name
-						
-						If (OB Is defined:C1231($parameter; "type"))
-							$arrayFormula.parametersType.push($parameter.type)
-						Else 
-							$arrayFormula.parametersType.push(-1)
-						End if 
-						
-						$arrayFormula.parameters.push($arrayParameter)
-						
-					End for   // For ($j;0;$formula.parameters.length-1)
-				End if   // If (OB Is defined($formula;"parameters"))
-			End for   // For ($i;1;Size of array($properties))
-		End if   // If ($result.success)
-	End if   // If (Check_parameters_count (1;Count parameters))
+					$arrayFormula[$key]:=$formula[$key]
+					
+				End for each 
+				
+				If ($formula.parameters=Null:C1517)
+					
+					continue
+					
+				End if 
+				
+				$arrayFormula.parameters:=[]
+				
+				$arrayFormula.parametersType:=[]
+				
+				For each ($parameter; $formula.parameters)
+					
+					$arrayFormula.parameters.push({name: $parameter.name})
+					$arrayFormula.parametersType.push($parameter.type ? $parameter.type : -1)
+					
+				End for each 
+			End for 
+		End if 
+	End if 
 	
 	err_FINALLY
 	

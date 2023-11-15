@@ -15,7 +15,6 @@ C_REAL:C285($colWidth; $rowHeight)
 C_OBJECT:C1216($lineObj)
 C_OBJECT:C1216($obj)
 C_BOOLEAN:C305($displayValue)
-C_BOOLEAN:C305($displayValue)
 C_LONGINT:C283($pos)
 C_PICTURE:C286($0)
 C_OBJECT:C1216($defaultStyle)
@@ -1112,7 +1111,7 @@ End if
 									: (Value type:C1509($cell.value)=Is real:K8:4) & ($parsedStyle.isVerticalText#1)
 										C_REAL:C285($e)
 										C_REAL:C285($p)
-										C_LONGINT:C283($nbU; $epos; $pos)
+										C_LONGINT:C283($nbU; $epos)
 										C_TEXT:C284($cvStr)
 										C_TEXT:C284($intPart)
 										C_TEXT:C284($decPart)
@@ -1185,7 +1184,6 @@ End if
 													End if 
 													
 												: ($nbC<=$intLen)
-													C_LONGINT:C283($i)
 													
 													For ($i; 1; $nbC)
 														
