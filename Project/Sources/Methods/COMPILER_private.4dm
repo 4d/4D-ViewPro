@@ -1,6 +1,5 @@
 //%attributes = {"invisible":true}
 // ----------------
-C_BOOLEAN:C305(with_ObjectAPI)
 C_BLOB:C604(_ttc_; _ttf_)  // the TTC exporter class cannot have Blob members yet
 
 //___________________________________

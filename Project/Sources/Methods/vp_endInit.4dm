@@ -31,11 +31,10 @@ If (vp_initStorage)
 	$obj.ViewPro.callbacks:=New object:C1471
 	$obj.ViewPro.events:=New object:C1471
 	
-	If (with_ObjectAPI)
-		$obj.getCurrentSheet:=Formula:C1597(vp_makeSheet(This:C1470.ViewPro.area; VP Get current sheet(This:C1470.ViewPro.area)))
-		$obj.setCurrentSheet:=Formula:C1597(VP SET CURRENT SHEET(This:C1470.ViewPro.area; $1))
-		
-		$obj.getSheet:=Formula:C1597(vp_makeSheet(This:C1470.ViewPro.area; $1))
-		$obj.getSheetByName:=Formula:C1597(vp_getSheetByName)
-	End if 
+	$obj.getCurrentSheet:=Formula:C1597(vp_makeSheet(This:C1470.ViewPro.area; VP Get current sheet(This:C1470.ViewPro.area)))
+	$obj.setCurrentSheet:=Formula:C1597(VP SET CURRENT SHEET(This:C1470.ViewPro.area; $1))
+	
+	$obj.getSheet:=Formula:C1597(vp_makeSheet(This:C1470.ViewPro.area; $1))
+	$obj.getSheetByName:=Formula:C1597(vp_getSheetByName)
+	
 End if 
