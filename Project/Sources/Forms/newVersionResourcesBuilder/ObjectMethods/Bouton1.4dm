@@ -1,4 +1,7 @@
 // buid SpreadJS resources
+C_TEXT:C284($text; $spreadTextResources; $designerTextResources; $path)
+C_OBJECT:C1216($spreadResources; $designerResources)
+
 $text:=WA Evaluate JavaScript:C1029(*; "Zone Web"; "JSON.stringify(GC.Spread.Common.CultureManager.getResources())"; Is text:K8:3)
 $spreadResources:=JSON Parse:C1218($text)
 $spreadResources:=sortObject($spreadResources)

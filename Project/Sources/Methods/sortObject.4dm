@@ -6,6 +6,7 @@ OB GET PROPERTY NAMES:C1232($1; $arNames; $arTypes)
 
 $0:=New object:C1471
 SORT ARRAY:C229($arNames; $arTypes)
+C_LONGINT:C283($i)
 
 For ($i; 1; Size of array:C274($arNames))
 	If ($arTypes{$i}=Is object:K8:27)
