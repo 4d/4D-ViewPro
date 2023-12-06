@@ -1,0 +1,132 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [
+		"onLoad",
+		"onPageChange",
+		"onValidate",
+		"onClick",
+		"onDoubleClick",
+		"onOutsideCall",
+		"onBeginDragOver",
+		"onDragOver",
+		"onDrop",
+		"onAfterKeystroke",
+		"onMenuSelect",
+		"onPluginArea",
+		"onAfterEdit",
+		"onTimer",
+		"onBoundVariableChange"
+	],
+	"windowTitle": "window title",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"Texte": {
+					"type": "text",
+					"text": "Expand archive of new spreadJS version, and locate \"SpreadJS.Source.x.y.z\\Designer\\Designer Component\\samples\\purejs\"",
+					"top": 89,
+					"left": 10,
+					"width": 823,
+					"height": 15
+				},
+				"Bouton": {
+					"type": "button",
+					"text": "Browse",
+					"top": 111,
+					"left": 762,
+					"width": 76,
+					"height": 21,
+					"events": [
+						"onClick"
+					],
+					"method": "ObjectMethods/Bouton.4dm"
+				},
+				"Zone Web": {
+					"type": "webArea",
+					"left": 10,
+					"top": 134,
+					"width": 828,
+					"height": 388,
+					"sizingX": "grow",
+					"sizingY": "grow",
+					"webEngine": "embedded",
+					"urlSource": "vPosixPath"
+				},
+				"Bouton1": {
+					"type": "button",
+					"text": "Build resources",
+					"top": 532,
+					"left": 730,
+					"width": 108,
+					"height": 31,
+					"events": [
+						"onClick"
+					],
+					"sizingX": "move",
+					"sizingY": "move",
+					"method": "ObjectMethods/Bouton1.4dm"
+				},
+				"Texte1": {
+					"type": "text",
+					"text": "URL:",
+					"top": 113,
+					"left": 10,
+					"width": 26,
+					"height": 15
+				},
+				"Zone de saisie1": {
+					"type": "input",
+					"left": 40,
+					"top": 113,
+					"width": 716,
+					"height": 16,
+					"dataSource": "vPosixPath"
+				},
+				"Bouton2": {
+					"type": "button",
+					"text": "Web Inspector",
+					"top": 531,
+					"left": 12,
+					"width": 177,
+					"height": 32,
+					"events": [
+						"onClick"
+					],
+					"method": "ObjectMethods/Bouton2.4dm",
+					"sizingY": "move"
+				},
+				"Texte2": {
+					"type": "text",
+					"text": "This form is used to generate the localisation resource files for any new version of spreadJS you want to update.\rIt will create a file named \"spreadJS_localization_resources.en.js\" with all the localized strings of the english version of spreadJS and a file named \"designer_localization_resources.en.js\" with all the localized strings of the english version of the designer.\rYou can compare those files with the ones of the last versions to get the modifications, and you just have to report these modifications in localized files for each language.",
+					"top": 5,
+					"left": 11,
+					"width": 822,
+					"height": 79
+				}
+			}
+		}
+	],
+	"geometryStamp": 216,
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	}
+}
