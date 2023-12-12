@@ -1,1 +1,1 @@
-WA OPEN WEB INSPECTOR:C1736(*; "zone Web")
+WA OPEN WEB INSPECTOR:C1736(*; "zoneViewPro")
