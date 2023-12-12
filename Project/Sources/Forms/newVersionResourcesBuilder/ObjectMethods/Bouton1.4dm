@@ -6,14 +6,14 @@ $text:=WA Evaluate JavaScript:C1029(*; "Zone Web"; "JSON.stringify(GC.Spread.Com
 $spreadResources:=JSON Parse:C1218($text)
 $spreadResources:=sortObject($spreadResources)
 $spreadTextResources:=JSON Stringify:C1217($spreadResources; *)
-$spreadTextResources:="var spreadJsResources = "+$spreadTextResources
+$spreadTextResources:="var vp_spreadJsResources = "+$spreadTextResources
 
 
 $text:=WA Evaluate JavaScript:C1029(*; "Zone Web"; "JSON.stringify(GC.Spread.Sheets.Designer.getResources())")
 $designerResources:=JSON Parse:C1218($text)
 $designerResources:=sortObject($designerResources)
 $designerTextResources:=JSON Stringify:C1217($designerResources; *)
-$designerTextResources:="var designerResources = "+$designerTextResources
+$designerTextResources:="var vp_designerResources = "+$designerTextResources
 
 $path:=Select folder:C670("select destination folder")
 If (ok=1)
