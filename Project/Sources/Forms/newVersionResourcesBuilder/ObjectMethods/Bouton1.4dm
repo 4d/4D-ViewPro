@@ -17,6 +17,6 @@ $designerTextResources:="var vp_designerResources = "+$designerTextResources
 
 $path:=Select folder:C670("select destination folder")
 If (ok=1)
-	TEXT TO DOCUMENT:C1237($path+"spreadJS_localization_resources.en.js"; $spreadTextResources)
-	TEXT TO DOCUMENT:C1237($path+"designer_localization_resources.en.js"; $designerTextResources)
+	TEXT TO DOCUMENT:C1237($path+"spreadJS_localization_resources.en.js"; $spreadTextResources; "UTF-8-no-bom")
+	TEXT TO DOCUMENT:C1237($path+"designer_localization_resources.en.js"; $designerTextResources; "UTF-8-no-bom")
 End if 
