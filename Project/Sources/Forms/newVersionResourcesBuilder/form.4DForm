@@ -117,11 +117,23 @@
 					"left": 11,
 					"width": 822,
 					"height": 79
+				},
+				"Bouton3": {
+					"type": "button",
+					"text": "build localization resources",
+					"top": 534,
+					"left": 345,
+					"width": 181,
+					"height": 29,
+					"events": [
+						"onClick"
+					],
+					"method": "ObjectMethods/Bouton3.4dm"
 				}
 			}
 		}
 	],
-	"geometryStamp": 216,
+	"geometryStamp": 219,
 	"editor": {
 		"activeView": "View 1",
 		"defaultView": "View 1",
