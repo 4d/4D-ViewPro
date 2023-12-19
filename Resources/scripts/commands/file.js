@@ -122,7 +122,7 @@ Utils.addCommand('export-json', function (params) {
     storeIncludeFormatInfo = params.includeFormatInfo;
 
   if (storeIncludeFormatInfo) {
-    Utils.addFormatedText(doc.spreadJS);
+//    Utils.addFormatedText(doc.spreadJS);
   }
 
   return doc;
