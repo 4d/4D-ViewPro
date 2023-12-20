@@ -1,9 +1,11 @@
 //%attributes = {"invisible":true}
-C_BOOLEAN:C305($0)
+#DECLARE() : Boolean
 
 If (False:C215)
 	C_BOOLEAN:C305(vp_initStorage; $0)
 End if 
+
+FEATURES
 
 // should be called before any API call to ensure that Storage.ViewPro object is correctly initialized
 // and that ViewPro is available for use
@@ -12,18 +14,17 @@ If (Storage:C1525.ViewPro=Null:C1517)
 	
 	Use (Storage:C1525)
 		
-		C_OBJECT:C1216($obj)
-		$obj:=New shared object:C1526
+		C_OBJECT:C1216($o)
+		$o:=New shared object:C1526
 		
-		Use ($obj)
+		Use ($o)
 			
-			$obj.available:=(Version type:C495 ?? 64 bit version:K5:25) & (Is license available:C714(4D View license:K44:4))
-			vp_fillStorage($obj)
+			$o.available:=(Version type:C495 ?? 64 bit version:K5:25) & (Is license available:C714(4D View license:K44:4))
+			vp_fillStorage($o)
 			
 		End use 
 		
-		
-		Storage:C1525.ViewPro:=$obj
+		Storage:C1525.ViewPro:=$o
 		
 	End use 
 	
@@ -40,5 +41,5 @@ Else
 	End if 
 End if 
 
-$0:=Storage:C1525.ViewPro.available
+return Storage:C1525.ViewPro.available
 

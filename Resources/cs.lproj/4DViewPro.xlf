@@ -45,7 +45,7 @@ Příkaz "{command}" nelze použít.</target>
           <source>Property "area" is missing.</source>
           <target>Vlastnost "oblast" chybí.</target>
         </trans-unit>
-      <trans-unit id="20" resname="ERR_4DVP_10">
+        <trans-unit id="20" resname="ERR_4DVP_10">
           <source>Ranges should have same "area" property.</source>
           <target>Rozsahy by měli mít stejnou vlastnost "oblast".</target>
         </trans-unit>

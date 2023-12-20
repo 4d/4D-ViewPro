@@ -7,14 +7,7 @@
 // ----------------------------------------------------
 // Description: set sheet options
 // ----------------------------------------------------
-//----- Declarations
-
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_OBJECT:C1216($0)
-
-C_TEXT:C284($area)
-C_LONGINT:C283($Lon_sheetIndex)
+#DECLARE($area : Text; $index : Integer) : cs:C1710.sheetOptions
 
 C_LONGINT:C283($nbParameters)
 
@@ -24,33 +17,35 @@ If (False:C215)
 	C_OBJECT:C1216(VP Get sheet options; $0)
 End if 
 
-If (vp_initStorage)
+var $options : cs:C1710.sheetOptions
+
+If (Not:C34(vp_initStorage))
 	
-	$nbParameters:=Count parameters:C259
-	
-	err_TRY
-	
-	If (Check_parameters_count(1; $nbParameters))
-		
-		$area:=$1
-		
-		If ($nbParameters>1)
-			$Lon_sheetIndex:=$2
-		Else 
-			$Lon_sheetIndex:=-1
-		End if 
-		
-		
-		If (vp_isReady($area; Current method name:C684))
-			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471("index"; $Lon_sheetIndex)
-			
-			$0:=vp_runFunction($area; "get-sheet-options"; $params)
-			
-		End if 
-	End if 
-	
-	err_FINALLY
+	return 
 	
 End if 
+
+err_TRY
+
+Case of 
+		
+		//______________________________________________________
+	: (Not:C34(Check_parameters_count(1; Count parameters:C259)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	: (Not:C34(vp_isReady($area; Current method name:C684)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	Else 
+		
+		$index:=Count parameters:C259>=2 ? $index : -1  // Default is current sheet
+		$options:=vp_runFunction($area; "get-sheet-options"; {index: $index})
+		
+		//______________________________________________________
+End case 
+
+err_FINALLY
+
+return $options

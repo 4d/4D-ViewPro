@@ -1,10 +1,14 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($1)
+#DECLARE($o : Object)
 
-$1.version:=1
-$1.extension:=".4vp"
-$1.spreadJSVersion:="16.0.4"
-$1.options:=New shared object:C1526
-Use ($1.options)
-	$1.options.prettyPrint:=Not:C34(Is compiled mode:C492)
+$o.version:=1
+$o.extension:=".4vp"
+$o.spreadJSVersion:="16.0.4"
+$o.options:=New shared object:C1526
+
+Use ($o.options)
+	
+	$o.options.prettyPrint:=Not:C34(Is compiled mode:C492)
+	
 End use 
+

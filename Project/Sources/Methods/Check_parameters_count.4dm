@@ -1,51 +1,46 @@
 //%attributes = {"invisible":true}
 // Check that the minimal amount of parameters required for the method has been sent
+#DECLARE($expected : Integer; $received : Integer) : Boolean
 
-C_BOOLEAN:C305($0)
-C_LONGINT:C283($1)
-C_LONGINT:C283($2)
+If (False:C215)
+	C_LONGINT:C283(Check_parameters_count; $1)
+	C_LONGINT:C283(Check_parameters_count; $2)
+	C_BOOLEAN:C305(Check_parameters_count; $0)
+End if 
 
-C_BOOLEAN:C305($Boo_OK)
-C_LONGINT:C283($Lon_expected; $nbParameters; $Lon_received)
+var $params : Integer
 
-// ----------------------------------------------------
-// Initialisations
-$nbParameters:=Count parameters:C259
+$params:=Count parameters:C259
 
-If ($nbParameters>0)
-	
-	$Lon_expected:=$1
-	
-	If ($nbParameters>1)
-		
-		$Lon_received:=$2
-		
-		$Boo_OK:=($Lon_received>=$Lon_expected)
-		
-		If (Not:C34($Boo_OK))
-			
-			// Misssing parameter (received {received}, expected {expected})
-			_4D THROW ERROR:C1520(New object:C1471(\
-				"component"; "4DEV"; \
-				"code"; 3; \
-				"received"; $Lon_received; \
-				"expected"; $Lon_expected; \
-				"deferred"; True:C214))
-			
-		End if 
-	End if 
-	
-Else 
+If ($params=0)
 	
 	// Misssing parameter (expected {expected})
-	_4D THROW ERROR:C1520(New object:C1471(\
-		"component"; "4DEV"; \
-		"code"; 1; \
-		"expected"; $Lon_expected; \
-		"deferred"; True:C214))
+	_4D THROW ERROR:C1520({\
+		component: "4DEV"; \
+		code: 1; \
+		expected: $expected; \
+		deferred: True:C214\
+		})
+	
+	return 
 	
 End if 
 
-// ----------------------------------------------------
-
-$0:=$Boo_OK
+If ($params>1)
+	
+	If ($received>=$expected)
+		
+		return True:C214
+		
+	End if 
+	
+	// Misssing parameter (received {received}, expected {expected})
+	_4D THROW ERROR:C1520({\
+		component: "4DEV"; \
+		code: 3; \
+		received: $received; \
+		expected: $expected; \
+		deferred: True:C214\
+		})
+	
+End if 

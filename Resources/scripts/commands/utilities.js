@@ -22,11 +22,9 @@ Utils.addCommand('compute-formulas', function (params) {
     Utils.spread.suspendCalcService(); // so it can be resumed when leaving runCommand
 });
 
-
 Utils.addCommand('suspend-calculation', function (params) {
     Utils.spread.suspendCalcService(false);
 });
-
 
 Utils.addCommand('resume-calculation', function (params) {
     Utils.spread.resumeCalcService(false);

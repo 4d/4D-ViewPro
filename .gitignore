@@ -65,8 +65,6 @@ Project/Sources/Methods/00_*.4dm
 
 Libraries/lib4d-arm64.dylib
 
-DEV/
-
 #--------------------------------
 # Don't ignore .github workflow
 #--------------------------------

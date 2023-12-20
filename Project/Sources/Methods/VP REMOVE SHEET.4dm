@@ -7,47 +7,42 @@
 // ----------------------------------------------------
 // Description: remove sheet
 // ----------------------------------------------------
-//----- Declarations
-
-C_TEXT:C284($1)
-C_LONGINT:C283($2)
-
-C_TEXT:C284($area)
-C_LONGINT:C283($Lon_sheetIndex)
-
-C_LONGINT:C283($nbParameters)
+#DECLARE($area : Text; $index : Integer)
 
 If (False:C215)
 	C_TEXT:C284(VP REMOVE SHEET; $1)
 	C_LONGINT:C283(VP REMOVE SHEET; $2)
 End if 
 
-If (vp_initStorage)
+If (Not:C34(vp_initStorage))
 	
-	$nbParameters:=Count parameters:C259
-	
-	err_TRY
-	
-	If (Check_parameters_count(1; $nbParameters))
-		
-		$area:=$1
-		
-		If ($nbParameters>1)
-			$Lon_sheetIndex:=$2
-		Else 
-			$Lon_sheetIndex:=-1
-		End if 
-		
-		If (vp_isReady($area; Current method name:C684))
-			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471("index"; $Lon_sheetIndex)
-			
-			vp_runCommand($area; "remove-sheet"; $params)
-			
-		End if 
-	End if 
-	
-	err_FINALLY
+	return 
 	
 End if 
+
+err_TRY
+
+Case of 
+		
+		//______________________________________________________
+	: (Not:C34(Check_parameters_count(1; Count parameters:C259)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	: (Not:C34(vp_isReady($area; Current method name:C684)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	: ($index>=VP Get sheet count($area))
+		
+		// FIXME:ERROR
+		//______________________________________________________
+	Else 
+		
+		$index:=Count parameters:C259>=2 ? $index : -1
+		vp_runCommand($area; "remove-sheet"; {index: $index})
+		
+		//______________________________________________________
+End case 
+
+err_FINALLY

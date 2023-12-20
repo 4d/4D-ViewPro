@@ -332,7 +332,6 @@ Utils.getFirstRange = function (ranges) {
     return ret;
 }
 
-
 /**
  * Copied from SJS: _indexToLetters (Todo: Any impact on culture change ?)
  * @param {number} index Column index
@@ -831,7 +830,6 @@ Utils.commandRemoveRowPageBreak = {
     }
 };
 
-
 Utils.commandInsertPageBreak = {
     canUndo: true,
     execute: function (context, options, isUndo) {
@@ -880,7 +878,6 @@ Utils.initCommands = function () {
     commandManager.register("removePageBreak", Utils.commandRemovePageBreak, undefined, false, false, false, false);
 }
 
-
 var vp_timerStarted = false;
 var vp_timer = null;
 var vp_counter = 0;
@@ -903,7 +900,6 @@ function vp_endLongOperation() {
         vp_setOptimizer(200);   // timeout is 2/10th of seconds to allow spreadJS to start another long operation
     }
 }
-
 
 function vp_setOptimizer(timeout) {
     if (vp_timerStarted) {

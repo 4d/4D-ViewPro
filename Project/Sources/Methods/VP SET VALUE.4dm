@@ -5,92 +5,122 @@
 // ID[5101BAB9EE104650B8B95DB1D501A124]
 // Created #12-7-2018 by Francois Marchal
 // ----------------------------------------------------
-// Description: Set the value of a range
+// Description: Sets the value of a cell
 // ----------------------------------------------------
-// ----- Declarations
-
-C_OBJECT:C1216($1)
-C_OBJECT:C1216($2)
+#DECLARE($cell : cs:C1710._cell; $value : Object)
 
 If (False:C215)
 	C_OBJECT:C1216(VP SET VALUE; $1)
 	C_OBJECT:C1216(VP SET VALUE; $2)
 End if 
 
-C_LONGINT:C283($nbParameters)
-C_OBJECT:C1216($ranges; $Obj_value)
-C_TEXT:C284($area)
+var $key : Text
+var $date : Date
+var $type : Integer
+var $time : Time
+var $o : Object
+var $c : Collection
 
-If (vp_initStorage)
+If (Not:C34(vp_initStorage))
 	
-	$nbParameters:=Count parameters:C259
-	
-	err_TRY
-	
-	If (Check_parameters_count(2; $nbParameters))
-		
-		$ranges:=$1
-		$Obj_value:=$2
-		
-		$area:=$ranges.area
-		
-		If (vp_isReady($area; Current method name:C684))
-			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471()
-			
-			C_LONGINT:C283($Lon_type)
-			
-			$Lon_type:=Value type:C1509($Obj_value.value)
-			
-			Case of 
-				: (($Lon_type=Is boolean:K8:9) | ($Lon_type=Is text:K8:3) | ($Lon_type=Is real:K8:4))
-					$params.value:=$Obj_value.value
-				: ($Lon_type=Is date:K8:7)
-					$params.value:=New object:C1471()
-					C_DATE:C307($date)
-					$date:=Date:C102($Obj_value.value)
-					$params.value.day:=Day of:C23($date)
-					$params.value.month:=Month of:C24($date)
-					$params.value.year:=Year of:C25($date)
-				: ($Lon_type=Is null:K8:31)
-					$params.value:=Null:C1517
-			End case 
-			
-			If (Value type:C1509($Obj_value.time)=Is real:K8:4)
-				
-				If ($params.value=Null:C1517)
-					$params.value:=New object:C1471()
-				End if 
-				
-				If (Value type:C1509($params.value)=Is object:K8:27)
-					C_TIME:C306($time)
-					$time:=Time:C179($Obj_value.time)
-					$params.value.hours:=$time\3600
-					$params.value.minutes:=($time%3600)\60
-					$params.value.seconds:=$time%60
-				End if 
-			End if 
-			
-			If (OB Is defined:C1231($params; "value"))
-				
-				If (Value type:C1509($ranges.ranges)=Is collection:K8:32)
-					$params.ranges:=$ranges.ranges
-					
-					// optional format
-					If ($Obj_value.format#Null:C1517)
-						If (Value type:C1509($Obj_value.format)=Is text:K8:3)
-							$params.format:=$Obj_value.format
-						End if 
-					End if 
-					
-					vp_runCommand($area; "set-ranges-value"; $params)
-					
-				End if 
-			End if 
-		End if 
-	End if 
-	
-	err_FINALLY
+	return 
 	
 End if 
+
+err_TRY
+
+Case of 
+		
+		//______________________________________________________
+	: (Not:C34(Check_parameters_count(1; Count parameters:C259)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	: (Not:C34(vp_isReady($cell.area; Current method name:C684)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	Else 
+		
+		$o:={}
+		
+		$type:=Value type:C1509($value.value)
+		
+		Case of 
+				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+			: (($type=Is boolean:K8:9)\
+				 | ($type=Is text:K8:3)\
+				 | ($type=Is real:K8:4))
+				
+				$o.value:=$value.value
+				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+			: ($type=Is date:K8:7)
+				
+				$date:=Date:C102($value.value)
+				
+				$o.value:={\
+					day: Day of:C23($date); \
+					month: Month of:C24($date); \
+					year: Year of:C25($date)\
+					}
+				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+			: ($type=Is null:K8:31)
+				
+				$o.value:=Null:C1517
+				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+		End case 
+		
+		If (Value type:C1509($value.time)=Is real:K8:4)
+			
+			$o.value:=$o.value || {}
+			
+			If (Value type:C1509($o.value)=Is object:K8:27)
+				
+				$time:=Time:C179($value.time)
+				
+				$o.value.hours:=$time\3600
+				$o.value.minutes:=($time%3600)\60
+				$o.value.seconds:=$time%60
+				
+			End if 
+		End if 
+		
+		Case of 
+				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+			: (Value type:C1509($cell.ranges)#Is collection:K8:32)
+				
+				// <NOTHING MORE TO DO>
+				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+			: ($o.value#Null:C1517)
+				
+				$o.ranges:=$cell.ranges
+				
+				// Optional format
+				If ($value.format#Null:C1517)\
+					 && (Value type:C1509($value.format)=Is text:K8:3)
+					
+					$o.format:=$value.format
+					
+				End if 
+				
+				vp_runCommand($cell.area; "set-ranges-value"; $o)
+				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+			: (Feature.with("SET_OBJECTS"))\
+				 && ($type=Is undefined:K8:13)  // Object
+				
+				VP SET FORMULA($cell; "="+vp_objectToFormula($value))
+				
+				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+		End case 
+		
+		//______________________________________________________
+End case 
+
+err_FINALLY

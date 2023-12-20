@@ -1,4 +1,6 @@
 //%attributes = {"invisible":true}
+var Feature : cs:C1710._feature
+
 // ----------------
 C_BLOB:C604(_ttc_; _ttf_)  // the TTC exporter class cannot have Blob members yet
 
@@ -152,3 +154,7 @@ C_BOOLEAN:C305(vp_isNumeric; $0)
 //___________________________________
 C_LONGINT:C283(convert_indexToLetters; $1)
 C_TEXT:C284(convert_indexToLetters; $0)
+
+//___________________________________
+C_OBJECT:C1216(vp_objectToFormula; $1)
+C_TEXT:C284(vp_objectToFormula; $0)

@@ -3,7 +3,8 @@
     "remove": [
       "LICENSE.md",
       "make.json",
-      "Resources/test.svg"
+      "Resources/test.svg",
+      "Resources/DEV/"
     ]
   }
 }

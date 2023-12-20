@@ -5,59 +5,52 @@
 // ID[5101BAB9EE104650B8B95DB1D501A124]
 // Created #12-7-2018 by Francois Marchal
 // ----------------------------------------------------
-// Description: Set the value of a range
+// Description: Gets the value of a cell
 // ----------------------------------------------------
-// ----- Declarations
-
-C_OBJECT:C1216($0)
-C_OBJECT:C1216($1)
+#DECLARE($cell : cs:C1710._cell) : Object
 
 If (False:C215)
-	C_OBJECT:C1216(VP Get value; $0)
 	C_OBJECT:C1216(VP Get value; $1)
+	C_OBJECT:C1216(VP Get value; $0)
 End if 
 
-C_LONGINT:C283($nbParameters)
-C_OBJECT:C1216($ranges)
-C_TEXT:C284($area)
+var $js : Object
 
-If (vp_initStorage)
+If (Not:C34(vp_initStorage))
 	
-	$nbParameters:=Count parameters:C259
+	return 
 	
-	err_TRY
-	
-	If (Check_parameters_count(1; $nbParameters))
+End if 
+
+err_TRY
+
+Case of 
 		
-		$ranges:=$1
-		$area:=$ranges.area
+		//______________________________________________________
+	: (Not:C34(Check_parameters_count(1; Count parameters:C259)))
 		
-		If (vp_isReady($area; Current method name:C684))
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	: (Not:C34(vp_isReady($cell.area; Current method name:C684)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	Else 
+		
+		$js:=vp_runFunction($cell.area; "get-value"; {ranges: $cell.ranges})
+		
+		If ($js#Null:C1517)\
+			 && (Value type:C1509($js.value)=Is object:K8:27)\
+			 && ($js.value.date#Null:C1517)
 			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471()
+			$js.time:=$js.value.time
+			$js.value:=Add to date:C393(!00-00-00!; $js.value.date.year; $js.value.date.month; $js.value.date.day)
 			
-			
-			If (Value type:C1509($ranges.ranges)=Is collection:K8:32)
-				$params.ranges:=$ranges.ranges
-				
-				C_OBJECT:C1216($obj)
-				$obj:=vp_runFunction($area; "get-value"; $params)
-				
-				If ($obj#Null:C1517)
-					If (Value type:C1509($obj.value)=Is object:K8:27)
-						If ($obj.value.date#Null:C1517)
-							$obj.time:=$obj.value.time
-							$obj.value:=Add to date:C393(!00-00-00!; $obj.value.date.year; $obj.value.date.month; $obj.value.date.day)
-						End if 
-					End if 
-				End if 
-				
-				$0:=$obj
-			End if 
 		End if 
-	End if 
-	
-	err_FINALLY
-	
-End if 
+		
+		//______________________________________________________
+End case 
+
+err_FINALLY
+
+return $js

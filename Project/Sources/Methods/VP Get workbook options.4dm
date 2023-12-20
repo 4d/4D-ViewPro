@@ -2,45 +2,46 @@
 // ----------------------------------------------------
 // Project method : VP GET SHEET OPTIONS
 // Database: 4D ViewPro
-// ID[5101AAB9EE104650B8B96DB1D581A124]
+// ID[EE3F5DCA83514676B97195FF9595BE58]
 // Created #10-01-2020 by Francois Marchal
 // ----------------------------------------------------
-// Description: set sheet options
+// Description: Get woorkbook options
 // ----------------------------------------------------
-//----- Declarations
-
-C_TEXT:C284($1)
-C_OBJECT:C1216($0)
-
-C_TEXT:C284($area)
-
-C_LONGINT:C283($nbParameters)
+#DECLARE($area : Text) : cs:C1710.workbookOptions
 
 If (False:C215)
 	C_TEXT:C284(VP Get workbook options; $1)
 	C_OBJECT:C1216(VP Get workbook options; $0)
 End if 
 
-If (vp_initStorage)
+var $options : cs:C1710.workbookOptions
+
+If (Not:C34(vp_initStorage))
 	
-	$nbParameters:=Count parameters:C259
-	
-	err_TRY
-	
-	If (Check_parameters_count(1; $nbParameters))
-		
-		$area:=$1
-		
-		If (vp_isReady($area; Current method name:C684))
-			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471
-			
-			$0:=vp_runFunction($area; "get-workbook-options"; $params)
-			
-		End if 
-	End if 
-	
-	err_FINALLY
+	return 
 	
 End if 
+
+err_TRY
+
+Case of 
+		
+		//______________________________________________________
+	: (Not:C34(Check_parameters_count(1; Count parameters:C259)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	: (Not:C34(vp_isReady($area; Current method name:C684)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	Else 
+		
+		$options:=vp_runFunction($area; "get-workbook-options")
+		
+		//______________________________________________________
+End case 
+
+err_FINALLY
+
+return $options

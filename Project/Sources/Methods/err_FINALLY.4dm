@@ -1,10 +1,4 @@
 //%attributes = {"invisible":true}
-/*
-***FINALLY*** ( Param_1 )
--> Param_1 (Text)
-________________________________________________________
-*/
-// ----------------------------------------------------
 // Project method : FINALLY
 // ID[60889CD973B541919706019315ECEAA7]
 // Created #18-5-2017 by Vincent de Lachaux
@@ -15,24 +9,16 @@ If (False:C215)
 	C_TEXT:C284(err_FINALLY; $1)
 End if 
 
-C_OBJECT:C1216(err)
+var err : Object
 
-// ----------------------------------------------------
 If (Count parameters:C259>=1)
 	
 	ON ERR CALL:C155($method)
 	
 Else 
 	
-	If (Is compiled mode:C492)
-		
-		ON ERR CALL:C155("noError")
-		
-	Else 
-		
-		ON ERR CALL:C155("")
-		
-	End if 
+	ON ERR CALL:C155(Is compiled mode:C492 ? "noError" : "")
+	
 End if 
 
 If (Num:C11(err.count)>0)
@@ -58,5 +44,3 @@ If (Num:C11(err.count)>0)
 	// End if
 	
 End if 
-
-// ----------------------------------------------------
