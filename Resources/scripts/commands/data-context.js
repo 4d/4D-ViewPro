@@ -209,8 +209,8 @@ Utils.addCommand('get-data-context', function (params) {
 
     if (instance != null) {
         obj = instance.getDataSource();
-        if ((obj != null) && ('xf' in obj)) {
-            obj = obj.xf;
+        if ((obj != null) && ('rT' in obj)) {
+            obj = obj.rT;
         }
         returnValue.value = _parseElement(obj);
     }
