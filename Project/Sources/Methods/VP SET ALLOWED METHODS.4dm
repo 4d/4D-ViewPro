@@ -5,19 +5,18 @@ If (False:C215)
 	C_OBJECT:C1216(VP SET ALLOWED METHODS; $1)
 End if 
 
-var $key; $name : Text
-
+var $functionName; $key : Text
 var $i : Integer
-var $method; $parameter; $result; $schema; $sharedMethod; $sharedParameter : Object
+var $o; $parameter; $schema; $sharedMethod; $sharedParameter : Object
 
 err_TRY
 
 If (Check_parameters_count(1; Count parameters:C259))
 	
+	// Mark:validation
 	$schema:=JSON Parse:C1218(File:C1566("/RESOURCES/schemas/allowedMethods.json").getText())
-	$result:=JSON Validate:C1456($methods; $schema)
 	
-	If ($result.success)
+	If (JSON Validate:C1456($methods; $schema).success)
 		
 		Use (Storage:C1525)
 			
@@ -32,54 +31,63 @@ If (Check_parameters_count(1; Count parameters:C259))
 				
 				For ($i; 1; Size of array:C274($properties); 1)
 					
-					$name:=$properties{$i}
-					$method:=$methods[$name]
-					
+					$functionName:=$properties{$i}
+					$o:=$methods[$functionName]
 					$sharedMethod:=New shared object:C1526()
 					
 					Storage:C1525.allowedMethods.push($sharedMethod)
 					
 					Use ($sharedMethod)
 						
-						$sharedMethod.spreadJSMethod:=Uppercase:C13($name)
-						$sharedMethod.method:=$method.method
+						$sharedMethod.spreadJSMethod:=Uppercase:C13($functionName)
+						$sharedMethod.method:=$o.method
 						
+						// Mark:summary, minParams, maxParams
 						For each ($key; ["summary"; "minParams"; "maxParams"])
 							
-							If ($method[$key]=Null:C1517)
+							If ($o[$key]=Null:C1517)
 								
 								continue
 								
 							End if 
 							
-							$sharedMethod[$key]:=$method[$key]
+							$sharedMethod[$key]:=$o[$key]
 							
 						End for each 
 						
-						If ($method.parameters#Null:C1517)
+						If ($o.parameters=Null:C1517)
 							
-							$sharedMethod.parameters:=New shared collection:C1527
-							$sharedMethod.parametersType:=New shared collection:C1527
+							continue
 							
-							Use ($sharedMethod.parameters)
-								
-								Use ($sharedMethod.parametersType)
-									
-									For each ($parameter; $method.parameters)
-										
-										$sharedParameter:=New shared object:C1526
-										
-										Use ($sharedParameter)
-											
-											$sharedParameter.name:=$parameter.name
-											$sharedMethod.parametersType.push($parameter.type ? $parameter.type : -1)
-											$sharedMethod.parameters.push($sharedParameter)
-											
-										End use 
-									End for each 
-								End use 
-							End use 
 						End if 
+						
+						// Mark:parameters
+						
+						$sharedMethod.parameters:=New shared collection:C1527
+						$sharedMethod.parametersType:=New shared collection:C1527
+						
+						Use ($sharedMethod.parameters)
+							
+							Use ($sharedMethod.parametersType)
+								
+								For each ($parameter; $o.parameters)
+									
+									$sharedParameter:=New shared object:C1526
+									
+									Use ($sharedParameter)
+										
+										$sharedParameter.name:=$parameter.name
+										
+										// FIXME:On ne gère pas d'erreur si le type n'est pas implémenté ?
+										// Je voulais mettre un flag pour accepter les objets et les collections mais nada
+										
+										$sharedMethod.parametersType.push($parameter.type ? $parameter.type : -1)
+										$sharedMethod.parameters.push($sharedParameter)
+										
+									End use 
+								End for each 
+							End use 
+						End use 
 					End use 
 				End for 
 			End use 

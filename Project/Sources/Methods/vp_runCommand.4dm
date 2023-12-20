@@ -1,11 +1,4 @@
 //%attributes = {"invisible":true}
-/*
-Object := ***vp_runCommand*** ( Param_1 ; Param_2 ; params )
- -> Param_1 (Text)
- -> Param_2 (Text)
- -> params (Object)
-________________________________________________________
-*/
 // ----------------------------------------------------
 // Project method : VP Run command
 // Database: 4D ViewPro
@@ -15,16 +8,7 @@ ________________________________________________________
 // Description:
 // ask JS to run a command
 // ----------------------------------------------------
-// Declarations
-
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_OBJECT:C1216($3)
-
-C_OBJECT:C1216($params)
-C_TEXT:C284($Txt_command)
-C_TEXT:C284($area)
-C_LONGINT:C283($nbParameters)
+#DECLARE($area : Text; $command : Text; $params : Object)
 
 If (False:C215)
 	C_TEXT:C284(vp_runCommand; $1)
@@ -32,29 +16,25 @@ If (False:C215)
 	C_OBJECT:C1216(vp_runCommand; $3)
 End if 
 
-$nbParameters:=Count parameters:C259
+var $o : Object
 
-If ($nbParameters>=2)
-	$area:=$1
-	$Txt_command:=$2
+If (Count parameters:C259<2)
 	
-	If ($nbParameters=3)
-		$params:=$3
-	Else 
-		$params:=New object:C1471
-	End if 
+	return 
 	
-	C_OBJECT:C1216($obj)
-	$obj:=vp_getAreaVariable($area)
+End if 
+
+$params:=$params || {}
+
+$o:=vp_getAreaVariable($area)
+
+If ($o#Null:C1517)\
+ && ($o.inited)\
+ && (Value type:C1509($o.commandBuffers)=Is collection:K8:32)
 	
-	If ($obj#Null:C1517)
-		If ($obj.inited)
-			
-			If (Value type:C1509($obj.commandBuffers)=Is collection:K8:32)
-				
-				$obj.commandBuffers.push(New object:C1471("command"; $Txt_command; "params"; OB Copy:C1225($params)))
-				
-			End if 
-		End if 
-	End if 
+	$o.commandBuffers.push({\
+		command: $command; \
+		params: OB Copy:C1225($params)\
+		})
+	
 End if 

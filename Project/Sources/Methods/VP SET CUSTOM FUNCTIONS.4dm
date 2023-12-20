@@ -8,7 +8,7 @@ End if
 
 var $key; $spreadJSMethod : Text
 var $i : Integer
-var $arrayFormula; $formula; $o; $parameter; $result; $schema : Object
+var $arrayFormula; $customFunction; $o; $parameter; $schema : Object
 
 If (Not:C34(vp_initStorage))
 	
@@ -19,13 +19,16 @@ End if
 err_TRY
 
 If (Check_parameters_count(2; Count parameters:C259))
-	$schema:=JSON Parse:C1218(File:C1566("/RESOURCES/schemas/allowedFormulas.json").getText())
-	$result:=JSON Validate:C1456($formulas; $schema)
 	
-	If ($result.success)
+	// Mark:validation
+	$schema:=JSON Parse:C1218(File:C1566("/RESOURCES/schemas/allowedFormulas.json").getText())
+	
+	If (JSON Validate:C1456($formulas; $schema).success)
+		
 		$o:=OBJECT Get value:C1743($area)
 		
 		If ($o=Null:C1517)
+			
 			$o:={}
 			OBJECT SET VALUE:C1742($area; $o)
 			
@@ -41,39 +44,46 @@ If (Check_parameters_count(2; Count parameters:C259))
 		
 		For ($i; 1; Size of array:C274($properties); 1)
 			
-			$formula:=$formulas[$properties{$i}]
+			$customFunction:=$formulas[$properties{$i}]
 			
+			// Mark:formula
 			$arrayFormula:={}
 			$o.ViewPro.formulas.array.push($arrayFormula)
 			
 			$spreadJSMethod:=Uppercase:C13($properties{$i})
 			$arrayFormula.spreadJSMethod:=$spreadJSMethod
-			$o.ViewPro.formulas.map[$spreadJSMethod]:=OB Copy:C1225($formula.formula)
+			$o.ViewPro.formulas.map[$spreadJSMethod]:=OB Copy:C1225($customFunction.formula)
 			
+			// Mark:summary, minParams, maxParams
 			For each ($key; ["summary"; "minParams"; "maxParams"])
 				
-				If ($formula[$key]=Null:C1517)
+				If ($customFunction[$key]=Null:C1517)
+					
 					continue
 					
 				End if 
 				
-				$arrayFormula[$key]:=$formula[$key]
+				$arrayFormula[$key]:=$customFunction[$key]
 				
 			End for each 
 			
-			If ($formula.parameters=Null:C1517)
+			If ($customFunction.parameters=Null:C1517)
 				
 				continue
 				
 			End if 
 			
+			// Mark:parameters
 			$arrayFormula.parameters:=[]
-			
 			$arrayFormula.parametersType:=[]
 			
-			For each ($parameter; $formula.parameters)
+			For each ($parameter; $customFunction.parameters)
 				
 				$arrayFormula.parameters.push({name: $parameter.name})
+				
+				// FIXME:On ne gère pas d'erreur si le type n'est pas implémenté ?
+				// Je voulais mettre un flag pour accepter les objets et les collections mais nada
+				
 				$arrayFormula.parametersType.push($parameter.type ? $parameter.type : -1)
 				
 			End for each 

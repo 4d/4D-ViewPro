@@ -6,39 +6,26 @@ OK := ***vp_isReady*** ( vpAreaName ; command )
 <- OK (Boolean)
 ________________________________________________________
 */
+#DECLARE($area : Text; $commandName : Text) : Boolean
 
-C_BOOLEAN:C305($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
+If (False:C215)
+	C_TEXT:C284(vp_isReady; $1)
+	C_TEXT:C284(vp_isReady; $2)
+	C_BOOLEAN:C305(vp_isReady; $0)
+End if 
 
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($commandName; $area)
+var $success : Boolean
+var $o : Object
 
-// ----------------------------------------------------
-// Initialisations
-$nbParameters:=Count parameters:C259
-
-If (Asserted:C1132($nbParameters>=2; "Missing parameter"))
-	
-	//Required parameters
-	$area:=$1
-	$commandName:=$2
-	
-	
-Else 
+If (Not:C34(Asserted:C1132(Count parameters:C259>=2; "Missing parameter")))
 	
 	ABORT:C156
 	
 End if 
 
-// ----------------------------------------------------
+$o:=vp_getAreaVariable($area)
 
-C_OBJECT:C1216($obj)
-$obj:=vp_getAreaVariable($area)
-
-If ($obj=Null:C1517)
-	
-	$0:=False:C215
+If ($o=Null:C1517)
 	
 	_4D THROW ERROR:C1520(New object:C1471(\
 		"component"; "4DEV"; \
@@ -48,9 +35,9 @@ If ($obj=Null:C1517)
 	
 Else 
 	
-	$0:=$obj.inited
+	$success:=$o.inited
 	
-	If (Not:C34($0))
+	If (Not:C34($success))
 		
 		err_THROW(New object:C1471(\
 			"code"; 5; \
@@ -59,3 +46,5 @@ Else
 		
 	End if 
 End if 
+
+return $success

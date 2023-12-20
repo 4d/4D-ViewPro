@@ -12,7 +12,7 @@
 C_OBJECT:C1216($1)
 C_OBJECT:C1216($2)
 
-C_OBJECT:C1216($ranges)
+C_OBJECT:C1216($cell)
 C_OBJECT:C1216($Obj_style)
 
 C_LONGINT:C283($nbParameters)
@@ -33,17 +33,17 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$ranges:=$1
-		$area:=$ranges.area
+		$cell:=$1
+		$area:=$cell.area
 		
 		If (vp_isReady($area; Current method name:C684))
 			
 			$Obj_style:=vp_convert_to_stylesheet($2)
 			
-			If (Value type:C1509($ranges.ranges)=Is collection:K8:32)
+			If (Value type:C1509($cell.ranges)=Is collection:K8:32)
 				C_OBJECT:C1216($params)
 				$params:=New object:C1471()
-				$params.ranges:=$ranges.ranges
+				$params.ranges:=$cell.ranges
 				$params.style:=$Obj_style
 				vp_runCommand($area; "set-cell-style"; $params)
 				

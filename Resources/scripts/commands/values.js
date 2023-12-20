@@ -146,8 +146,10 @@
             let hasSeconds = ('seconds' in value) && (typeof (value.seconds) === 'number');
             let hasMinutes = ('minutes' in value) && (typeof (value.minutes) === 'number');
             let hasHours = ('hours' in value) && (typeof (value.hours) === 'number');
-
-            if (hasDay && hasMonth && hasYear && !hasSeconds && !hasMinutes && !hasHours) {
+            
+            if (!hasDay && !hasMonth && !hasYear && !hasSeconds && !hasMinutes && !hasHours) {
+                ret = value;
+            } else if (hasDay && hasMonth && hasYear && !hasSeconds && !hasMinutes && !hasHours) {
                 if (value.year != 0 || value.month != 0 || value.day != 0) {
                     ret = { 
                         'value': new Date(value.year, value.month - 1, value.day)
@@ -276,28 +278,27 @@
         Utils.needToUpdateFormulaBar = true;
     });
 
-    function convertValueTo4D(value) {
-
-        if ((value != null) && (value.constructor === Date)) {
-            ret = {};
-
-            let day = value.getDate();
-            let month = value.getMonth();
-            let year = value.getFullYear();
-
-            ret.date = { 'day': day, 'month': month + 1, 'year': year };
-
-            let hours = value.getHours();
-            let minutes = value.getMinutes();
-            let seconds = value.getSeconds();
-
-            ret.time = (hours * 3600) + (minutes * 60) + seconds;
-
-            return ret;
-        }
-        else
-            return value;
-    }
+	function convertValueTo4D(value) {
+		if (value === null) return null;
+		if (value.constructor === Date) {
+			ret = {};
+			
+			let day = value.getDate();
+			let month = value.getMonth();
+			let year = value.getFullYear();
+			
+			ret.date = { 'day': day, 'month': month + 1, 'year': year };
+			
+			let hours = value.getHours();
+			let minutes = value.getMinutes();
+			let seconds = value.getSeconds();
+			
+			ret.time = (hours * 3600) + (minutes * 60) + seconds;
+			
+			return ret;
+		} 
+		return value;
+	}
 
     Utils.addCommand('get-value', function (params) {
 

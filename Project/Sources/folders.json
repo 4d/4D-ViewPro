@@ -1,15 +1,25 @@
 {
-	"4DVP": {
-		"groups": [
-			"API",
-			"convert",
-			"err callback",
-			"objectOrientedAPI",
-			"private",
-			"svg_utilities"
+	"# 🚧 DEV": {
+		"methods": [
+			"FEATURES",
+			"vp_objectToFormula"
+		],
+		"forms": [
+			"TESTS"
+		],
+		"classes": [
+			"__range",
+			"_cell",
+			"_column",
+			"_feature",
+			"_range",
+			"_vp",
+			"_workbook",
+			"sheetOptions",
+			"workbookOptions"
 		]
 	},
-	"API": {
+	"#️⃣ API": {
 		"groups": [
 			"clipboard",
 			"data context",
@@ -32,14 +42,13 @@
 			"COMPILER_API"
 		]
 	},
-	"build": {
-		"methods": [
-			"build_localizationFiles",
-			"COMPILER_build",
-			"sortObject"
+	"♻️ LIBRAIRIES": {
+		"groups": [
+			"err",
+			"rgx"
 		]
 	},
-	"classes": {
+	"👥 NAMESPACE": {
 		"classes": [
 			"LineBorder",
 			"TableColumn",
@@ -47,6 +56,20 @@
 			"TableStyle",
 			"TableTheme",
 			"TableThemeOptions"
+		]
+	},
+	"📦 COMPONENT": {
+		"groups": [
+			"convert",
+			"err callback",
+			"objectOrientedAPI",
+			"private",
+			"svg_utilities"
+		]
+	},
+	"🛠️ Tools": {
+		"methods": [
+			"build_localizationFiles"
 		]
 	},
 	"clipboard": {
@@ -133,12 +156,6 @@
 			"VP ON EVENT"
 		]
 	},
-	"lib": {
-		"groups": [
-			"err",
-			"rgx"
-		]
-	},
 	"names": {
 		"methods": [
 			"VP ADD FORMULA NAME",
@@ -176,7 +193,7 @@
 			"vp_endInit",
 			"vp_eventsCallback",
 			"vp_fillStorage",
-			"vp_flush",
+			"vp_FLUSH",
 			"vp_get_picture",
 			"vp_getAllowedMethods",
 			"vp_getAreaVariable",

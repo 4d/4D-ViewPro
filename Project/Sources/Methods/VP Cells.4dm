@@ -7,100 +7,69 @@
 // ----------------------------------------------------
 // Description: Create a target for a range of cells
 // ----------------------------------------------------
-// ----- Declarations
-
-C_OBJECT:C1216($0)
-C_TEXT:C284($1)
-C_LONGINT:C283($2)
-C_LONGINT:C283($3)
-C_LONGINT:C283($4)
-C_LONGINT:C283($5)
-C_LONGINT:C283($6)
-
-C_TEXT:C284($area)
-C_LONGINT:C283($column)
-C_LONGINT:C283($row)
-C_LONGINT:C283($Lon_columnCount)
-C_LONGINT:C283($Lon_rowCount)
-C_LONGINT:C283($sheet)
-C_LONGINT:C283($nbParameters)
+#DECLARE($area : Text; $column : Integer; $row : Integer; $columnCount : Integer; $rowCount : Integer; $sheet : Integer) : Object
 
 If (False:C215)
-	C_OBJECT:C1216(VP Cells; $0)
 	C_TEXT:C284(VP Cells; $1)
 	C_LONGINT:C283(VP Cells; $2)
 	C_LONGINT:C283(VP Cells; $3)
 	C_LONGINT:C283(VP Cells; $4)
 	C_LONGINT:C283(VP Cells; $5)
 	C_LONGINT:C283(VP Cells; $6)
+	C_OBJECT:C1216(VP Cells; $0)
 End if 
 
-If (vp_initStorage)
+var $target; $ranges : Object
+
+If (Not:C34(vp_initStorage))
 	
-	$nbParameters:=Count parameters:C259
-	
-	err_TRY
-	
-	If (Check_parameters_count(5; $nbParameters))
-		
-		$area:=$1
-		$column:=$2
-		$row:=$3
-		$Lon_columnCount:=$4
-		$Lon_rowCount:=$5
-		
-		If ($column<0)
-			err_THROW(New object:C1471("code"; 13))
-		Else 
-			If ($row<0)
-				err_THROW(New object:C1471("code"; 14))
-			Else 
-				If ($Lon_columnCount<1)
-					err_THROW(New object:C1471("code"; 15))
-				Else 
-					If ($Lon_rowCount<1)
-						err_THROW(New object:C1471("code"; 16))
-					Else 
-						
-						If ($nbParameters>5)
-							
-							$sheet:=$6
-							
-						Else 
-							
-							$sheet:=-1
-							
-						End if 
-						
-						If ($sheet<-1)
-							err_THROW(New object:C1471("code"; 17))
-						Else 
-							
-							C_OBJECT:C1216($ranges)
-							
-							$ranges:=New object:C1471(\
-								"column"; $column; \
-								"row"; $row; \
-								"columnCount"; $Lon_columnCount; \
-								"rowCount"; $Lon_rowCount)
-							
-							If ($sheet#-1)
-								$ranges.sheet:=$sheet
-							End if 
-							
-							$0:=New object:C1471(\
-								"area"; $area; \
-								"ranges"; New collection:C1472($ranges))
-							
-							vp_addRangeFormulas($0)
-							
-						End if 
-					End if 
-				End if 
-			End if 
-		End if 
-	End if 
-	
-	err_FINALLY
+	return 
 	
 End if 
+
+$sheet:=Count parameters:C259<6 ? -1 : $sheet
+
+err_TRY
+
+Case of 
+		
+		//______________________________________________________
+	: (Not:C34(Check_parameters_count(5; Count parameters:C259)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	: ($column<0)
+		
+		err_THROW({code: 13})
+		
+		//______________________________________________________
+	: ($row<0)
+		
+		err_THROW({code: 14})
+		
+		//______________________________________________________
+	: ($columnCount<0)
+		
+		err_THROW({code: 15})
+		
+		//______________________________________________________
+	: ($rowCount<0)
+		
+		err_THROW({code: 16})
+		
+		//______________________________________________________
+	: ($sheet<-1)
+		
+		err_THROW({code: 17})
+		
+		//______________________________________________________
+	Else 
+		
+		$target:=cs:C1710.__range.new($area; $ranges)
+		
+		//______________________________________________________
+End case 
+
+err_FINALLY
+
+return $target

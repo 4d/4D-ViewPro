@@ -7,123 +7,150 @@
 // ----------------------------------------------------
 // Description: Set the values of a range
 // ----------------------------------------------------
-// ----- Declarations
-
-C_OBJECT:C1216($1)
-C_COLLECTION:C1488($2)
+#DECLARE($ranges : Object; $values : Collection)
 
 If (False:C215)
 	C_OBJECT:C1216(VP SET VALUES; $1)
 	C_COLLECTION:C1488(VP SET VALUES; $2)
 End if 
 
-C_LONGINT:C283($nbParameters)
-C_OBJECT:C1216($ranges)
-C_COLLECTION:C1488($Obj_values)
-C_TEXT:C284($area)
+var $date : Date
+var $column; $row; $type : Integer
+var $time : Time
+var $v
+var $params : Object
+var $c : Collection
 
-If (vp_initStorage)
+If (Not:C34(vp_initStorage))
 	
-	$nbParameters:=Count parameters:C259
-	
-	err_TRY
-	
-	If (Check_parameters_count(2; $nbParameters))
-		
-		$ranges:=$1
-		$Obj_values:=$2
-		
-		$area:=$ranges.area
-		
-		If (vp_isReady($area; Current method name:C684))
-			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471()
-			
-			If (Value type:C1509($Obj_values)=Is collection:K8:32)
-				
-				$params.value:=New collection:C1472
-				C_LONGINT:C283($row; $col)
-				
-				For ($row; 0; $Obj_values.length-1)
-					
-					If (Value type:C1509($Obj_values[$row])=Is collection:K8:32)
-						
-						C_COLLECTION:C1488($colCollection)
-						$colCollection:=New collection:C1472
-						
-						For ($col; 0; $Obj_values[$row].length-1)
-							
-							C_DATE:C307($date)
-							C_TIME:C306($time)
-							
-							C_LONGINT:C283($Lon_type)
-							$Lon_type:=Value type:C1509($Obj_values[$row][$col])
-							
-							C_OBJECT:C1216($val)
-							$val:=New object:C1471("value"; Null:C1517)
-							
-							Case of 
-								: (($Lon_type=Is boolean:K8:9) | ($Lon_type=Is text:K8:3) | ($Lon_type=Is real:K8:4))
-									$val.value:=$Obj_values[$row][$col]
-								: ($Lon_type=Is date:K8:7)
-									$val.value:=New object:C1471()
-									$date:=Date:C102($Obj_values[$row][$col])
-									$val.value.day:=Day of:C23($date)
-									$val.value.month:=Month of:C24($date)
-									$val.value.year:=Year of:C25($date)
-								: ($Lon_type=Is object:K8:27)
-									
-									$Lon_type:=Value type:C1509($Obj_values[$row][$col].value)
-									Case of 
-										: (($Lon_type=Is boolean:K8:9) | ($Lon_type=Is text:K8:3) | ($Lon_type=Is real:K8:4))
-											$val.value:=$Obj_values[$row][$col].value
-										: ($Lon_type=Is date:K8:7)
-											$val.value:=New object:C1471()
-											$date:=Date:C102($Obj_values[$row][$col].value)
-											$val.value.day:=Day of:C23($date)
-											$val.value.month:=Month of:C24($date)
-											$val.value.year:=Year of:C25($date)
-									End case 
-									
-									If (Value type:C1509($Obj_values[$row][$col].time)=Is real:K8:4)
-										
-										If ($val.value=Null:C1517)
-											$val.value:=New object:C1471()
-										End if 
-										
-										If (Value type:C1509($val.value)=Is object:K8:27)
-											$time:=Time:C179($Obj_values[$row][$col].time)
-											$val.value.hours:=$time\3600
-											$val.value.minutes:=($time%3600)\60
-											$val.value.seconds:=$time%60
-										End if 
-									End if 
-							End case 
-							
-							$colCollection.push($val.value)
-							
-						End for 
-						
-						$params.value.push($colCollection)
-					Else 
-						$params.value.push(Null:C1517)
-					End if 
-				End for 
-				
-				If (OB Is defined:C1231($params; "value"))
-					
-					If (Value type:C1509($ranges.ranges)=Is collection:K8:32)
-						$params.ranges:=$ranges.ranges
-						
-						vp_runCommand($area; "set-values"; $params)
-						
-					End if 
-				End if 
-			End if 
-		End if 
-	End if 
-	
-	err_FINALLY
+	return 
 	
 End if 
+
+err_TRY
+
+Case of 
+		
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+	: (Not:C34(Check_parameters_count(1; Count parameters:C259)))
+		
+		// <NOTHING MORE TO DO>
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+	: (Value type:C1509($ranges.area)#Is text:K8:3)
+		
+		// FIXME:ERROR
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+	: (Not:C34(vp_isReady($ranges.area; Current method name:C684)))
+		
+		// <NOTHING MORE TO DO>
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+	: (Value type:C1509($ranges.ranges)#Is collection:K8:32)
+		
+		// FIXME:ERROR
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+	Else 
+		
+		$params:={\
+			ranges: $ranges.ranges; \
+			value: []\
+			}
+		
+		$params.value.resize($values.length)
+		
+		For ($row; 0; $values.length-1; 1)
+			
+			If (Value type:C1509($values[$row])#Is collection:K8:32)
+				
+				continue
+				
+			End if 
+			
+			$c:=[]
+			
+			For ($column; 0; $values[$row].length-1; 1)
+				
+				$v:=Null:C1517
+				$type:=Value type:C1509($values[$row][$column])
+				
+				Case of 
+						
+						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+					: (($type=Is boolean:K8:9)\
+						 | ($type=Is text:K8:3)\
+						 | ($type=Is real:K8:4))
+						
+						$v:=$values[$row][$column]
+						
+						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+					: ($type=Is date:K8:7)
+						
+						$date:=Date:C102($values[$row][$column])
+						
+						$v:={\
+							day: Day of:C23($date); \
+							month: Month of:C24($date); \
+							year: Year of:C25($date)\
+							}
+						
+						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+					: ($type=Is object:K8:27)
+						
+						$type:=Value type:C1509($values[$row][$column].value)
+						
+						Case of 
+								
+								//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+							: (($type=Is boolean:K8:9)\
+								 | ($type=Is text:K8:3)\
+								 | ($type=Is real:K8:4))
+								
+								$v:=$values[$row][$column].value
+								
+								//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+							: ($type=Is date:K8:7)
+								
+								$date:=Date:C102($values[$row][$column].value)
+								
+								$v:={\
+									day: Day of:C23($date); \
+									month: Month of:C24($date); \
+									year: Year of:C25($date)\
+									}
+								
+								//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						End case 
+						
+						If (Value type:C1509($values[$row][$column].time)=Is real:K8:4)
+							
+							$v:=$v || {}
+							
+							If (Value type:C1509($v)=Is object:K8:27)
+								
+								$time:=Time:C179($values[$row][$column].time)
+								
+								$v.hours:=$time\3600
+								$v.minutes:=($time%3600)\60
+								$v.seconds:=$time%60
+								
+							End if 
+						End if 
+						
+						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+				End case 
+				
+				// FIXME:Et le format ?
+				
+				$c.push($v)
+				
+			End for 
+			
+			$params.value[$row]:=$c
+			
+		End for 
+		
+		vp_runCommand($ranges.area; "set-values"; $params)
+		
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+End case 
+
+err_FINALLY

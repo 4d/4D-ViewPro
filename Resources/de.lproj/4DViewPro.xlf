@@ -27,7 +27,7 @@ This file is distributed under the same license as the product package.-->
           <source>The file "{name}" is not a valid 4D View Pro file.</source>
           <target>Die Datei "{name}" ist keine gültige 4D View Pro-Datei.</target>
         </trans-unit>
-		<trans-unit id="16" resname="ERR_4DVP_8">
+		      <trans-unit id="16" resname="ERR_4DVP_8">
           <source>Cannot create file "{name}".</source>
           <target>Datei "{name}"kann nicht erstellt werden.</target>
         </trans-unit>
@@ -41,7 +41,7 @@ Der Befehl "{command}" kann nicht angewendet werden.</target>
           <source>Cannot import file "{name}".</source>
           <target>Datei "{name}"kann nicht importiert werden.</target>
         </trans-unit>
-		<trans-unit id="19" resname="ERR_4DVP_9">
+		      <trans-unit id="19" resname="ERR_4DVP_9">
           <source>Property "area" is missing.</source>
           <target>Eigenschaft "area" fehlt.</target>
         </trans-unit>
@@ -81,7 +81,7 @@ Der Befehl "{command}" kann nicht angewendet werden.</target>
           <source>Name should not be an empty string.</source>
           <target>Name sollte keine leerer String sein.</target>
         </trans-unit>
-		    <trans-unit id="29" resname="ERR_4DVP_19">
+		      <trans-unit id="29" resname="ERR_4DVP_19">
           <source>Sheet index should not be greater than or equal to the number of sheets.</source>
           <target>Der Seitenindex sollte nicht größer oder gleich der Anzahl der Seiten sein.</target>
         </trans-unit>

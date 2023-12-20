@@ -6,16 +6,9 @@
 // Created #03-06-2019 by Francois Marchal
 // ----------------------------------------------------
 // Description:
+// Returns the active cell object
 // ----------------------------------------------------
-// ----- Declarations
-
-C_TEXT:C284($1)
-C_OBJECT:C1216($0)
-C_LONGINT:C283($2)
-
-C_TEXT:C284($area)
-C_LONGINT:C283($nbParameters)
-C_LONGINT:C283($sheet)
+#DECLARE($area : Text; $sheet : Integer) : cs:C1710._cell
 
 If (False:C215)
 	C_TEXT:C284(VP Get active cell; $1)
@@ -23,35 +16,42 @@ If (False:C215)
 	C_OBJECT:C1216(VP Get active cell; $0)
 End if 
 
-If (vp_initStorage)
+var $cell; $o : Object
+
+If (Not:C34(vp_initStorage))
 	
-	$nbParameters:=Count parameters:C259
-	
-	err_TRY
-	
-	If (Check_parameters_count(1; $nbParameters))
-		
-		$area:=$1
-		
-		If ($nbParameters>1)
-			$sheet:=$2
-		Else 
-			$sheet:=-1
-		End if 
-		
-		If (vp_isReady($area; Current method name:C684))
-			
-			C_OBJECT:C1216($ret; $params)
-			$params:=New object:C1471("sheetIndex"; $sheet)
-			$ret:=vp_runFunction($area; "get-active-cell"; $params)
-			
-			If (Value type:C1509($ret.column)=Is real:K8:4)
-				$0:=VP Cell($area; $ret.column; $ret.row; $ret.sheetIndex)
-			End if 
-			
-		End if 
-	End if 
-	
-	err_FINALLY
+	return 
 	
 End if 
+
+$sheet:=Count parameters:C259<2 ? -1 : $sheet
+
+err_TRY
+
+Case of 
+		
+		//______________________________________________________
+	: (Not:C34(Check_parameters_count(1; Count parameters:C259)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	: (Not:C34(vp_isReady($area; Current method name:C684)))
+		
+		// <NOTHING MORE TO DO>
+		//______________________________________________________
+	Else 
+		
+		$o:=vp_runFunction($area; "get-active-cell"; {sheetIndex: $sheet})
+		
+		If (Value type:C1509($o.column)=Is real:K8:4)
+			
+			$cell:=cs:C1710._cell.new($area; $o.column; $o.row; $o.sheetIndex)
+			
+		End if 
+		
+		//______________________________________________________
+End case 
+
+err_FINALLY
+
+return $cell
