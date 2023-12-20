@@ -28,4 +28,7 @@ If (Feature=Null:C1517)
 	// FIXME:R4
 	Feature.unstable("SET_OBJECTS")
 	
+	// MARK:-🚧 Main only
+	Feature.main("OBJECT_API")
+	
 End if 
