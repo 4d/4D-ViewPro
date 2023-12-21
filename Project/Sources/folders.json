@@ -69,7 +69,13 @@
 	},
 	"🛠️ Tools": {
 		"methods": [
-			"build_localizationFiles"
+			"build_localizationFiles",
+			"mergeResources",
+			"sortObject"
+		],
+		"forms": [
+			"actualVersionResourcesBuilder",
+			"newVersionResourcesBuilder"
 		]
 	},
 	"clipboard": {
