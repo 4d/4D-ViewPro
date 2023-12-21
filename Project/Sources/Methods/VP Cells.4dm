@@ -19,7 +19,7 @@ If (False:C215)
 	C_OBJECT:C1216(VP Cells; $0)
 End if 
 
-var $target; $ranges : Object
+var $range : cs:C1710._range
 
 If (Not:C34(vp_initStorage))
 	
@@ -65,11 +65,11 @@ Case of
 		//______________________________________________________
 	Else 
 		
-		$target:=cs:C1710.__range.new($area; $ranges)
+		$range:=cs:C1710._range.new($area; $column; $row; $columnCount; $rowCount; $sheet)
 		
 		//______________________________________________________
 End case 
 
 err_FINALLY
 
-return $target
+return $range
