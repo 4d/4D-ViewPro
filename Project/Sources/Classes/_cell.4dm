@@ -25,10 +25,13 @@ Class constructor($area : Text; $column : Integer; $row : Integer; $sheet : Inte
 	
 	This:C1470.range:=$range
 	
-	// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
+/*
+// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
+// Avoid getter and setter which are not well handled by WA EXECUTE JAVASCRIPT FUNCTION
 Function get reference() : Text
 	
-	return This:C1470.getReference()
+return This.getReference()
+*/
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === ===
 Function getReference($options : Object) : Text

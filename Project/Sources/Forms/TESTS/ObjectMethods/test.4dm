@@ -99,7 +99,7 @@ Case of
 			ob: {toto: "Hello World"; number: 24}})
 		
 		// On the same line
-		$vp.cell($cell.ranges[0].column+1; $cell.ranges[0].row).setFormula("="+$cell.reference+".ob.number*2")
+		$vp.cell($cell.ranges[0].column+1; $cell.ranges[0].row).setFormula("="+$cell.getReference()+".ob.number*2")
 		
 		// $o:=vp_runFunction($vp.area; "Utils.updateFormulaBar")
 		
