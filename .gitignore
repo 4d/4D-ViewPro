@@ -77,6 +77,7 @@ Libraries/lib4d-arm64.dylib
 # Added by user
 #--------------------------------
 Resources/*.lproj/*.min.js
+Resources/*.lproj/designer_localization_resources.*.js
 Resources/*.lproj/syntax*.json
 Resources/SpreadJS/*
 Resources/ui/ribbon/lib/css/*
