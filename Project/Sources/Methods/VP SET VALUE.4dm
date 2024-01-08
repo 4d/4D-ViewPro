@@ -99,7 +99,6 @@ Case of
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 				//: (Feature.with("SET_OBJECTS"))\
 					 && ($type=Is undefined)  // Object
-				
 				//VP SET FORMULA($cell; "="+vp_objectToFormula($value))
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
