@@ -119,4 +119,7 @@ customDesignerFunctions.init = function () {
    moduleInsertFunctionDialog.insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[12].items = customDesignerFunctions.getCustomFunctionsList();
   moduleInsertFunctionDialog.insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[0].items = moduleSupportedFunctions.allFunctionItems;
   */
+
+   // add custom functions to the custom section of the insert function dialog
+   vp_insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[12].items = customDesignerFunctions.getCustomFunctionsList();
 }
