@@ -68,6 +68,11 @@ Function setValue($value; $format : Text)
 			$o.time:=Num:C11($value)
 			
 			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+		: ($type=Is null:K8:31)
+			
+			$o.value:=$value
+			
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 		Else 
 			
 			ASSERT:C1129(False:C215; "unmanaged value type")

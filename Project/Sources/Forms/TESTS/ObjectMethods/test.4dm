@@ -19,6 +19,11 @@ Case of
 		METHOD OPEN PATH:C1213("[projectForm]/TESTS/test")
 		
 		//______________________________________________________
+	: (True:C214)  // Set current cell value as Null
+		
+		$cell.setValue(Null:C1517)
+		
+		//______________________________________________________
 	: (True:C214)
 		
 		If (Shift down:C543)
