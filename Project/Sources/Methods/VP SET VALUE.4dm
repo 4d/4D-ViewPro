@@ -97,10 +97,10 @@ Case of
 				// <NOTHING MORE TO DO>
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
-			: (Feature.with("SET_OBJECTS"))\
-				 && ($type=Is undefined:K8:13)  // Object
+				//: (Feature.with("SET_OBJECTS"))\
+					 && ($type=Is undefined)  // Object
 				
-				VP SET FORMULA($cell; "="+vp_objectToFormula($value))
+				//VP SET FORMULA($cell; "="+vp_objectToFormula($value))
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 			Else 
