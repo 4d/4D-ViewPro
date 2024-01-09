@@ -1,18 +1,12 @@
 //%attributes = {}
-var $platformPath; $t; $version : Text
-var $log : Object
-var $c : Collection
-var $file : 4D:C1709.File
-var $distribution; $new; $old; $src; $tgt; $workFolder : 4D:C1709.Folder
 
-$log:={\
+var $log : Object:={\
 errors: []; \
 warnings: []\
 }
 
-
 // Mark:-Preparing the work folder
-$workFolder:=Folder:C1567(fk desktop folder:K87:19).folder("SJS_WORK_Folder")
+var $workFolder : 4D:C1709.Folder:=Folder:C1567(fk desktop folder:K87:19).folder("SJS_WORK_Folder")
 
 If ($workFolder.exists)
 	
@@ -32,12 +26,12 @@ End if
 
 MESSAGE:C88("Copy distribution to working folder")
 
-$distribution:=Folder:C1567($platformPath; fk platform path:K87:2).copyTo($workFolder; fk overwrite:K87:5)
+var $distribution : 4D:C1709.Folder:=Folder:C1567($platformPath; fk platform path:K87:2).copyTo($workFolder; fk overwrite:K87:5)
 
-$c:=Split string:C1554($distribution.fullName; " ")
-$version:=$c.last()
+var $c : Collection:=Split string:C1554($distribution.fullName; " ")
+var $version : Text:=$c.last()
 
-$platformPath:=Select folder:C670("Select the current \"/4eDimension/ThirdParty/SpreadJS\" folder"; ""; Use sheet window:K24:11)
+var $platformPath : Text:=Select folder:C670("Select the current \"/4eDimension/ThirdParty/SpreadJS\" folder"; ""; Use sheet window:K24:11)
 
 If (OK=0)
 	
@@ -47,14 +41,12 @@ End if
 
 MESSAGE:C88("Preparing old and new folders")
 
-$old:=Folder:C1567($platformPath; fk platform path:K87:2).copyTo($workFolder; "SpreadJS old version"; fk overwrite:K87:5)
-$new:=$old.copyTo($workFolder; "SpreadJS new version"; fk overwrite:K87:5)
-
+var $old : 4D:C1709.Folder:=Folder:C1567($platformPath; fk platform path:K87:2).copyTo($workFolder; "SpreadJS old version"; fk overwrite:K87:5)
+var $new : 4D:C1709.Folder:=$old.copyTo($workFolder; "SpreadJS new version"; fk overwrite:K87:5)
 
 // Mark:-Copy new files - SpreadJS folder
-$src:=$distribution.folder("SpreadJS")
-
-$tgt:=$new.folder("SpreadJS")
+var $src : 4D:C1709.Folder:=$distribution.folder("SpreadJS")
+var $tgt : 4D:C1709.Folder:=$new.folder("SpreadJS")
 
 $tgt.folder("css").delete(Delete with contents:K24:24)
 $tgt.folder("definition").delete(Delete with contents:K24:24)
@@ -64,6 +56,7 @@ $tgt.folder("scripts").create()
 $src.folder("css").copyTo($tgt)
 $src.folder("definition").copyTo($tgt)
 
+var $t : Text
 For each ($t; [\
 "scripts/gc.spread.sheets.all."+$version+".js"; \
 "scripts/gc.spread.sheets.all."+$version+".min.js"\
@@ -104,7 +97,6 @@ $src.folder("scripts/resources").copyTo($tgt.folder("scripts"))
 $src.file("LICENSE").copyTo($tgt; fk overwrite:K87:5)
 $src.file("SPREADJS-EULA.pdf").copyTo($tgt; fk overwrite:K87:5)
 
-
 // Mark:-Copy new files - Designer folder
 $src:=$distribution.folder("Designer/Designer Component")
 $tgt:=$new.folder("Designer")
@@ -139,14 +131,13 @@ End for each
 
 $src.file("README.md").copyTo($tgt; fk overwrite:K87:5)
 
-
 // Mark:-Standardizing file names
+var $file : 4D:C1709.File
 For each ($file; $new.files(fk recursive:K87:7).query("fullName = :1"; "@"+$version+"@"))
 	
 	$file.rename(Replace string:C233($file.name; "."+$version; "")+$file.extension)
 	
 End for each 
-
 
 //mark:-Prepare designer.all
 $file:=$new.file("Designer/scripts/gc.spread.sheets.designer.all.js")
@@ -161,9 +152,7 @@ Else
 	
 End if 
 
-
 // Mark:-Compare with old repo
-
 $c:=$old.files(fk recursive:K87:7)
 
 For each ($file; $new.files(fk recursive:K87:7+fk ignore invisible:K87:22))
@@ -193,7 +182,6 @@ For each ($file; $old.files(fk recursive:K87:7+fk ignore invisible:K87:22))
 End for each 
 
 // Mark:-Resume
-
 If ($log.errors.length>0)\
  | ($log.warnings.length>0)
 	
