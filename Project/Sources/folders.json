@@ -70,7 +70,9 @@
 	"🛠️ Tools": {
 		"methods": [
 			"build_localizationFiles",
+			"COMPILER_Tools",
 			"mergeResources",
+			"newVersionFilesPreparations",
 			"sortObject"
 		],
 		"forms": [
