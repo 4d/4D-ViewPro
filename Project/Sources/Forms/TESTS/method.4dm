@@ -8,6 +8,11 @@ Case of
 		//______________________________________________________
 	: ($e.code=On Load:K2:1)
 		
+		FEATURES
+		
+		WA SET PREFERENCE:C1041(*; "ViewProArea"; WA enable contextual menu:K62:6; True:C214)
+		WA SET PREFERENCE:C1041(*; "ViewProArea"; WA enable Web inspector:K62:7; True:C214)
+		
 		$ƒ.vp:=cs:C1710._vp.new("ViewProArea")
 		
 		var $functions : Object
