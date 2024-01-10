@@ -11,8 +11,7 @@ var Feature : cs:C1710._feature
 If (Feature=Null:C1517)
 	
 	var $version : Integer
-	
-	$version:=2040  // 20R4
+	$version:=2050  // 20R5
 	
 	If ($version>Num:C11(Application version:C493()))
 		
