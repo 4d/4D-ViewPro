@@ -61,7 +61,7 @@ customDesignerFunctions.spreadFrom4vp = function (data) {
 }
 
 customDesignerFunctions.spreadTo4vp = function (data) {
-  // Utils.addFormatedText(data);
+  Utils.addFormatedText(data);
   var vpFile = {};
   vpFile.version = 1;
   var d = new Date;
