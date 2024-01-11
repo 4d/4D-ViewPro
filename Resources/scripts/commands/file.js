@@ -122,7 +122,7 @@ Utils.addCommand('export-json', function (params) {
     storeIncludeFormatInfo = params.includeFormatInfo;
 
   if (storeIncludeFormatInfo) {
-//    Utils.addFormatedText(doc.spreadJS);
+    Utils.addFormatedText(doc.spreadJS);
   }
 
   return doc;
@@ -382,14 +382,16 @@ Utils.addFormatedText = function (json) {
   let longDatePattern = GC.Spread.Common.CultureManager.getCultureInfo().DateTimeFormat.defaultDatePattern;
   let shortDatePattern = GC.Spread.Common.CultureManager.getCultureInfo().DateTimeFormat.shortDatePattern;
 
-  var _getWrapInfo = GC.Spread.Sheets.Vn.Wn;
-  var _SJSGetWordWrapInfo = GC.Spread.Sheets.Vn.M_a;
-  var _getFontHeight = GC.Spread.Sheets.util.fp;
-  var _measureTextWidth = GC.Spread.Sheets.util.pL;
-  var _getCtx = GC.Spread.Sheets.Vn.bm;
-  var _setContextFont = GC.Spread.Sheets.util.lZa;
-  var _getRotateTextWordWrapWidth = GC.Spread.Sheets.Vn.mHb;
-  var _getFontObject = GC.Spread.Sheets.util.Pxb;
+// _WordWrapHelper
+var _getWrapInfo = GC.Spread.Sheets.q.un;
+var _SJSGetWordWrapInfo = GC.Spread.Sheets.q.Ht;
+var _getCtx = GC.Spread.Sheets.q.J;
+
+var _getFontHeight = GC.Spread.Sheets.util.vt;
+var _getFontObject = GC.Spread.Sheets.util._0;
+var _measureTextWidth = GC.Spread.Sheets.util.Mt;
+var _setContextFont = GC.Spread.Sheets.util.bt;
+
 
   let wordWrap = null;
   let font = null;
