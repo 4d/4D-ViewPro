@@ -32,7 +32,7 @@ err_TRY
 Case of 
 		
 		//______________________________________________________
-	: (Not:C34(Check_parameters_count(1; Count parameters:C259)))
+	: (Not:C34(Check_parameters_count(2; Count parameters:C259)))
 		
 		// <NOTHING MORE TO DO>
 		//______________________________________________________
@@ -98,7 +98,7 @@ Case of
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 				//: (Feature.with("SET_OBJECTS"))\
-					 && ($type=Is undefined)  // Object
+										 && ($type=Is undefined)  // Object
 				//VP SET FORMULA($cell; "="+vp_objectToFormula($value))
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
