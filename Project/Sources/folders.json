@@ -72,12 +72,14 @@
 			"build_localizationFiles",
 			"COMPILER_Tools",
 			"mergeResources",
-			"newVersionFilesPreparations",
 			"sortObject"
 		],
 		"forms": [
 			"actualVersionResourcesBuilder",
-			"newVersionResourcesBuilder"
+			"NEW_VERSION_WIZARD",
+			"newVersionResourcesBuilder",
+			"PREPARATION",
+			"RESSOURCES_BUILDER"
 		]
 	},
 	"clipboard": {

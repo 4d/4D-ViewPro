@@ -1,0 +1,144 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [
+		"onLoad",
+		"onPageChange",
+		"onValidate",
+		"onClick",
+		"onDoubleClick",
+		"onOutsideCall",
+		"onBeginDragOver",
+		"onDragOver",
+		"onDrop",
+		"onAfterKeystroke",
+		"onMenuSelect",
+		"onPluginArea",
+		"onAfterEdit",
+		"onTimer",
+		"onBoundVariableChange"
+	],
+	"windowTitle": "window title",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"Texte": {
+					"type": "text",
+					"text": "Select the folder containing the new version sent by GrapeCity",
+					"top": 98,
+					"left": 10,
+					"width": 823,
+					"height": 15,
+					"fontWeight": "bold",
+					"sizingX": "grow"
+				},
+				"Bouton": {
+					"type": "button",
+					"text": "Start…",
+					"top": 126,
+					"left": 10,
+					"width": 76,
+					"height": 22,
+					"events": [
+						"onClick"
+					],
+					"method": "ObjectMethods/Bouton.4dm",
+					"focusable": false
+				},
+				"Texte2": {
+					"type": "text",
+					"text": "Prepares a working folder named \"SJS_WORK_Folder\" on the desktop, deleting/recopying folders/files and normalizing names, as well as copying the file \"gc.spread.sheets.designer.all.js\" into the \"Designer.custom/scripts\" directory.",
+					"top": 8,
+					"left": 10,
+					"width": 828,
+					"height": 71,
+					"fontSize": 12,
+					"fontStyle": "italic"
+				},
+				"Line": {
+					"type": "line",
+					"top": 89,
+					"left": 10,
+					"width": 828,
+					"height": 0,
+					"stroke": "#c0c0c0",
+					"sizingX": "grow"
+				},
+				"distribution": {
+					"type": "input",
+					"left": 108,
+					"top": 129,
+					"width": 730,
+					"height": 17,
+					"enterable": false,
+					"fill": "transparent",
+					"borderStyle": "none",
+					"sizingX": "grow",
+					"focusable": true,
+					"contextMenu": "automatic"
+				},
+				"status": {
+					"type": "input",
+					"left": 10,
+					"top": 67,
+					"width": 828,
+					"height": 17,
+					"enterable": false,
+					"fill": "transparent",
+					"borderStyle": "none",
+					"sizingX": "grow",
+					"textAlign": "center",
+					"stroke": "#1e90ff",
+					"focusable": false,
+					"contextMenu": "none"
+				},
+				"log": {
+					"type": "input",
+					"left": 10,
+					"top": 168,
+					"width": 808,
+					"height": 385,
+					"enterable": false,
+					"fill": "transparent",
+					"borderStyle": "none",
+					"sizingX": "grow",
+					"focusable": true,
+					"contextMenu": "automatic",
+					"multiline": "yes",
+					"scrollbarVertical": "automatic"
+				},
+				"Line1": {
+					"type": "line",
+					"top": 160,
+					"left": 10,
+					"width": 828,
+					"height": 0,
+					"stroke": "#c0c0c0",
+					"sizingX": "grow"
+				}
+			}
+		}
+	],
+	"geometryStamp": 317,
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	}
+}

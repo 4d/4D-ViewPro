@@ -1,4 +1,3 @@
-//%attributes = {}
 
 var $log : Object:={\
 errors: []; \
@@ -24,9 +23,11 @@ If (OK=0)
 	
 End if 
 
-MESSAGE:C88("Copy distribution to working folder")
+OBJECT SET VALUE:C1742("status"; "Copy distribution to working folder")
 
 var $distribution : 4D:C1709.Folder:=Folder:C1567($platformPath; fk platform path:K87:2).copyTo($workFolder; fk overwrite:K87:5)
+
+OBJECT SET VALUE:C1742("distribution"; $distribution.path)
 
 var $c : Collection:=Split string:C1554($distribution.fullName; " ")
 var $version : Text:=$c.last()
@@ -39,7 +40,7 @@ If (OK=0)
 	
 End if 
 
-MESSAGE:C88("Preparing old and new folders")
+OBJECT SET VALUE:C1742("status"; "Preparing old and new folders")
 
 var $old : 4D:C1709.Folder:=Folder:C1567($platformPath; fk platform path:K87:2).copyTo($workFolder; "SpreadJS old version"; fk overwrite:K87:5)
 var $new : 4D:C1709.Folder:=$old.copyTo($workFolder; "SpreadJS new version"; fk overwrite:K87:5)
@@ -207,8 +208,19 @@ If ($log.errors.length>0)\
 	
 	$workFolder.file("newVersion.log").setText($t)
 	
-	OPEN URL:C673($workFolder.file("newVersion.log").platformPath)
+	//OPEN URL($workFolder.file("newVersion.log").platformPath)
+	
+	OBJECT SET VALUE:C1742("log"; $t)
+	
+Else 
+	
+	OBJECT SET VALUE:C1742("log"; "All this was done without error nor warning :-)")
 	
 End if 
+
+Form:C1466.workFolder:=$workFolder
+Form:C1466.log:=$workFolder.file("newVersion.log")
+
+OBJECT SET VALUE:C1742("status"; "")
 
 BEEP:C151

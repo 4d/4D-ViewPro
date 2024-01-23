@@ -1,0 +1,91 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [
+		"onLoad",
+		"onSelectionChange"
+	],
+	"windowTitle": "window title",
+	"destination": "detailScreen",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"steps": {
+					"type": "listbox",
+					"left": 20,
+					"top": 17,
+					"width": 248,
+					"height": 583,
+					"events": [
+						"onSelectionChange"
+					],
+					"listboxType": "collection",
+					"dataSource": "Form:C1466.steps",
+					"currentItemSource": "Form:C1466.item",
+					"currentItemPositionSource": "Form:C1466.position",
+					"selectedItemsSource": "Form:C1466.items",
+					"selectionMode": "single",
+					"lockedColumnCount": 1,
+					"staticColumnCount": 1,
+					"horizontalLineStroke": "transparent",
+					"verticalLineStroke": "transparent",
+					"resizingMode": "legacy",
+					"sortable": false,
+					"showHeaders": false,
+					"hideFocusRing": true,
+					"scrollbarHorizontal": "hidden",
+					"scrollbarVertical": "automatic",
+					"sizingY": "grow",
+					"columns": [
+						{
+							"header": {
+								"text": "Header1",
+								"name": "Header1"
+							},
+							"name": "labels",
+							"footer": {
+								"name": "Footer1"
+							},
+							"dataSource": "This:C1470.label",
+							"enterable": false,
+							"width": 250,
+							"resizable": false
+						}
+					]
+				},
+				"detail": {
+					"type": "subform",
+					"left": 279,
+					"top": 17,
+					"width": 858,
+					"height": 584,
+					"borderStyle": "sunken",
+					"sizingY": "grow",
+					"sizingX": "grow"
+				}
+			}
+		}
+	],
+	"geometryStamp": 21,
+	"method": "method.4dm",
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	}
+}
