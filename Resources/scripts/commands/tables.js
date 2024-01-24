@@ -376,8 +376,8 @@
         if (sheet != null) {
             let table = sheet.tables.findByName(params.name);
             if (table != null) {
-                table.deleteColumns(params.column, params.count);
-            }
+                 table.deleteColumns(params.column, params.count);
+             }
         }
     });
 

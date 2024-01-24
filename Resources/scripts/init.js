@@ -148,18 +148,13 @@ document.addEventListener('DOMContentLoaded', function () {
             let culture = getCulture(obj);
 
             // get current culture name
-            let cultureName = GC.Spread.Common.CultureManager.culture();
+            let lang = vp_localizedFolder.substring(0,2);
 
-            //set infos for this culture
-            GC.Spread.Common.CultureManager.addCultureInfo(cultureName, culture);
+            //set infos for this culture, and the localized strings
+            GC.Spread.Common.CultureManager.addCultureInfo(lang, culture, vp_spreadJsResources);
+            GC.Spread.Common.CultureManager.culture(lang);
         }
-        /*
-                // call the language package to translate the command names
-                if ((vp_localizedFolder != '') && (vp_localizedFolder != 'en.lproj')) {
-                    let lang = vp_localizedFolder.substring(0, 2);
-                    GC.Spread.CalcEngine.LanguagePackages.languagePackages(lang);
-                }
-        */
+
         /*********
          * Options
          *********/
@@ -713,8 +708,8 @@ document.addEventListener('DOMContentLoaded', function () {
         Utils.spread.options.allowUserEditFormula = true;
         Utils.spread.options.enableFormulaTextbox = true;
 
-        if (vp_localizedFolder != '') {
-            let sheetName = GC.Spread.Sheets.SR[vp_localizedFolder.substring(0, 2)].SHEET_NAME;
+        if ((vp_localizedFolder !== 'ja.lproj') && (vp_localizedFolder !== 'en.lproj')) {
+            let sheetName = vp_spreadJsResources.Sheets.SHEET_NAME;
             sheetName += '1';
             sheet.name(sheetName);
         }

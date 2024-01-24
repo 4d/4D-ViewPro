@@ -82,3 +82,5 @@ Resources/*.lproj/syntax*.json
 Resources/SpreadJS/*
 Resources/ui/ribbon/lib/css/*
 Resources/ui/ribbon/lib/scripts/*
+Project/Sources/dependencies.json
+Project/Sources/dependencies 2.json
