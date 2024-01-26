@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let culture = getCulture(obj);
 
             // get current culture name
-            let lang = vp_localizedFolder.substring(0,2);
+            let lang = vp_localizedFolder.substring(0, 2);
 
             //set infos for this culture, and the localized strings
             GC.Spread.Common.CultureManager.addCultureInfo(lang, culture, vp_spreadJsResources);
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // BEGIN OF PATCH
         // patch suggested by GrapeCity team as a workaround in case CAS-33873-K8Q7D0
         // problem will be solved on their side, id is SJS-14667
-        
+
         var getValueFn = GC.Spread.Sheets.Worksheet.prototype.getValue;
         GC.Spread.Sheets.Worksheet.prototype.getValue = function () {
             var value = getValueFn.apply(this, arguments);
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             return value;
         }
-        
+
         // END OF PATCH
     }
 
@@ -393,6 +393,23 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             myFunc.prototype = new GC.Spread.CalcEngine.Functions.AsyncFunction(method.spreadJSMethod, minParams, maxParams, summary);
+            
+            let patchAcceptsReference = false;
+
+            if (method.parametersType != null) {
+                for (let i = 0; i < method.parametersType.length; i++) {
+                    if (method.parametersType[i] == 42) {
+                        patchAcceptsReference = true;
+                        break;
+                    }
+                }
+            }
+
+            if(patchAcceptsReference) {
+                myFunc.prototype.acceptsReference=function(numParameter) {
+                    return (method.parametersType[numParameter] == 42);
+                };
+            }
 
             //Set default value to "Loading..."
             myFunc.prototype.defaultValue = function () { return "Loading..."; };
@@ -466,6 +483,30 @@ document.addEventListener('DOMContentLoaded', function () {
                                 };
                             } else {
                                 args[i] = { "value": arg };
+                            }
+                            ok = true;
+                            break;
+
+                        case 42: // collection	
+                            if (arg.getRangeCount && arg.getRangeCount() > 0) {
+
+                                let ar = arg.getSource().getSheet().getArray(arg.getRow(),arg.getColumn(),arg.getRowCount(),arg.getColumnCount());
+                                
+                                ar.forEach(function (row, rowIndex) {
+                                    row.forEach(function (content, colIndex) {
+                                        if ((content != null) && (content.constructor === Date)) {
+                                            ar[rowIndex][colIndex] = convertValueTo4D(content);
+                                        }
+                                    });
+                                });
+                                
+                                args[i] = ar;
+                            } else if ((arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date)) {
+                                args[i]=[[]];
+                                args[i][0][0] = convertValueTo4D(arg);
+                            } else {
+                                args[i]=[[]];
+                                args[i][0][0] = arg;
                             }
                             ok = true;
                             break;
@@ -572,8 +613,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function installHookForNumericKeyPadDecimalSeparator()
-    {
+    function installHookForNumericKeyPadDecimalSeparator() {
         function handleKeyDown(event) {
             // Prevent the default event
             event.preventDefault();
@@ -595,23 +635,23 @@ document.addEventListener('DOMContentLoaded', function () {
         let oldActivateEditorFn = GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor;
         GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor = function (editorContext, cellStyle, cellRect, context) {
             editorContext.addEventListener("keydown", function (event) {
-                if (event.code === "NumpadDecimal" && event.type === "keydown" ) {
+                if (event.code === "NumpadDecimal" && event.type === "keydown") {
                     handleKeyDown(event);
                 }
             });
             return oldActivateEditorFn.apply(this, arguments);
         }
-    
-		// Handle the keydown on formula text box
-		let formulaTextBoxEl = document.querySelector("div[gcuielement='gcAttachedFormulaTextBox']");
-		if ( formulaTextBoxEl != null) {
+
+        // Handle the keydown on formula text box
+        let formulaTextBoxEl = document.querySelector("div[gcuielement='gcAttachedFormulaTextBox']");
+        if (formulaTextBoxEl != null) {
             formulaTextBoxEl.addEventListener("keydown", function (event) {
-	    		if (event.code === "NumpadDecimal" && event.type === "keydown" ) {
-		    		handleKeyDown(event);
-			    }
-		    })
+                if (event.code === "NumpadDecimal" && event.type === "keydown") {
+                    handleKeyDown(event);
+                }
+            })
         }
-    
+
         // Override the isReservedKey method
         let oldisReservedKeyFn = GC.Spread.Sheets.CellTypes.Text.prototype.isReservedKey;
         GC.Spread.Sheets.CellTypes.Text.prototype.isReservedKey = function (e, context) {
@@ -622,7 +662,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return true;
             }
             return oldisReservedKeyFn.apply(this, arguments);
-        }       
+        }
     }
 
 
