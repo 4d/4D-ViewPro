@@ -501,14 +501,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 });
                                 
                                 args[i] = ar;
-                            } else if ((arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date)) {
-                                args[i]=[[]];
-                                args[i][0][0] = convertValueTo4D(arg);
-                            } else {
-                                args[i]=[[]];
-                                args[i][0][0] = arg;
+                            	ok = true;
                             }
-                            ok = true;
                             break;
 
                         case -1: // standard mode, convert only dates
