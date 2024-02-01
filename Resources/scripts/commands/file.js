@@ -136,15 +136,18 @@ Utils.addCommand('export-excel', function (params) {
   if (params["includeBindingSource"] != null)
     serializationOption.includeBindingSource = params.includeBindingSource;
 
+  let tabStripVisible = Utils.spread.options.tabStripVisible;
+  Utils.spread.options.tabStripVisible = true; // export with visible tabs
   let json = Utils.spread.toJSON(serializationOption);
 
   let options = {};
   if (params["password"] != null)
     options.password = params.password;
-
+  
   var excelIO = new GC.Spread.Excel.IO();
   excelIO.save(json,
     function (blob) {
+      Utils.spread.options.tabStripVisible = tabStripVisible;
       var reader = new FileReader();
       reader.onloadend = function () {
         params.content = reader.result.substr(reader.result.indexOf(',') + 1);
@@ -153,6 +156,7 @@ Utils.addCommand('export-excel', function (params) {
       reader.readAsDataURL(blob);
     },
     function (e) {
+      Utils.spread.options.tabStripVisible = tabStripVisible;
       params.error = e;
       $4d._vp_callback(params);
     },
