@@ -21,7 +21,6 @@ If (vp_initStorage)
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216()
 			$params:=New object:C1471()
 			$params.ranges:=$cell.ranges
 			
