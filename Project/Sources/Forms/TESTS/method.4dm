@@ -34,7 +34,7 @@ Case of
 		
 		// Define the "mySum" function from a cell range
 		$functions.mySum:={\
-			formula: Formula:C1597($1.sum()); \
+			formula: Formula:C1597($1.flat(2).sum()); \
 			summary: "My sum"; \
 			parameters: [\
 			{name: "array"; type: Is collection:K8:32}\
