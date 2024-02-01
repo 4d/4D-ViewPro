@@ -47,7 +47,7 @@ function runCommand(action, params = undefined) {
     return { result: commandHandler(params), error: "" };
 
   } catch (err) {
-    return { result: null, error: err.message };
+    return { result: null, error: (typeof err === 'string') ? err: err.message };
   } finally {
     Utils.spread.resumeCalcService(false);
     //Utils.spread.resumePaint();
