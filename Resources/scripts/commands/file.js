@@ -386,15 +386,16 @@ Utils.addFormatedText = function (json) {
   let longDatePattern = GC.Spread.Common.CultureManager.getCultureInfo().DateTimeFormat.defaultDatePattern;
   let shortDatePattern = GC.Spread.Common.CultureManager.getCultureInfo().DateTimeFormat.shortDatePattern;
 
-// _WordWrapHelper
-var _getWrapInfo = GC.Spread.Sheets.q.un;
-var _SJSGetWordWrapInfo = GC.Spread.Sheets.q.Ht;
-var _getCtx = GC.Spread.Sheets.q.J;
+  // _WordWrapHelper
+  var _WordWrapHelper = GC.Spread.Sheets.q || GC.Spread.Sheets._WordWrapHelper;
+  var _getWrapInfo = _WordWrapHelper.un || _WordWrapHelper._getWrapInfo;
+  var _SJSGetWordWrapInfo = _WordWrapHelper.Ht || _WordWrapHelper._SJSGetWordWrapInfo;
+  var _getCtx = _WordWrapHelper.J || _WordWrapHelper._getCtx;
 
-var _getFontHeight = GC.Spread.Sheets.util.vt;
-var _getFontObject = GC.Spread.Sheets.util._0;
-var _measureTextWidth = GC.Spread.Sheets.util.Mt;
-var _setContextFont = GC.Spread.Sheets.util.bt;
+  var _getFontHeight = GC.Spread.Sheets.util.vt || GC.Spread.Sheets.util._getFontHeight;
+  var _getFontObject = GC.Spread.Sheets.util._0 || GC.Spread.Sheets.util._getFontObject;
+  var _measureTextWidth = GC.Spread.Sheets.util.Mt || GC.Spread.Sheets.util._measureTextWidth;
+  var _setContextFont = GC.Spread.Sheets.util.bt || GC.Spread.Sheets.util._setContextFont;
 
 
   let wordWrap = null;
