@@ -1,7 +1,7 @@
 {
 	"version": 1,
 	"dateCreation": "2023-12-06T16:00:17Z",
-	"dateModified": "2024-02-01T07:28:13Z",
+	"dateModified": "2024-02-02T14:31:24Z",
 	"spreadJS": {
 		"version": "16.2.6",
 		"name": "",
@@ -13,8 +13,8 @@
 				"isSelected": true,
 				"rowCount": 1004,
 				"columnCount": 101,
-				"activeRow": 29,
-				"activeCol": 7,
+				"activeRow": 11,
+				"activeCol": 1,
 				"visible": 1,
 				"theme": "Office",
 				"data": {
@@ -175,14 +175,14 @@
 								}
 							},
 							"1": {
-								"value": "/OADate(45323)/",
+								"value": "/OADate(45324)/",
 								"style": {
 									"hAlign": 1,
 									"vAlign": 0,
 									"themeFont": "Body",
 									"formatter": "m/d/yyyy",
 									"formatInfo": {
-										"text": "2/1/2024"
+										"text": "2/2/2024"
 									}
 								},
 								"formula": "TODAY()"
@@ -235,14 +235,14 @@
 								}
 							},
 							"1": {
-								"value": "/OADate(45323.35267869213)/",
+								"value": "/OADate(45324.646704467596)/",
 								"style": {
 									"hAlign": 1,
 									"vAlign": 0,
 									"themeFont": "Body",
 									"formatter": "[$-409]h:mm:ss AM/PM",
 									"formatInfo": {
-										"text": "8:27:51 AM"
+										"text": "3:31:15 PM"
 									}
 								},
 								"formula": "NOW()"
@@ -296,14 +296,26 @@
 							},
 							"1": {
 								"value": {
-									"toto": "hello world"
+									"text": "hello world",
+									"textV": "hello world",
+									"integer": 12,
+									"integerV": 12,
+									"real": 3.1415926535898,
+									"realV": 3.1415926535898,
+									"date": "2024-02-01T23:00:00.000Z",
+									"dateV": "2024-02-01T23:00:00.000Z",
+									"time": "2024-02-02T14:31:15.266Z",
+									"timeV": "2024-02-02T14:31:15.266Z",
+									"object": {
+										"key": "value"
+									}
 								},
 								"style": {
 									"hAlign": 1,
 									"vAlign": 0,
 									"themeFont": "Body"
 								},
-								"formula": "OBJECT(\"toto\",\"hello world\")"
+								"formula": "OBJECT(\"text\",\"hello world\",\"textV\",B1,\"integer\",12,\"integerV\",B2,\"real\",PI(),\"realV\",B3,\"date\",TODAY(),\"dateV\",B4,\"time\",NOW(),\"timeV\",B5,\"object\",OBJECT(\"key\",\"value\"))"
 							},
 							"3": {
 								"style": {
@@ -574,8 +586,37 @@
 								}
 							},
 							"1": {
-								"value": 55,
-								"formula": "MYSUM(F2:F11)"
+								"value": {
+									"_calcError": "#VALUE!",
+									"_code": 15
+								},
+								"formula": "MYSUM(F2:F11,B2,B11,F2:F11)"
+							}
+						},
+						"12": {
+							"0": {
+								"value": "myParameters",
+								"style": {
+									"font": "bold 11pt Calibri",
+									"themeFont": "Body"
+								}
+							},
+							"1": {
+								"value": "[\"hello world\",12]",
+								"formula": "MYPARAMETERS(B1,B2)"
+							}
+						},
+						"13": {
+							"0": {
+								"value": "myObject",
+								"style": {
+									"font": "bold 11pt Calibri",
+									"themeFont": "Body"
+								}
+							},
+							"1": {
+								"value": 42,
+								"formula": "MYOBJECT(B6)"
 							}
 						}
 					},
@@ -657,8 +698,8 @@
 				"topCellIndex": 0,
 				"selections": {
 					"0": {
-						"row": 29,
-						"col": 7,
+						"row": 11,
+						"col": 1,
 						"rowCount": 1,
 						"colCount": 1
 					},

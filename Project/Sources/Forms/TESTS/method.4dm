@@ -34,10 +34,26 @@ Case of
 		
 		// Define the "mySum" function from a cell range
 		$functions.mySum:={\
-			formula: Formula:C1597($1.flat(2).sum()); \
+			formula: Formula:C1597(Copy parameters:C1790.flat(3).sum()); \
 			summary: "My sum"; \
 			parameters: [\
 			{name: "array"; type: Is collection:K8:32}\
+			]}
+		
+		// Define the "myParameters" function 
+		$functions.myParameters:={\
+			formula: Formula:C1597(JSON Stringify:C1217(Copy parameters:C1790)); \
+			summary: "Display all parameters as JSON"; \
+			minParams: 0; \
+			maxParams: MAXINT:K35:1; \
+			parameters: []}
+		
+		// Define the "myObject" function 
+		$functions.myObject:={\
+			formula: Formula:C1597(_myObject); \
+			summary: "Get univeral response"; \
+			parameters: [\
+			{name: "object"; type: Is object:K8:27}\
 			]}
 		
 		$ƒ.vp.setCustomFunctions($functions)
