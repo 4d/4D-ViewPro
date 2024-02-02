@@ -1,6 +1,7 @@
 {
 	"# 🚧 DEV": {
 		"methods": [
+			"_myObject",
 			"FEATURES",
 			"vp_objectToFormula"
 		],
