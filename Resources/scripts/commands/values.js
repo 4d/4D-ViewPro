@@ -128,7 +128,7 @@
         }
     });
 
-    function convertValuesFrom4D(value) {
+    Utils.convertValuesFrom4D = function(value) {
         let ret = null;
 
         if ((typeof (value) == 'number')
@@ -180,7 +180,7 @@
 
         if ('value' in params) {
 
-            let val = convertValuesFrom4D(params.value);
+            let val = Utils.convertValuesFrom4D(params.value);
 
             if (val != null) {
 
@@ -224,7 +224,7 @@
                 ar.forEach(function (row, rowIndex) {
                     if ((row != null) && (row.constructor === Array)) {
                         row.forEach(function (content, colIndex) {
-                            let val = convertValuesFrom4D(content);
+                            let val = Utils.convertValuesFrom4D(content);
                             if (val != null) {
                                 ar[rowIndex][colIndex] = val.value;
                             } else {
@@ -278,7 +278,7 @@
         Utils.needToUpdateFormulaBar = true;
     });
 
-	function convertValueTo4D(value) {
+    Utils.convertValueTo4D = function(value) {
 		if (value === null) return null;
 		if (value.constructor === Date) {
 			ret = {};
@@ -307,7 +307,7 @@
         if ('ranges' in params) {
             let instance = Utils.getFirstRange(params.ranges);
             if (instance != null) {
-                ret.value = convertValueTo4D(instance.sheet.getCell(instance.row, instance.column).value());
+                ret.value = Utils.convertValueTo4D(instance.sheet.getCell(instance.row, instance.column).value());
             }
         }
 
@@ -326,7 +326,7 @@
                 ar.forEach(function (row, rowIndex) {
                     row.forEach(function (content, colIndex) {
                         if ((content != null) && (content.constructor === Date)) {
-                            ar[rowIndex][colIndex] = convertValueTo4D(content);
+                            ar[rowIndex][colIndex] = Utils.convertValueTo4D(content);
                         }
                     });
                 });
