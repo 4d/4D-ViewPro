@@ -174,7 +174,7 @@
             }
         }
         return ret;
-    }
+    };
 
     Utils.addCommand('set-ranges-value', function (params) {
 
@@ -298,7 +298,7 @@
 			return ret;
 		} 
 		return value;
-	}
+    };
 
     Utils.addCommand('get-value', function (params) {
 
