@@ -480,8 +480,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         case 42: // collection	
                             if (arg.getRangeCount && arg.getRangeCount() > 0) {
 
+                                if (Utils._isContextInsideCalcRef(context, arg)) {
+                                    vp_endLongOperation();
+                                    Utils.logEvent({ type: 'error', data: "range contains current cell, resulting on too much recursion" }); 
+                                    throw new Error("too much recursion"); // stack overflow error for SpreadJS (to have #NUM)
+                                }
                                 let ar = arg.getSource().getSheet().getArray(arg.getRow(),arg.getColumn(),arg.getRowCount(),arg.getColumnCount());
-                                
+
                                 ar.forEach(function (row, rowIndex) {
                                     row.forEach(function (content, colIndex) {
                                         if ((content != null) && (content.constructor === Date)) {

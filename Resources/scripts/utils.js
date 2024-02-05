@@ -376,6 +376,14 @@ Utils.defineGlobalCustomFunction = function (name, handler, type) {
     GC.Spread.CalcEngine.Functions.defineGlobalCustomFunction(name, handler);
 };
 
+Utils._isContextInsideCalcRef = function(context, calcRef) {
+    if (context.ctx.source.id != calcRef.getSource().id) {
+        return false; // not same sheet
+    }
+    let range = new GC.Spread.Sheets.Range(calcRef.getRow(), calcRef.getColumn(), calcRef.getRowCount(), calcRef.getColumnCount());
+    return range.contains(context.row, context.col, 1, 1);
+};
+
 Utils.updateFormulaBar = function () {
     let formulaBar = null;
 
