@@ -393,18 +393,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             myFunc.prototype = new GC.Spread.CalcEngine.Functions.AsyncFunction(method.spreadJSMethod, minParams, maxParams, summary);
-            
-            let patchAcceptsReference = false;
 
-            if (method.parametersType != null) {
-                for (let i = 0; i < method.parametersType.length; i++) {
-                    if (method.parametersType[i] == 42) {
-                        patchAcceptsReference = true;
-                        break;
-                    }
-                }
-            }
-
+            let patchAcceptsReference = method.parametersType != null && method.parametersType.includes(42/*col*/)
             if(patchAcceptsReference) {
                 myFunc.prototype.acceptsReference=function(numParameter) {
                     return (method.parametersType[numParameter] == 42);
@@ -495,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 ar.forEach(function (row, rowIndex) {
                                     row.forEach(function (content, colIndex) {
                                         if ((content != null) && (content.constructor === Date)) {
-                                            ar[rowIndex][colIndex] = convertValueTo4D(content);
+                                            ar[rowIndex][colIndex] = Utils.convertValueTo4D(content);
                                         }
                                     });
                                 });
