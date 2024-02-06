@@ -411,8 +411,8 @@ document.addEventListener('DOMContentLoaded', function () {
             myFunc.prototype.evaluateAsync = function (...args) {
 
                 vp_startLongOperation();
-
                 let context = args[0];
+                try {
 
                 // check if parameters are respecting users type rules
 
@@ -520,6 +520,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         return;
                     }
                 }
+               } catch (e) { Utils.logEvent({ type: 'error-catched', data: e }); vp_endLongOperation(); throw e; }
 
                 try {
                     if (isFormula) {
