@@ -144,7 +144,10 @@ Utils.errors = {
     invalidCellReference: GC.Spread.CalcEngine.CalcError.parse("#REF!"),
     wrongTypeOfArgument: GC.Spread.CalcEngine.CalcError.parse("#VALUE!"),
     numberRelated: GC.Spread.CalcEngine.CalcError.parse("#NUM!"),
+    nullValue: GC.Spread.CalcEngine.CalcError.parse("#NULL!"),
+    calc: GC.Spread.CalcEngine.CalcError.parse("#CALC!"),
     notAny: GC.Spread.CalcEngine.CalcError.parse("#N/A"),
+    name: GC.Spread.CalcEngine.CalcError.parse("#NAME?"),
     divisionByZero: GC.Spread.CalcEngine.CalcError.parse("#DIV/0!")
 };
 
