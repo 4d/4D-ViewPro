@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (ok) {
                                 args[i] = { "value": { "day": arg.getDate(), "month": arg.getMonth() + 1, "year": arg.getFullYear() } };
                                 if (isFormula) {
-                                    args[i].value.convertToDate = true;
+                                    args[i].value.$4d_convertToDate = true;
                                 }
                             }
                             break;
@@ -509,7 +509,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     "time": (arg.getHours() * 3600) + (arg.getMinutes() * 60) + arg.getSeconds()
                                 };
                                 if (isFormula) {
-                                    args[i].value.convertValueToDate = true;
+                                    args[i].value.$4d_convertValueToDate = true;
                                 }
                             }
                             ok = true;
