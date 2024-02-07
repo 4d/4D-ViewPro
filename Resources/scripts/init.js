@@ -410,9 +410,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             myFunc.prototype.evaluateAsync = function (...args) {
 
-                vp_startLongOperation();
-                let context = args[0];
-                try {
+               vp_startLongOperation();
+               let context = args[0];
+               try {
 
                 // check if parameters are respecting users type rules
 
@@ -481,9 +481,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (arg.getRangeCount && arg.getRangeCount() > 0) {
 
                                 if (Utils._isContextInsideCalcRef(context, arg)) {
-                                    vp_endLongOperation();
-                                    Utils.logEvent({ type: 'error', data: "range contains current cell, resulting on too much recursion" }); 
-                                    throw new Error("too much recursion"); // stack overflow error for SpreadJS (to have #NUM)
+                                    const e = new Error("too much recursion"); // stack overflow error for SpreadJS (to have #NUM)
+                                    e.name = "CustomFunctionError";
+                                    e.reason = "range contains current cell";
+                                    throw e;
                                 }
                                 let ar = arg.getSource().getSheet().getArray(arg.getRow(),arg.getColumn(),arg.getRowCount(),arg.getColumnCount());
 
@@ -520,7 +521,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         return;
                     }
                 }
-               } catch (e) { Utils.logEvent({ type: 'error-catched', data: e }); vp_endLongOperation(); throw e; }
+               } catch (e) { 
+                    Utils.logEvent({ type: 'error-catched', data: e });
+                    vp_endLongOperation();
+                    throw e;
+               }
 
                 try {
                     if (isFormula) {
