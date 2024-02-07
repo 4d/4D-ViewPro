@@ -43,6 +43,7 @@ class Utils {
 }
 
 Utils.needToUpdateFormulaBar = false;
+Utils.debug = false;
 
 Utils.initContextMenu = function () {
     var insertPageBreak = {
@@ -97,12 +98,14 @@ Utils.logEvent = function ({ type, data }) {
     if (Utils.diagnostics.events.length >= 500) {
         Utils.diagnostics.events = [];
     }
-
-    Utils.diagnostics.events.push({
+    let event = {
         time: new Date(),
         type,
         data
-    });
+    };
+
+    Utils.diagnostics.events.push(event);
+    if (Utils.debug || type.includes("error")) console.log(event);
 }
 
 Utils.adjustFormat = function (format) {
