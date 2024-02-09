@@ -386,7 +386,7 @@ Utils.addFormatedText = function (json) {
   let longDatePattern = GC.Spread.Common.CultureManager.getCultureInfo().DateTimeFormat.defaultDatePattern;
   let shortDatePattern = GC.Spread.Common.CultureManager.getCultureInfo().DateTimeFormat.shortDatePattern;
 
-  // _WordWrapHelper
+  // _WordWrapHelper // SPREADJS_MIN
   var _WordWrapHelper = GC.Spread.Sheets.q || GC.Spread.Sheets._WordWrapHelper;
   var _getWrapInfo = _WordWrapHelper.un || _WordWrapHelper._getWrapInfo;
   var _SJSGetWordWrapInfo = _WordWrapHelper.Ht || _WordWrapHelper._SJSGetWordWrapInfo;
@@ -408,7 +408,6 @@ Utils.addFormatedText = function (json) {
   let isVerticalText = null;
   let textIndent = null;
   let vAlign = null;
-
 
   function _getFormatInfo(format) {
 
