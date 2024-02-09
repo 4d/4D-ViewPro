@@ -209,8 +209,8 @@ Utils.addCommand('get-data-context', function (params) {
 
     if (instance != null) {
         obj = instance.getDataSource();
-        if ((obj != null) && ('rT' in obj)) {
-            obj = obj.rT;
+        if ((obj != null) && (('rT' in obj) || ('_source' in obj))) { // SPREADJS_MIN
+            obj = obj.rT || obj._source;
         }
         returnValue.value = _parseElement(obj);
     }
