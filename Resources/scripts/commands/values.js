@@ -278,7 +278,7 @@
         Utils.needToUpdateFormulaBar = true;
     });
 
-    Utils.convertValueTo4D = function(value) {
+    Utils.convertValueTo4D = function(value, dateKey = "date") {
 		if (value === null) return null;
 		if (value.constructor === Date) {
 			ret = {};
@@ -287,7 +287,7 @@
 			let month = value.getMonth();
 			let year = value.getFullYear();
 			
-			ret.date = { 'day': day, 'month': month + 1, 'year': year };
+			ret[dateKey] = { 'day': day, 'month': month + 1, 'year': year };
 			
 			let hours = value.getHours();
 			let minutes = value.getMinutes();

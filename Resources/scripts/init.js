@@ -491,8 +491,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                 ar.forEach(function (row, rowIndex) {
                                     row.forEach(function (content, colIndex) {
                                         if ((content != null) && (content.constructor === Date)) {
-                                            ar[rowIndex][colIndex] = { "value": Utils.convertValueTo4D(content) }
-                                            ar[rowIndex][colIndex].value.$4d_convertToDate=true;
+                                            let dateValue = Utils.convertValueTo4D(content);
+                                            if (isFormula) {
+                                                ar[rowIndex][colIndex] = { "value": Utils.convertValueTo4D(content) }
+                                                ar[rowIndex][colIndex].value.$4d_convertToDate=true;
+                                            }
+                                            else {
+                                                ar[rowIndex][colIndex] = Utils.convertValueTo4D(content, "value");
+                                            }
                                         }
                                     });
                                 });
@@ -504,10 +510,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         case -1: // standard mode, convert only dates
                             if ((arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date)) {
-                                args[i] = {
-                                    "value": { "day": arg.getDate(), "month": arg.getMonth() + 1, "year": arg.getFullYear() },
-                                    "time": (arg.getHours() * 3600) + (arg.getMinutes() * 60) + arg.getSeconds()
-                                };
+                                args[i] = Utils.convertValueTo4D(arg, "value")
                                 if (isFormula) {
                                     args[i].value.$4d_convertValueToDate = true;
                                 }
