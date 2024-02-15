@@ -120,7 +120,7 @@ Function save($tgt : Object) : Boolean
 	return True:C214
 	
 	// === === === === === === === === === === === === === === === === === === === === === === === === ===
-Function load($src : Object) : Boolean
+Function load($src : Object; $options : Object) : Boolean
 	
 	var $name : Text
 	
@@ -156,7 +156,7 @@ Function load($src : Object) : Boolean
 			//______________________________________________________
 	End case 
 	
-	VP IMPORT DOCUMENT(This:C1470.area; DOCUMENT)
+	VP IMPORT DOCUMENT(This:C1470.area; DOCUMENT; $options)
 	
 	return True:C214
 	
@@ -233,3 +233,11 @@ Function setCustomFunctions($functions : Object) : cs:C1710._vp
 	VP SET CUSTOM FUNCTIONS(This:C1470.area; $functions)
 	
 	return This:C1470
+	
+	// === === === === === === === === === === === === === === === === === === === === === === === === ===
+Function recomputeFormulas() : cs:C1710._vp
+	
+	VP RECOMPUTE FORMULAS(This:C1470.area)
+	
+	return This:C1470
+	

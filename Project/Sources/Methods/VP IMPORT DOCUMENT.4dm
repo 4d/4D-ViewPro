@@ -29,7 +29,9 @@ If (vp_initStorage)
 			
 			$params:=$3
 			
-		Else 
+		End if 
+		
+		If ($params=Null:C1517)
 			
 			$params:=New object:C1471
 			
