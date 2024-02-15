@@ -52,7 +52,7 @@ If (Check_parameters_count(2; Count parameters:C259))
 			
 			$spreadJSMethod:=Uppercase:C13($properties{$i})
 			$arrayFormula.spreadJSMethod:=$spreadJSMethod
-			$o.ViewPro.formulas.map[$spreadJSMethod]:=OB Copy:C1225($customFunction.formula)
+			$o.ViewPro.formulas.map[$spreadJSMethod]:=($customFunction.formula.source=Null:C1517) ? $customFunction.formula : OB Copy:C1225($customFunction.formula)
 			
 			// Mark:summary, minParams, maxParams
 			For each ($key; ["summary"; "minParams"; "maxParams"])
