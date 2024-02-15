@@ -491,7 +491,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 ar.forEach(function (row, rowIndex) {
                                     row.forEach(function (content, colIndex) {
                                         if ((content != null) && (content.constructor === Date)) {
-                                            let dateValue = Utils.convertValueTo4D(content);
                                             if (isFormula) {
                                                 ar[rowIndex][colIndex] = { "value": Utils.convertValueTo4D(content) }
                                                 ar[rowIndex][colIndex].value.$4d_convertToDate=true;
