@@ -44,7 +44,9 @@ Utils.addCommand('import-json', function (params) {
     }
 
 
-  } catch (e) { }
+  } catch (e) { 
+    Utils.logEvent({ type: 'error-catched', data: e });
+  }
 
   //vp_resetOptimizer();
 });
