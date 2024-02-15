@@ -32,13 +32,19 @@ Case of
 		
 		WA EXECUTE JAVASCRIPT FUNCTION:C1043(*; $area; "runCommand"; $o; $command; $params || {})
 		
-		If (Length:C16($o.error)>0)
-			
-			err_THROW({code: 2; message: $o.error})
-			
-			return 
-			
-		End if 
+		
+		Case of 
+			: ($o=Null:C1517)
+				
+				err_THROW({code: 2; message: "no data after command "+$command+". maybe timeout: hanging or breakpoint"})
+				
+			: (Length:C16($o.error)>0)
+				
+				err_THROW({code: 2; message: $o.error})
+				
+				return 
+				
+		End case 
 		
 		return $o.result
 		
