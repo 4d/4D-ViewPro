@@ -9,12 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($area : Text; $name : Text; $index : Integer)
 
-If (False:C215)
-	C_TEXT:C284(VP SET SHEET NAME; $1)
-	C_TEXT:C284(VP SET SHEET NAME; $2)
-	C_LONGINT:C283(VP SET SHEET NAME; $3)
-End if 
-
 If (Not:C34(vp_initStorage))
 	
 	return 

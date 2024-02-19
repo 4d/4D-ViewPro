@@ -9,11 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($area : Text) : Integer
 
-If (False:C215)
-	C_TEXT:C284(VP Get current sheet; $1)
-	C_LONGINT:C283(VP Get current sheet; $0)
-End if 
-
 var $o : Object
 
 If (Not:C34(vp_initStorage))

@@ -9,11 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($area : Text; $options : Object)
 
-If (False:C215)
-	C_TEXT:C284(VP SET WORKBOOK OPTIONS; $1)
-	C_OBJECT:C1216(VP SET WORKBOOK OPTIONS; $2)
-End if 
-
 If (Not:C34(vp_initStorage))
 	
 	return 

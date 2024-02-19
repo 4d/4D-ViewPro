@@ -142,21 +142,6 @@ If (False:C215)  // printing
 End if 
 
 If (False:C215)  // ranges
-	//___________________________________
-	C_OBJECT:C1216(VP Cell; $0)
-	C_TEXT:C284(VP Cell; $1)
-	C_LONGINT:C283(VP Cell; $2)
-	C_LONGINT:C283(VP Cell; $3)
-	C_LONGINT:C283(VP Cell; $4)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP Cells; $0)
-	C_TEXT:C284(VP Cells; $1)
-	C_LONGINT:C283(VP Cells; $2)
-	C_LONGINT:C283(VP Cells; $3)
-	C_LONGINT:C283(VP Cells; $4)
-	C_LONGINT:C283(VP Cells; $5)
-	C_LONGINT:C283(VP Cells; $6)
 	
 	//___________________________________
 	C_OBJECT:C1216(VP Column; $0)
@@ -257,10 +242,6 @@ If (False:C215)  // rows & columns
 End if 
 
 If (False:C215)  // selection
-	//___________________________________
-	C_TEXT:C284(VP Get active cell; $1)
-	C_LONGINT:C283(VP Get active cell; $2)
-	C_OBJECT:C1216(VP Get active cell; $0)
 	
 	//___________________________________
 	C_OBJECT:C1216(VP SET ACTIVE CELL; $1)
@@ -292,34 +273,12 @@ If (False:C215)  // sheets
 	C_LONGINT:C283(VP SET SHEET COUNT; $2)
 	
 	//___________________________________
-	C_LONGINT:C283(VP Get sheet count; $0)
-	C_TEXT:C284(VP Get sheet count; $1)
-	
-	//___________________________________
 	C_TEXT:C284(VP SET CURRENT SHEET; $1)
 	C_LONGINT:C283(VP SET CURRENT SHEET; $2)
 	
 	//___________________________________
-	C_TEXT:C284(VP ADD SHEET; $1)
-	C_LONGINT:C283(VP ADD SHEET; $2)
-	C_TEXT:C284(VP ADD SHEET; $3)
-	
-	//___________________________________
-	C_LONGINT:C283(VP Get current sheet; $0)
-	C_TEXT:C284(VP Get current sheet; $1)
-	
-	//___________________________________
-	C_TEXT:C284(VP REMOVE SHEET; $1)
-	C_LONGINT:C283(VP REMOVE SHEET; $2)
-	
-	//___________________________________
 	C_TEXT:C284(VP SET START SHEET; $1)
 	C_LONGINT:C283(VP SET START SHEET; $2)
-	
-	//___________________________________
-	C_TEXT:C284(VP Get sheet name; $0)
-	C_TEXT:C284(VP Get sheet name; $1)
-	C_LONGINT:C283(VP Get sheet name; $2)
 	
 	//___________________________________
 	C_LONGINT:C283(VP Get sheet index; $0)
@@ -327,20 +286,6 @@ If (False:C215)  // sheets
 	C_TEXT:C284(VP Get sheet index; $2)
 	
 	//___________________________________
-	C_TEXT:C284(VP SET SHEET NAME; $1)
-	C_TEXT:C284(VP SET SHEET NAME; $2)
-	C_LONGINT:C283(VP SET SHEET NAME; $3)
-	
-	//___________________________________
-	C_TEXT:C284(VP Get sheet options; $1)
-	C_LONGINT:C283(VP Get sheet options; $2)
-	C_OBJECT:C1216(VP Get sheet options; $0)
-	
-	//___________________________________
-	C_TEXT:C284(VP SET SHEET OPTIONS; $1)
-	C_OBJECT:C1216(VP SET SHEET OPTIONS; $2)
-	C_LONGINT:C283(VP SET SHEET OPTIONS; $3)
-	
 End if 
 
 If (False:C215)  // spans
@@ -534,10 +479,6 @@ If (False:C215)  // utilities
 	C_OBJECT:C1216(VP SET ALLOWED METHODS; $1)
 	
 	//___________________________________
-	C_TEXT:C284(VP SET CUSTOM FUNCTIONS; $1)
-	C_OBJECT:C1216(VP SET CUSTOM FUNCTIONS; $2)
-	
-	//___________________________________
 	C_COLLECTION:C1488(vp_getAllowedMethods; $0)
 	
 	//___________________________________
@@ -575,13 +516,6 @@ If (False:C215)  // utilities
 End if 
 
 If (False:C215)  // values
-	//___________________________________
-	C_OBJECT:C1216(VP SET VALUE; $1)
-	C_OBJECT:C1216(VP SET VALUE; $2)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP Get value; $0)
-	C_OBJECT:C1216(VP Get value; $1)
 	
 	//___________________________________
 	C_OBJECT:C1216(VP SET BOOLEAN VALUE; $1)
@@ -615,11 +549,6 @@ If (False:C215)  // values
 	C_TEXT:C284(VP SET TEXT VALUE; $3)
 	
 	//___________________________________
-	C_OBJECT:C1216(VP SET FORMULA; $1)
-	C_TEXT:C284(VP SET FORMULA; $2)
-	C_TEXT:C284(VP SET FORMULA; $3)
-	
-	//___________________________________
 	C_OBJECT:C1216(VP SET FIELD; $1)
 	C_POINTER:C301(VP SET FIELD; $2)
 	C_TEXT:C284(VP SET FIELD; $3)
@@ -627,14 +556,6 @@ If (False:C215)  // values
 	//___________________________________
 	C_TEXT:C284(VP Get formula; $0)
 	C_OBJECT:C1216(VP Get formula; $1)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP SET VALUES; $1)
-	C_COLLECTION:C1488(VP SET VALUES; $2)
-	
-	//___________________________________
-	C_COLLECTION:C1488(VP Get values; $0)
-	C_OBJECT:C1216(VP Get values; $1)
 	
 	//___________________________________
 	C_OBJECT:C1216(VP SET FORMULAS; $1)
@@ -645,15 +566,3 @@ If (False:C215)  // values
 	C_OBJECT:C1216(VP Get formulas; $1)
 	
 End if 
-
-If (False:C215)  // workbook
-	//___________________________________
-	C_TEXT:C284(VP Get workbook options; $1)
-	C_OBJECT:C1216(VP Get workbook options; $0)
-	
-	//___________________________________
-	C_TEXT:C284(VP SET WORKBOOK OPTIONS; $1)
-	C_OBJECT:C1216(VP SET WORKBOOK OPTIONS; $2)
-	
-End if 
-

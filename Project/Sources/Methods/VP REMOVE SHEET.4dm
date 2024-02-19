@@ -9,11 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($area : Text; $index : Integer)
 
-If (False:C215)
-	C_TEXT:C284(VP REMOVE SHEET; $1)
-	C_LONGINT:C283(VP REMOVE SHEET; $2)
-End if 
-
 If (Not:C34(vp_initStorage))
 	
 	return 

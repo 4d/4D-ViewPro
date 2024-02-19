@@ -10,12 +10,6 @@
 // ----------------------------------------------------
 #DECLARE($area : Text; $sheet : Integer) : cs:C1710._cell
 
-If (False:C215)
-	C_TEXT:C284(VP Get active cell; $1)
-	C_LONGINT:C283(VP Get active cell; $2)
-	C_OBJECT:C1216(VP Get active cell; $0)
-End if 
-
 var $cell; $o : Object
 
 If (Not:C34(vp_initStorage))
