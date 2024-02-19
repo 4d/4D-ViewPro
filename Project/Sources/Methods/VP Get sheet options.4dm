@@ -9,14 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($area : Text; $index : Integer) : cs:C1710.sheetOptions
 
-C_LONGINT:C283($nbParameters)
-
-If (False:C215)
-	C_TEXT:C284(VP Get sheet options; $1)
-	C_LONGINT:C283(VP Get sheet options; $2)
-	C_OBJECT:C1216(VP Get sheet options; $0)
-End if 
-
 var $options : cs:C1710.sheetOptions
 
 If (Not:C34(vp_initStorage))

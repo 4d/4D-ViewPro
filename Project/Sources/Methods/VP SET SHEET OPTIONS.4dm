@@ -9,12 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($area : Text; $options : Object; $index : Integer)
 
-If (False:C215)
-	C_TEXT:C284(VP SET SHEET OPTIONS; $1)
-	C_OBJECT:C1216(VP SET SHEET OPTIONS; $2)
-	C_LONGINT:C283(VP SET SHEET OPTIONS; $3)
-End if 
-
 If (Not:C34(vp_initStorage))
 	
 	return 

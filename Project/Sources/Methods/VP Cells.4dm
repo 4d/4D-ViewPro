@@ -9,16 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($area : Text; $column : Integer; $row : Integer; $columnCount : Integer; $rowCount : Integer; $sheet : Integer) : Object
 
-If (False:C215)
-	C_TEXT:C284(VP Cells; $1)
-	C_LONGINT:C283(VP Cells; $2)
-	C_LONGINT:C283(VP Cells; $3)
-	C_LONGINT:C283(VP Cells; $4)
-	C_LONGINT:C283(VP Cells; $5)
-	C_LONGINT:C283(VP Cells; $6)
-	C_OBJECT:C1216(VP Cells; $0)
-End if 
-
 var $range : cs:C1710._range
 
 If (Not:C34(vp_initStorage))

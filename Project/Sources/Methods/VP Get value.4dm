@@ -9,11 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($cell : cs:C1710._cell) : Object
 
-If (False:C215)
-	C_OBJECT:C1216(VP Get value; $1)
-	C_OBJECT:C1216(VP Get value; $0)
-End if 
-
 var $js : Object
 
 If (Not:C34(vp_initStorage))

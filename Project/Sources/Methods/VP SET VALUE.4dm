@@ -9,11 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($cell : cs:C1710._cell; $value : Object)
 
-If (False:C215)
-	C_OBJECT:C1216(VP SET VALUE; $1)
-	C_OBJECT:C1216(VP SET VALUE; $2)
-End if 
-
 var $key : Text
 var $date : Date
 var $type : Integer
@@ -98,7 +93,7 @@ Case of
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 				//: (Feature.with("SET_OBJECTS"))\
-										 && ($type=Is undefined)  // Object
+															 && ($type=Is undefined)  // Object
 				//VP SET FORMULA($cell; "="+vp_objectToFormula($value))
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅

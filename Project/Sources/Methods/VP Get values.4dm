@@ -9,11 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($tgt : Object) : Collection
 
-If (False:C215)
-	C_OBJECT:C1216(VP Get values; $1)
-	C_COLLECTION:C1488(VP Get values; $0)
-End if 
-
 var $col; $row : Integer
 var $v
 var $js : Object

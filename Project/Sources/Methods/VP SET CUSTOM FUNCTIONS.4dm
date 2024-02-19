@@ -1,11 +1,6 @@
 //%attributes = {"invisible":true,"shared":true}
 #DECLARE($area : Text; $formulas : Object)
 
-If (False:C215)
-	C_TEXT:C284(VP SET CUSTOM FUNCTIONS; $1)
-	C_OBJECT:C1216(VP SET CUSTOM FUNCTIONS; $2)
-End if 
-
 var $key; $spreadJSMethod : Text
 var $i : Integer
 var $arrayFormula; $customFunction; $o; $parameter; $schema : Object

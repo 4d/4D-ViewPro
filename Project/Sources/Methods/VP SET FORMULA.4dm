@@ -9,12 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($cell : cs:C1710._cell; $formula : Text; $format : Text)
 
-If (False:C215)
-	C_OBJECT:C1216(VP SET FORMULA; $1)
-	C_TEXT:C284(VP SET FORMULA; $2)
-	C_TEXT:C284(VP SET FORMULA; $3)
-End if 
-
 var $o : Object
 
 If (Not:C34(vp_initStorage))

@@ -9,11 +9,6 @@
 // ----------------------------------------------------
 #DECLARE($ranges : Object; $values : Collection)
 
-If (False:C215)
-	C_OBJECT:C1216(VP SET VALUES; $1)
-	C_COLLECTION:C1488(VP SET VALUES; $2)
-End if 
-
 var $date : Date
 var $column; $row; $type : Integer
 var $time : Time

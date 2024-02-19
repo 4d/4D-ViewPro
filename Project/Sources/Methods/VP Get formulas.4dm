@@ -13,8 +13,8 @@ C_COLLECTION:C1488($0)
 C_OBJECT:C1216($1)
 
 If (False:C215)
-	C_COLLECTION:C1488(VP Get values; $0)
-	C_OBJECT:C1216(VP Get values; $1)
+	C_COLLECTION:C1488(VP Get formula; $0)
+	C_OBJECT:C1216(VP Get formula; $1)
 End if 
 
 C_LONGINT:C283($nbParameters)
