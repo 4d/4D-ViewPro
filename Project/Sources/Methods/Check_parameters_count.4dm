@@ -2,12 +2,6 @@
 // Check that the minimal amount of parameters required for the method has been sent
 #DECLARE($expected : Integer; $received : Integer) : Boolean
 
-If (False:C215)
-	C_LONGINT:C283(Check_parameters_count; $1)
-	C_LONGINT:C283(Check_parameters_count; $2)
-	C_BOOLEAN:C305(Check_parameters_count; $0)
-End if 
-
 var $params : Integer
 
 $params:=Count parameters:C259
