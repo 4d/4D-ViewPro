@@ -6,10 +6,6 @@
 // ----------------------------------------------------
 #DECLARE($error : Object)
 
-If (False:C215)
-	C_OBJECT:C1216(err_THROW; $1)
-End if 
-
 If (Asserted:C1132($error#Null:C1517))
 	
 	If ($error.component=Null:C1517)

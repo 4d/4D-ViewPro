@@ -5,12 +5,6 @@
 // ----------------------------------------------------
 #DECLARE($method : Text)
 
-If (False:C215)
-	C_TEXT:C284(err_FINALLY; $1)
-End if 
-
-var err : Object
-
 If (Count parameters:C259>=1)
 	
 	ON ERR CALL:C155($method)

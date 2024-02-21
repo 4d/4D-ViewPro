@@ -13,22 +13,12 @@ C_TEXT:C284(vp_runCommand; $2)
 C_OBJECT:C1216(vp_runCommand; $3)
 
 //___________________________________
-C_OBJECT:C1216(vp_runFunction; $0)
-C_TEXT:C284(vp_runFunction; $1)
-C_TEXT:C284(vp_runFunction; $2)
-C_OBJECT:C1216(vp_runFunction; $3)
-//___________________________________
 C_BOOLEAN:C305(vp_isDocumentValid; $0)
 C_OBJECT:C1216(vp_isDocumentValid; $1)
 
 //___________________________________
 C_BOOLEAN:C305(vp_isObjectValid; $0)
 C_OBJECT:C1216(vp_isObjectValid; $1)
-
-//___________________________________
-C_BOOLEAN:C305(vp_isReady; $0)
-C_TEXT:C284(vp_isReady; $1)
-C_TEXT:C284(vp_isReady; $2)
 
 //___________________________________
 C_OBJECT:C1216(vp_METADATA; $1)
@@ -54,14 +44,7 @@ C_TEXT:C284(vp_endInit; $2)
 C_BOOLEAN:C305(vp_endInit; $3)
 
 //___________________________________
-C_BOOLEAN:C305(vp_initStorage; $0)
-
-//___________________________________
 C_OBJECT:C1216(vp_fillStorage; $1)
-
-//___________________________________
-C_TEXT:C284(vp_getAreaVariable; $1)
-C_OBJECT:C1216(vp_getAreaVariable; $0)
 
 //___________________________________
 C_OBJECT:C1216(vp_4DViewString; ${1})
