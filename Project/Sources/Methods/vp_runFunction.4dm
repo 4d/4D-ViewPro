@@ -21,32 +21,36 @@ var $o : Object
 
 Case of 
 		
-		//______________________________________________________
 	: (Not:C34(Check_parameters_count(2; Count parameters:C259)))
 		
 		// <NOTHING MORE TO DO>
-		//______________________________________________________
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 	Else 
 		
 		vp_FLUSH($area)
 		
 		WA EXECUTE JAVASCRIPT FUNCTION:C1043(*; $area; "runCommand"; $o; $command; $params || {})
 		
-		
 		Case of 
+				
+				//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
 			: ($o=Null:C1517)
 				
-				err_THROW({code: 2; message: "no data after command "+$command+". maybe timeout: hanging or breakpoint"})
+				err_THROW({code: 23})
 				
+				return 
+				
+				//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
 			: (Length:C16($o.error)>0)
 				
 				err_THROW({code: 2; message: $o.error})
 				
 				return 
 				
+				//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
 		End case 
 		
-		return $o.result
+		return Value type:C1509($o.result)=Is object:K8:27 ? $o.result : Null:C1517
 		
-		//______________________________________________________
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 End case 

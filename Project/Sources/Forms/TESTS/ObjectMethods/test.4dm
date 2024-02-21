@@ -19,6 +19,12 @@ Case of
 		METHOD OPEN PATH:C1213("[projectForm]/TESTS/test")
 		
 		//______________________________________________________
+	: (True:C214)
+		
+		var $formula : Object
+		$formula:=VP Get formula by name($vp.area; "toto")
+		
+		//______________________________________________________
 	: (True:C214)  // Set current cell value as Null
 		
 		$cell.setValue(Null:C1517)

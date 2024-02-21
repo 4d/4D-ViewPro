@@ -1,20 +1,17 @@
 //%attributes = {"invisible":true}
 #DECLARE() : Boolean
 
-If (False:C215)
-	C_BOOLEAN:C305(vp_initStorage; $0)
-End if 
+var $o : Object
 
 FEATURES
 
-// should be called before any API call to ensure that Storage.ViewPro object is correctly initialized
-// and that ViewPro is available for use
+// Should be called before any API call to ensure that Storage.ViewPro object is correctly initialized
+// And that ViewPro is available for use
 
 If (Storage:C1525.ViewPro=Null:C1517)
 	
 	Use (Storage:C1525)
 		
-		C_OBJECT:C1216($o)
 		$o:=New shared object:C1526
 		
 		Use ($o)
@@ -30,7 +27,6 @@ If (Storage:C1525.ViewPro=Null:C1517)
 	
 Else 
 	
-	// if vp_initStorage_no_licence_check has been called before Storage.ViewPro.available has not been set
 	If (Storage:C1525.ViewPro.available=Null:C1517)
 		
 		Use (Storage:C1525.ViewPro)
@@ -42,4 +38,3 @@ Else
 End if 
 
 return Storage:C1525.ViewPro.available
-

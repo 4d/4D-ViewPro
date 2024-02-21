@@ -1,18 +1,6 @@
 //%attributes = {"invisible":true}
-/*
-OK := ***vp_isReady*** ( vpAreaName ; command )
--> vpAreaName (Text)
--> command (Text)
-<- OK (Boolean)
-________________________________________________________
-*/
+// Check if the area is ready
 #DECLARE($area : Text; $commandName : Text) : Boolean
-
-If (False:C215)
-	C_TEXT:C284(vp_isReady; $1)
-	C_TEXT:C284(vp_isReady; $2)
-	C_BOOLEAN:C305(vp_isReady; $0)
-End if 
 
 var $success : Boolean
 var $o : Object
