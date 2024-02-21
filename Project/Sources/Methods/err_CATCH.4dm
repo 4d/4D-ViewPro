@@ -1,10 +1,6 @@
 //%attributes = {"invisible":true}
 #DECLARE($error : Object)
 
-If (False:C215)
-	C_OBJECT:C1216(err_CATCH; $1)
-End if 
-
 var $key : Text
 
 If (Count parameters:C259=0)  // Catching

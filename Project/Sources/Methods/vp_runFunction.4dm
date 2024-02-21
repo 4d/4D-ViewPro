@@ -10,13 +10,6 @@
 // ----------------------------------------------------
 #DECLARE($area : Text; $command : Text; $params : Object) : Object
 
-If (False:C215)
-	C_TEXT:C284(vp_runFunction; $1)
-	C_TEXT:C284(vp_runFunction; $2)
-	C_OBJECT:C1216(vp_runFunction; $3)
-	C_OBJECT:C1216(vp_runFunction; $0)
-End if 
-
 var $o : Object
 
 Case of 

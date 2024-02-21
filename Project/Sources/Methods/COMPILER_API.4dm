@@ -96,12 +96,6 @@ If (False:C215)  // names
 	C_OBJECT:C1216(VP ADD FORMULA NAME; $4)
 	
 	//___________________________________
-	C_OBJECT:C1216(VP Get formula by name; $0)
-	C_TEXT:C284(VP Get formula by name; $1)
-	C_TEXT:C284(VP Get formula by name; $2)
-	C_LONGINT:C283(VP Get formula by name; $3)
-	
-	//___________________________________
 	C_COLLECTION:C1488(VP Get names; $0)
 	C_TEXT:C284(VP Get names; $1)
 	C_LONGINT:C283(VP Get names; $2)

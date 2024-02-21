@@ -7,7 +7,7 @@ var $o : Object
 
 If (Not:C34(Asserted:C1132(Count parameters:C259>=2; "Missing parameter")))
 	
-	ABORT:C156
+	return 
 	
 End if 
 
