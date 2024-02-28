@@ -294,11 +294,34 @@
 			let seconds = value.getSeconds();
 			
 			ret.time = (hours * 3600) + (minutes * 60) + seconds;
-			
+
+			ret.$4d_convertValueToDate = true;
+ 
 			return ret;
-		} 
+		}
+		else if (typeof(value) === "object") {
+			return Utils._transformObjectDateValues(value);
+		}
 		return value;
     };
+
+    Utils._transformObjectDateValues = function (objectValue) {
+        if (objectValue === null) return null;
+
+        for (const property in objectValue) {
+            var child = objectValue[property];
+            if (child != null) {
+                if (child.constructor === Date) {
+                    objectValue[property] = Utils.convertValueTo4D(child);
+                }
+                else if (typeof(child) === "object") {
+                    objectValue[property] = Utils._transformObjectDateValues(child);
+                }
+            }
+        }
+
+        return objectValue;
+    }
 
     Utils.addCommand('get-value', function (params) {
 

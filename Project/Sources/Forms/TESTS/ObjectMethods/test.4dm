@@ -24,6 +24,10 @@ Case of
 		$value:=VP Get value($cell)  // $cell.getValue()
 		$values:=VP Get values($cell)
 		
+		If (Shift down:C543)
+			ALERT:C41("value:"+_dev_myObject($value.value)+"\nvalues: "+_dev_myObject($values.first().first()))
+		End if 
+		
 		//______________________________________________________
 	: (True:C214)  // Set current cell value as an object
 		

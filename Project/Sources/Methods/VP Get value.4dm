@@ -34,12 +34,20 @@ Case of
 		
 		$js:=vp_runFunction($cell.area; "get-value"; {ranges: $cell.ranges})
 		
-		If ($js#Null:C1517)\
-			 && (Value type:C1509($js.value)=Is object:K8:27)\
-			 && ($js.value.date#Null:C1517)
+		If (($js#Null:C1517)\
+			 && (Value type:C1509($js.value)=Is object:K8:27))
 			
-			$js.time:=$js.value.time
-			$js.value:=Add to date:C393(!00-00-00!; $js.value.date.year; $js.value.date.month; $js.value.date.day)
+			Case of 
+				: (Feature.with("GET_OBJECTS"))
+					
+					vp_convert_dateInObject($js; True:C214)
+					
+				: ($js.value.date#Null:C1517)
+					
+					$js.time:=$js.value.time
+					$js.value:=Add to date:C393(!00-00-00!; $js.value.date.year; $js.value.date.month; $js.value.date.day)
+					
+			End case 
 			
 		End if 
 		
