@@ -1,7 +1,7 @@
 {
 	"version": 1,
 	"dateCreation": "2023-12-06T16:00:17Z",
-	"dateModified": "2024-02-28T07:23:46Z",
+	"dateModified": "2024-02-28T13:48:04Z",
 	"spreadJS": {
 		"version": "16.2.6",
 		"name": "",
@@ -13,8 +13,8 @@
 				"isSelected": true,
 				"rowCount": 1004,
 				"columnCount": 101,
-				"activeRow": 13,
-				"activeCol": 1,
+				"activeRow": 4,
+				"activeCol": 2,
 				"visible": 1,
 				"theme": "Office",
 				"data": {
@@ -235,17 +235,29 @@
 								}
 							},
 							"1": {
-								"value": "/OADate(45350.349243958335)/",
+								"value": "/OADate(45350.61664011574)/",
 								"style": {
 									"hAlign": 1,
 									"vAlign": 0,
 									"themeFont": "Body",
 									"formatter": "[$-409]h:mm:ss AM/PM",
 									"formatInfo": {
-										"text": "8:22:54 AM"
+										"text": "2:47:57 PM"
 									}
 								},
 								"formula": "NOW()"
+							},
+							"2": {
+								"value": "/OADate(0.4583333333333333)/",
+								"style": {
+									"autoFormatter": {
+										"formatCached": "h:mm"
+									},
+									"formatter": "h:mm:ss",
+									"formatInfo": {
+										"text": "11:00:00"
+									}
+								}
 							},
 							"3": {
 								"style": {
@@ -303,48 +315,40 @@
 									"real": 3.1415926535898,
 									"realV": 3.1415926535898,
 									"date": {
-										"value": {
-											"date": {
-												"day": 28,
-												"month": 2,
-												"year": 2024
-											},
-											"time": 0,
-											"$4d_convertValueToDate": true
-										}
+										"date": {
+											"day": 28,
+											"month": 2,
+											"year": 2024
+										},
+										"time": 0,
+										"$4d_convertValueToDate": true
 									},
 									"dateV": {
-										"value": {
-											"date": {
-												"day": 28,
-												"month": 2,
-												"year": 2024
-											},
-											"time": 0,
-											"$4d_convertValueToDate": true
-										}
+										"date": {
+											"day": 28,
+											"month": 2,
+											"year": 2024
+										},
+										"time": 0,
+										"$4d_convertValueToDate": true
 									},
 									"time": {
-										"value": {
-											"date": {
-												"day": 28,
-												"month": 2,
-												"year": 2024
-											},
-											"time": 30174,
-											"$4d_convertValueToDate": true
-										}
+										"date": {
+											"day": 28,
+											"month": 2,
+											"year": 2024
+										},
+										"time": 53277,
+										"$4d_convertValueToDate": true
 									},
 									"timeV": {
-										"value": {
-											"date": {
-												"day": 28,
-												"month": 2,
-												"year": 2024
-											},
-											"time": 30174,
-											"$4d_convertValueToDate": true
-										}
+										"date": {
+											"day": 28,
+											"month": 2,
+											"year": 2024
+										},
+										"time": 53277,
+										"$4d_convertValueToDate": true
 									},
 									"object": {
 										"key": "value"
@@ -626,11 +630,8 @@
 								}
 							},
 							"1": {
-								"value": {
-									"_calcError": "#VALUE!",
-									"_code": 15
-								},
-								"formula": "MYSUM(F2:F11,B2,B11,F2:F11)"
+								"value": 97,
+								"formula": "MYSUM(F2:F11,B2,B11)"
 							}
 						},
 						"12": {
@@ -655,7 +656,7 @@
 								}
 							},
 							"1": {
-								"value": "❌ no sub object",
+								"value": "❌ no date",
 								"formula": "MYOBJECT(B6)"
 							}
 						},
@@ -668,7 +669,7 @@
 								}
 							},
 							"1": {
-								"value": "❌ no sub object",
+								"value": "❌ no date",
 								"formula": "AM(B1,B4,B5,B1:B7,B6)"
 							}
 						}
@@ -729,7 +730,7 @@
 						"size": 151
 					},
 					{
-						"size": 50
+						"size": 86
 					},
 					{
 						"size": 82
@@ -751,8 +752,8 @@
 				"topCellIndex": 0,
 				"selections": {
 					"0": {
-						"row": 13,
-						"col": 1,
+						"row": 4,
+						"col": 2,
 						"rowCount": 1,
 						"colCount": 1
 					},

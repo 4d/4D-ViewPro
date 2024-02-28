@@ -24,7 +24,8 @@ If (Feature=Null:C1517)
 	Feature:=cs:C1710._feature.new($version)
 	
 	// MARK:-2️⃣0️⃣
-	// FIXME:R4
+	// FIXME:R5
+	Feature.unstable("GET_OBJECTS")  // github:4255
 	Feature.unstable("SET_OBJECTS")
 	
 	// MARK:-🚧 Main only

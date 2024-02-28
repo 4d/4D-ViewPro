@@ -55,13 +55,23 @@ Case of
 					
 					$v:=$js.value[$row][$col]
 					
-					If (Value type:C1509($v)=Is object:K8:27)\
-						 && ($v.date#Null:C1517)
+					If (Value type:C1509($v)=Is object:K8:27)
 						
-						$js.value[$row][$col].value:=Add to date:C393(!00-00-00!; $v.date.year; $v.date.month; $v.date.day)
-						OB REMOVE:C1226($v; "date")
+						Case of 
+							: (Feature.with("GET_OBJECTS"))
+								
+								vp_convert_dateInObject($v; True:C214)
+								
+							: ($v.date#Null:C1517)
+								
+								$js.value[$row][$col].value:=Add to date:C393(!00-00-00!; $v.date.year; $v.date.month; $v.date.day)
+								
+								OB REMOVE:C1226($v; "date")
+								
+						End case 
 						
 					End if 
+					
 				End for 
 			End for 
 			

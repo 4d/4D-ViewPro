@@ -200,6 +200,7 @@
 			"vp_4DViewString",
 			"vp_callback",
 			"vp_computeFonts",
+			"vp_convert_dateInObject",
 			"vp_convert_from_stylesheet",
 			"vp_convert_to_stylesheet",
 			"vp_endInit",
