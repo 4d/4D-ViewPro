@@ -295,7 +295,7 @@
 			
 			ret.time = (hours * 3600) + (minutes * 60) + seconds;
 
-			ret.$4d_convertValueToDate = true;
+			ret.$4d_convertToDate = true;
  
 			return ret;
 		}

@@ -458,9 +458,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             ok = (arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date);
                             if (ok) {
                                 args[i] = { "value": { "day": arg.getDate(), "month": arg.getMonth() + 1, "year": arg.getFullYear() } };
-                                if (isFormula) {
-                                    args[i].value.$4d_convertToDate = true;
-                                }
+                                args[i].value.$4d_convertToDate = true;
                             }
                             break;
 
@@ -479,8 +477,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                     "value": { "day": arg.getDate(), "month": arg.getMonth() + 1, "year": arg.getFullYear() },
                                     "time": (arg.getHours() * 3600) + (arg.getMinutes() * 60) + arg.getSeconds()
                                 };
-                            } else {
-                                args[i] = { "value": arg };
+                            } else if ((arg != null) && (typeof (arg) === 'object')) {
+                                args[i] = Utils._transformObjectDateValues(arg);
                             }
                             ok = true;
                             break;
@@ -500,7 +498,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                     row.forEach(function (content, colIndex) {
                                         if ((content != null) && (content.constructor === Date)) {
                                             ar[rowIndex][colIndex] = { "value": Utils.convertValueTo4D(content) }
-                                            ar[rowIndex][colIndex].value.$4d_convertToDate=true;
+                                        }
+                                        else if ((content != null) && (typeof(content) === 'object')) {
+                                            ar[rowIndex][colIndex] = Utils._transformObjectDateValues(content)
                                         }
                                     });
                                 });
@@ -516,6 +516,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (isFormula) {
                                     args[i].value.$4d_convertValueToDate = true;
                                 }
+                            }
+                            else if ((arg != null) && (typeof (arg) === 'object')) {
+                                args[i] = Utils._transformObjectDateValues(args[i])
                             }
                             ok = true;
                             break;
