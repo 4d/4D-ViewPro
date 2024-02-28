@@ -1,7 +1,7 @@
 {
 	"version": 1,
 	"dateCreation": "2023-12-06T16:00:17Z",
-	"dateModified": "2024-02-28T13:48:04Z",
+	"dateModified": "2024-02-28T15:31:16Z",
 	"spreadJS": {
 		"version": "16.2.6",
 		"name": "",
@@ -13,8 +13,8 @@
 				"isSelected": true,
 				"rowCount": 1004,
 				"columnCount": 101,
-				"activeRow": 4,
-				"activeCol": 2,
+				"activeRow": 13,
+				"activeCol": 1,
 				"visible": 1,
 				"theme": "Office",
 				"data": {
@@ -235,14 +235,14 @@
 								}
 							},
 							"1": {
-								"value": "/OADate(45350.61664011574)/",
+								"value": "/OADate(45350.688181655096)/",
 								"style": {
 									"hAlign": 1,
 									"vAlign": 0,
 									"themeFont": "Body",
 									"formatter": "[$-409]h:mm:ss AM/PM",
 									"formatInfo": {
-										"text": "2:47:57 PM"
+										"text": "4:30:58 PM"
 									}
 								},
 								"formula": "NOW()"
@@ -321,7 +321,7 @@
 											"year": 2024
 										},
 										"time": 0,
-										"$4d_convertValueToDate": true
+										"$4d_convertToDate": true
 									},
 									"dateV": {
 										"date": {
@@ -330,7 +330,7 @@
 											"year": 2024
 										},
 										"time": 0,
-										"$4d_convertValueToDate": true
+										"$4d_convertToDate": true
 									},
 									"time": {
 										"date": {
@@ -338,17 +338,17 @@
 											"month": 2,
 											"year": 2024
 										},
-										"time": 53277,
-										"$4d_convertValueToDate": true
+										"time": 59458,
+										"$4d_convertToDate": true
 									},
 									"timeV": {
 										"date": {
-											"day": 28,
-											"month": 2,
-											"year": 2024
+											"day": 30,
+											"month": 12,
+											"year": 1899
 										},
-										"time": 53277,
-										"$4d_convertValueToDate": true
+										"time": 39600,
+										"$4d_convertToDate": true
 									},
 									"object": {
 										"key": "value"
@@ -359,7 +359,7 @@
 									"vAlign": 0,
 									"themeFont": "Body"
 								},
-								"formula": "OBJECT(\"text\",\"hello world\",\"textV\",B1,\"integer\",12,\"integerV\",B2,\"real\",PI(),\"realV\",B3,\"date\",TODAY(),\"dateV\",B4,\"time\",NOW(),\"timeV\",B5,\"object\",OBJECT(\"key\",\"value\"))"
+								"formula": "OBJECT(\"text\",\"hello world\",\"textV\",B1,\"integer\",12,\"integerV\",B2,\"real\",PI(),\"realV\",B3,\"date\",TODAY(),\"dateV\",B4,\"time\",NOW(),\"timeV\",C5,\"object\",OBJECT(\"key\",\"value\"))"
 							},
 							"3": {
 								"style": {
@@ -656,7 +656,7 @@
 								}
 							},
 							"1": {
-								"value": "❌ no date",
+								"value": "✅",
 								"formula": "MYOBJECT(B6)"
 							}
 						},
@@ -669,7 +669,7 @@
 								}
 							},
 							"1": {
-								"value": "❌ no date",
+								"value": "obj:✅/col:✅",
 								"formula": "AM(B1,B4,B5,B1:B7,B6)"
 							}
 						}
@@ -752,8 +752,8 @@
 				"topCellIndex": 0,
 				"selections": {
 					"0": {
-						"row": 4,
-						"col": 2,
+						"row": 13,
+						"col": 1,
 						"rowCount": 1,
 						"colCount": 1
 					},

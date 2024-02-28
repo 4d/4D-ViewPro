@@ -5,7 +5,7 @@ var $data : Object
 $data:=Bool:C1537($inValue) ? $object.value : $object
 // convert if date
 
-If (Bool:C1537($data.$4d_convertValueToDate))
+If (Bool:C1537($data.$4d_convertToDate))
 	
 	$object.time:=$data.time
 	$object.value:=Add to date:C393(!00-00-00!; $data.date.year; $data.date.month; $data.date.day)

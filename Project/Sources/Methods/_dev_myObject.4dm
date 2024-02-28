@@ -28,10 +28,18 @@ Case of
 				return "❌ no time object"
 			: (Value type:C1509($data.time.time)#Is real:K8:4)
 				return "❌ no time attr in time object"
+			: (Value type:C1509($data.time.value)#Is date:K8:7)
+				return "❌ no value attr for date in time object"
+			: ($data.time.date#Null:C1517)
+				return "❌ extraneous date attr in time object"
 			: (Value type:C1509($data.timeV)#Is object:K8:27)
 				return "❌ no time object from cell"
 			: (Value type:C1509($data.timeV.time)#Is real:K8:4)
 				return "❌ no time attr in time object from cell"
+			: (Value type:C1509($data.timeV.value)#Is date:K8:7)
+				return "❌ no value attr for date in time object from cell"
+			: ($data.timeV.date#Null:C1517)
+				return "❌ extraneous date attr in time object from cell"
 			: (Value type:C1509($data.date)#Is date:K8:7)  // TODO: maybe object with data as value (Date could be Date or DateTime)
 				return "❌ no date"
 			: (Value type:C1509($data.dateV)#Is date:K8:7)
