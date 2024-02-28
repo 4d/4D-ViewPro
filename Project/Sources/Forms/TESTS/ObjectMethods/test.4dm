@@ -21,6 +21,17 @@ Case of
 		//______________________________________________________
 	: (True:C214)
 		
+		$value:=VP Get value($cell)  // $cell.getValue()
+		$values:=VP Get values($cell)
+		
+		//______________________________________________________
+	: (True:C214)  // Set current cell value as an object
+		
+		//$cell.setFormula("OBJECT(\"key\", \"value\")")
+		
+		//______________________________________________________
+	: (True:C214)
+		
 		var $formula : Object
 		$formula:=VP Get formula by name($vp.area; "toto")
 		

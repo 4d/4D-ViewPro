@@ -53,7 +53,7 @@
 				"test": {
 					"type": "button",
 					"text": "Test",
-					"top": 115,
+					"top": 110,
 					"left": 20,
 					"width": 78,
 					"height": 17,
@@ -79,7 +79,7 @@
 				"load": {
 					"type": "button",
 					"text": "Open",
-					"top": 78,
+					"top": 77,
 					"left": 20,
 					"width": 78,
 					"height": 17,
@@ -99,7 +99,7 @@
 				},
 				"Line1": {
 					"type": "line",
-					"top": 104,
+					"top": 102,
 					"left": 20,
 					"width": 78,
 					"height": 0,
@@ -107,7 +107,7 @@
 				},
 				"Line2": {
 					"type": "line",
-					"top": 166,
+					"top": 186,
 					"left": 20,
 					"width": 78,
 					"height": 0,
@@ -116,7 +116,7 @@
 				"Text": {
 					"type": "text",
 					"text": "Scrollbars",
-					"top": 170,
+					"top": 190,
 					"left": 20,
 					"width": 76,
 					"height": 16,
@@ -125,7 +125,7 @@
 				"hScrollbar": {
 					"type": "checkbox",
 					"text": "horizontal",
-					"top": 186,
+					"top": 206,
 					"left": 35,
 					"width": 76,
 					"height": 16,
@@ -139,7 +139,7 @@
 				"vScrollbar": {
 					"type": "checkbox",
 					"text": "vertical",
-					"top": 206,
+					"top": 226,
 					"left": 35,
 					"width": 76,
 					"height": 16,
@@ -153,7 +153,7 @@
 				"injectSrc": {
 					"type": "button",
 					"text": "Inject js",
-					"top": 140,
+					"top": 160,
 					"left": 20,
 					"width": 78,
 					"height": 17,
@@ -162,11 +162,24 @@
 					],
 					"method": "ObjectMethods/injectSrc.4dm",
 					"focusable": false
+				},
+				"recompute": {
+					"type": "button",
+					"text": "Recompute",
+					"top": 135,
+					"left": 20,
+					"width": 78,
+					"height": 17,
+					"events": [
+						"onClick"
+					],
+					"method": "ObjectMethods/recompute.4dm",
+					"focusable": false
 				}
 			}
 		}
 	],
-	"geometryStamp": 142,
+	"geometryStamp": 186,
 	"method": "method.4dm",
 	"editor": {
 		"activeView": "View 1",

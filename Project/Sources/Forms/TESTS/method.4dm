@@ -50,13 +50,31 @@ Case of
 		
 		// Define the "myObject" function 
 		$functions.myObject:={\
-			formula: Formula:C1597(_myObject); \
+			formula: Formula:C1597(_dev_myObject($1)); \
 			summary: "Get univeral response"; \
 			parameters: [\
 			{name: "object"; type: Is object:K8:27}\
 			]}
 		
 		$ƒ.vp.setCustomFunctions($functions)
+		
+		var $allowed : Object
+		$allowed:={}  //parameter for the command
+		
+		$allowed.AM:={\
+			method: "_dev_allowedMethod"; \
+			summary: "Check multiple parameters validity"; \
+			minParams: 5; \
+			maxParams: 5; \
+			parameters: [\
+			{name: "Message"; type: Is text:K8:3}; \
+			{name: "Date"; type: Is date:K8:7}; \
+			{name: "Time"; type: Is time:K8:8}; \
+			{name: "col"; type: Is collection:K8:32}; \
+			{name: "obj"; type: Is object:K8:27}\
+			]}
+		
+		VP SET ALLOWED METHODS($allowed)  // for all view pro area
 		
 		//______________________________________________________
 	: ($e.code=On Timer:K2:25)
