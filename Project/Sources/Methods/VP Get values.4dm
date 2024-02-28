@@ -60,7 +60,7 @@ Case of
 						Case of 
 							: (Feature.with("GET_OBJECTS"))
 								
-								vp_convert_dateInObject($v; True:C214)
+								vp_convert_dateInObject($v; False:C215)
 								
 							: ($v.date#Null:C1517)
 								
