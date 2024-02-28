@@ -1,7 +1,7 @@
 {
 	"version": 1,
 	"dateCreation": "2023-12-06T16:00:17Z",
-	"dateModified": "2024-02-02T14:31:24Z",
+	"dateModified": "2024-02-28T07:23:46Z",
 	"spreadJS": {
 		"version": "16.2.6",
 		"name": "",
@@ -13,7 +13,7 @@
 				"isSelected": true,
 				"rowCount": 1004,
 				"columnCount": 101,
-				"activeRow": 11,
+				"activeRow": 13,
 				"activeCol": 1,
 				"visible": 1,
 				"theme": "Office",
@@ -175,14 +175,14 @@
 								}
 							},
 							"1": {
-								"value": "/OADate(45324)/",
+								"value": "/OADate(45350)/",
 								"style": {
 									"hAlign": 1,
 									"vAlign": 0,
 									"themeFont": "Body",
 									"formatter": "m/d/yyyy",
 									"formatInfo": {
-										"text": "2/2/2024"
+										"text": "2/28/2024"
 									}
 								},
 								"formula": "TODAY()"
@@ -235,14 +235,14 @@
 								}
 							},
 							"1": {
-								"value": "/OADate(45324.646704467596)/",
+								"value": "/OADate(45350.349243958335)/",
 								"style": {
 									"hAlign": 1,
 									"vAlign": 0,
 									"themeFont": "Body",
 									"formatter": "[$-409]h:mm:ss AM/PM",
 									"formatInfo": {
-										"text": "3:31:15 PM"
+										"text": "8:22:54 AM"
 									}
 								},
 								"formula": "NOW()"
@@ -302,10 +302,50 @@
 									"integerV": 12,
 									"real": 3.1415926535898,
 									"realV": 3.1415926535898,
-									"date": "2024-02-01T23:00:00.000Z",
-									"dateV": "2024-02-01T23:00:00.000Z",
-									"time": "2024-02-02T14:31:15.266Z",
-									"timeV": "2024-02-02T14:31:15.266Z",
+									"date": {
+										"value": {
+											"date": {
+												"day": 28,
+												"month": 2,
+												"year": 2024
+											},
+											"time": 0,
+											"$4d_convertValueToDate": true
+										}
+									},
+									"dateV": {
+										"value": {
+											"date": {
+												"day": 28,
+												"month": 2,
+												"year": 2024
+											},
+											"time": 0,
+											"$4d_convertValueToDate": true
+										}
+									},
+									"time": {
+										"value": {
+											"date": {
+												"day": 28,
+												"month": 2,
+												"year": 2024
+											},
+											"time": 30174,
+											"$4d_convertValueToDate": true
+										}
+									},
+									"timeV": {
+										"value": {
+											"date": {
+												"day": 28,
+												"month": 2,
+												"year": 2024
+											},
+											"time": 30174,
+											"$4d_convertValueToDate": true
+										}
+									},
 									"object": {
 										"key": "value"
 									}
@@ -615,8 +655,21 @@
 								}
 							},
 							"1": {
-								"value": 42,
+								"value": "❌ no sub object",
 								"formula": "MYOBJECT(B6)"
+							}
+						},
+						"16": {
+							"0": {
+								"value": "allowedMethod",
+								"style": {
+									"font": "bold 11pt Calibri",
+									"themeFont": "Body"
+								}
+							},
+							"1": {
+								"value": "❌ no sub object",
+								"formula": "AM(B1,B4,B5,B1:B7,B6)"
 							}
 						}
 					},
@@ -698,7 +751,7 @@
 				"topCellIndex": 0,
 				"selections": {
 					"0": {
-						"row": 11,
+						"row": 13,
 						"col": 1,
 						"rowCount": 1,
 						"colCount": 1

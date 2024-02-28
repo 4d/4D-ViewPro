@@ -1,7 +1,8 @@
 {
 	"# 🚧 DEV": {
 		"methods": [
-			"_myObject",
+			"_dev_allowedMethod",
+			"_dev_myObject",
 			"FEATURES",
 			"vp_objectToFormula"
 		],
