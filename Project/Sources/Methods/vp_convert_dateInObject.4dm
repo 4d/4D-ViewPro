@@ -11,7 +11,7 @@ If (Bool:C1537($data.$4d_convertToDate))
 	$object.value:=Add to date:C393(!00-00-00!; $data.date.year; $data.date.month; $data.date.day)
 	If (Not:C34(Bool:C1537($inValue)))
 		OB REMOVE:C1226($object; "date")
-		OB REMOVE:C1226($object; "$4d_convertValueToDate")
+		OB REMOVE:C1226($object; "$4d_convertToDate")
 	End if 
 	
 Else 
