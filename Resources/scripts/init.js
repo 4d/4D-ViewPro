@@ -194,12 +194,21 @@ document.addEventListener('DOMContentLoaded', function () {
             Utils.initContextMenu();
         }
 
+        // BEGIN OF PATCH
+        // ACI0104551 issue with if culture change when opening file, some things are not recomputed
+        // playing with selection (without suspending draw) allow to activate some feature for next import
+        let sheet = Utils.resolveSheet(0);
+        if (sheet != null) {
+            sheet.setSelection(0, 0, sheet.getColumnCount(), sheet.getColumnCount());
+            sheet.setSelection(0, 0, 1, 1); // reset to default
+        }
+        // END OF PATCH
+
         Utils.send4DEvent("onVPReady");
 
         // BEGIN OF PATCH
         // patch suggested by GrapeCity team as a workaround in case CAS-33873-K8Q7D0
         // problem will be solved on their side, id is SJS-14667
-        
         var getValueFn = GC.Spread.Sheets.Worksheet.prototype.getValue;
         GC.Spread.Sheets.Worksheet.prototype.getValue = function () {
             var value = getValueFn.apply(this, arguments);
@@ -208,7 +217,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             return value;
         }
-        
         // END OF PATCH
     }
 
