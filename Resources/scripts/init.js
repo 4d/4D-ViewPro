@@ -475,7 +475,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             if ((arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date)) {
                                 args[i] = {
                                     "value": { "day": arg.getDate(), "month": arg.getMonth() + 1, "year": arg.getFullYear() },
-                                    "time": (arg.getHours() * 3600) + (arg.getMinutes() * 60) + arg.getSeconds()
+                                    "time": (arg.getHours() * 3600) + (arg.getMinutes() * 60) + arg.getSeconds(),
+                                    "$4d_convertToDate": true
                                 };
                             } else if ((arg != null) && (typeof (arg) === 'object')) {
                                 args[i] = Utils._transformObjectDateValues(arg);
