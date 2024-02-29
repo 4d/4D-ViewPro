@@ -479,7 +479,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 };
                             } else if ((arg != null) && (typeof (arg) === 'object')) {
                                 args[i] = Utils._transformObjectDateValues(arg);
-                            }
+                            } else {
+                                args[i] = { "value": arg }; // we could pass native type as object (to not lost it)
+                            } 
                             ok = true;
                             break;
 
