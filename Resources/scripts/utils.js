@@ -144,14 +144,14 @@ Utils.adjustFormat = function (format) {
  * http://help.grapecity.com/spread/SpreadJSWeb/webframe.html#resulterror.html
  */
 Utils.errors = {
-    invalidCellReference: GC.Spread.CalcEngine.CalcError.parse("#REF!"),
-    wrongTypeOfArgument: GC.Spread.CalcEngine.CalcError.parse("#VALUE!"),
-    numberRelated: GC.Spread.CalcEngine.CalcError.parse("#NUM!"),
-    nullValue: GC.Spread.CalcEngine.CalcError.parse("#NULL!"),
-    calc: GC.Spread.CalcEngine.CalcError.parse("#CALC!"),
-    notAny: GC.Spread.CalcEngine.CalcError.parse("#N/A"),
-    name: GC.Spread.CalcEngine.CalcError.parse("#NAME?"),
-    divisionByZero: GC.Spread.CalcEngine.CalcError.parse("#DIV/0!")
+    invalidCellReference: GC.Spread.CalcEngine.Errors.Reference,
+    wrongTypeOfArgument: GC.Spread.CalcEngine.Errors.Value,
+    numberRelated: GC.Spread.CalcEngine.Errors.Number,
+    nullValue: GC.Spread.CalcEngine.Errors.Null,
+    calc: GC.Spread.CalcEngine.Errors.Calc,
+    notAny: GC.Spread.CalcEngine.Errors.NotAvailable,
+    name: GC.Spread.CalcEngine.Errors.Name,
+    divisionByZero: GC.Spread.CalcEngine.Errors.DivideByZero
 };
 
 Utils.b64ToBlob = function (b64string) {
