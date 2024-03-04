@@ -11,7 +11,7 @@ Case of
 		// =OBJECT("text";"hello world";"textV";B1;"integer";12;"integerV";B2;"real";PI();"realV";B3;"date";AUJOURDHUI();"dateV";B4;"time";MAINTENANT();"timeV";B5;"object";OBJECT("key";"value"))
 		
 		var $data : Object
-		$data:=$obj  // .value  // (if we have "value,  easy to change here)
+		$data:=$obj.value
 		
 		Case of 
 			: (Value type:C1509($data.object)#Is object:K8:27)
