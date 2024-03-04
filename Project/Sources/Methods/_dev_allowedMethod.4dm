@@ -10,4 +10,4 @@ If (Value type:C1509($time)#Is time:K8:8)
 End if 
 
 
-return "obj:"+_dev_myObject($obj)+"/col:"+_dev_myObject($col[5].first())
+return "obj:"+_dev_myObject($obj)+"/col:"+_dev_myObject({value: $col[5].first()})

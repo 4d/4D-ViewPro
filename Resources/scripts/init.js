@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     "$4d_convertToDate": true
                                 };
                             } else if ((arg != null) && (typeof (arg) === 'object')) {
-                                args[i] = Utils._transformObjectDateValues(arg);
+                                args[i] = { "value": Utils._transformObjectDateValues(arg) };
                             } else {
                                 args[i] = { "value": arg }; // we could pass native type as object (to not lost it)
                             } 
