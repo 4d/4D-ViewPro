@@ -1,16 +1,19 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216(${1})
-C_TEXT:C284($0)
+#DECLARE( ...  : Object) : Text
 
-If (Count parameters:C259>=1)
+var $date : Date
+var $is_date : Boolean
+var $format : Integer
+var $time : Time
+
+If (Count parameters:C259=0)
 	
-	C_LONGINT:C283($format)
-	C_TEXT:C284($NumericFormat)
-	C_BOOLEAN:C305($is_date)
-	C_DATE:C307($date)
-	C_TIME:C306($time)
+	return 
 	
-	$is_date:=False:C215
+End if 
+
+// MARK:-With format
+If (Count parameters:C259>=2)
 	
 	If (Count parameters:C259>=2)
 		Case of 
@@ -97,6 +100,7 @@ If (Count parameters:C259>=1)
 								
 						End case 
 						
+						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
 					: (Value type:C1509($1.value)=Is real:K8:4)
 						
 						If (($format>=1) & ($format<=18))
@@ -108,11 +112,30 @@ If (Count parameters:C259>=1)
 						
 					Else 
 						
-						$0:=String:C10($1.value)
+						return String:C10($1.value)
 						
-				End case 
-				
-		End case 
+					End if 
+					
+					//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+				Else 
+					
+					return String:C10($1.value)
+					
+					//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+			End case 
+			
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+	End case 
+End if 
+
+// MARK:-Without format
+If (Value type:C1509($1.value)=Is date:K8:7)
+	
+	If ($1.value=!1899-12-30!)
+		
+		$time:=$1.time
+		return String:C10($time)
+		
 	Else 
 		Case of 
 			: (Value type:C1509($1.value)=Is date:K8:7)
@@ -132,4 +155,9 @@ If (Count parameters:C259>=1)
 				$0:=String:C10($1.value)
 		End case 
 	End if 
+	
+Else 
+	
+	return String:C10($1.value)
+	
 End if 
