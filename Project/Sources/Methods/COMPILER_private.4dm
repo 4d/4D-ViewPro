@@ -47,10 +47,6 @@ C_BOOLEAN:C305(vp_endInit; $3)
 C_OBJECT:C1216(vp_fillStorage; $1)
 
 //___________________________________
-C_OBJECT:C1216(vp_4DViewString; ${1})
-C_TEXT:C284(vp_4DViewString; $0)
-
-//___________________________________
 C_TEXT:C284(vp_saveFile; $1)
 C_TEXT:C284(vp_saveFile; $2)
 C_BOOLEAN:C305(vp_saveFile; $3)
@@ -129,10 +125,6 @@ C_VARIANT:C1683(vp_parse_element_get; $1)
 //___________________________________
 C_COLLECTION:C1488(vp_parse_collection_get; $0)
 C_COLLECTION:C1488(vp_parse_collection_get; $1)
-
-//___________________________________
-C_VARIANT:C1683(vp_isNumeric; $1)
-C_BOOLEAN:C305(vp_isNumeric; $0)
 
 //___________________________________
 C_LONGINT:C283(convert_indexToLetters; $1)
