@@ -16,6 +16,13 @@ If (Storage:C1525.ViewPro=Null:C1517)
 		
 		Use ($o)
 			
+			// The base date for SJS is 31/12/1899 
+			// But the 4D code use 30/12
+			// To be consistent with the 4D date calculation ? 
+			// Or to correct the fact taht the year 1900 was a non-leap year ? 
+			
+			$o.BASE_DATE:=!1899-12-30!
+			
 			$o.available:=(Version type:C495 ?? 64 bit version:K5:25) & (Is license available:C714(4D View license:K44:4))
 			vp_fillStorage($o)
 			
