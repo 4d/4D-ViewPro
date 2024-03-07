@@ -131,6 +131,58 @@ Utils.addCommand('export-json', function (params) {
 });
 
 Utils.addCommand('export-excel', function (params) {
+
+  let tabStripVisible = Utils.spread.options.tabStripVisible;
+  Utils.spread.options.tabStripVisible = true; // export with visible tabs
+ 
+  let options = {};
+  if (params["password"] != null)
+    options.password = params.password;
+
+  if (params["excelIO"] != null && (params["excelIO"] == false)) {
+
+    options.fileType = 0; // excel
+
+    // Default value from ui
+    options.includeStyles = true;
+    options.includeFormulas = true;
+    options.includeUnusedNames = true;
+
+    // options.saveAsView = false;
+    // saveOptions.includeBindingSource= false;
+    options.includeEmptyRegionCells = true;
+    // options.includeAutoMergedCells = false;
+    // options.includeCalcModelCache = false;
+   
+    // options.columnHeadersAsFrozenRows = false;
+    // options.rowHeadersAsFrozenColumns = false;
+
+    for (key in ["includeStyles", "includeFormulas", "includeUnusedNames", 
+                  "saveAsView", "includeBindingSource", "includeEmptyRegionCells", "includeAutoMergedCells", "includeCalcModelCache",
+                  "columnHeadersAsFrozenRows", "rowHeadersAsFrozenColumns"]) {
+      if (params[key] != null)
+        options[key] = params[key];
+    }
+
+    Utils.spread.save(
+      function (blob) {
+        Utils.spread.options.tabStripVisible = tabStripVisible;
+        var reader = new FileReader();
+        reader.onloadend = function () {
+          params.content = reader.result.substr(reader.result.indexOf(',') + 1);
+          $4d._vp_callback(params);
+        }
+        reader.readAsDataURL(blob);
+      },
+      function (e) {
+        Utils.spread.options.tabStripVisible = tabStripVisible;
+        params.error = e;
+        $4d._vp_callback(params);
+      },
+      options);
+    return;
+  }
+
   let serializationOption = {};
   if (params["valuesOnly"] != null)
     serializationOption.ignoreFormula = params.valuesOnly;
@@ -138,14 +190,8 @@ Utils.addCommand('export-excel', function (params) {
   if (params["includeBindingSource"] != null)
     serializationOption.includeBindingSource = params.includeBindingSource;
 
-  let tabStripVisible = Utils.spread.options.tabStripVisible;
-  Utils.spread.options.tabStripVisible = true; // export with visible tabs
   let json = Utils.spread.toJSON(serializationOption);
 
-  let options = {};
-  if (params["password"] != null)
-    options.password = params.password;
-  
   var excelIO = new GC.Spread.Excel.IO();
   excelIO.save(json,
     function (blob) {
