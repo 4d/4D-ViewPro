@@ -39,6 +39,10 @@ C_OBJECT:C1216(vp_UPDATE_SJS; $1)
 C_TEXT:C284(vp_FLUSH; $1)
 
 //___________________________________
+C_OBJECT:C1216(vp_4DViewString; ${1})
+C_TEXT:C284(vp_4DViewString; $0)
+
+//___________________________________
 C_TEXT:C284(vp_endInit; $1)
 C_TEXT:C284(vp_endInit; $2)
 C_BOOLEAN:C305(vp_endInit; $3)
