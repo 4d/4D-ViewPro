@@ -1,137 +1,217 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216(${1})
-C_TEXT:C284($0)
+#DECLARE($value : Object; $options : Object) : Text
 
-If (Count parameters:C259>=1)
+var $formatTxt : Text
+var $date : Date
+var $isDate : Boolean
+var $formatNum : Integer
+var $time : Time
+
+If (Count parameters:C259=0)
 	
-	C_LONGINT:C283($format)
-	C_TEXT:C284($NumericFormat)
-	C_BOOLEAN:C305($is_date)
-	C_DATE:C307($date)
-	C_TIME:C306($time)
+	return 
 	
-	$is_date:=False:C215
+End if 
+
+var $BASE_DATE : Date:=Storage:C1525.ViewPro.BASE_DATE
+var $valueType : Integer:=Value type:C1509($value.value)
+
+// Mark:-value + format
+If (Count parameters:C259>=2)
 	
-	If (Count parameters:C259>=2)
-		Case of 
-			: (Value type:C1509($2.value)=Is text:K8:3)
-				$0:=String:C10($1.value; $2.value)
-				
-			: (Value type:C1509($2.value)=Is real:K8:4)
-				$format:=$2.value
-				
-				If (($format>=19) & ($format<=39))
-					Case of 
-						: (Value type:C1509($1.value)=Is real:K8:4)
-							$date:=Add to date:C393(!1899-12-30!; 0; 0; Int:C8($1.value))
-							$time:=Time:C179(86400*Dec:C9($1.value))
-							$is_date:=True:C214
-						: (Value type:C1509($1.value)=Is date:K8:7)
-							$date:=$1.value
-							$time:=$1.time
-							$is_date:=True:C214
-					End case 
-				End if 
+	var $formatType : Integer:=Value type:C1509($options.value)
+	
+	Case of 
+			
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+		: ($formatType=Is text:K8:3)
+			
+			return String:C10($value.value; $options.value)
+			
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+		: ($formatType=Is real:K8:4)
+			
+			$formatNum:=$options.value
+			
+			If (($formatNum>=19)\
+				 & ($formatNum<=39))
 				
 				Case of 
-					: ($is_date)
 						
-						Case of 
-							: (($format>=19) & ($format<=24))
-								$0:=String:C10($date; $format-18)
-								
-							: ($format=25)
-								$0:=Get localized string:C991("WeekDay"+String:C10(Day number:C114($date)))
-								
-							: ($format=26)
-								$0:=String:C10(Day of:C23($date))
-								
-							: ($format=27)
-								$0:=Get localized string:C991("Month"+String:C10(Month of:C24($date)))
-								
-							: ($format=28)
-								$0:=String:C10(Month of:C24($date))
-								
-							: ($format=29)
-								$0:=String:C10(Year of:C25($date))
-								
-							: ($format=30)
-								$0:=String:C10($date; System date long:K1:3)\
-									+Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_1")\
-									+String:C10($time; HH MM AM PM:K7:5)
-								
-							: ($format=31)
-								$0:=String:C10($date; System date abbreviated:K1:2)\
-									+Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_2")\
-									+String:C10($time; HH MM AM PM:K7:5)
-								
-							: ($format=32)
-								$0:=String:C10($date; System date short:K1:1)\
-									+Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_3")\
-									+String:C10($time; HH MM SS:K7:1)
-								
-							: ($format=33)
-								$0:=String:C10($date; Internal date long:K1:5)\
-									+Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_4")\
-									+String:C10($time; HH MM AM PM:K7:5)
-								
-							: ($format=34)
-								$0:=String:C10($date; Internal date short special:K1:4)\
-									+Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_5")\
-									+String:C10($time; Hour min sec:K7:3)
-								
-							: ($format=35)
-								$0:=String:C10($time; HH MM SS:K7:1)
-								
-							: ($format=36)
-								$0:=String:C10($time; HH MM:K7:2)
-								
-							: ($format=37)
-								$0:=String:C10($time; Hour min sec:K7:3)
-								
-							: ($format=38)
-								$0:=String:C10($time; Hour min:K7:4)
-								
-							: ($format=39)
-								$0:=String:C10($time; HH MM AM PM:K7:5)
-								
-						End case 
+						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+					: ($valueType=Is real:K8:4)\
+						 | ($valueType=Is longint:K8:6)
 						
-					: (Value type:C1509($1.value)=Is real:K8:4)
+						$date:=Add to date:C393($BASE_DATE; 0; 0; Int:C8($value.value))
+						$time:=Time:C179(86400*Dec:C9($value.value))
+						$isDate:=True:C214
 						
-						If (($format>=1) & ($format<=18))
-							$NumericFormat:=Get localized string:C991("FORMAT_4DVIEW_NUMERIC_"+String:C10($format))
-							$0:=String:C10($1.value; $NumericFormat)
-						Else 
-							$0:=String:C10($1.value)
-						End if 
+						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+					: ($valueType=Is date:K8:7)
+						
+						$date:=$value.value
+						$time:=$value.time
+						$isDate:=True:C214
+						
+						//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+				End case 
+			End if 
+			
+			Case of 
+					
+					//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+				: ($isDate)
+					
+					Case of 
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: (($formatNum>=19)\
+							 & ($formatNum<=24))
+							
+							return String:C10($date; $formatNum-18)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=25)
+							
+							return Get localized string:C991("WeekDay"+String:C10(Day number:C114($date)))
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=26)
+							
+							return String:C10(Day of:C23($date))
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=27)
+							
+							return Get localized string:C991("Month"+String:C10(Month of:C24($date)))
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=28)
+							
+							return String:C10(Month of:C24($date))
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=29)
+							
+							return String:C10(Year of:C25($date))
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=30)
+							
+							return String:C10($date; System date long:K1:3)\
+								+Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_1")\
+								+String:C10($time; HH MM AM PM:K7:5)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=31)
+							
+							return String:C10($date; System date abbreviated:K1:2)\
+								+Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_2")\
+								+String:C10($time; HH MM AM PM:K7:5)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=32)
+							
+							return String:C10($date; System date short:K1:1)\
+								+Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_3")\
+								+String:C10($time; HH MM SS:K7:1)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=33)
+							
+							return String:C10($date; Internal date long:K1:5)\
+								+Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_4")\
+								+String:C10($time; HH MM AM PM:K7:5)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=34)
+							
+							return String:C10($date; Internal date short special:K1:4)\
+								+Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_5")\
+								+String:C10($time; Hour min sec:K7:3)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=35)
+							
+							return String:C10($time; HH MM SS:K7:1)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=36)
+							
+							return String:C10($time; HH MM:K7:2)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=37)
+							
+							return String:C10($time; Hour min sec:K7:3)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=38)
+							
+							return String:C10($time; Hour min:K7:4)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+						: ($formatNum=39)
+							
+							return String:C10($time; HH MM AM PM:K7:5)
+							
+							//╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+					End case 
+					
+					//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+				: ($valueType=Is real:K8:4)\
+					 | ($valueType=Is longint:K8:6)
+					
+					If (($formatNum>=1)\
+						 & ($formatNum<=18))
+						
+						$formatTxt:=Get localized string:C991("FORMAT_4DVIEW_NUMERIC_"+String:C10($formatNum))
+						return String:C10($value.value; $formatTxt)
 						
 					Else 
 						
-						$0:=String:C10($1.value)
+						return String:C10($value.value)
 						
-				End case 
-				
-		End case 
+					End if 
+					
+					//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+				Else 
+					
+					return String:C10($value.value)
+					
+					//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+			End case 
+			
+			//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+	End case 
+End if 
+
+// Mark:-Default format
+Case of 
+		
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+	: ($valueType=Is date:K8:7)
+		
+		If ($value.value=$BASE_DATE)
+			
+			$time:=$value.time
+			return String:C10($time)
+			
+		Else 
+			
+			return String:C10($value.value; Internal date short special:K1:4)
+			
+		End if 
+		
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+	: ($valueType=Is object:K8:27)
+		
+		return JSON Stringify:C1217($value.value)
+		
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 	Else 
 		
-		Case of 
-			: (Value type:C1509($1.value)=Is date:K8:7)
-				If ($1.value=!1899-12-30!)
-					$time:=$1.time
-					$0:=String:C10($time)
-				Else 
-					$0:=String:C10($1.value; Internal date short special:K1:4)
-				End if 
-				
-			: (Value type:C1509($1.value)=Is object:K8:27)
-				
-				$0:=JSON Stringify:C1217($1.value)
-				
-			Else 
-				
-				$0:=String:C10($1.value)
-		End case 
-	End if 
-	
-End if 
+		return String:C10($value.value)
+		
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+End case 

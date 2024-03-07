@@ -16,7 +16,7 @@ If (Feature=Null:C1517)
 	If ($version>Num:C11(Application version:C493()))
 		
 		ALERT:C41("The current 4D version ("+Application version:C493+") is lower than the internal version ("+String:C10($version)+").\r\rYou need to fix this!")
-		METHOD OPEN PATH:C1213(Current method name:C684; 14; *)
+		METHOD OPEN PATH:C1213(Current method name:C684; 13; *)
 		ABORT:C156
 		
 	End if 

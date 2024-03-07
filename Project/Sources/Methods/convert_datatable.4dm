@@ -72,6 +72,8 @@ End if
 $Obj_d4.lastColumn:=0
 $Obj_d4.lastRow:=0
 
+var $BASE_DATE : Date:=Storage:C1525.ViewPro.BASE_DATE
+
 // ----------------------------------------------------
 // For each cell
 //For ($Lon_cell;0;$Obj_d4.cells.length-1;1)
@@ -193,7 +195,7 @@ For each ($col; $Obj_d4._cells)
 						: ($Obj_cell.valueType="date")
 							
 							C_LONGINT:C283($nbDays)
-							$nbDays:=Date:C102($Obj_cell.value+"T00:00:00")-!1899-12-30!
+							$nbDays:=Date:C102($Obj_cell.value+"T00:00:00")-$BASE_DATE
 							
 							$Obj_dataTable[$Txt_row][$Txt_col].value:="/OADate("+String:C10($nbDays)+")/"
 							
