@@ -158,26 +158,11 @@ If (vp_initStorage)
 								
 								$callback.command:="export-excel"
 								$callback.password:=$params.password
+								$callback.excelOptions:=$params.excelOptions
 								
-								If (($params.excelIO#Null:C1517) && Not:C34(Bool:C1537($params.excelIO)))
-									var $acceptedKeys : Collection
-									$acceptedKeys:=["excelIO"; "includeStyles"; "includeFormulas"; "includeUnusedNames"; \
-										"saveAsView"; "includeBindingSource"; "includeEmptyRegionCells"; "includeAutoMergedCells"; "includeCalcModelCache"; \
-										"columnHeadersAsFrozenRows"; "rowHeadersAsFrozenColumns"]
-									var $key : Text
-									For each ($key; $params)
-										If ($acceptedKeys.includes($key))
-											$callback[$key]:=$params[$key]
-										End if 
-									End for each 
-									
-								Else 
-									
-									// serialization option for excelio
-									$callback.valuesOnly:=$params.valuesOnly
-									$callback.includeBindingSource:=$params.includeBindingSource
-									
-								End if 
+								// serialization option for excelio
+								$callback.valuesOnly:=$params.valuesOnly
+								$callback.includeBindingSource:=$params.includeBindingSource
 								
 								//……………………………………………………………………………………
 							: ($pathObject.extension=".pdf")

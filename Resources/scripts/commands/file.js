@@ -139,13 +139,16 @@ Utils.addCommand('export-excel', function (params) {
   if (params["password"] != null)
     options.password = params.password;
 
-  if (params["excelIO"] != null && (params["excelIO"] == false)) {
+  if (params["excelOptions"] != null) {
 
-    options.fileType = 0; // excel
+    options.fileType = 0; // excel constant
 
     // Default value from ui
     options.includeStyles = true;
-    options.includeFormulas = true;
+    if (params["valuesOnly"] != null)
+      options.includeFormulas = !params.valuesOnly;
+    else
+      options.includeFormulas = true;
     options.includeUnusedNames = true;
 
     // options.saveAsView = false;
@@ -157,11 +160,8 @@ Utils.addCommand('export-excel', function (params) {
     // options.columnHeadersAsFrozenRows = false;
     // options.rowHeadersAsFrozenColumns = false;
 
-    for (key in ["includeStyles", "includeFormulas", "includeUnusedNames", 
-                  "saveAsView", "includeBindingSource", "includeEmptyRegionCells", "includeAutoMergedCells", "includeCalcModelCache",
-                  "columnHeadersAsFrozenRows", "rowHeadersAsFrozenColumns"]) {
-      if (params[key] != null)
-        options[key] = params[key];
+    for (key in params["excelOptions"]) { // copy all not, filtering to not limit
+      options[key] = params["excelOptions"][key];
     }
 
     Utils.spread.save(
