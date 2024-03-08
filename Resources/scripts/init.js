@@ -521,7 +521,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 }
                             }
                             else if ((arg != null) && (typeof (arg) === 'object')) {
-                                args[i] = Utils._transformObjectDateValues(args[i])
+                                args[i] = { "value": Utils._transformObjectDateValues(args[i]) };
                             }
                             ok = true;
                             break;
