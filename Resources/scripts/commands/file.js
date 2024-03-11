@@ -141,7 +141,7 @@ Utils.addCommand('export-excel', function (params) {
 
   if (params["excelOptions"] != null) {
 
-    options.fileType = 0; // excel constant
+    options.fileType = GC.Spread.Sheets.FileType.excel;
 
     // Default value from ui
     options.includeStyles = true;
