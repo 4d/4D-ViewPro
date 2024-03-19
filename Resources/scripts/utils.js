@@ -903,9 +903,22 @@ function vp_resetOptimizer() {
 }
 */
 
+Utils.longOperationTimeout = 1000 * 60; // timeout 1 minute for long operation
+Utils._longOperationTimeouts = [];
+Utils.pushLongOperationTimeout = function (timeout) {
+    Utils._longOperationTimeouts.push(timeout);
+}
+Utils.popLongOperationTimeout = function () {
+    return Utils._longOperationTimeouts.pop();
+}
+Utils._getLongOperationTimeout = function () {
+    let timeout = Utils.popLongOperationTimeout();
+    return (timeout) ? timeout: Utils.longOperationTimeout;
+}
+
 function vp_startLongOperation() {
     vp_counter++;
-    vp_setOptimizer(1000 * 60); // timeout 1 minute for long operation
+    vp_setOptimizer(Utils._getLongOperationTimeout());
 }
 
 function vp_endLongOperation() {
