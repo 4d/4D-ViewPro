@@ -99,7 +99,7 @@ O comando "{command}" não pode ser aplicado.</target>
         </trans-unit>
         <trans-unit id="NogXYrQzoDOcZizJ68gDUw" resname="ERR_4DVP_23">
           <source>No data retrieved, possibly a timeout (suspension or breakpoint)</source>
-          <target state="new">No data retrieved, possibly a timeout (suspension or breakpoint)</target>
+          <target>Nenhum dado recuperado, talvez um tempo limite</target>
         </trans-unit>
       </group>
       <group resname="Convert">
