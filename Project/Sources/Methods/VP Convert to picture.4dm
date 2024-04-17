@@ -1300,7 +1300,7 @@ End if
 								C_TEXT:C284($str)
 								$str:=""
 								For each ($valPart; $parsedStyle.formatInfo.content)
-									If ($valPart.type#"fillingChar") & ($valPart.type#"placeHolder")
+									If ($valPart.type#"fillingChar") && ($valPart.type#"placeHolder") && ($valPart.type#"numberPlaceholder")
 										$str:=$str+$valPart.value
 									End if 
 								End for each 
@@ -1309,7 +1309,7 @@ End if
 								Case of 
 									: (($parsedStyle.shrinkToFit=1) & ($w>(Int:C8($spaceWidth)-3))) | ($parsedStyle.isVerticalText=1)
 										For each ($valPart; $parsedStyle.formatInfo.content)
-											If ($valPart.type#"fillingChar") & ($valPart.type#"placeHolder")
+											If ($valPart.type#"fillingChar") && ($valPart.type#"placeHolder") && ($valPart.type#"numberPlaceholder") 
 												$valueStr:=$valueStr+$valPart.value
 											End if 
 										End for each 
