@@ -1309,7 +1309,7 @@ End if
 								Case of 
 									: (($parsedStyle.shrinkToFit=1) & ($w>(Int:C8($spaceWidth)-3))) | ($parsedStyle.isVerticalText=1)
 										For each ($valPart; $parsedStyle.formatInfo.content)
-											If ($valPart.type#"fillingChar") && ($valPart.type#"placeHolder") && ($valPart.type#"numberPlaceholder") 
+											If ($valPart.type#"fillingChar") && ($valPart.type#"placeHolder") && ($valPart.type#"numberPlaceholder")
 												$valueStr:=$valueStr+$valPart.value
 											End if 
 										End for each 
@@ -1344,7 +1344,7 @@ End if
 													$valueStr:=$valueStr+($fc*$nbC)
 													$strPart:=New object:C1471("part1"; $valueStr; "part2"; "")
 												Else 
-													If ($valPart.type#"placeHolder")
+													If (($valPart.type#"placeHolder") && ($valPart.type#"numberPlaceholder"))
 														$valueStr:=$valueStr+$valPart.value
 														If ($strPart#Null:C1517)
 															$strPart.part2:=$strPart.part2+$valPart.value
