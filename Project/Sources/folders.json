@@ -179,7 +179,6 @@
 	},
 	"objectOrientedAPI": {
 		"methods": [
-			"vp_addRangeFormulas",
 			"vp_getSheetByName",
 			"vp_makeSheet",
 			"vp_setValue"
