@@ -58,7 +58,6 @@ If (vp_initStorage)
 					Else 
 						$0.area:=$area
 						$0.ranges:=New collection:C1472($ret)
-						vp_addRangeFormulas($0)
 					End if 
 				End if 
 			End if 
