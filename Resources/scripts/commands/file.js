@@ -457,7 +457,7 @@ Utils.addFormatedText = function (json) {
   // _WordWrapHelper // SPREADJS_MIN
   var _WordWrapHelper = GC.Spread.Sheets.q || GC.Spread.Sheets._WordWrapHelper;
   var _getWrapInfo = _WordWrapHelper.un || _WordWrapHelper._getWrapInfo;
-  var _SJSGetWordWrapInfo = _WordWrapHelper.Ht || _WordWrapHelper._SJSGetWordWrapInfo;
+  var _SJSGetWordWrapInfo = _WordWrapHelper.Ht || _WordWrapHelper._getWordWrapInfo;
   var _getCtx = _WordWrapHelper.J || _WordWrapHelper._getCtx;
 
   var _getFontHeight = GC.Spread.Sheets.util.vt || GC.Spread.Sheets.util._getFontHeight;
