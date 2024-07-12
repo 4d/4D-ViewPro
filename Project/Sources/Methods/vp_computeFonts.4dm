@@ -1,19 +1,12 @@
 //%attributes = {"invisible":true}
-  // called from js via C++ when a pdf is exported.
+// called from js via C++ when a pdf is exported.
+#DECLARE($params : Object) : Object
 
-C_OBJECT:C1216($0)
-C_OBJECT:C1216($1)
+var $fonts:={}
 
-C_OBJECT:C1216($fonts)
-$fonts:=New object:C1471
+var $shorthand : Text
+For each ($shorthand; $params)
+	vp_makeFont($fonts; $shorthand)
+End for each 
 
-ARRAY TEXT:C222($shorthands;0)
-OB GET PROPERTY NAMES:C1232($1;$shorthands)
-
-C_LONGINT:C283($i)
-
-For ($i;1;Size of array:C274($shorthands))
-	vp_makeFont ($fonts;$shorthands{$i})
-End for 
-
-$0:=$fonts
+return $fonts
