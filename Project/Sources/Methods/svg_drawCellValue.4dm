@@ -1430,8 +1430,8 @@ End for each
 					C_TEXT:C284($part2Ref)
 					
 					DOM GET XML ATTRIBUTE BY NAME:C728($elemRef; "y"; $yPos)
-					$part1Ref:=DOM Create XML element:C865($elemRef; "text")
-					$part2Ref:=DOM Create XML element:C865($elemRef; "text")
+					$part1Ref:=DOM Create XML element:C865($elemRef; "text"; "style"; $styleStr)
+					$part2Ref:=DOM Create XML element:C865($elemRef; "text"; "style"; $styleStr)
 					DOM SET XML ATTRIBUTE:C866($part1Ref; "x"; $valObj.x+2; "y"; $yPos)
 					If ($valObj.textOrientation#0) & ($valObj.textOrientation#NONE_TEXT_ORIENTATION)
 						DOM SET XML ATTRIBUTE:C866($part2Ref; "x"; $valObj.x+svg_getTextWidth($valObj.strPart.part1)+2; "y"; $yPos)
