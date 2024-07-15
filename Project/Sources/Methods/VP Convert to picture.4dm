@@ -1349,6 +1349,10 @@ End if
 														If ($strPart#Null:C1517)
 															$strPart.part2:=$strPart.part2+$valPart.value
 														End if 
+													Else 
+														If ($strPart#Null:C1517)
+															$strPart.part2:=String:C10($strPart.part2)+" "  // _formatObjectToString
+														End if 
 													End if 
 												End if 
 											End for each 
