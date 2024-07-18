@@ -6,6 +6,7 @@ var $range : cs:C1710._range
 var $o : Object
 var $value
 var $values : Collection
+var $picture : Picture
 
 $vp:=Form:C1466.vp
 $cell:=$vp.getCurrentCell()
@@ -17,6 +18,14 @@ Case of
 	: (Macintosh option down:C545)
 		
 		METHOD OPEN PATH:C1213("[projectForm]/TESTS/test")
+		
+		//______________________________________________________
+	: (True:C214)
+		
+		$o:=VP Export to object($vp.area)
+		$picture:=VP Convert to picture($o)
+		WRITE PICTURE FILE:C680(Folder:C1567(fk desktop folder:K87:19).file("test.svg").platformPath; $picture; ".svg")
+		SHOW ON DISK:C922(Folder:C1567(fk desktop folder:K87:19).file("test.svg").platformPath)
 		
 		//______________________________________________________
 	: (True:C214)
