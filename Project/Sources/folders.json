@@ -71,6 +71,8 @@
 	},
 	"🛠️ Tools": {
 		"methods": [
+			"_buildLocalizationResources",
+			"_buildResources",
 			"_preparationUpgrade",
 			"build_localizationFiles",
 			"COMPILER_Tools",
