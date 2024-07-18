@@ -8,6 +8,8 @@ If (Length:C16($platformPath)=0)
 	return   // cancel 
 End if 
 
+var $reverse:=Shift down:C543
+
 var $folder : 4D:C1709.Folder
 $folder:=Folder:C1567($platformPath; fk platform path:K87:2)
 
@@ -36,6 +38,7 @@ For each ($lang; New collection:C1472("en"; "fr"))  // will have duplicate copy 
 	var $operations : Object
 	var $dest : 4D:C1709.Folder
 	var $fromPath : Text
+	var $destFile; $file : 4D:C1709.File
 	For each ($operations; $copyFileData)
 		
 		$dest:=Folder:C1567($operations.to; fk posix path:K87:1)
@@ -45,10 +48,25 @@ For each ($lang; New collection:C1472("en"; "fr"))  // will have duplicate copy 
 		
 		For each ($fromPath; $operations.from)
 			
-			File:C1566($fromPath; fk posix path:K87:1).copyTo($dest; fk overwrite:K87:5)
+			$file:=File:C1566($fromPath; fk posix path:K87:1)
+			If ($reverse)
+				$destFile:=$dest.file($file.fullName)
+				$destFile.copyTo($file.parent; fk overwrite:K87:5)
+			Else 
+				$destFile:=$file.copyTo($dest; fk overwrite:K87:5)
+			End if 
+			
 			// copy not min
 			If ((Position:C15(".min"; $fromPath)>0) && (File:C1566(Replace string:C233($fromPath; ".min"; ""); fk posix path:K87:1).exists))
-				File:C1566(Replace string:C233($fromPath; ".min"; ""); fk posix path:K87:1).copyTo($dest; fk overwrite:K87:5)
+				
+				$file:=File:C1566(Replace string:C233($fromPath; ".min"; ""); fk posix path:K87:1)
+				If ($reverse)
+					$destFile:=$dest.file($file.fullName)
+					$destFile.copyTo($file.parent; fk overwrite:K87:5)
+				Else 
+					$destFile:=$file.copyTo($dest; fk overwrite:K87:5)
+				End if 
+				
 			End if 
 			
 		End for each 
