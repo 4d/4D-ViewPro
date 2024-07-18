@@ -14,6 +14,16 @@ customDesignerFunctions.computePdfFonts = function (sheetIndex, callback) {
 }
 
 customDesignerFunctions.localizedCommandList = function (list) {
+  if(list == null) {
+    console.log("Passed command list is empty");
+    console.log(new Error().stack);
+    return null;
+  }
+  if(typeof list === 'function') {
+    console.log("Passed command list is a function instead of Array. Please fix. (Function will be called)");
+    console.log(new Error().stack);
+    list=list();
+  }
   let mapping = GC.Spread.CalcEngine.getMapping();
 
   if (mapping != null) {
