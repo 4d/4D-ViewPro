@@ -1351,7 +1351,7 @@ End if
 														End if 
 													Else 
 														If ($strPart#Null:C1517)
-															$strPart.part2:=String:C10($strPart.part2)+" "  // _formatObjectToString
+															$strPart.part2:=String:C10($strPart.part2)+" "  // _formatObjectToString
 														End if 
 													End if 
 												End if 
