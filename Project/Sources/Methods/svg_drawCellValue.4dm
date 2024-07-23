@@ -765,7 +765,7 @@ End for each
 	$gRef:=DOM Create XML element:C865($svgRef; "g"; "xmlns"; "http://www.w3.org/2000/svg"; "xmlns:xlink"; "http://www.w3.org/1999/xlink"; "height"; $svgHeight; "width"; $svgWidth; "x"; 0; "y"; 0)
 	
 	$elemRef:=DOM Create XML element:C865($gRef; "style")
-	DOM SET XML ELEMENT VALUE:C868($elemRef; "textArea{font-size:"+$fontSize+";font-family:'"+themeFont+"';}text{font-size:"+$fontSize+";font-family:'"+themeFont+"';white-space: pre;}")
+	DOM SET XML ELEMENT VALUE:C868($elemRef; "textArea{font-size:"+$fontSize+";font-family:'"+themeFont+"';}text{font-size:"+$fontSize+";font-family:'"+themeFont+"';}")
 	
 	For each ($valObj; $valCol)
 		
