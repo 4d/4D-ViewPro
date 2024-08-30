@@ -373,33 +373,170 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- 4D project methods ------------------------------------------------------------
+    function customFunctionEvaluateAsync(method, isFormula, ...args) {
+
+        vp_startLongOperation();
+        let context = args[0];
+        try {
+
+         // check if parameters are respecting users type rules
+
+         let i;
+
+         for (i = 1; i < args.length; i++) { // start from 1, context is 0
+
+             let arg = args[i];
+             let ok = false;
+
+             let wantedType = -1;
+
+             if ('parametersType' in method) {
+                 if ((i - 1) < method.parametersType.length) {
+                     wantedType = method.parametersType[i - 1];
+                 }
+             }
+
+             switch (wantedType) {
+                 case 1: // real
+                 case 8: // integer
+                 case 9: // longint
+                     ok = typeof (arg) === 'number';
+                     break;
+
+                 case 2: // text
+                     ok = typeof (arg) === 'string';
+                     break;
+
+                 case 6: // boolean
+                     ok = typeof (arg) === 'boolean';
+                     break;
+
+                 case 4: // date
+                     ok = (arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date);
+                     if (ok) {
+                         args[i] = { "value": { "day": arg.getDate(), "month": arg.getMonth() + 1, "year": arg.getFullYear() } };
+                         args[i].value.$4d_convertToDate = true;
+                     }
+                     break;
+
+                 case 11: //time
+                     ok = (arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date);
+                     if (ok) {
+                         let zeroDate = new Date(1899, 11, 30, 0, 0, 0, 0);
+                         let diff = arg.getTime() - zeroDate.getTime();
+                         args[i] = { "time": Math.floor(diff / 1000) }
+                     }
+                     break;
+
+                 case 38: // object
+                     if ((arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date)) {
+                         args[i] = {
+                             "value": { "day": arg.getDate(), "month": arg.getMonth() + 1, "year": arg.getFullYear()},
+                             "time": (arg.getHours() * 3600) + (arg.getMinutes() * 60) + arg.getSeconds()
+                         };
+                         args[i].value.$4d_convertValueToDate = true;
+                     } else if ((arg != null) && (typeof (arg) === 'object')) {
+                         args[i] = { "value": Utils._transformObjectDateValues(arg) };
+                     } else {
+                         args[i] = { "value": arg }; // we could pass native type as object (to not lost it)
+                     } 
+                     ok = true;
+                     break;
+
+                 case 42: // collection	
+                     if (arg.getRangeCount && arg.getRangeCount() > 0) {
+
+                         if (Utils._isContextInsideCalcRef(context, arg)) {
+                             const e = new Error("too much recursion"); // stack overflow error for SpreadJS (to have #NUM)
+                             e.name = "CustomFunctionError";
+                             e.reason = "range contains current cell";
+                             throw e;
+                         }
+                         let ar = arg.getSource().getSheet().getArray(arg.getRow(),arg.getColumn(),arg.getRowCount(),arg.getColumnCount());
+
+                         ar.forEach(function (row, rowIndex) {
+                             row.forEach(function (content, colIndex) {
+                                 if ((content != null) && (content.constructor === Date)) {
+                                     ar[rowIndex][colIndex] = { "value": Utils.convertValueTo4D(content) }
+                                 }
+                                 else if ((content != null) && (typeof(content) === 'object')) {
+                                     ar[rowIndex][colIndex] = Utils._transformObjectDateValues(content)
+                                 }
+                             });
+                         });
+                         
+                         args[i] = ar;
+                         ok = true;
+                     }
+                     break;
+
+                 case -1: // standard mode, convert only dates
+                     if ((arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date)) {
+                         args[i] = Utils.convertValueTo4D(arg, "value")
+                         if (isFormula) {
+                             args[i].value.$4d_convertValueToDate = true;
+                         }
+                     }
+                     else if ((arg != null) && (typeof (arg) === 'object')) {
+                         args[i] = { "value": Utils._transformObjectDateValues(args[i]) };
+                     }
+                     ok = true;
+                     break;
+             }
+             if (!ok) {
+                 context.setAsyncResult(Utils.errors.wrongTypeOfArgument);
+                 vp_endLongOperation();
+                 return;
+             }
+         }
+        } catch (e) { 
+             Utils.logEvent({ type: 'error-catched', data: e });
+             vp_endLongOperation();
+             throw e;
+        }
+
+         try {
+             if (isFormula) {
+                 args[0] = method.spreadJSMethod;
+                 $4d._vp_call4dFormula(...args, function (ret, err) {
+                     try {
+                         if (err === null)
+                             outputResult(context, ret);
+                         else
+                             context.setAsyncResult(Utils.errors.wrongTypeOfArgument);
+                     } finally {
+                         vp_endLongOperation();
+                     }
+                 });
+             } else {
+                 args[0] = method.method;
+                 $4d._vp_call4dMethod(...args, function (ret, err) {
+                     try {
+                         if (err === null)
+                             outputResult(context, ret);
+                         else
+                             context.setAsyncResult(Utils.errors.wrongTypeOfArgument);
+                     } finally {
+                         vp_endLongOperation();
+                     }
+                 });
+             }
+         } catch (e) {
+             Utils.logEvent({ type: 'error-catched', data: e });
+             vp_endLongOperation();
+         }
+     }
+
     function init4DMethods(arr, isFormula) {
 
         arr.forEach(function (method) {
+
+            let minParams = ('minParams' in method) ? method.minParams : 0;
+            let maxParams = ('maxParams' in method) ? method.maxParams : 100;
+            let parameters = ('parameters' in method) ? method.parameters : [];
+            let summary = ('summary' in method) ? method.summary : '';
+  
             var myFunc = function () { };
-
-            let minParams = 0;
-            let maxParams = 100;
-
-            if ('minParams' in method) {
-                minParams = method.minParams;
-            }
-
-            if ('maxParams' in method) {
-                maxParams = method.maxParams;
-            }
-
-            let parameters = [];
-            if ('parameters' in method) {
-                parameters = method.parameters;
-            }
-
-            let summary = '';
-            if ('summary' in method) {
-                summary = method.summary;
-            }
-
             myFunc.prototype = new GC.Spread.CalcEngine.Functions.AsyncFunction(method.spreadJSMethod, minParams, maxParams, summary);
 
             let patchAcceptsReference = method.parametersType != null && method.parametersType.includes(42/*col*/)
@@ -416,158 +553,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 return { "description": summary, "parameters": parameters };
             };
 
-            myFunc.prototype.evaluateAsync = function (...args) {
-
-               vp_startLongOperation();
-               let context = args[0];
-               try {
-
-                // check if parameters are respecting users type rules
-
-                let i;
-
-                for (i = 1; i < args.length; i++) {
-
-                    let arg = args[i];
-                    let ok = false;
-
-                    let wantedType = -1;
-
-                    if ('parametersType' in method) {
-                        if ((i - 1) < method.parametersType.length) {
-                            wantedType = method.parametersType[i - 1];
-                        }
-                    }
-
-                    switch (wantedType) {
-                        case 1: // real
-                        case 8: // integer
-                        case 9: // longint
-                            ok = typeof (arg) === 'number';
-                            break;
-
-                        case 2: // text
-                            ok = typeof (arg) === 'string';
-                            break;
-
-                        case 6: // boolean
-                            ok = typeof (arg) === 'boolean';
-                            break;
-
-                        case 4: // date
-                            ok = (arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date);
-                            if (ok) {
-                                args[i] = { "value": { "day": arg.getDate(), "month": arg.getMonth() + 1, "year": arg.getFullYear() } };
-                                args[i].value.$4d_convertToDate = true;
-                            }
-                            break;
-
-                        case 11: //time
-                            ok = (arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date);
-                            if (ok) {
-                                let zeroDate = new Date(1899, 11, 30, 0, 0, 0, 0);
-                                let diff = arg.getTime() - zeroDate.getTime();
-                                args[i] = { "time": Math.floor(diff / 1000) }
-                            }
-                            break;
-
-                        case 38: // object
-                            if ((arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date)) {
-                                args[i] = {
-                                    "value": { "day": arg.getDate(), "month": arg.getMonth() + 1, "year": arg.getFullYear()},
-                                    "time": (arg.getHours() * 3600) + (arg.getMinutes() * 60) + arg.getSeconds()
-                                };
-                                args[i].value.$4d_convertValueToDate = true;
-                            } else if ((arg != null) && (typeof (arg) === 'object')) {
-                                args[i] = { "value": Utils._transformObjectDateValues(arg) };
-                            } else {
-                                args[i] = { "value": arg }; // we could pass native type as object (to not lost it)
-                            } 
-                            ok = true;
-                            break;
-
-                        case 42: // collection	
-                            if (arg.getRangeCount && arg.getRangeCount() > 0) {
-
-                                if (Utils._isContextInsideCalcRef(context, arg)) {
-                                    const e = new Error("too much recursion"); // stack overflow error for SpreadJS (to have #NUM)
-                                    e.name = "CustomFunctionError";
-                                    e.reason = "range contains current cell";
-                                    throw e;
-                                }
-                                let ar = arg.getSource().getSheet().getArray(arg.getRow(),arg.getColumn(),arg.getRowCount(),arg.getColumnCount());
-
-                                ar.forEach(function (row, rowIndex) {
-                                    row.forEach(function (content, colIndex) {
-                                        if ((content != null) && (content.constructor === Date)) {
-                                            ar[rowIndex][colIndex] = { "value": Utils.convertValueTo4D(content) }
-                                        }
-                                        else if ((content != null) && (typeof(content) === 'object')) {
-                                            ar[rowIndex][colIndex] = Utils._transformObjectDateValues(content)
-                                        }
-                                    });
-                                });
-                                
-                                args[i] = ar;
-                            	ok = true;
-                            }
-                            break;
-
-                        case -1: // standard mode, convert only dates
-                            if ((arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date)) {
-                                args[i] = Utils.convertValueTo4D(arg, "value")
-                                if (isFormula) {
-                                    args[i].value.$4d_convertValueToDate = true;
-                                }
-                            }
-                            else if ((arg != null) && (typeof (arg) === 'object')) {
-                                args[i] = { "value": Utils._transformObjectDateValues(args[i]) };
-                            }
-                            ok = true;
-                            break;
-                    }
-                    if (!ok) {
-                        context.setAsyncResult(Utils.errors.wrongTypeOfArgument);
-                        vp_endLongOperation();
-                        return;
-                    }
-                }
-               } catch (e) { 
-                    Utils.logEvent({ type: 'error-catched', data: e });
-                    vp_endLongOperation();
-                    throw e;
-               }
-
-                try {
-                    if (isFormula) {
-                        args[0] = method.spreadJSMethod;
-                        $4d._vp_call4dFormula(...args, function (ret, err) {
-                            try {
-                                if (err === null)
-                                    outputResult(context, ret);
-                                else
-                                    context.setAsyncResult(Utils.errors.wrongTypeOfArgument);
-                            } finally {
-                                vp_endLongOperation();
-                            }
-                        });
-                    } else {
-                        args[0] = method.method;
-                        $4d._vp_call4dMethod(...args, function (ret, err) {
-                            try {
-                                if (err === null)
-                                    outputResult(context, ret);
-                                else
-                                    context.setAsyncResult(Utils.errors.wrongTypeOfArgument);
-                            } finally {
-                                vp_endLongOperation();
-                            }
-                        });
-                    }
-                } catch (e) {
-                    Utils.logEvent({ type: 'error-catched', data: e });
-                    vp_endLongOperation();
-                }
+            myFunc.prototype.evaluateAsync  = function (...args) {
+                setTimeout(() => {
+                    customFunctionEvaluateAsync(method, isFormula, ...args);
+                }, 1); // to allow user case edit to finish before evaluating
             };
             let instance = new myFunc();
             let upperName = method.spreadJSMethod.toUpperCase();
