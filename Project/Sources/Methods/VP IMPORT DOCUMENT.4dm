@@ -230,24 +230,26 @@ If (vp_initStorage)
 							
 						Else   // if not xls or 4VP then csv
 							
-							If ($params.csvOptions#Null:C1517)
-								$params:=OB Copy:C1225($params.csvOptions)
-							Else 
-								$params:=New object:C1471
-							End if 
-							
 							If ($params.csvOptions.rowDelimiter#Null:C1517)
-								$params.csv:=Document to text:C1236($filePath; "UTF-8"; Document unchanged:K24:18)
+								$textBuffer:=Document to text:C1236($filePath; "UTF-8"; Document unchanged:K24:18)
 							Else 
-								$params.csv:=Document to text:C1236($filePath; "UTF-8"; Document with LF:K24:22)
-								$params.rowDelimiter:=Char:C90(Line feed:K15:40)
+								$textBuffer:=Document to text:C1236($filePath; "UTF-8"; Document with LF:K24:22)
 							End if 
 							
 							If (err_continue)
-								vp_runFunction($area; "import-csv"; $params)
+								
+								var $jsParams : Object
+								$jsParams:=($params.csvOptions#Null:C1517) ? OB Copy:C1225($params.csvOptions) : New object:C1471()
+								If ($jsParams.rowDelimiter=Null:C1517)
+									$jsParams.rowDelimiter:=Char:C90(Line feed:K15:40)  // we read file with LF
+								End if 
+								$jsParams.csv:=$textBuffer
+								
+								vp_runFunction($area; "import-csv"; $jsParams)  // suppose synchrone, no js callback 
 								// Is there a user callback method to execute ?
 								
 								If ($params.formula#Null:C1517)
+									
 									$callback:=New object:C1471
 									$callback.path:=$filePath
 									$callback.command:="import-csv"
