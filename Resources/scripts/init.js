@@ -492,6 +492,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (e) { 
              Utils.logEvent({ type: 'error-catched', data: e });
              vp_endLongOperation();
+             context.setAsyncResult((e.message="too much recursion") ? Utils.errors.numberRelated : Utils.errors.calc);
              throw e;
         }
 
@@ -554,9 +555,9 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             myFunc.prototype.evaluateAsync  = function (...args) {
-                setTimeout(() => {
+                setTimeout(() => { try {
                     customFunctionEvaluateAsync(method, isFormula, ...args);
-                }, 1); // to allow user case edit to finish before evaluating
+                } catch (err) {} }, 1); // to allow user case edit to finish before evaluating
             };
             let instance = new myFunc();
             let upperName = method.spreadJSMethod.toUpperCase();
