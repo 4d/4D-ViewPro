@@ -126,10 +126,10 @@ customDesignerFunctions.init = function () {
   });
 
   let moduleInsertFunctionDialog = exported_modules.c["./src/commands/ribbon/formulas/functionHandler/insertFunctionDialog.tpl.ts"].exports;
-   moduleInsertFunctionDialog.insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[12].items = customDesignerFunctions.getCustomFunctionsList();
+   moduleInsertFunctionDialog.insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[13].items = customDesignerFunctions.getCustomFunctionsList();
   moduleInsertFunctionDialog.insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[0].items = moduleSupportedFunctions.allFunctionItems;
   */
 
    // add custom functions to the custom section of the insert function dialog
-   vp_insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[12].items = customDesignerFunctions.getCustomFunctionsList();
+   vp_insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[13].items = customDesignerFunctions.getCustomFunctionsList();
 }
