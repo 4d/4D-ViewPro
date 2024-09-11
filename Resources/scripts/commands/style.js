@@ -234,6 +234,10 @@
 
                 for (var propertyName in style) {
                     if (style.hasOwnProperty(propertyName)) {
+                        if (propertyName.startsWith("_")) // now spreadJS use getter setter remapped on private properties
+                        {
+                            propertyName = propertyName.substring(1);
+                        }
                         if (propertyName != 'name') {
                             if (typeof cellRange[propertyName] === 'function') {
                                 cellRange[propertyName](style[propertyName]);

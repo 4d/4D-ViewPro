@@ -14,41 +14,25 @@ ________________________________________________________
 // Update according to SJS version
 // ----------------------------------------------------
 // Declarations
-C_OBJECT:C1216($1)
+#DECLARE($Obj_in : Object)
 
-C_BOOLEAN:C305($Boo_updated)
-C_LONGINT:C283($Lon_docMajor; $nbParameters; $Lon_sjsMajor)
-C_TEXT:C284($Txt_buffer; $Txt_property)
-C_OBJECT:C1216($Obj_in)
+var $Boo_updated : Boolean
+var $Lon_docMajor; $Lon_sjsMajor : Integer
+var $Txt_buffer; $Txt_property : Text
 
 If (False:C215)
 	C_OBJECT:C1216(vp_UPDATE_SJS; $1)
 End if 
 
-// ----------------------------------------------------
-// Initialisations
-$nbParameters:=Count parameters:C259
-
-If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
-	
-	// Required parameters
-	$Obj_in:=$1  // SJS object
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		// <NONE>
-		
-	End if 
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
 
 // ----------------------------------------------------
 Case of 
+		
+		//______________________________________________________
+	: ($Obj_in=Null:C1517)
+		
+		err_THROW(New object:C1471(\
+			"code"; 1))
 		
 		//______________________________________________________
 	: ($Obj_in.version=Null:C1517)
@@ -114,155 +98,10 @@ Case of
 				End case 
 				
 				//……………………………………………………………………………………………………………………………………………………………………
-			: ($Lon_docMajor=11)
+			: ($Lon_docMajor>=11)
 				
-				Case of 
-						
-						// ........................................
-					: ($Lon_sjsMajor=11)
-						
-						// v11 open v11 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=12)
-						
-						// v12 open v11 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=13)
-						
-						// v13 open v11 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=14)
-						
-						// v14 open v11 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=15)
-						
-						// v15 open v11 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=16)
-						
-						// v16 open v11 doc, adjust minor version
-						$Boo_updated:=True:C214
-						// ........................................
-				End case 
-				
-			: ($Lon_docMajor=12)
-				
-				Case of 
-						
-						// ........................................
-					: ($Lon_sjsMajor=12)
-						
-						// v12 open v12 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=13)
-						
-						// v13 open v12 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=14)
-						
-						// v14 open v12 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=15)
-						
-						// v15 open v12 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=16)
-						
-						// v16 open v12 doc, adjust minor version
-						$Boo_updated:=True:C214
-						// ........................................
-				End case 
-				//……………………………………………………………………………………………………………………………………………………………………
-			: ($Lon_docMajor=13)
-				
-				Case of 
-						
-						// ........................................
-					: ($Lon_sjsMajor=13)
-						
-						// v13 open v13 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=14)
-						
-						// v13 open v14 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=15)
-						
-						// v13 open v15 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=16)
-						
-						// v16 open v13 doc, adjust minor version
-						$Boo_updated:=True:C214
-						// ........................................
-				End case 
-				//……………………………………………………………………………………………………………………………………………………………………
-			: ($Lon_docMajor=14)
-				
-				Case of 
-						
-						// ........................................
-					: ($Lon_sjsMajor=14)
-						
-						// v14 open v14 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=15)
-						
-						// v15 open v14 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=16)
-						
-						// v16 open v14 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-						// ........................................
-				End case 
-				//……………………………………………………………………………………………………………………………………………………………………
-			: ($Lon_docMajor=15)
-				
-				Case of 
-						
-					: ($Lon_sjsMajor=15)
-						
-						// v15 open v15 doc, adjust minor version
-						$Boo_updated:=True:C214
-						
-					: ($Lon_sjsMajor=16)
-						
-						// v16 open v15 doc, adjust minor version
-						$Boo_updated:=True:C214
-						// ........................................
-				End case 
-				
-			: ($Lon_docMajor=16)
-				
-				Case of 
-						
-					: ($Lon_sjsMajor=16)
-						
-						// v16 open v15 doc, adjust minor version
-						$Boo_updated:=True:C214
-						// ........................................
-				End case 
-				
-			Else 
-				
-				// NOTHING MORE TO DO
+				// v<$Lon_docMajor> to v17 open v<$Lon_docMajor> doc, adjust minor version
+				$Boo_updated:=($Lon_sjsMajor>=$Lon_docMajor) && ($Lon_sjsMajor<=17)
 				
 				//……………………………………………………………………………………………………………………………………………………………………
 		End case 
@@ -276,9 +115,3 @@ If ($Boo_updated)
 	$Obj_in.version:=Storage:C1525.ViewPro.spreadJSVersion
 	
 End if 
-
-// ----------------------------------------------------
-// Return
-// <NONE>
-// ----------------------------------------------------
-// End
