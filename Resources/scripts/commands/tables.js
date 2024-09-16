@@ -259,8 +259,10 @@
                 if (table != null) {
                     if (columns.length > 0) {
                         let tableColumns = [];
+                        var index = 1;
                         columns.forEach(element => {
-                            let tableColumn = new GC.Spread.Sheets.Tables.TableColumn();
+                            let id = toString(index);
+                            let tableColumn = new GC.Spread.Sheets.Tables.TableColumn(id);
                             if (typeof (element) === 'object') {
                                 if (('formatter' in element) && (typeof element.formatter === 'string')) {
                                     tableColumn.formatter(Utils.adjustFormat(element.formatter));
@@ -273,6 +275,7 @@
                                 }
                             }
                             tableColumns.push(tableColumn);
+                            index+=1;
                         });
                         table.autoGenerateColumns(false);
                         table.bindColumns(tableColumns);
