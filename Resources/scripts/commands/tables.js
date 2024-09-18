@@ -261,7 +261,7 @@
                         let tableColumns = [];
                         var index = 1;
                         columns.forEach(element => {
-                            let id = toString(index);
+                            let id = index.toString();
                             let tableColumn = new GC.Spread.Sheets.Tables.TableColumn(id);
                             if (typeof (element) === 'object') {
                                 if (('formatter' in element) && (typeof element.formatter === 'string')) {
