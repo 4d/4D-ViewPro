@@ -892,6 +892,8 @@ Utils.initCommands = function () {
     commandManager.register("removePageBreak", Utils.commandRemovePageBreak, undefined, false, false, false, false);
 }
 
+Utils._useTableBind = false;
+
 var vp_timerStarted = false;
 var vp_timer = null;
 var vp_counter = 0;
