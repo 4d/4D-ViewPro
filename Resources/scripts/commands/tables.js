@@ -255,30 +255,40 @@
                 }
 
                 let table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
-
+                let useBind = Utils._useTableBind;
                 if (table != null) {
                     if (columns.length > 0) {
                         let tableColumns = [];
-                        var index = 1;
-                        columns.forEach(element => {
-                            let id = index.toString();
-                            let tableColumn = new GC.Spread.Sheets.Tables.TableColumn(id);
-                            if (typeof (element) === 'object') {
-                                if (('formatter' in element) && (typeof element.formatter === 'string')) {
-                                    tableColumn.formatter(Utils.adjustFormat(element.formatter));
+                        var index = 0;
+                        columns.forEach(column => {
+                            var tableColumn = new GC.Spread.Sheets.Tables.TableColumn(index + 1);
+                            if(!useBind) {
+                                tableColumn = table.getColumn(tableColumn.name());
+                            }
+                            if (typeof (column) === 'object') {
+                                if (('formatter' in column) && (typeof column.formatter === 'string')) {
+                                    tableColumn.formatter(Utils.adjustFormat(column.formatter));
                                 }
-                                if (('dataField' in element) && (typeof element.dataField === 'string')) {
-                                    tableColumn.dataField(element.dataField);
+                                if (('dataField' in column) && (typeof column.dataField === 'string')) {
+                                    tableColumn.dataField(column.dataField);
                                 }
-                                if (('name' in element) && (typeof element.name === 'string')) {
-                                    tableColumn.name(element.name);
+                                if (('name' in column) && (typeof column.name === 'string')) {
+                                    if(useBind) {
+                                        tableColumn.name(column.name);
+                                    }
+                                    else {
+                                        table.setColumnName(index, column.name);
+                                    }
                                 }
                             }
                             tableColumns.push(tableColumn);
                             index+=1;
                         });
-                        table.autoGenerateColumns(false);
-                        table.bindColumns(tableColumns);
+                        if (useBind)
+                        {
+                            table.autoGenerateColumns(false);
+                            table.bindColumns(tableColumns);
+                        }
                     }
                     if ((params.source == null) || (typeof params.source === 'string')) {
                         table.bindingPath(params.source);
