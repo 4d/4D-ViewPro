@@ -255,15 +255,15 @@
                 }
 
                 let table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
-                let useBind = Utils._useTableBind;
+                let tryToGetAutoCreatedColumn = Utils._tryToGetAutoCreatedColumn;
                 if (table != null) {
                     if (columns.length > 0) {
                         let tableColumns = [];
                         var index = 0;
                         columns.forEach(column => {
                             var tableColumn = new GC.Spread.Sheets.Tables.TableColumn(index + 1);
-                            if(!useBind) {
-                                tableColumn = table.getColumn(tableColumn.name());
+                            if(tryToGetAutoCreatedColumn) {
+                                tableColumn = table.getColumn(tableColumn.name()) || tableColumn;
                             }
                             if (typeof (column) === 'object') {
                                 if (('formatter' in column) && (typeof column.formatter === 'string')) {
@@ -273,22 +273,23 @@
                                     tableColumn.dataField(column.dataField);
                                 }
                                 if (('name' in column) && (typeof column.name === 'string')) {
-                                    if(useBind) {
-                                        tableColumn.name(column.name);
-                                    }
-                                    else {
-                                        table.setColumnName(index, column.name);
-                                    }
+                                    table.setColumnName(index, column.name + index.toString()); // force rename propagation
+                                    table.setColumnName(index, column.name);
+                                    tableColumn.name(column.name + index.toString());
+                                    tableColumn.name(column.name);
                                 }
                             }
                             tableColumns.push(tableColumn);
                             index+=1;
                         });
-                        if (useBind)
-                        {
-                            table.autoGenerateColumns(false);
-                            table.bindColumns(tableColumns);
-                        }
+                        table.autoGenerateColumns(false);
+                        table.bindColumns(tableColumns);
+                        index = 0;
+                        columns.forEach(column => {
+                            table.setColumnName(index, column.name + index.toString()); // force rename propagation
+                            table.setColumnName(index, column.name);
+                            index+=1;
+                        });
                     }
                     if ((params.source == null) || (typeof params.source === 'string')) {
                         table.bindingPath(params.source);
