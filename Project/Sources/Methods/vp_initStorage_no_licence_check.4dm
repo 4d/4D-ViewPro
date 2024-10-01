@@ -1,14 +1,21 @@
 //%attributes = {"invisible":true}
-// should be called before any API call to ensure that Storage.ViewPro object is correctly initialized
-// and that ViewPro is available for use
+// Should be called before any API call to ensure that Storage.ViewPro object is correctly initialized
+// And that ViewPro is available for use
 
 If (Storage:C1525.ViewPro=Null:C1517)
+	
 	Use (Storage:C1525)
-		C_OBJECT:C1216($obj)
-		$obj:=New shared object:C1526
-		Use ($obj)
-			vp_fillStorage($obj)
+		
+		var $o : Object
+		$o:=New shared object:C1526
+		
+		Use ($o)
+			
+			vp_fillStorage($o)
+			
 		End use 
-		Storage:C1525.ViewPro:=$obj
+		
+		Storage:C1525.ViewPro:=$o
+		
 	End use 
 End if 

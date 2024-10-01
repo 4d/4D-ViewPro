@@ -7,6 +7,8 @@ var $o : Object
 var $value
 var $values : Collection
 var $picture : Picture
+var $blb : Blob
+var $t : Text
 
 $vp:=Form:C1466.vp
 $cell:=$vp.getCurrentCell()
@@ -18,6 +20,15 @@ Case of
 	: (Macintosh option down:C545)
 		
 		METHOD OPEN PATH:C1213("[projectForm]/TESTS/test")
+		
+		//MARK:ACI0103752
+		//______________________________________________________
+	: (True:C214)
+		
+		$t:=File:C1566("/RESOURCES/DEV/percentage_issue.4PV").platformPath
+		DOCUMENT TO BLOB:C525($t; $blb)
+		$o:=VP Convert from 4D View($blb)
+		VP IMPORT FROM OBJECT("ViewProArea"; $o)
 		
 		//______________________________________________________
 	: (True:C214)
