@@ -197,6 +197,14 @@ For each ($col; $Obj_d4._cells)
 							
 							$Obj_dataTable[$Txt_row][$Txt_col].value:="/OADate("+String:C10($nbDays)+")/"
 							
+							// Mark:ACI0103752
+							//______________________________________________________
+						: ($Obj_cell.valueType="real")\
+							 && ($Obj_cell.style#Null:C1517)\
+							 && (Num:C11($Obj_cell.style.numericFormat)=7)
+							
+							$Obj_dataTable[$Txt_row][$Txt_col].value:=$Obj_cell.value/100
+							
 							//______________________________________________________
 						Else 
 							
