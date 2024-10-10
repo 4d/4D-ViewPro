@@ -3,33 +3,17 @@
 // Pass in vpAreaName the object name property of the area in the 4D form. If you pass an invalid name, an error is returned.  
 // In filePath, pass the destination path and name of the document to be imported. Only 4D View Pro documents (extension ".4vp") are supported by the command. You must pass a full path, unless the document is located at the same level as the database structure file, in which case you can just pass its name.
 // An error is returned if the filePath parameter is invalid, or if the file is missing or malformed.
+#DECLARE($area : Text; $filePath : Text; $params : Object)
 
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_OBJECT:C1216($3)
-
-C_BOOLEAN:C305($isOK)
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($filePath; $textBuffer; $fileName; $area)
-C_OBJECT:C1216($documentObject; $path; $params; $callback; $areaVariable)
-C_BLOB:C604($blobBuffer)
+var $textBuffer; $fileName : Text
+var $documentObject; $pathObject; $callback; $areaVariable : Object
+var $blobBuffer : Blob
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
-	
 	err_TRY
 	
-	If (Check_parameters_count(2; $nbParameters))
-		
-		$area:=$1
-		$filePath:=$2
-		
-		If ($nbParameters>=3)
-			
-			$params:=$3
-			
-		End if 
+	If (Check_parameters_count(2; Count parameters:C259))
 		
 		If ($params=Null:C1517)
 			
@@ -40,7 +24,7 @@ If (vp_initStorage)
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			$isOK:=(Length:C16($filePath)>0)
+			var $isOK:=(Length:C16($filePath)>0)
 			
 			If ($isOK)
 				
@@ -53,8 +37,8 @@ If (vp_initStorage)
 					
 				Else 
 					
-					$path:=Path to object:C1547($filePath)
-					$fileName:=$path.name+$path.extension
+					$pathObject:=Path to object:C1547($filePath)
+					$fileName:=$pathObject.name+$pathObject.extension
 					
 				End if 
 				
@@ -74,7 +58,7 @@ If (vp_initStorage)
 				If ($isOK)
 					
 					Case of 
-							// ---------- import 4VP
+							// MARK:- 4VP
 						: ($filePath="@.4VP")
 							
 							$textBuffer:=Document to text:C1236($filePath; "UTF-8")
@@ -143,6 +127,7 @@ If (vp_initStorage)
 								err_THROW(New object:C1471("component"; "xbox"; "code"; 602; "name"; $fileName; "path"; $filePath))
 								
 							End if 
+							// MARK:- xlsx
 						: ($filePath="@.xlsx")
 							DOCUMENT TO BLOB:C525($filePath; $blobBuffer)
 							
@@ -187,6 +172,7 @@ If (vp_initStorage)
 								
 							End if 
 							
+							// MARK:- sjs
 						: ($filePath="@.sjs")
 							DOCUMENT TO BLOB:C525($filePath; $blobBuffer)
 							
@@ -229,7 +215,7 @@ If (vp_initStorage)
 							End if 
 							
 						Else   // if not xls or 4VP then csv
-							
+							// MARK:- csv
 							If ($params.csvOptions.rowDelimiter#Null:C1517)
 								$textBuffer:=Document to text:C1236($filePath; "UTF-8"; Document unchanged:K24:18)
 							Else 
