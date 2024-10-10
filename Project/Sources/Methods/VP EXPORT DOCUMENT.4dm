@@ -4,31 +4,17 @@
 // Pass in vpAreaName the object name property of the area in the 4D form. If you pass an invalid name, an error is returned.  
 // In filePath, pass the destination path and name of the document to be exported. If you pass only the document name, it will be saved at the same level as the 4D structure file. 
 // 4D View Pro document extension is ".4vp". It is automatically added to the document name if not passed in filePath.
+#DECLARE($area : Text; $filePath : Text; $params : Object)
 
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_OBJECT:C1216($3)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($path; $area)
-C_OBJECT:C1216($callback; $documentObject; $params; $pathObject; $areaVariable)
+var $callback; $areaVariable : Object
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
-	
 	err_TRY
 	
-	If (Check_parameters_count(2; $nbParameters))
+	If (Check_parameters_count(2; Count parameters:C259))
 		
-		$area:=$1
-		$path:=$2
-		
-		If ($nbParameters>=3)
-			
-			$params:=$3
-			
-		Else 
+		If ($params=Null:C1517)
 			
 			$params:=New object:C1471
 			
@@ -36,14 +22,14 @@ If (vp_initStorage)
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			$pathObject:=vp_Path($path; String:C10($params.format))
+			var $pathObject : Object:=vp_Path($filePath; String:C10($params.format))
 			
-			$path:=Object to path:C1548($pathObject)
+			$filePath:=Object to path:C1548($pathObject)
 			
 			Case of 
 					
 					//______________________________________________________
-				: (Length:C16($path)=0)
+				: (Length:C16($filePath)=0)
 					
 					// Output document path is empty.
 					err_THROW(New object:C1471(\
@@ -54,7 +40,7 @@ If (vp_initStorage)
 				: ($pathObject.extension=".4vp")
 					
 					// Gets the json description of the area content
-					$documentObject:=vp_runFunction($area; "export-json"; $params)
+					var $documentObject:=vp_runFunction($area; "export-json"; $params)
 					
 					If (err_continue)
 						
@@ -74,11 +60,11 @@ If (vp_initStorage)
 								
 								If (Storage:C1525.ViewPro.options.prettyPrint)  // Pretty print
 									
-									TEXT TO DOCUMENT:C1237($path; JSON Stringify:C1217($documentObject; *))
+									TEXT TO DOCUMENT:C1237($filePath; JSON Stringify:C1217($documentObject; *))
 									
 								Else 
 									
-									TEXT TO DOCUMENT:C1237($path; JSON Stringify:C1217($documentObject))
+									TEXT TO DOCUMENT:C1237($filePath; JSON Stringify:C1217($documentObject))
 									
 								End if 
 								
@@ -87,7 +73,7 @@ If (vp_initStorage)
 									If ($params.formula#Null:C1517)
 										
 										$callback:=New object:C1471
-										$callback.path:=$path
+										$callback.path:=$filePath
 										$callback.command:="export-4VP"
 										$callback.areaName:=$area
 										
@@ -113,7 +99,7 @@ If (vp_initStorage)
 						End case 
 					End if 
 					
-					//______________________________________________________
+					// MARK:- xlsx/pdf/sjs
 				: ($pathObject.extension=".xlsx")\
 					 | ($pathObject.extension=".pdf")\
 					 | ($pathObject.extension=".sjs")
@@ -123,7 +109,7 @@ If (vp_initStorage)
 					
 					// Keep the export file destination pathname
 					$callback:=New object:C1471
-					$callback.path:=$path
+					$callback.path:=$filePath
 					$callback.areaName:=$area
 					$callback.sheetIndex:=-2
 					
@@ -145,6 +131,7 @@ If (vp_initStorage)
 						
 					End if 
 					
+					// MARK: sjs
 					If ($pathObject.extension=".sjs")
 						$callback.command:="export-sjs"
 						$callback.sjsOptions:=$params.sjsOptions
@@ -153,7 +140,7 @@ If (vp_initStorage)
 					Else 
 						Case of 
 								
-								//……………………………………………………………………………………
+								// MARK: xlsx
 							: ($pathObject.extension=".xlsx")
 								
 								$callback.command:="export-excel"
@@ -166,7 +153,7 @@ If (vp_initStorage)
 								$callback.valuesOnly:=$params.valuesOnly
 								$callback.includeBindingSource:=$params.includeBindingSource
 								
-								//……………………………………………………………………………………
+								// MARK: pdf
 							: ($pathObject.extension=".pdf")
 								
 								$callback.command:="export-pdf"
@@ -198,9 +185,9 @@ If (vp_initStorage)
 					//______________________________________________________
 				Else 
 					
+					// MARK:- csv
 					// if not one of those extension, this is a csv export
-					C_OBJECT:C1216($Obj_csvParams)
-					$Obj_csvParams:=OB Copy:C1225($params)
+					var $Obj_csvParams:=OB Copy:C1225($params)
 					If ($Obj_csvParams.csvOptions=Null:C1517)
 						$Obj_csvParams.csvOptions:=New object:C1471
 					End if 
@@ -230,9 +217,9 @@ If (vp_initStorage)
 								Else 
 									
 									If ($params.csvOptions.rowDelimiter=Null:C1517)
-										TEXT TO DOCUMENT:C1237($path; $documentObject.csv; "UTF-8"; Document with CRLF:K24:20)
+										TEXT TO DOCUMENT:C1237($filePath; $documentObject.csv; "UTF-8"; Document with CRLF:K24:20)
 									Else 
-										TEXT TO DOCUMENT:C1237($path; $documentObject.csv; "UTF-8"; Document unchanged:K24:18)
+										TEXT TO DOCUMENT:C1237($filePath; $documentObject.csv; "UTF-8"; Document unchanged:K24:18)
 									End if 
 									
 									If (err_continue)
@@ -240,7 +227,7 @@ If (vp_initStorage)
 										If ($params.formula#Null:C1517)
 											
 											$callback:=New object:C1471
-											$callback.path:=$path
+											$callback.path:=$filePath
 											$callback.command:="export-csv"
 											$callback.areaName:=$area
 											
@@ -273,7 +260,7 @@ If (vp_initStorage)
 				// Main error
 				err_THROW(New object:C1471(\
 					"code"; 8; \
-					"name"; Path to object:C1547($path).name))  // Cannot create file "{name}".
+					"name"; Path to object:C1547($filePath).name))  // Cannot create file "{name}".
 				
 			End if 
 		End if 
