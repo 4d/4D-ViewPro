@@ -139,7 +139,7 @@ Utils.addCommand('export-excel', function (params) {
   if (params["password"] != null)
     options.password = params.password;
 
-  if (params["excelOptions"] != null) {
+  if (!options.excelIO) {
 
     options.fileType = GC.Spread.Sheets.FileType.excel;
 
@@ -160,7 +160,7 @@ Utils.addCommand('export-excel', function (params) {
     // options.columnHeadersAsFrozenRows = false;
     // options.rowHeadersAsFrozenColumns = false;
 
-    for (var key in params["excelOptions"]) { // copy all not, filtering to not limit
+    for (var key in params["excelOptions"] || {}) { // copy all not, filtering to not limit
       options[key] = params["excelOptions"][key];
     }
 
@@ -218,11 +218,11 @@ Utils.addCommand('import-excel', function (params) {
   if (params["password"] != null)
     options.password = params.password;
 
-  if (params["excelOptions"] != null) {
+  if (!options.excelIO) {
 
     options.fileType = GC.Spread.Sheets.FileType.excel;
   
-    for (var key in params["excelOptions"]) { // copy all not, filtering to not limit
+    for (var key in params["excelOptions"] || {}) { // copy all not, filtering to not limit
       options[key] = params["excelOptions"][key];
     }
 
