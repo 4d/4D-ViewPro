@@ -28,7 +28,6 @@ If (Feature=Null:C1517)
 	Feature.unstable("GET_OBJECTS")  // github:4255
 	Feature.unstable("SET_OBJECTS")
 	// FIXME:R8
-	Feature.unstable("EXCEL_PORT_OPT")  // github:6267
 	
 	// MARK:-🚧 Main only
 	

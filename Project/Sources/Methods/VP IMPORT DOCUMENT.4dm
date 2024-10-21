@@ -143,9 +143,8 @@ If (vp_initStorage)
 									$callback.command:="import-excel"
 									$callback.areaName:=$area
 									$callback.password:=$params.password
-									If (Feature.with("EXCEL_PORT_OPT"))
-										$callback.excelOptions:=$params.excelOptions
-									End if 
+									$callback.excelOptions:=$params.excelOptions
+									$callback.excelIO:=$params.excelIO
 									
 									// Is there a user callback method to execute ?
 									If ($params.formula#Null:C1517)
