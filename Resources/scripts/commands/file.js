@@ -145,21 +145,14 @@ Utils.addCommand('export-excel', function (params) {
 
     // Default value from ui
     options.includeStyles = true;
+    options.includeUnusedNames = true;
+    options.includeFormulas = true;
     if (params["valuesOnly"] != null)
       options.includeFormulas = !params.valuesOnly;
-    else
-      options.includeFormulas = true;
-    options.includeUnusedNames = true;
+    if (params["includeBindingSource"] != null)
+      options.includeBindingSource = params.includeBindingSource;
 
-    // options.saveAsView = false;
-    // saveOptions.includeBindingSource= false;
-    options.includeEmptyRegionCells = true;
-    // options.includeAutoMergedCells = false;
-    // options.includeCalcModelCache = false;
-   
-    // options.columnHeadersAsFrozenRows = false;
-    // options.rowHeadersAsFrozenColumns = false;
-
+    // apply all options from excelOptions
     for (var key in params["excelOptions"] || {}) { // copy all not, filtering to not limit
       options[key] = params["excelOptions"][key];
     }
