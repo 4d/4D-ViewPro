@@ -145,9 +145,8 @@ If (vp_initStorage)
 								
 								$callback.command:="export-excel"
 								$callback.password:=$params.password
-								If (Feature.with("EXCEL_PORT_OPT"))
-									$callback.excelOptions:=$params.excelOptions
-								End if 
+								$callback.excelOptions:=$params.excelOptions
+								$callback.excelIO:=$params.excelIO
 								
 								// serialization option for excelio
 								$callback.valuesOnly:=$params.valuesOnly
