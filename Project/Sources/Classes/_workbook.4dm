@@ -1,3 +1,4 @@
+property area : Text
 property options : cs:C1710.workbookOptions
 
 Class constructor($area : Text)

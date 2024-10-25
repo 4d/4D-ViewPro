@@ -1,3 +1,9 @@
+
+property column : Integer
+property columnCount : Integer
+property sheet : Integer
+property range : Object
+
 Class extends __range
 
 Class constructor($area : Text; $column : Integer; $columnCount : Integer; $sheet : Integer)

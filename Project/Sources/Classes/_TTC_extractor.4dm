@@ -1,3 +1,5 @@
+property readIndex; writeIndex : Integer
+
 Class constructor()
 	
 Function putshort($val : Integer)

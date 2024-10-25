@@ -1,3 +1,14 @@
+
+property ideVersion : Integer
+property ideBuild : Text
+property currentUser : Text
+property internalVersion : Integer
+property _features : Object
+property localFile : 4D:C1709.File
+property isMain : Boolean
+
+property local : Collection
+
 Class constructor($version : Integer; $file : 4D:C1709.File)
 	
 	var $build : Integer
