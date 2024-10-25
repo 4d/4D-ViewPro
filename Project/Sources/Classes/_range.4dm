@@ -1,6 +1,7 @@
 Class extends __range
 
-property column; row; sheet : Integer
+property column; row; sheet; columnCount; rowCount : Integer
+property range : Object
 
 Class constructor($area : Text; $column : Integer; $row : Integer; $columnCount : Integer; $rowCount : Integer; $sheet : Integer)
 	

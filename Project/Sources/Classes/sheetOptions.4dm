@@ -28,6 +28,9 @@ sheetAreaOffset; \
 protectionOptions\
  : Object
 
+property area : Text
+property index : Integer
+
 // *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
 Class constructor($area : Text; $index : Integer)
 	

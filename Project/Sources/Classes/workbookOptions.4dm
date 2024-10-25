@@ -58,6 +58,7 @@ tabStripWidth\
  : Integer
 
 property \
+area; \
 backColor; \
 cutCopyIndicatorBorderColor; \
 grayAreaBackColor\
