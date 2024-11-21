@@ -1,36 +1,24 @@
 //%attributes = {"invisible":true,"shared":true}
 // The VP SET BINDING PATH command binds an attribute from a sheet's data context
 // to a given cell range
-
-C_OBJECT:C1216($1)
-C_TEXT:C284($2)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($path; $area)
-C_OBJECT:C1216($params; $range)
+#DECLARE($range : Object; $path : Text)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$range:=$1
-		$path:=$2
-		
-		$area:=$range.area
+		var $area : Text:=$range.area
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			$params:=New object:C1471
-			
 			If (Value type:C1509($range.ranges)=Is collection:K8:32)
-				$params.ranges:=$range.ranges
-				$params.path:=$path
 				
-				vp_runCommand($area; "set-binding-path"; $params)
+				vp_runCommand($area; "set-binding-path"; {ranges: $range.ranges; path: $path})
+				
 			End if 
 		End if 
 	End if 

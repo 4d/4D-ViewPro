@@ -1,12 +1,7 @@
 //%attributes = {"invisible":true}
-C_TEXT:C284($1)
-C_TEXT:C284($area)
+#DECLARE($area : Text)
 
-$area:=$1
-
-C_OBJECT:C1216($obj)
-
-$obj:=vp_getAreaVariable ($area)
+var $obj:=vp_getAreaVariable($area)
 
 If ($obj#Null:C1517)
 	If ($obj.inited)
@@ -18,7 +13,7 @@ If ($obj#Null:C1517)
 			
 			If ($Obj_commandsBuffer.length>0)
 				
-				WA EXECUTE JAVASCRIPT FUNCTION:C1043(*;$area;"runCommands";*;$Obj_commandsBuffer)
+				WA EXECUTE JAVASCRIPT FUNCTION:C1043(*; $area; "runCommands"; *; $Obj_commandsBuffer)
 				
 			End if 
 			

@@ -4,38 +4,27 @@
 // creates a temporary sheet and copy the range into this sheet
 // then save the sheet into the returned object
 // the second parameters are options to tell what to copy (values, styles, formulas)
-
-C_OBJECT:C1216($0; $1; $2)
-
-C_OBJECT:C1216($from; $params; $options)
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($area)
+#DECLARE($from : Object; $options : Object) : Object
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
-		$from:=$1
-		$area:=$from.area
+		var $area : Text:=$from.area
 		
-		If ($nbParameters>1)
-			$options:=$2
-		Else 
-			$options:=New object:C1471("copy"; True:C214; "copyOptions"; 0)
+		If ($nbParameters<2)
+			$options:={copy: True:C214; copyOptions: 0}
 		End if 
 		
 		If (vp_isReady($area; Current method name:C684))
 			
 			If (Value type:C1509($from.ranges)=Is collection:K8:32)
-				$params:=New object:C1471
-				$params.from:=$from.ranges
-				$params.options:=$options
 				
-				$0:=vp_runFunction($area; "copy-cells"; $params)
+				return vp_runFunction($area; "copy-cells"; {from: $from.ranges; options: $options})
 				
 			End if 
 		End if 

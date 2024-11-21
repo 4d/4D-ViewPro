@@ -5,7 +5,7 @@ C_TEXT:C284($2)
 C_LONGINT:C283($3)
 C_LONGINT:C283($4)
 
-C_LONGINT:C283($nbParameters; $sheet)
+C_LONGINT:C283($sheet)
 C_OBJECT:C1216($params)
 C_TEXT:C284($tableName; $area)
 C_BOOLEAN:C305($onlyData)
@@ -14,7 +14,7 @@ $0:=New object:C1471
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	

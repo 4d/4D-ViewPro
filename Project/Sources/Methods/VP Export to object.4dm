@@ -1,37 +1,22 @@
 //%attributes = {"invisible":true,"shared":true}
 // The VP Export to object command returns the 4D View Pro object attached to the given 4D View Pro area.
-
-C_OBJECT:C1216($0)
-C_TEXT:C284($1)
-C_OBJECT:C1216($2)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($areaName)
-C_OBJECT:C1216($viewProObject; $params)
+#DECLARE($area : Text; $params : Object)->$viewProObject : Object
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
-	
 	err_TRY
 	
-	If (Check_parameters_count(1; $nbParameters))
+	If (Check_parameters_count(1; Count parameters:C259))
 		
-		$areaName:=$1
-		
-		If ($nbParameters>=2)
+		If ($params=Null:C1517)
 			
-			$params:=$2
-			
-		Else 
-			
-			$params:=New object:C1471
+			$params:={}
 			
 		End if 
 		
-		If (vp_isReady($areaName; Current method name:C684))
+		If (vp_isReady($area; Current method name:C684))
 			
-			$viewProObject:=vp_runFunction($areaName; "export-json"; $params)
+			$viewProObject:=vp_runFunction($area; "export-json"; $params)
 			
 			If (err_continue)
 				Case of 
@@ -58,12 +43,5 @@ If (vp_initStorage)
 	End if 
 	
 	err_FINALLY
-	
-	// ----------------------------------------------------
-	// Return
-	$0:=$viewProObject
-	
-	// ----------------------------------------------------
-	// End
 	
 End if 

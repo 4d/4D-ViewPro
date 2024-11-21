@@ -18,9 +18,9 @@ If (False:C215)
 	C_TEXT:C284(VP SET NUM VALUE; $3)
 End if 
 
-C_LONGINT:C283($nbParameters)
 
-$nbParameters:=Count parameters:C259
+
+var $nbParameters:=Count parameters:C259
 
 err_TRY
 

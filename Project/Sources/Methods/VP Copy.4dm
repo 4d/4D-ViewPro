@@ -1,36 +1,27 @@
 //%attributes = {"invisible":true}
 // ----------------------------------------------------
-// Project method : VP SUSPEND CALCULATION
+// Project method : VP Copy
 // Database: 4D ViewPro
 // ID[5101BAB9EE104650B8B95DB1D501A124]
 // Created #28-06-2019 by Francois Marchal
 // ----------------------------------------------------
-// Description: recompute formulas
+// Description: copy
 // ----------------------------------------------------
 // ----- Declarations
-
-C_TEXT:C284($1)
-C_OBJECT:C1216($0)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($area)
-
-If (False:C215)
-	C_TEXT:C284(VP Copy; $1)
-End if 
+#DECLARE($area : Text) : Object
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
-		$area:=$1
 		
 		If (vp_isReady($area; Current method name:C684))
-			C_OBJECT:C1216($params)
-			$0:=vp_runFunction($area; "copy-data"; $params)
+			
+			return vp_runFunction($area; "copy-data"; Null:C1517)
+			
 		End if 
 	End if 
 	

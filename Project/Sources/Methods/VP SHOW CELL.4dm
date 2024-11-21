@@ -13,8 +13,8 @@ C_OBJECT:C1216($1)
 C_LONGINT:C283($2; $3)
 
 C_OBJECT:C1216($ranges)
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($area)
+
+
 C_OBJECT:C1216($params)
 C_LONGINT:C283($Lon_hPos; $Lon_vPos)
 
@@ -26,14 +26,14 @@ End if
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(3; $nbParameters))
 		
 		$ranges:=$1
-		$area:=$ranges.area
+		var $area : Text:=$ranges.area
 		$Lon_vPos:=$2
 		$Lon_hPos:=$3
 		

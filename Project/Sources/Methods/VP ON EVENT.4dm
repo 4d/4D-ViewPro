@@ -6,13 +6,13 @@ C_TEXT:C284($2)
 C_OBJECT:C1216($3)
 C_LONGINT:C283($4)
 
-C_LONGINT:C283($nbParameters; $sheet)
+C_LONGINT:C283($sheet)
 C_TEXT:C284($area; $eventName)
 C_OBJECT:C1216($params; $areaVariable; $formula)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	

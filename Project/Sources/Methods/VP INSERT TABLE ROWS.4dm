@@ -6,14 +6,14 @@ C_LONGINT:C283($4)
 C_LONGINT:C283($5)
 C_LONGINT:C283($6)
 
-C_LONGINT:C283($nbParameters; $sheet; $row; $count)
+C_LONGINT:C283($sheet; $row; $count)
 C_OBJECT:C1216($params)
 C_TEXT:C284($name; $area)
 C_BOOLEAN:C305($isInsertAfter)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	

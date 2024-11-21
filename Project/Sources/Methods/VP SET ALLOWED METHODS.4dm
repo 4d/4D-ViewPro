@@ -1,10 +1,6 @@
 //%attributes = {"invisible":true,"shared":true}
 #DECLARE($methods : Object)
 
-If (False:C215)
-	C_OBJECT:C1216(VP SET ALLOWED METHODS; $1)
-End if 
-
 var $functionName; $key : Text
 var $i : Integer
 var $o; $parameter; $schema; $sharedMethod; $sharedParameter : Object

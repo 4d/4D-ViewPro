@@ -8,49 +8,25 @@
 // Description: get the default style for a specified sheet
 // ----------------------------------------------------
 //----- Declarations
-
-C_OBJECT:C1216($0)
-C_TEXT:C284($1)
-C_LONGINT:C283($2)
-
-C_TEXT:C284($area)
-C_LONGINT:C283($sheet)
-
-C_LONGINT:C283($nbParameters)
-
-If (False:C215)
-	C_OBJECT:C1216(VP Get default style; $0)
-	C_TEXT:C284(VP Get default style; $1)
-	C_LONGINT:C283(VP Get default style; $2)
-End if 
-
-// ----------------------------------------------------
+#DECLARE($area : Text; $sheetIndex : Integer) : Object
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
-		$area:=$1
-		
-		If ($nbParameters>1)
-			$sheet:=$2
-		Else 
-			$sheet:=-1
+		If ($nbParameters<2)
+			$sheetIndex:=-1
 		End if 
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($params; $stylesheet)
-			$params:=New object:C1471()
-			$params.sheetIndex:=$sheet
+			var $stylesheet:=vp_runFunction($area; "get-default-style"; {sheetIndex: $sheetIndex})
 			
-			$stylesheet:=vp_runFunction($area; "get-default-style"; $params)
-			
-			$0:=vp_convert_from_stylesheet($stylesheet)
+			return vp_convert_from_stylesheet($stylesheet)
 			
 		End if 
 	End if 

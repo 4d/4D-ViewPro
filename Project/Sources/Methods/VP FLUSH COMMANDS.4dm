@@ -8,28 +8,18 @@
 // Description: plays all recorded commands
 // ----------------------------------------------------
 // ----- Declarations
-
-C_TEXT:C284($1)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($area)
-
-If (False:C215)
-	C_TEXT:C284(VP FLUSH COMMANDS; $1)
-End if 
+#DECLARE($area : Text)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
-	
 	err_TRY
 	
-	If (Check_parameters_count(1; $nbParameters))
-		$area:=$1
+	If (Check_parameters_count(1; Count parameters:C259))
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			vp_flush($area)
+			vp_FLUSH($area)
+			
 		End if 
 	End if 
 	

@@ -8,44 +8,22 @@
 // Description: Create a target for a named range
 // ----------------------------------------------------
 // ----- Declarations
-
-C_OBJECT:C1216($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_LONGINT:C283($3)
-
-C_TEXT:C284($area)
-C_TEXT:C284($name)
-C_LONGINT:C283($sheet)
-C_LONGINT:C283($nbParameters)
-
-If (False:C215)
-	C_OBJECT:C1216(VP Name; $0)
-	C_TEXT:C284(VP Name; $1)
-	C_TEXT:C284(VP Name; $2)
-	C_LONGINT:C283(VP Name; $3)
-End if 
+#DECLARE($area : Text; $name : Text; $sheet : Integer) : Object
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$area:=$1
-		$name:=$2
 		
 		If (Length:C16($name)=0)
 			err_THROW(New object:C1471("code"; 18))
 		Else 
 			
-			If ($nbParameters>2)
-				
-				$sheet:=$3
-				
-			Else 
+			If ($nbParameters<3)
 				
 				$sheet:=-1
 				
@@ -55,9 +33,7 @@ If (vp_initStorage)
 				err_THROW(New object:C1471("code"; 17))
 			Else 
 				
-				C_OBJECT:C1216($ranges)
-				
-				$ranges:=New object:C1471()
+				var $ranges:={}
 				
 				If ($sheet#-1)
 					$ranges.sheet:=$sheet
@@ -65,9 +41,7 @@ If (vp_initStorage)
 				
 				$ranges.name:=$name
 				
-				$0:=New object:C1471(\
-					"area"; $area; \
-					"ranges"; New collection:C1472($ranges))
+				return {area: $area; ranges: [$ranges]}
 				
 			End if 
 		End if 

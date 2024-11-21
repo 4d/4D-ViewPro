@@ -12,7 +12,7 @@
 C_OBJECT:C1216($0)
 C_OBJECT:C1216(${1})
 
-C_LONGINT:C283($nbParameters)
+
 
 If (False:C215)
 	C_OBJECT:C1216(VP Combine ranges; $0)
@@ -21,7 +21,7 @@ End if
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	

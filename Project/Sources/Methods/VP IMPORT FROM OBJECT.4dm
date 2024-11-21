@@ -3,30 +3,19 @@
 // Pass in vpAreaName the object name property of the area in the 4D form. If you pass an invalid name, an error is returned.  
 // In viewPro, pass a valid 4D View Pro object. This object can have been created using VP Export to object or manually. For more information on 4D View Pro objects, please refer to XXX.
 // An error is returned if the viewPro object is invalid.
-
-C_TEXT:C284($1)
-C_OBJECT:C1216($2)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($areaName)
-C_OBJECT:C1216($viewProObject)
+#DECLARE($area : Text; $viewProObject : Object)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
-	
 	err_TRY
 	
-	If (Check_parameters_count(2; $nbParameters))
+	If (Check_parameters_count(2; Count parameters:C259))
 		
-		$areaName:=$1
-		$viewProObject:=$2
 		
-		If (vp_isReady($areaName; Current method name:C684))
+		If (vp_isReady($area; Current method name:C684))
 			If (($viewProObject=Null:C1517) | (OB Is empty:C1297($viewProObject)))
-				VP NEW DOCUMENT($areaName)
+				VP NEW DOCUMENT($area)
 			Else 
-				
 				
 				vp_UPDATE_SJS($viewProObject.spreadJS)
 				
@@ -58,7 +47,7 @@ If (vp_initStorage)
 						
 						If (vp_isDocumentValid($viewProObject))
 							
-							vp_runFunction($areaName; "import-json"; New object:C1471("doc"; $viewProObject; "new"; False:C215))
+							vp_runFunction($area; "import-json"; New object:C1471("doc"; $viewProObject; "new"; False:C215))
 							
 						Else 
 							

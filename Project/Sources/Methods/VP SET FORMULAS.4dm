@@ -17,14 +17,14 @@ If (False:C215)
 	C_COLLECTION:C1488(VP SET FORMULAS; $2)
 End if 
 
-C_LONGINT:C283($nbParameters)
+
 C_OBJECT:C1216($ranges)
 C_COLLECTION:C1488($Obj_values)
-C_TEXT:C284($area)
+
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
@@ -33,7 +33,7 @@ If (vp_initStorage)
 		$ranges:=$1
 		$Obj_values:=$2
 		
-		$area:=$ranges.area
+		var $area : Text:=$ranges.area
 		
 		If (vp_isReady($area; Current method name:C684))
 			

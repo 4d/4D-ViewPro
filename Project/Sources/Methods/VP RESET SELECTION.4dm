@@ -7,42 +7,25 @@
 // ----------------------------------------------------
 // Description:
 // ----------------------------------------------------
-// ----- Declarations
-
-C_TEXT:C284($1)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($area)
-C_LONGINT:C283($sheet)
-
-
-If (False:C215)
-	C_TEXT:C284(VP RESET SELECTION; $1)
-	C_LONGINT:C283(VP RESET SELECTION; $2)
-End if 
+// ----- Declarations 
+#DECLARE($area : Text; $sheetIndex : Integer)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
-		$area:=$1
-		
-		If ($nbParameters>1)
-			$sheet:=$2
-		Else 
-			$sheet:=-1
+		If ($nbParameters<2)
+			$sheetIndex:=-1
 		End if 
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471("sheetIndex"; $sheet)
+			vp_runCommand($area; "reset-selection"; {sheetIndex: $sheetIndex})
 			
-			vp_runCommand($area; "reset-selection"; $params)
 		End if 
 	End if 
 	

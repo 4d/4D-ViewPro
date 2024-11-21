@@ -8,42 +8,23 @@
 // Description:
 // ----------------------------------------------------
 // ----- Declarations
-
-C_TEXT:C284($1)
-C_LONGINT:C283($2)
-C_OBJECT:C1216($0)
-
-C_TEXT:C284($area)
-C_LONGINT:C283($nbParameters)
-C_LONGINT:C283($sheet)
-
-If (False:C215)
-	C_TEXT:C284(VP Get selection; $1)
-	C_LONGINT:C283(VP Get selection; $2)
-	C_OBJECT:C1216(VP Get selection; $0)
-End if 
+#DECLARE($area : Text; $sheetIndex : Integer) : Object
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
-		$area:=$1
-		
-		If ($nbParameters>1)
-			$sheet:=$2
-		Else 
-			$sheet:=-1
+		If ($nbParameters<2)
+			$sheetIndex:=-1
 		End if 
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($printInfo; $params)
-			$params:=New object:C1471("sheetIndex"; $sheet)
-			$printInfo:=vp_runFunction($area; "get-print-info"; $params)
+			var $printInfo : Object:=vp_runFunction($area; "get-print-info"; {heetIndex: $sheetIndex})
 			
 			vp_get_picture($printInfo; "footerCenterImage")
 			vp_get_picture($printInfo; "footerLeftImage")
@@ -71,7 +52,7 @@ If (vp_initStorage)
 				End if 
 			End if 
 			
-			$0:=$printInfo
+			return $printInfo
 			
 		End if 
 	End if 

@@ -1,22 +1,18 @@
 //%attributes = {"invisible":true,"shared":true}
 // The VP NEW DOCUMENT command loads and display a new, default document in the 4D View Pro form area object vpAreaName. The new empty document replaces any data already inserted in the area. 
 // Pass in vpAreaName the object name property of the area in the 4D form. If you pass an invalid name, an error is returned.  
+#DECLARE($area : Text)
 
-C_TEXT:C284($1)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($filePath; $textBuffer; $fileName; $area)
-C_OBJECT:C1216($documentObject; $path)
+var $filePath; $textBuffer; $fileName : Text
+var $documentObject; $path : Object
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(1; $nbParameters))
-		
-		$area:=$1
 		
 		If (vp_isReady($area; Current method name:C684))
 			

@@ -1,33 +1,20 @@
 //%attributes = {"invisible":true,"shared":true}
-C_OBJECT:C1216($1)
-C_TEXT:C284($2)
-
-C_LONGINT:C283($nbParameters)
-C_OBJECT:C1216($params; $ranges)
-C_TEXT:C284($name; $area)
+#DECLARE($ranges : Object; $name : Text)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$ranges:=$1
-		$name:=$2
-		
-		$area:=$ranges.area
+		var $area : Text:=$ranges.area
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			$params:=New object:C1471()
+			var $ret:=vp_runFunction($area; "resize-table"; {ranges: $ranges.ranges; name: $name})
 			
-			$params.ranges:=$ranges.ranges
-			$params.name:=$name
-			
-			C_OBJECT:C1216($ret)
-			$ret:=vp_runFunction($area; "resize-table"; $params)
 		End if 
 	End if 
 	

@@ -6,12 +6,12 @@
 C_OBJECT:C1216($1; $2; $3)
 
 C_OBJECT:C1216($from; $to; $options; $params)
-C_LONGINT:C283($nbParameters)
+
 C_TEXT:C284($area1; $area2)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	

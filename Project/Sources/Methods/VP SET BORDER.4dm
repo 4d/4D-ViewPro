@@ -8,35 +8,23 @@
 // Description: Set the border for a specified range
 // ----------------------------------------------------
 //----- Declarations
-
-C_OBJECT:C1216($1)
-C_OBJECT:C1216($2)
-C_OBJECT:C1216($3)
-
-C_OBJECT:C1216($range)
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($area)
+#DECLARE($range : Object; $border : Object; $option : Object)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(3; $nbParameters))
 		
-		$range:=$1
-		$area:=$range.area
+		var $area : Text:=$range.area
 		
 		If (vp_isReady($area; Current method name:C684))
 			
 			If (Value type:C1509($range.ranges)=Is collection:K8:32)
-				C_OBJECT:C1216($params)
-				$params:=New object:C1471()
-				$params.ranges:=$range.ranges
-				$params.border:=$2
-				$params.option:=$3
-				vp_runCommand($area; "set-border"; $params)
+				
+				vp_runCommand($area; "set-border"; {ranges: $range.ranges; border: $border; option: $option})
 				
 			End if 
 		End if 

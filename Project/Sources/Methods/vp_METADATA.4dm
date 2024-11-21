@@ -6,13 +6,13 @@ ________________________________________________________
 */
 C_OBJECT:C1216($1)
 
-C_LONGINT:C283($nbParameters)
+
 C_TEXT:C284($date)
 C_OBJECT:C1216($documentObject)
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
+var $nbParameters:=Count parameters:C259
 
 err_TRY
 
