@@ -3,37 +3,23 @@
 // Pass in vpAreaName the object name property of the area in the 4D form. If you pass an invalid name, an error is returned.  
 // In viewPro, pass a valid 4D View Pro blob. This object can have been created using VP Export to blob or manually from a blob that holds a .sjs file content.
 // An error is returned if the viewPro object is invalid.
-
-C_TEXT:C284($1)
-C_OBJECT:C1216($2)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($areaName; $textBuffer)
-C_OBJECT:C1216($viewProBlobObject; $callback; $options; $areaVariable)
+#DECLARE($areaName : Text; $viewProBlobObject : 4D:C1709.Blob; $options : Object)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
-	
 	err_TRY
 	
-	If (Check_parameters_count(2; $nbParameters))
+	If (Check_parameters_count(2; Count parameters:C259))
 		
-		$areaName:=$1
-		$viewProBlobObject:=$2
 		
-		If ($nbParameters>=3)
+		If ($options=Null:C1517)
 			
-			$options:=$3
-			
-		Else 
-			
-			$options:=New object:C1471
+			$options:={}
 			
 		End if 
 		
 		If (vp_isReady($areaName; Current method name:C684))
-			If (($viewProBlobObject=Null:C1517) | (OB Is empty:C1297($viewProBlobObject)))
+			If (($viewProBlobObject=Null:C1517) || (OB Is empty:C1297($viewProBlobObject)))
 				VP NEW DOCUMENT($areaName)
 			Else 
 				
@@ -41,13 +27,14 @@ If (vp_initStorage)
 					
 					$options.blob:=$viewProBlobObject
 					
+					var $textBuffer : Text
 					BASE64 ENCODE:C895($viewProBlobObject; $textBuffer)
 					
-					$callback:=New object:C1471
-					$callback.content:=$textBuffer
-					$callback.command:="import-blob"
-					$callback.areaName:=$areaName
-					$callback.sjsOptions:=$options
+					var $callback:={\
+						content: $textBuffer; \
+						command: "import-blob"; \
+						areaName: $areaName; \
+						sjsOptions: $options}
 					
 					// Is there a user callback method to execute ?
 					If ($options.formula#Null:C1517)
@@ -57,7 +44,7 @@ If (vp_initStorage)
 						
 						// Keep the callback method
 						
-						$areaVariable:=vp_getAreaVariable($areaName)
+						var $areaVariable:=vp_getAreaVariable($areaName)
 						
 						If ($areaVariable#Null:C1517)
 							If (Value type:C1509($areaVariable.callbacks)=Is object:K8:27)

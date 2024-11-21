@@ -230,6 +230,7 @@
 			"vp_parse_object_get",
 			"vp_parse_object_set",
 			"vp_Path",
+			"vp_rangeCommand",
 			"vp_runCommand",
 			"vp_runFunction",
 			"vp_saveFile",

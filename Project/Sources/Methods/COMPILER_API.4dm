@@ -59,11 +59,6 @@ If (False:C215)  // document
 	C_OBJECT:C1216(VP IMPORT FROM OBJECT; $2)
 	
 	//___________________________________
-	C_TEXT:C284(VP IMPORT FROM BLOB; $1)
-	C_OBJECT:C1216(VP IMPORT FROM BLOB; $2)
-	C_OBJECT:C1216(VP IMPORT FROM BLOB; $3)
-	
-	//___________________________________
 	C_TEXT:C284(VP NEW DOCUMENT; $1)
 	
 	//___________________________________
@@ -84,12 +79,6 @@ If (False:C215)  // names
 	C_OBJECT:C1216(VP ADD RANGE NAME; $1)
 	C_TEXT:C284(VP ADD RANGE NAME; $2)
 	C_OBJECT:C1216(VP ADD RANGE NAME; $3)
-	
-	//___________________________________
-	C_TEXT:C284(VP ADD FORMULA NAME; $1)
-	C_TEXT:C284(VP ADD FORMULA NAME; $2)
-	C_TEXT:C284(VP ADD FORMULA NAME; $3)
-	C_OBJECT:C1216(VP ADD FORMULA NAME; $4)
 	
 	//___________________________________
 	C_COLLECTION:C1488(VP Get names; $0)
@@ -202,24 +191,6 @@ If (False:C215)  // rows & columns
 	C_OBJECT:C1216(VP Get row attributes; $1)
 	
 	//___________________________________
-	C_OBJECT:C1216(VP DELETE COLUMNS; $1)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP DELETE ROWS; $1)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP INSERT COLUMNS; $1)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP INSERT ROWS; $1)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP COLUMN AUTOFIT; $1)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP ROW AUTOFIT; $1)
-	
-	//___________________________________
 	C_TEXT:C284(VP SET FROZEN PANES; $1)
 	C_OBJECT:C1216(VP SET FROZEN PANES; $2)
 	C_LONGINT:C283(VP SET FROZEN PANES; $3)
@@ -234,18 +205,9 @@ End if
 If (False:C215)  // selection
 	
 	//___________________________________
-	C_OBJECT:C1216(VP SET ACTIVE CELL; $1)
-	
-	//___________________________________
 	C_TEXT:C284(VP Get selection; $1)
 	C_LONGINT:C283(VP Get selection; $2)
 	C_OBJECT:C1216(VP Get selection; $0)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP SET SELECTION; $1)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP ADD SELECTION; $1)
 	
 	//___________________________________
 	C_TEXT:C284(VP RESET SELECTION; $1)
@@ -279,11 +241,6 @@ If (False:C215)  // sheets
 End if 
 
 If (False:C215)  // spans
-	//___________________________________
-	C_OBJECT:C1216(VP ADD SPAN; $1)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP REMOVE SPAN; $1)
 	
 	//___________________________________
 	C_OBJECT:C1216(VP Get spans; $0)
