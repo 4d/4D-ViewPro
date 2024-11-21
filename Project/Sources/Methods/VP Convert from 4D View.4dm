@@ -15,18 +15,11 @@ ________________________________________________________
 // Convert a 4D View document to 4D View Pro document
 // ----------------------------------------------------
 // Declarations
-C_OBJECT:C1216($0)
-C_BLOB:C604($1)
+#DECLARE($Blb_view : Blob)->$Obj_viewPro : Object
 
-C_BLOB:C604($Blb_view)
-C_LONGINT:C283($Lon_i)
-C_OBJECT:C1216($Obj_columns; $Obj_d4; $Obj_dataTable; $Obj_rows; $Obj_style; $Obj_viewPro)
-C_COLLECTION:C1488($Coll_namedStyles; $stylesheets)
-
-If (False:C215)
-	C_OBJECT:C1216(VP Convert from 4D View; $0)
-	C_BLOB:C604(VP Convert from 4D View; $1)
-End if 
+var $Lon_i : Integer
+var $Obj_columns; $Obj_d4; $Obj_dataTable; $Obj_rows; $Obj_style : Object
+var $Coll_namedStyles; $stylesheets : Collection
 
 vp_initStorage_no_licence_check
 
@@ -36,9 +29,7 @@ err_TRY
 
 If (Check_parameters_count(1; $nbParameters))
 	
-	$Blb_view:=$1
 End if 
-
 
 If (BLOB size:C605($Blb_view)=0)
 	
@@ -406,9 +397,3 @@ End if
 
 err_FINALLY
 
-// ----------------------------------------------------
-// Return
-$0:=$Obj_viewPro
-
-// ----------------------------------------------------
-// End

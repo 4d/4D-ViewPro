@@ -1,13 +1,5 @@
 //%attributes = {"invisible":true,"shared":true}
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_OBJECT:C1216($3)
-C_LONGINT:C283($4)
-
-C_LONGINT:C283($sheet)
-C_OBJECT:C1216($params)
-C_OBJECT:C1216($theme)
-C_TEXT:C284($name; $area)
+#DECLARE($area : Text; $name : Text; $theme : Object; $sheet : Integer)
 
 If (vp_initStorage)
 	
@@ -17,15 +9,9 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(3; $nbParameters))
 		
-		$area:=$1
-		$name:=$2
-		$theme:=$3
-		
 		If (vp_isReady($area; Current method name:C684))
 			
-			If ($nbParameters>3)
-				$sheet:=$4
-			Else 
+			If ($nbParameters<4)
 				$sheet:=-1
 			End if 
 			
@@ -36,14 +22,13 @@ If (vp_initStorage)
 					err_THROW(New object:C1471("code"; 19))
 				Else 
 					
-					$params:=New object:C1471()
+					var $params:=New object:C1471()
 					
 					$params.name:=$name
 					$params.theme:=$theme
 					$params.sheet:=$sheet
 					
-					C_OBJECT:C1216($ret)
-					$ret:=vp_runFunction($area; "set-table-theme"; $params)
+					var $ret:=vp_runFunction($area; "set-table-theme"; $params)
 				End if 
 			End if 
 			

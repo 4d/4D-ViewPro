@@ -8,21 +8,7 @@
 // Description:
 // ----------------------------------------------------
 // ----- Declarations
-
-C_OBJECT:C1216($1)
-C_LONGINT:C283($2; $3)
-
-C_OBJECT:C1216($ranges)
-
-
-C_OBJECT:C1216($params)
-C_LONGINT:C283($Lon_hPos; $Lon_vPos)
-
-If (False:C215)
-	C_OBJECT:C1216(VP SHOW CELL; $1)
-	C_LONGINT:C283(VP SHOW CELL; $2)
-	C_LONGINT:C283(VP SHOW CELL; $3)
-End if 
+#DECLARE($ranges : Object; $verticalPosition : Integer; $horizontalPosition : Integer)
 
 If (vp_initStorage)
 	
@@ -32,18 +18,16 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(3; $nbParameters))
 		
-		$ranges:=$1
 		var $area : Text:=$ranges.area
-		$Lon_vPos:=$2
-		$Lon_hPos:=$3
 		
 		If (vp_isReady($area; Current method name:C684))
 			
 			If (Value type:C1509($ranges.ranges)=Is collection:K8:32)
-				$params:=New object:C1471
+				
+				var $params:=New object:C1471
 				$params.ranges:=$ranges.ranges
-				$params.verticalPosition:=$Lon_vPos
-				$params.horizontalPosition:=$Lon_hPos
+				$params.verticalPosition:=$verticalPosition
+				$params.horizontalPosition:=$horizontalPosition
 				
 				vp_runCommand($area; "show-cell"; $params)
 			End if 

@@ -1,25 +1,16 @@
 //%attributes = {"invisible":true,"shared":true,"preemptive":"capable"}
-C_TEXT:C284($1)
-C_OBJECT:C1216($0)
-
-C_OBJECT:C1216($obj)
-C_TEXT:C284($Txt_font)
-$Txt_font:=$1
+#DECLARE($Txt_font : Text)->$obj : Object
 
 $obj:=New object:C1471()
 
-C_COLLECTION:C1488($elements)
+var $elements:=Split string:C1554($Txt_font; " "; sk ignore empty strings:K86:1+sk trim spaces:K86:2)
 
-$elements:=Split string:C1554($Txt_font; " "; sk ignore empty strings:K86:1+sk trim spaces:K86:2)
-
-C_LONGINT:C283($i)
-C_TEXT:C284($element)
-C_BOOLEAN:C305($parseSize; $parseName)
-$parseSize:=False:C215
-$parseName:=False:C215
+var $parseSize:=False:C215
+var $parseName:=False:C215
 
 $obj.family:=""
-
+var $i : Integer
+var $element : Text
 For ($i; 0; $elements.length-1)
 	$element:=$elements[$i]
 	
@@ -70,8 +61,7 @@ For ($i; 0; $elements.length-1)
 	
 End for 
 
-C_TEXT:C284($family)
-$family:=$obj.family
+var $family : Text:=$obj.family
 If (Length:C16($family)>2)
 	If (($family[[1]]="\"") | \
 		($family[[1]]="'"))
@@ -83,11 +73,8 @@ If (Length:C16($family)>2)
 	End if 
 End if 
 
-C_LONGINT:C283($hasComma)
-$hasComma:=Position:C15(","; $family)
+var $hasComma:=Position:C15(","; $family)
 If ($hasComma>0)
 	$family:=Substring:C12($family; 1; $hasComma-1)
 End if 
 $obj.family:=$family
-
-$0:=$obj

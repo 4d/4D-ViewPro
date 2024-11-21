@@ -8,24 +8,7 @@
 // Description: recompute formulas
 // ----------------------------------------------------
 // ----- Declarations
-
-C_OBJECT:C1216($0)
-C_OBJECT:C1216($1)
-C_TEXT:C284($2)
-C_OBJECT:C1216($3)
-C_TEXT:C284($4)
-
-
-
-C_OBJECT:C1216($params)
-
-If (False:C215)
-	C_OBJECT:C1216(VP Find; $0)
-	C_OBJECT:C1216(VP Find; $1)
-	C_TEXT:C284(VP Find; $2)
-	C_OBJECT:C1216(VP Find; $3)
-	C_TEXT:C284(VP Find; $4)
-End if 
+#DECLARE($ranges : Object; $searchValue : Text; $params : Object; $replaceValue : Text)->$result : Object
 
 If (vp_initStorage)
 	
@@ -35,22 +18,20 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		var $area : Text:=$1.area
+		var $area : Text:=$ranges.area
 		
-		If ($nbParameters>2)
-			$params:=$3
-		Else 
+		If ($params=Null:C1517)
 			$params:=New object:C1471
 		End if 
 		
 		If ($nbParameters>3)
-			$params.replace:=$4
+			$params.replace:=$replaceValue
 		End if 
 		
 		If (vp_isReady($area; Current method name:C684))
-			$params.range:=$1
-			$params.find:=$2
-			$0:=vp_runFunction($area; "find"; $params)
+			$params.range:=$ranges
+			$params.find:=$searchValue
+			$result:=vp_runFunction($area; "find"; $params)
 		End if 
 	End if 
 	

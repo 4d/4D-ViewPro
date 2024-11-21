@@ -1,10 +1,5 @@
 //%attributes = {"invisible":true,"shared":true}
-C_TEXT:C284($0)
-C_OBJECT:C1216($1)
-
-
-C_OBJECT:C1216($params; $ranges)
-
+#DECLARE($ranges : Object)->$result : Text
 
 If (vp_initStorage)
 	
@@ -14,19 +9,16 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
-		$ranges:=$1
-		
 		var $area : Text:=$ranges.area
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			$params:=New object:C1471()
+			var $params:=New object:C1471()
 			
 			$params.ranges:=$ranges.ranges
 			
-			C_OBJECT:C1216($ret)
-			$ret:=vp_runFunction($area; "find-table"; $params)
-			$0:=$ret.table
+			var $ret:=vp_runFunction($area; "find-table"; $params)
+			$result:=$ret.table
 			
 		End if 
 	End if 

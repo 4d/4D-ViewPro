@@ -2,12 +2,7 @@
 // Move cells from range passed as first parameter to the destination pointed by parameter 2
 // It can be in same sheet, different sheets in same workbook, or from one 4D ViewPro area to another
 // in this case it will use the commands VP Copy to object and VP Paste
-
-C_OBJECT:C1216($1; $2; $3)
-
-C_OBJECT:C1216($from; $to; $options; $params)
-
-C_TEXT:C284($area1; $area2)
+#DECLARE($from : Object; $to : Object; $options : Object)
 
 If (vp_initStorage)
 	
@@ -17,13 +12,11 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$from:=$1
-		$to:=$2
-		$area1:=$from.area
-		$area2:=$to.area
+		var $area1 : Text:=$from.area
+		var $area2 : Text:=$to.area
 		
 		If ($nbParameters>2)
-			$options:=OB Copy:C1225($3)
+			$options:=OB Copy:C1225($options)
 		Else 
 			$options:=New object:C1471("copy"; False:C215; "pasteOptions"; 0)
 		End if 
@@ -41,7 +34,7 @@ If (vp_initStorage)
 			If (vp_isReady($area1; Current method name:C684))
 				
 				If ((Value type:C1509($from.ranges)=Is collection:K8:32) & (Value type:C1509($to.ranges)=Is collection:K8:32))
-					$params:=New object:C1471
+					var $params:=New object:C1471
 					$params.from:=$from.ranges
 					$params.to:=$to.ranges
 					$params.options:=$options
@@ -51,8 +44,7 @@ If (vp_initStorage)
 			End if 
 			
 		Else 
-			C_LONGINT:C283($pasteOptions)
-			
+			var $pasteOptions : Integer
 			If ((Value type:C1509($options.pasteOptions)=Is longint:K8:6) | (Value type:C1509($options.pasteOptions)=Is real:K8:4))
 				$pasteOptions:=$options.pasteOptions
 				$options.copyOptions:=$options.pasteOptions
@@ -61,8 +53,7 @@ If (vp_initStorage)
 				$options.copyOptions:=0
 			End if 
 			
-			C_OBJECT:C1216($tmp)
-			$tmp:=VP Copy to object($from; $options)
+			var $tmp:=VP Copy to object($from; $options)
 			
 			If ($tmp#Null:C1517)
 				VP PASTE FROM OBJECT($to; $tmp; $pasteOptions)

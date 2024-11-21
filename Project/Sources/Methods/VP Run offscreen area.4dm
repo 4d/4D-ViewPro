@@ -1,6 +1,5 @@
 //%attributes = {"invisible":true,"shared":true}
-C_OBJECT:C1216($1)
-C_VARIANT:C1683($0)
+#DECLARE($config : Object)->$result : Variant
 
 If (vp_initStorage)
 	
@@ -8,14 +7,11 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(1; Count parameters:C259))
 		
-		C_OBJECT:C1216($config)
-		$config:=$1
-		
 		If ($config.ViewPro=Null:C1517)
-			$config.ViewPro:=New object:C1471
+			$config.ViewPro:={}
 		End if 
 		
-		$0:=WA Run offscreen area:C1727($config)
+		$result:=WA Run offscreen area:C1727($config)
 		
 	End if 
 	

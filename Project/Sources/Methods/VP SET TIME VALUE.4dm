@@ -8,17 +8,7 @@
 // Description: Set a time value of a range
 // ----------------------------------------------------
 // ----- Declarations
-
-C_OBJECT:C1216($1)
-C_TIME:C306($2)
-
-
-
-If (False:C215)
-	C_OBJECT:C1216(VP SET TIME VALUE; $1)
-	C_TIME:C306(VP SET TIME VALUE; $2)
-	C_TEXT:C284(VP SET TIME VALUE; $3)
-End if 
+#DECLARE($cell : Object; $time : Time; $format : Text)
 
 var $nbParameters:=Count parameters:C259
 
@@ -26,16 +16,15 @@ err_TRY
 
 If (Check_parameters_count(2; $nbParameters))
 	
-	C_OBJECT:C1216($obj)
-	$obj:=New object:C1471("time"; $2)
+	var $obj:=New object:C1471("time"; $time)
 	
 	If ($nbParameters>2)
-		$obj.format:=$3
+		$obj.format:=$format
 	Else 
 		$obj.format:="_longTimePattern_"
 	End if 
 	
-	VP SET VALUE($1; $obj)
+	VP SET VALUE($cell; $obj)
 	
 End if 
 

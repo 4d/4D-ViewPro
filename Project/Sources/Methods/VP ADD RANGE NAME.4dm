@@ -9,22 +9,7 @@
 // target can be a cell, a range, a column or a row, or any formula
 // ----------------------------------------------------
 //----- Declarations
-
-C_OBJECT:C1216($1)
-C_TEXT:C284($2)
-C_OBJECT:C1216($3)
-
-C_OBJECT:C1216($Obj_range)
-C_TEXT:C284($name)
-C_OBJECT:C1216($options)
-
-
-
-If (False:C215)
-	C_OBJECT:C1216(VP ADD RANGE NAME; $1)
-	C_TEXT:C284(VP ADD RANGE NAME; $2)
-	C_OBJECT:C1216(VP ADD RANGE NAME; $3)
-End if 
+#DECLARE($range : Object; $name : Text; $options : Object)
 
 If (vp_initStorage)
 	
@@ -34,24 +19,18 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$Obj_range:=$1
-		$name:=$2
-		
-		If ($nbParameters>2)
-			$options:=$3
-		Else 
+		If ($nbParameters<3)
 			$options:=New object:C1471("scope"; -1)
 		End if 
 		
-		If (vp_isReady($Obj_range.area; Current method name:C684))
+		If (vp_isReady($range.area; Current method name:C684))
 			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471()
-			$params.ranges:=$Obj_range.ranges
+			var $params:=New object:C1471()
+			$params.ranges:=$range.ranges
 			$params.name:=$name
 			$params.options:=$options
 			
-			vp_runCommand($Obj_range.area; "add-range-name"; $params)
+			vp_runCommand($range.area; "add-range-name"; $params)
 			
 		End if 
 		

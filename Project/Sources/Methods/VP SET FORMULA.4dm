@@ -7,7 +7,7 @@
 // ----------------------------------------------------
 // Description: Set the formula of a range
 // ----------------------------------------------------
-#DECLARE($cell : cs:C1710._cell; $formula : Text; $format : Text)
+#DECLARE($cell : Object; $formula : Text; $format : Text)
 
 var $o : Object
 

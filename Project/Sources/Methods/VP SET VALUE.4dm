@@ -7,7 +7,7 @@
 // ----------------------------------------------------
 // Description: Sets the value of a cell
 // ----------------------------------------------------
-#DECLARE($cell : cs:C1710._cell; $value : Object)
+#DECLARE($cell : Object; $value : Object)
 
 var $key : Text
 var $date : Date
@@ -93,7 +93,7 @@ Case of
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 				//: (Feature.with("SET_OBJECTS"))\
-															 && ($type=Is undefined)  // Object
+					&& ($type=Is undefined)  // Object
 				//VP SET FORMULA($cell; "="+vp_objectToFormula($value))
 				
 				//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅

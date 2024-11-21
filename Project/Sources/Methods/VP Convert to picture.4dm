@@ -1,7 +1,7 @@
 //%attributes = {"invisible":true,"shared":true,"preemptive":"capable"}
-err_TRY
+#DECLARE($vpObject : Object; $cells : Object)->$result : Picture
 
-C_OBJECT:C1216($1; $vpObject; $2; $cells; $range)
+err_TRY
 
 C_OBJECT:C1216($sheets; $table; $cell; $style)
 C_TEXT:C284($svgSource)
@@ -16,7 +16,6 @@ C_OBJECT:C1216($lineObj)
 C_OBJECT:C1216($obj)
 C_BOOLEAN:C305($displayValue)
 C_LONGINT:C283($pos)
-C_PICTURE:C286($0)
 C_OBJECT:C1216($defaultStyle)
 C_COLLECTION:C1488($valCol)
 C_LONGINT:C283($rightOverflow; $leftOverflow)
@@ -101,13 +100,6 @@ $colCount:=100
 $valCol:=New collection:C1472
 
 $lineObj:=New object:C1471("H"; New object:C1471; "V"; New object:C1471; "lines"; New collection:C1472)
-
-$vpObject:=$1
-If (Count parameters:C259>=2)
-	$cells:=$2
-Else 
-	$cells:=Null:C1517
-End if 
 
 If (Value type:C1509($vpObject.spreadJS)=Is object:K8:27)
 	$workbook:=$vpObject.spreadJS
@@ -199,7 +191,7 @@ If ($defaultStyle#Null:C1517)
 	End if 
 End if 
 
-$range:=vp_getCellRange($vpObject; $cells)
+var $range : Object:=vp_getCellRange($vpObject; $cells)
 
 If ($sheets.columnCount#Null:C1517)
 	$colCount:=Num:C11($sheets.columnCount)
@@ -1752,10 +1744,10 @@ DOM SET XML ATTRIBUTE:C866($svgRef; "x"; "0"; "y"; "0"; "width"; String:C10(Choo
 //DOM EXPORT TO FILE($svgRef; saveImgFileName)
 //End if
 
-C_PICTURE:C286($svgImg)
+var $svgImg : Picture
 
 SVG EXPORT TO PICTURE:C1017($svgRef; $svgImg; Own XML data source:K45:18)
-$0:=$svgImg
+$result:=$svgImg
 
 //Else
 
