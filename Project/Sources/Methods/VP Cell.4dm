@@ -7,7 +7,7 @@
 // ----------------------------------------------------
 // Description: Creates a target for a single cell
 // ----------------------------------------------------
-#DECLARE($area : Text; $column : Integer; $row : Integer; $sheet : Integer) : cs:C1710._cell
+#DECLARE($area : Text; $column : Integer; $row : Integer; $sheet : Integer) : Object
 
 var $cell : cs:C1710._cell
 

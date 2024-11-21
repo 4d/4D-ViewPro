@@ -8,7 +8,7 @@
 // Description:
 // Returns the active cell object
 // ----------------------------------------------------
-#DECLARE($area : Text; $sheet : Integer) : cs:C1710._cell
+#DECLARE($area : Text; $sheet : Integer) : Object
 
 var $cell; $o : Object
 
