@@ -16,7 +16,7 @@ ________________________________________________________
 // Declarations
 C_OBJECT:C1216($1)
 
-C_LONGINT:C283($nbParameters)
+
 C_OBJECT:C1216($Obj_in)
 
 If (False:C215)
@@ -25,7 +25,7 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
+var $nbParameters:=Count parameters:C259
 
 If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
 	

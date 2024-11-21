@@ -25,18 +25,10 @@ C_OBJECT:C1216(vp_METADATA; $1)
 C_TEXT:C284(vp_METADATA; $2)
 
 //___________________________________
-C_OBJECT:C1216(vp_Path; $0)
-C_TEXT:C284(vp_Path; $1)
-C_TEXT:C284(vp_Path; $2)
-
-//___________________________________
 C_OBJECT:C1216(vp_UPDATE; $1)
 
 //___________________________________
 C_OBJECT:C1216(vp_UPDATE_SJS; $1)
-
-//___________________________________
-C_TEXT:C284(vp_FLUSH; $1)
 
 //___________________________________
 C_TEXT:C284(vp_endInit; $1)

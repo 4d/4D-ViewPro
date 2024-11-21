@@ -13,7 +13,7 @@ C_OBJECT:C1216($1)
 C_POINTER:C301($2)
 C_TEXT:C284($3)
 
-C_LONGINT:C283($nbParameters)
+
 
 If (False:C215)
 	C_OBJECT:C1216(VP SET FIELD; $1)
@@ -21,7 +21,7 @@ If (False:C215)
 	C_TEXT:C284(VP SET FIELD; $3)
 End if 
 
-$nbParameters:=Count parameters:C259
+var $nbParameters:=Count parameters:C259
 
 err_TRY
 

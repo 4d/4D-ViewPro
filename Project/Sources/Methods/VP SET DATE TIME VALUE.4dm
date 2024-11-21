@@ -13,7 +13,7 @@ C_OBJECT:C1216($1)
 C_DATE:C307($2)
 C_TIME:C306($3)
 
-C_LONGINT:C283($nbParameters)
+
 
 If (False:C215)
 	C_OBJECT:C1216(VP SET DATE TIME VALUE; $1)
@@ -22,7 +22,7 @@ If (False:C215)
 	C_TEXT:C284(VP SET DATE TIME VALUE; $4)
 End if 
 
-$nbParameters:=Count parameters:C259
+var $nbParameters:=Count parameters:C259
 
 err_TRY
 

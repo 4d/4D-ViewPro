@@ -6,24 +6,15 @@ path := ***vp_Path*** ( path ; Param_2 )
 <- path (Object)
 ________________________________________________________
 */
+#DECLARE($path : Text; $extension : Text)->$pathObject : Object
 
-C_OBJECT:C1216($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-
-C_BOOLEAN:C305($isOK)
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($path)
-C_OBJECT:C1216($pathObject)
+var $isOK : Boolean
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
+var $nbParameters:=Count parameters:C259
 
 If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
-	
-	// Required parameters
-	$path:=$1
 	
 	ARRAY TEXT:C222($extensionsArray; 4)
 	$extensionsArray{1}:=".4vp"
@@ -34,9 +25,9 @@ If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
 	// Optional parameters
 	If ($nbParameters>=2)
 		
-		If (Length:C16($2)>0)
+		If (Length:C16($extension)>0)
 			
-			$extensionsArray{1}:=$2  // Optional, default is ".4vp"
+			$extensionsArray{1}:=$extension  // Optional, default is ".4vp"
 			
 		End if 
 	End if 
@@ -52,7 +43,7 @@ $pathObject:=Path to object:C1547($path)
 
 If (Length:C16($pathObject.name)>0)
 	
-	If ((Length:C16($pathObject.extension)=0) & ($2#".csv"))
+	If ((Length:C16($pathObject.extension)=0) & ($extension#".csv"))
 		
 		$pathObject.extension:=$extensionsArray{1}
 		
@@ -82,5 +73,3 @@ If (Length:C16($pathObject.name)>0)
 		End if 
 	End if 
 End if 
-
-$0:=$pathObject

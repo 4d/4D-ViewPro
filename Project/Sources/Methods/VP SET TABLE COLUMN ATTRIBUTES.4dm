@@ -5,14 +5,14 @@ C_LONGINT:C283($3)
 C_OBJECT:C1216($4)
 C_LONGINT:C283($5)
 
-C_LONGINT:C283($nbParameters; $sheet; $index)
+C_LONGINT:C283($sheet; $index)
 C_OBJECT:C1216($params)
 C_OBJECT:C1216($attributes)
 C_TEXT:C284($name; $area)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	

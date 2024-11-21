@@ -8,34 +8,23 @@
 // Description: Sets the information to use when printing a sheet
 // ----------------------------------------------------
 //----- Declarations
-
-C_TEXT:C284($1)
-C_OBJECT:C1216($2)
-C_LONGINT:C283($3)
-
-C_LONGINT:C283($nbParameters; $sheetIndex)
-C_TEXT:C284($area)
+#DECLARE($area : Text; $printInfo : Object; $sheetIndex : Integer)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$area:=$1
-		
-		If ($nbParameters>2)
-			$sheetIndex:=$3
-		Else 
+		If ($nbParameters<3)
 			$sheetIndex:=-1
 		End if 
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($printInfo)
-			$printInfo:=OB Copy:C1225($2)
+			$printInfo:=OB Copy:C1225($printInfo)
 			
 			vp_make_picture($printInfo; "footerCenterImage")
 			vp_make_picture($printInfo; "footerLeftImage")
@@ -85,11 +74,7 @@ If (vp_initStorage)
 				
 			End if 
 			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471()
-			$params.printInfo:=$printInfo
-			$params.sheetIndex:=$sheetIndex
-			vp_runCommand($area; "set-print-info"; $params)
+			vp_runCommand($area; "set-print-info"; {printInfo: $printInfo; sheetIndex: $sheetIndex})
 			
 		End if 
 	End if 

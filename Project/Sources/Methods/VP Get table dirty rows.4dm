@@ -5,14 +5,14 @@ C_BOOLEAN:C305($3)
 C_LONGINT:C283($4)
 C_COLLECTION:C1488($0)
 
-C_LONGINT:C283($nbParameters; $sheet)
+C_LONGINT:C283($sheet)
 C_OBJECT:C1216($params)
 C_TEXT:C284($table; $area)
 C_BOOLEAN:C305($reset)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	

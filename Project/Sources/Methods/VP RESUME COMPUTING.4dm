@@ -8,28 +8,16 @@
 // Description: recompute formulas
 // ----------------------------------------------------
 // ----- Declarations
-
-C_TEXT:C284($1)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($area)
-
-If (False:C215)
-	C_TEXT:C284(VP RESUME COMPUTING; $1)
-End if 
+#DECLARE($area : Text)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
-	
 	err_TRY
 	
-	If (Check_parameters_count(1; $nbParameters))
-		$area:=$1
+	If (Check_parameters_count(1; Count parameters:C259))
 		
 		If (vp_isReady($area; Current method name:C684))
-			C_OBJECT:C1216($params)
-			vp_runFunction($area; "resume-calculation"; $params)
+			vp_runFunction($area; "resume-calculation"; Null:C1517)
 		End if 
 	End if 
 	

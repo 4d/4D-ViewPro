@@ -8,50 +8,23 @@
 // Description: Remove a style sheet for a specified sheet or for the whole workbook
 // ----------------------------------------------------
 //----- Declarations
-
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_LONGINT:C283($3)
-
-C_TEXT:C284($area)
-C_TEXT:C284($name)
-C_LONGINT:C283($sheet)
-
-C_LONGINT:C283($nbParameters)
-
-If (False:C215)
-	C_TEXT:C284(VP REMOVE STYLESHEET; $1)
-	C_TEXT:C284(VP REMOVE STYLESHEET; $2)
-	C_LONGINT:C283(VP REMOVE STYLESHEET; $3)
-End if 
-
-// ----------------------------------------------------
+#DECLARE($area : Text; $name : Text; $sheetIndex : Integer)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$area:=$1
-		$name:=$2
-		
-		If ($nbParameters>2)
-			$sheet:=$3
-		Else 
-			$sheet:=-1
+		If ($nbParameters<3)
+			$sheetIndex:=-1
 		End if 
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471()
-			$params.name:=$name
-			$params.sheetIndex:=$sheet
-			
-			vp_runCommand($area; "remove-stylesheet"; $params)
+			vp_runCommand($area; "remove-stylesheet"; {name: $name; sheetIndex: $sheetIndex})
 			
 		End if 
 	End if 

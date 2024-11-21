@@ -15,8 +15,8 @@ C_TEXT:C284($2)
 C_OBJECT:C1216($3)
 C_TEXT:C284($4)
 
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($area)
+
+
 C_OBJECT:C1216($params)
 
 If (False:C215)
@@ -29,13 +29,13 @@ End if
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$area:=$1.area
+		var $area : Text:=$1.area
 		
 		If ($nbParameters>2)
 			$params:=$3

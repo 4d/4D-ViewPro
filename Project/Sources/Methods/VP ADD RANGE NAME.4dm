@@ -18,7 +18,7 @@ C_OBJECT:C1216($Obj_range)
 C_TEXT:C284($name)
 C_OBJECT:C1216($options)
 
-C_LONGINT:C283($nbParameters)
+
 
 If (False:C215)
 	C_OBJECT:C1216(VP ADD RANGE NAME; $1)
@@ -28,7 +28,7 @@ End if
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	

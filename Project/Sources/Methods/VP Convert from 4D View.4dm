@@ -19,7 +19,7 @@ C_OBJECT:C1216($0)
 C_BLOB:C604($1)
 
 C_BLOB:C604($Blb_view)
-C_LONGINT:C283($Lon_i; $nbParameters)
+C_LONGINT:C283($Lon_i)
 C_OBJECT:C1216($Obj_columns; $Obj_d4; $Obj_dataTable; $Obj_rows; $Obj_style; $Obj_viewPro)
 C_COLLECTION:C1488($Coll_namedStyles; $stylesheets)
 
@@ -30,7 +30,7 @@ End if
 
 vp_initStorage_no_licence_check
 
-$nbParameters:=Count parameters:C259
+var $nbParameters:=Count parameters:C259
 
 err_TRY
 

@@ -8,37 +8,17 @@
 // Description: Set the number of sheets
 // ----------------------------------------------------
 //----- Declarations
-
-C_TEXT:C284($1)
-C_LONGINT:C283($2)
-
-C_TEXT:C284($area)
-C_LONGINT:C283($count)
-
-C_LONGINT:C283($nbParameters)
-
-If (False:C215)
-	C_TEXT:C284(VP SET SHEET COUNT; $1)
-	C_LONGINT:C283(VP SET SHEET COUNT; $2)
-End if 
+#DECLARE($area : Text; $count : Integer)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
-	
 	err_TRY
 	
-	If (Check_parameters_count(2; $nbParameters))
-		
-		$area:=$1
-		$count:=$2
+	If (Check_parameters_count(2; Count parameters:C259))
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471("count"; $count)
-			
-			vp_runCommand($area; "set-sheet-count"; $params)
+			vp_runCommand($area; "set-sheet-count"; {count: $count})
 			
 		End if 
 	End if 

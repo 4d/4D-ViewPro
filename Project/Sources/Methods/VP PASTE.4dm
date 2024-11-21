@@ -8,45 +8,18 @@
 // Description: recompute formulas
 // ----------------------------------------------------
 // ----- Declarations
-
-C_TEXT:C284($1)
-C_OBJECT:C1216($2)
-C_LONGINT:C283($3)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($area)
-C_OBJECT:C1216($toPaste)
-C_LONGINT:C283($pasteOption)
-
-If (False:C215)
-	C_TEXT:C284(VP PASTE; $1)
-	C_OBJECT:C1216(VP PASTE; $2)
-	C_LONGINT:C283(VP PASTE; $3)
-End if 
+#DECLARE($area : Text; $toPaste : Object; $pasteOption : Integer)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
-	
 	err_TRY
 	
-	If (Check_parameters_count(2; $nbParameters))
-		$area:=$1
-		$toPaste:=$2
-		$pasteOption:=0
-		
-		If ($nbParameters>2)
-			$pasteOption:=$3
-		End if 
-		
+	If (Check_parameters_count(2; Count parameters:C259))
 		
 		If (vp_isReady($area; Current method name:C684))
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471
-			$params.text:=$toPaste.text
-			$params.html:=$toPaste.html
-			$params.pasteOption:=$pasteOption
-			vp_runCommand($area; "paste-data"; $params)
+			
+			vp_runCommand($area; "paste-data"; {text: $toPaste.text; html: $toPaste.html; pasteOption: $pasteOption})
+			
 		End if 
 	End if 
 	

@@ -8,40 +8,21 @@
 // Description: Get sheet index by name
 // ----------------------------------------------------
 //----- Declarations
-
-C_LONGINT:C283($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-
-C_TEXT:C284($area)
-C_TEXT:C284($Txt_sheetName)
-C_LONGINT:C283($nbParameters)
-
-If (False:C215)
-	C_LONGINT:C283(VP Get sheet index; $0)
-	C_TEXT:C284(VP Get sheet index; $1)
-	C_TEXT:C284(VP Get sheet index; $2)
-End if 
+#DECLARE($area : Text; $sheetName : Text)->$result : Integer
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
+	var $nbParameters:=Count parameters:C259
 	
 	err_TRY
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$area:=$1
-		$Txt_sheetName:=$2
-		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($params; $Obj_result)
-			$params:=New object:C1471("name"; $Txt_sheetName)
+			var $Obj_result:=vp_runFunction($area; "get-sheet-index"; {name: $sheetName})
+			$result:=$Obj_result.result
 			
-			$Obj_result:=vp_runFunction($area; "get-sheet-index"; $params)
-			
-			$0:=$Obj_result.result
 		End if 
 		
 	End if 

@@ -7,38 +7,18 @@
 // ----------------------------------------------------
 // Description: Set the current sheet
 // ----------------------------------------------------
-//----- Declarations
-
-C_TEXT:C284($1)
-C_LONGINT:C283($2)
-
-C_TEXT:C284($area)
-C_LONGINT:C283($Lon_sheetIndex)
-
-C_LONGINT:C283($nbParameters)
-
-If (False:C215)
-	C_TEXT:C284(VP SET START SHEET; $1)
-	C_LONGINT:C283(VP SET START SHEET; $2)
-End if 
+//----- Declarations 
+#DECLARE($area : Text; $sheetIndex : Integer)
 
 If (vp_initStorage)
 	
-	$nbParameters:=Count parameters:C259
-	
 	err_TRY
 	
-	If (Check_parameters_count(2; $nbParameters))
-		
-		$area:=$1
-		$Lon_sheetIndex:=$2
+	If (Check_parameters_count(2; Count parameters:C259))
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471("index"; $Lon_sheetIndex)
-			
-			vp_runCommand($area; "set-start-sheet"; $params)
+			vp_runCommand($area; "set-start-sheet"; {index: $sheetIndex})
 			
 		End if 
 		

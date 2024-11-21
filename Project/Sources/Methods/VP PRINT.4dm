@@ -8,50 +8,37 @@
 // Description: print document
 // ----------------------------------------------------
 // ----- Declarations
-
-C_TEXT:C284($1)
-
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($area)
-C_LONGINT:C283($sheet)
-
-If (False:C215)
-	C_TEXT:C284(VP PRINT; $1)
-	C_LONGINT:C283(VP PRINT; $2)
-End if 
+#DECLARE($area : Text; $sheetIndex : Integer)
 
 // do not execute if in headless mode
-C_OBJECT:C1216($infos)
-$infos:=Get application info:C1599
+
+var $infos:=Application info:C1599
 If (Not:C34($infos.headless))
 	
 	If (vp_initStorage)
 		
-		$nbParameters:=Count parameters:C259
+		var $nbParameters:=Count parameters:C259
 		
 		err_TRY
 		
 		If (Check_parameters_count(1; $nbParameters))
-			$area:=$1
 			
-			If ($nbParameters>1)
-				$sheet:=$2
-			Else 
-				$sheet:=-1
+			If ($nbParameters<2)
+				$sheetIndex:=-1
 			End if 
 			
-			If ($sheet<-2)
+			If ($sheetIndex<-2)
 				err_THROW(New object:C1471("code"; 17))
 			Else 
-				If ($sheet>=VP Get sheet count($area))
+				
+				If ($sheetIndex>=VP Get sheet count($area))
 					err_THROW(New object:C1471("code"; 19))
 				Else 
 					
 					If (vp_isReady($area; Current method name:C684))
-						C_OBJECT:C1216($params)
-						$params:=New object:C1471("sheetIndex"; $sheet)
 						
-						vp_runFunction($area; "print"; $params)
+						vp_runFunction($area; "print"; {sheetIndex: $sheetIndex})
+						
 					End if 
 				End if 
 			End if 

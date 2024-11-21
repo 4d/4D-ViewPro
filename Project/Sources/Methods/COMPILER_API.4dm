@@ -5,65 +5,6 @@ If (False:C215)  // clipboard
 	C_OBJECT:C1216(VP MOVE CELLS; $2)
 	C_OBJECT:C1216(VP MOVE CELLS; $3)
 	
-	//___________________________________
-	C_OBJECT:C1216(VP Copy to object; $0)
-	C_OBJECT:C1216(VP Copy to object; $1)
-	C_OBJECT:C1216(VP Copy to object; $2)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP PASTE FROM OBJECT; $1)
-	C_OBJECT:C1216(VP PASTE FROM OBJECT; $2)
-	C_LONGINT:C283(VP PASTE FROM OBJECT; $3)
-End if 
-
-If (False:C215)  // data context
-	//___________________________________
-	C_TEXT:C284(VP SET DATA CONTEXT; $1)
-	C_VARIANT:C1683(VP SET DATA CONTEXT; $2)
-	C_VARIANT:C1683(VP SET DATA CONTEXT; $3)
-	C_VARIANT:C1683(VP SET DATA CONTEXT; $4)
-	
-	//___________________________________
-	C_VARIANT:C1683(VP Get data context; $0)
-	C_TEXT:C284(VP Get data context; $1)
-	C_LONGINT:C283(VP Get data context; $2)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP SET BINDING PATH; $1)
-	C_TEXT:C284(VP SET BINDING PATH; $2)
-	
-	//___________________________________
-	C_TEXT:C284(VP Get binding path; $0)
-	C_OBJECT:C1216(VP Get binding path; $1)
-	
-End if 
-
-If (False:C215)  // document
-	//___________________________________
-	C_TEXT:C284(VP EXPORT DOCUMENT; $1)
-	C_TEXT:C284(VP EXPORT DOCUMENT; $2)
-	C_OBJECT:C1216(VP EXPORT DOCUMENT; $3)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP Export to object; $0)
-	C_TEXT:C284(VP Export to object; $1)
-	C_OBJECT:C1216(VP Export to object; $2)
-	
-	//___________________________________
-	C_TEXT:C284(VP IMPORT DOCUMENT; $1)
-	C_TEXT:C284(VP IMPORT DOCUMENT; $2)
-	C_OBJECT:C1216(VP IMPORT DOCUMENT; $3)
-	
-	//___________________________________
-	C_TEXT:C284(VP IMPORT FROM OBJECT; $1)
-	C_OBJECT:C1216(VP IMPORT FROM OBJECT; $2)
-	
-	//___________________________________
-	C_TEXT:C284(VP NEW DOCUMENT; $1)
-	
-	//___________________________________
-	C_TEXT:C284(VP REGISTER PDF FONTS; $1)
-	C_COLLECTION:C1488(VP REGISTER PDF FONTS; $2)
 End if 
 
 If (False:C215)  // events
@@ -80,72 +21,9 @@ If (False:C215)  // names
 	C_TEXT:C284(VP ADD RANGE NAME; $2)
 	C_OBJECT:C1216(VP ADD RANGE NAME; $3)
 	
-	//___________________________________
-	C_COLLECTION:C1488(VP Get names; $0)
-	C_TEXT:C284(VP Get names; $1)
-	C_LONGINT:C283(VP Get names; $2)
-	
-	//___________________________________
-	C_TEXT:C284(VP REMOVE NAME; $1)
-	C_TEXT:C284(VP REMOVE NAME; $2)
-	C_LONGINT:C283(VP REMOVE NAME; $3)
-	
-	
-End if 
-
-If (False:C215)  // printing
-	//___________________________________
-	C_TEXT:C284(VP PRINT; $1)
-	C_LONGINT:C283(VP PRINT; $2)
-	
-	//___________________________________
-	C_TEXT:C284(VP SET SHOW PRINT LINES; $1)
-	C_BOOLEAN:C305(VP SET SHOW PRINT LINES; $2)
-	C_LONGINT:C283(VP SET SHOW PRINT LINES; $3)
-	
-	//___________________________________
-	C_BOOLEAN:C305(VP Get show print lines; $0)
-	C_TEXT:C284(VP Get show print lines; $1)
-	C_LONGINT:C283(VP Get show print lines; $2)
-	
-	//___________________________________
-	C_TEXT:C284(VP SET PRINT INFO; $1)
-	C_OBJECT:C1216(VP SET PRINT INFO; $2)
-	C_LONGINT:C283(VP SET PRINT INFO; $3)
-	
-	//___________________________________
-	C_TEXT:C284(VP Get print info; $1)
-	C_LONGINT:C283(VP Get print info; $2)
-	C_OBJECT:C1216(VP Get print info; $0)
-	
 End if 
 
 If (False:C215)  // ranges
-	
-	//___________________________________
-	C_OBJECT:C1216(VP Column; $0)
-	C_TEXT:C284(VP Column; $1)
-	C_LONGINT:C283(VP Column; $2)
-	C_LONGINT:C283(VP Column; $3)
-	C_LONGINT:C283(VP Column; $4)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP Row; $0)
-	C_TEXT:C284(VP Row; $1)
-	C_LONGINT:C283(VP Row; $2)
-	C_LONGINT:C283(VP Row; $3)
-	C_LONGINT:C283(VP Row; $4)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP All; $0)
-	C_TEXT:C284(VP All; $1)
-	C_LONGINT:C283(VP All; $2)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP Name; $0)
-	C_TEXT:C284(VP Name; $1)
-	C_TEXT:C284(VP Name; $2)
-	C_LONGINT:C283(VP Name; $3)
 	
 	//___________________________________
 	C_OBJECT:C1216(VP Combine ranges; $0)
@@ -154,25 +32,6 @@ If (False:C215)  // ranges
 End if 
 
 If (False:C215)  // rows & columns
-	//___________________________________
-	C_LONGINT:C283(VP Get column count; $0)
-	C_TEXT:C284(VP Get column count; $1)
-	C_LONGINT:C283(VP Get column count; $2)
-	
-	//___________________________________
-	C_LONGINT:C283(VP Get row count; $0)
-	C_TEXT:C284(VP Get row count; $1)
-	C_LONGINT:C283(VP Get row count; $2)
-	
-	//___________________________________
-	C_TEXT:C284(VP SET ROW COUNT; $1)
-	C_LONGINT:C283(VP SET ROW COUNT; $2)
-	C_LONGINT:C283(VP SET ROW COUNT; $3)
-	
-	//___________________________________
-	C_TEXT:C284(VP SET COLUMN COUNT; $1)
-	C_LONGINT:C283(VP SET COLUMN COUNT; $2)
-	C_LONGINT:C283(VP SET COLUMN COUNT; $3)
 	
 	//___________________________________
 	C_OBJECT:C1216(VP SET COLUMN ATTRIBUTES; $1)
@@ -186,32 +45,9 @@ If (False:C215)  // rows & columns
 	C_COLLECTION:C1488(VP Get column attributes; $0)
 	C_OBJECT:C1216(VP Get column attributes; $1)
 	
-	//___________________________________
-	C_COLLECTION:C1488(VP Get row attributes; $0)
-	C_OBJECT:C1216(VP Get row attributes; $1)
-	
-	//___________________________________
-	C_TEXT:C284(VP SET FROZEN PANES; $1)
-	C_OBJECT:C1216(VP SET FROZEN PANES; $2)
-	C_LONGINT:C283(VP SET FROZEN PANES; $3)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP Get frozen panes; $0)
-	C_TEXT:C284(VP Get frozen panes; $1)
-	C_LONGINT:C283(VP Get frozen panes; $2)
-	
 End if 
 
 If (False:C215)  // selection
-	
-	//___________________________________
-	C_TEXT:C284(VP Get selection; $1)
-	C_LONGINT:C283(VP Get selection; $2)
-	C_OBJECT:C1216(VP Get selection; $0)
-	
-	//___________________________________
-	C_TEXT:C284(VP RESET SELECTION; $1)
-	C_LONGINT:C283(VP RESET SELECTION; $2)
 	
 	//___________________________________
 	C_OBJECT:C1216(VP SHOW CELL; $1)
@@ -219,26 +55,6 @@ If (False:C215)  // selection
 	C_LONGINT:C283(VP SHOW CELL; $3)
 End if 
 
-If (False:C215)  // sheets
-	//___________________________________
-	C_TEXT:C284(VP SET SHEET COUNT; $1)
-	C_LONGINT:C283(VP SET SHEET COUNT; $2)
-	
-	//___________________________________
-	C_TEXT:C284(VP SET CURRENT SHEET; $1)
-	C_LONGINT:C283(VP SET CURRENT SHEET; $2)
-	
-	//___________________________________
-	C_TEXT:C284(VP SET START SHEET; $1)
-	C_LONGINT:C283(VP SET START SHEET; $2)
-	
-	//___________________________________
-	C_LONGINT:C283(VP Get sheet index; $0)
-	C_TEXT:C284(VP Get sheet index; $1)
-	C_TEXT:C284(VP Get sheet index; $2)
-	
-	//___________________________________
-End if 
 
 If (False:C215)  // spans
 	
@@ -249,29 +65,7 @@ If (False:C215)  // spans
 End if 
 
 If (False:C215)  // stylesheet
-	//___________________________________
-	C_TEXT:C284(VP ADD STYLESHEET; $1)
-	C_TEXT:C284(VP ADD STYLESHEET; $2)
-	C_OBJECT:C1216(VP ADD STYLESHEET; $3)
-	C_LONGINT:C283(VP ADD STYLESHEET; $4)
 	
-	//___________________________________
-	C_TEXT:C284(VP REMOVE STYLESHEET; $1)
-	C_TEXT:C284(VP REMOVE STYLESHEET; $2)
-	C_LONGINT:C283(VP REMOVE STYLESHEET; $3)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP Get stylesheet; $0)
-	C_TEXT:C284(VP Get stylesheet; $1)
-	C_TEXT:C284(VP Get stylesheet; $2)
-	C_LONGINT:C283(VP Get stylesheet; $3)
-	
-	//___________________________________
-	C_COLLECTION:C1488(VP Get stylesheets; $0)
-	C_TEXT:C284(VP Get stylesheets; $1)
-	C_LONGINT:C283(VP Get stylesheets; $2)
-	
-	//___________________________________
 	C_OBJECT:C1216(VP Object to font; $1)
 	C_TEXT:C284(VP Object to font; $0)
 	
@@ -279,28 +73,7 @@ If (False:C215)  // stylesheet
 	C_TEXT:C284(VP Font to object; $1)
 	C_OBJECT:C1216(VP Font to object; $0)
 	
-	//___________________________________
-	C_TEXT:C284(VP SET DEFAULT STYLE; $1)
-	C_OBJECT:C1216(VP SET DEFAULT STYLE; $2)
-	C_LONGINT:C283(VP SET DEFAULT STYLE; $3)
 	
-	//___________________________________
-	C_OBJECT:C1216(VP Get default style; $0)
-	C_TEXT:C284(VP Get default style; $1)
-	C_LONGINT:C283(VP Get default style; $2)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP SET CELL STYLE; $1)
-	C_OBJECT:C1216(VP SET CELL STYLE; $2)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP Get cell style; $0)
-	C_OBJECT:C1216(VP Get cell style; $1)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP SET BORDER; $1)
-	C_OBJECT:C1216(VP SET BORDER; $2)
-	C_OBJECT:C1216(VP SET BORDER; $3)
 End if 
 
 If (False:C215)  // tables
@@ -316,10 +89,6 @@ If (False:C215)  // tables
 	C_LONGINT:C283(VP REMOVE TABLE; $3)
 	C_LONGINT:C283(VP REMOVE TABLE; $4)
 	
-	//___________________________________
-	C_COLLECTION:C1488(VP Get tables; $0)
-	C_TEXT:C284(VP Get tables; $1)
-	C_LONGINT:C283(VP Get tables; $2)
 	
 	//___________________________________
 	C_TEXT:C284(VP INSERT TABLE ROWS; $1)
@@ -357,10 +126,6 @@ If (False:C215)  // tables
 	C_TEXT:C284(VP Get table range; $2)
 	C_LONGINT:C283(VP Get table range; $3)
 	C_LONGINT:C283(VP Get table range; $4)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP RESIZE TABLE; $1)
-	C_TEXT:C284(VP RESIZE TABLE; $2)
 	
 	//___________________________________
 	C_TEXT:C284(VP Find table; $0)
@@ -414,8 +179,6 @@ If (False:C215)  // utilities
 	C_BLOB:C604(VP Convert from 4D View; $1)
 	C_OBJECT:C1216(VP Convert from 4D View; $2)  //#TO_DO - Optional parameter to allow future conversion options (not managed yet)
 	
-	//___________________________________
-	C_TEXT:C284(VP FLUSH COMMANDS; $1)
 	
 	//___________________________________
 	C_OBJECT:C1216(VP Convert to picture; $1)
@@ -423,36 +186,12 @@ If (False:C215)  // utilities
 	C_PICTURE:C286(VP Convert to picture; $0)
 	
 	//___________________________________
-	C_OBJECT:C1216(VP SET ALLOWED METHODS; $1)
-	
-	//___________________________________
-	C_COLLECTION:C1488(vp_getAllowedMethods; $0)
-	
-	//___________________________________
 	C_TEXT:C284(vp_getCustomFunctions; $1)
 	C_OBJECT:C1216(vp_getCustomFunctions; $0)
 	
 	//___________________________________
-	C_TEXT:C284(VP RECOMPUTE FORMULAS; $1)
-	
-	//___________________________________
-	C_TEXT:C284(VP SUSPEND COMPUTING; $1)
-	
-	//___________________________________
-	C_TEXT:C284(VP RESUME COMPUTING; $1)
-	
-	//___________________________________
 	C_OBJECT:C1216(VP Run offscreen area; $1)
 	C_VARIANT:C1683(VP Run offscreen area; $0)
-	
-	//___________________________________
-	C_OBJECT:C1216(VP Copy; $0)
-	C_TEXT:C284(VP Copy; $1)
-	
-	//___________________________________
-	C_TEXT:C284(VP PASTE; $1)
-	C_OBJECT:C1216(VP PASTE; $2)
-	C_LONGINT:C283(VP PASTE; $3)
 	
 	//___________________________________
 	C_OBJECT:C1216(VP Find; $0)
