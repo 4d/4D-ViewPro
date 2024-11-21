@@ -7,7 +7,7 @@
 // ----------------------------------------------------
 // Description: Gets the value of a cell
 // ----------------------------------------------------
-#DECLARE($cell : cs:C1710._cell) : Object
+#DECLARE($cell : Object) : Object
 
 var $js : Object
 

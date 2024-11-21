@@ -1,5 +1,5 @@
 //%attributes = {"invisible":true,"shared":true}
-#DECLARE($area : Text; $table : Text; $column : Text; $count : Integer; $sheet : Integer)->$result : Integer
+#DECLARE($area : Text; $table : Text; $column : Text; $sheet : Integer)->$result : Integer
 
 $result:=-1
 
