@@ -1,12 +1,8 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($0)
-C_TEXT:C284($1)
+#DECLARE($area : Text) : Object
 
-C_OBJECT:C1216($obj)
-$obj:=OBJECT Get value:C1743($1)
+var $obj:=OBJECT Get value:C1743($area)
 
 If ($obj.ViewPro#Null:C1517)
-	$0:=$obj.ViewPro.formulas
-Else 
-	$0:=Null:C1517
+	return $obj.ViewPro.formulas
 End if 

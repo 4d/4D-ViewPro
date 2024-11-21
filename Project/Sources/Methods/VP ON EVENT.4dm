@@ -1,14 +1,6 @@
 //%attributes = {"invisible":true}
 // add 4D callbacks on specific spreadJS events (not yet published)
-
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_OBJECT:C1216($3)
-C_LONGINT:C283($4)
-
-C_LONGINT:C283($sheet)
-C_TEXT:C284($area; $eventName)
-C_OBJECT:C1216($params; $areaVariable; $formula)
+#DECLARE($area : Text; $eventName : Text; $formula : Object; $sheetIndex : Integer)
 
 If (vp_initStorage)
 	
@@ -18,48 +10,40 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(3; $nbParameters))
 		
-		$area:=$1
-		$eventName:=$2
-		$formula:=$3
-		
-		If ($nbParameters>=4)
-			
-			$sheet:=$4
-		Else 
-			
-			$sheet:=-1
+		If ($nbParameters<4)
+			$sheetIndex:=-1
 		End if 
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			$areaVariable:=vp_getAreaVariable($area)
+			var $areaVariable:=vp_getAreaVariable($area)
 			If ($areaVariable#Null:C1517)
 				If (Value type:C1509($areaVariable.events)=Is object:K8:27)
 					If (Value type:C1509($areaVariable.events[$eventName])#Is object:K8:27)
 						$areaVariable.events[$eventName]:=New object:C1471()
 					End if 
 					
-					If ($sheet=-1)
-						$sheet:=VP Get current sheet($area)
+					If ($sheetIndex=-1)
+						$sheetIndex:=VP Get current sheet($area)
 					End if 
 					
-					If ($sheet<-2)
+					If ($sheetIndex<-2)
 						err_THROW(New object:C1471("code"; 17))
 					Else 
-						If ($sheet>=VP Get sheet count($area))
+						If ($sheetIndex>=VP Get sheet count($area))
 							err_THROW(New object:C1471("code"; 19))
 						Else 
 							C_TEXT:C284($target)
 							
-							If ($sheet=-2)
+							If ($sheetIndex=-2)
 								$target:="allSheets"
 							Else 
-								$target:="sheet"+String:C10($sheet)
+								$target:="sheet"+String:C10($sheetIndex)
 							End if 
 							
 							$areaVariable.events[$eventName][$target]:=$formula
 							
-							$params:=New object:C1471("areaName"; $area; "event"; $eventName; "sheetIndex"; $sheet)
+							var $params:=New object:C1471("areaName"; $area; "event"; $eventName; "sheetIndex"; $sheetIndex)
 							
 							If ($formula=Null:C1517)
 								vp_runFunction($area; "clear-event"; $params)

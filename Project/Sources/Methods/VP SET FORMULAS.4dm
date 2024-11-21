@@ -8,19 +8,7 @@
 // Description: Set the formulas for a range
 // ----------------------------------------------------
 // ----- Declarations
-
-C_OBJECT:C1216($1)
-C_COLLECTION:C1488($2)
-
-If (False:C215)
-	C_OBJECT:C1216(VP SET FORMULAS; $1)
-	C_COLLECTION:C1488(VP SET FORMULAS; $2)
-End if 
-
-
-C_OBJECT:C1216($ranges)
-C_COLLECTION:C1488($Obj_values)
-
+#DECLARE($ranges : Object; $values : Collection)
 
 If (vp_initStorage)
 	
@@ -30,32 +18,26 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		$ranges:=$1
-		$Obj_values:=$2
-		
 		var $area : Text:=$ranges.area
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471()
-			
-			If (Value type:C1509($Obj_values)=Is collection:K8:32)
+			If (Value type:C1509($values)=Is collection:K8:32)
 				
+				var $params:=New object:C1471()
 				$params.value:=New collection:C1472
-				C_LONGINT:C283($row; $col)
+				var $row; $col : Integer
 				
-				For ($row; 0; $Obj_values.length-1)
+				For ($row; 0; $values.length-1)
 					
-					If (Value type:C1509($Obj_values[$row])=Is collection:K8:32)
+					If (Value type:C1509($values[$row])=Is collection:K8:32)
 						
-						C_COLLECTION:C1488($colCollection)
-						$colCollection:=New collection:C1472
+						var $colCollection:=New collection:C1472
 						
-						For ($col; 0; $Obj_values[$row].length-1)
+						For ($col; 0; $values[$row].length-1)
 							
-							If (Value type:C1509($Obj_values[$row][$col])=Is text:K8:3)
-								$colCollection.push($Obj_values[$row][$col])
+							If (Value type:C1509($values[$row][$col])=Is text:K8:3)
+								$colCollection.push($values[$row][$col])
 							Else 
 								$colCollection.push("")
 							End if 

@@ -1,11 +1,6 @@
 //%attributes = {"invisible":true,"shared":true}
-C_OBJECT:C1216($1)
-C_TEXT:C284($0)
+#DECLARE($obj : Object)->$Txt_font : Text
 
-C_OBJECT:C1216($obj)
-C_TEXT:C284($Txt_font)
-
-$obj:=$1
 If ((Value type:C1509($obj.family)=Is text:K8:3)\
  & (Value type:C1509($obj.size)=Is text:K8:3))
 	
@@ -42,12 +37,10 @@ If ((Value type:C1509($obj.family)=Is text:K8:3)\
 		$Txt_font:=$Txt_font+$obj.size+" "
 	End if 
 	
-	If (Position:C15(" ";$obj.family)>0)
+	If (Position:C15(" "; $obj.family)>0)
 		$Txt_font:=$Txt_font+"\""+$obj.family+"\""
 	Else 
 		$Txt_font:=$Txt_font+$obj.family
 	End if 
 	
 End if 
-
-$0:=$Txt_font

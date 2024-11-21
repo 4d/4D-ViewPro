@@ -8,17 +8,7 @@
 // Description: Set a boolean value of a range
 // ----------------------------------------------------
 // ----- Declarations
-
-C_OBJECT:C1216($1)
-C_BOOLEAN:C305($2)
-
-
-
-If (False:C215)
-	C_OBJECT:C1216(VP SET BOOLEAN VALUE; $1)
-	C_BOOLEAN:C305(VP SET BOOLEAN VALUE; $2)
-	C_TEXT:C284(VP SET BOOLEAN VALUE; $3)
-End if 
+#DECLARE($cell : Object; $value : Boolean)
 
 var $nbParameters:=Count parameters:C259
 
@@ -26,10 +16,7 @@ err_TRY
 
 If (Check_parameters_count(2; $nbParameters))
 	
-	C_OBJECT:C1216($obj)
-	$obj:=New object:C1471("value"; $2)
-	
-	VP SET VALUE($1; $obj)
+	VP SET VALUE($cell; {value: $value})
 	
 End if 
 

@@ -8,19 +8,7 @@
 // Description: Set a date + time value of a range
 // ----------------------------------------------------
 // ----- Declarations
-
-C_OBJECT:C1216($1)
-C_DATE:C307($2)
-C_TIME:C306($3)
-
-
-
-If (False:C215)
-	C_OBJECT:C1216(VP SET DATE TIME VALUE; $1)
-	C_DATE:C307(VP SET DATE TIME VALUE; $2)
-	C_TIME:C306(VP SET DATE TIME VALUE; $3)
-	C_TEXT:C284(VP SET DATE TIME VALUE; $4)
-End if 
+#DECLARE($cell : Object; $value : Date; $time : Time; $format : Text)
 
 var $nbParameters:=Count parameters:C259
 
@@ -28,16 +16,15 @@ err_TRY
 
 If (Check_parameters_count(3; $nbParameters))
 	
-	C_OBJECT:C1216($obj)
-	$obj:=New object:C1471("value"; $2; "time"; $3)
+	var $obj:=New object:C1471("value"; $value; "time"; $time)
 	
 	If ($nbParameters>3)
-		$obj.format:=$4
+		$obj.format:=$format
 	Else 
 		$obj.format:="_fullDateTimePattern_"
 	End if 
 	
-	VP SET VALUE($1; $obj)
+	VP SET VALUE($cell; $obj)
 	
 End if 
 

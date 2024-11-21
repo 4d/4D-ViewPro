@@ -8,16 +8,8 @@
 // Description: Combine multiple targets into one
 // ----------------------------------------------------
 // ----- Declarations
+#DECLARE( ...  : Object)->$result : Object
 
-C_OBJECT:C1216($0)
-C_OBJECT:C1216(${1})
-
-
-
-If (False:C215)
-	C_OBJECT:C1216(VP Combine ranges; $0)
-	C_OBJECT:C1216(VP Combine ranges; ${1})
-End if 
 
 If (vp_initStorage)
 	
@@ -27,8 +19,9 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(2; $nbParameters))
 		
-		C_OBJECT:C1216($Obj_first; $Obj_current)
-		$Obj_first:=${1}
+		var $parameters:=Copy parameters:C1790
+		var $Obj_first; $Obj_current : Object
+		$Obj_first:=$parameters.first()
 		
 		If (OB Get type:C1230($Obj_first; "area")#Is text:K8:3)
 			
@@ -37,15 +30,14 @@ If (vp_initStorage)
 			
 		Else 
 			
-			$0:=New object:C1471(\
+			$result:=New object:C1471(\
 				"area"; $Obj_first.area; \
 				"ranges"; New collection:C1472)
 			
-			C_LONGINT:C283($i)
-			
+			var $i : Integer
 			For ($i; 1; $nbParameters; 1)
 				
-				$Obj_current:=${$i}
+				$Obj_current:=$parameters[$i-1]
 				
 				If (OB Get type:C1230($Obj_current; "area")#Is text:K8:3)
 					
@@ -68,8 +60,7 @@ If (vp_initStorage)
 							
 						Else 
 							
-							C_OBJECT:C1216($Obj_range)
-							
+							var $Obj_range : Object
 							For each ($Obj_range; $Obj_current.ranges)
 								
 								If (Not:C34(OB Is defined:C1231($Obj_range)))
@@ -79,7 +70,7 @@ If (vp_initStorage)
 									
 								Else 
 									
-									$0.ranges.push($Obj_range)
+									$result.ranges.push($Obj_range)
 									
 								End if 
 							End for each 

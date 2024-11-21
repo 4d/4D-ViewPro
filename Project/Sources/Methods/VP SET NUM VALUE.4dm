@@ -8,17 +8,7 @@
 // Description: Set a numeric value of a range
 // ----------------------------------------------------
 // ----- Declarations
-
-C_OBJECT:C1216($1)
-C_REAL:C285($2)
-
-If (False:C215)
-	C_OBJECT:C1216(VP SET NUM VALUE; $1)
-	C_REAL:C285(VP SET NUM VALUE; $2)
-	C_TEXT:C284(VP SET NUM VALUE; $3)
-End if 
-
-
+#DECLARE($cell : Object; $value : Real; $format : Text)
 
 var $nbParameters:=Count parameters:C259
 
@@ -26,14 +16,13 @@ err_TRY
 
 If (Check_parameters_count(2; $nbParameters))
 	
-	C_OBJECT:C1216($obj)
-	$obj:=New object:C1471("value"; $2)
+	var $obj:=New object:C1471("value"; $value)
 	
 	If ($nbParameters>2)
-		$obj.format:=$3
+		$obj.format:=$format
 	End if 
 	
-	VP SET VALUE($1; $obj)
+	VP SET VALUE($cell; $obj)
 	
 End if 
 

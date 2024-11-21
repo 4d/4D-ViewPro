@@ -8,17 +8,7 @@
 // Description: recompute formulas
 // ----------------------------------------------------
 // ----- Declarations
-
-C_OBJECT:C1216($1; $0)
-
-
-C_OBJECT:C1216($ranges)
-
-
-If (False:C215)
-	C_OBJECT:C1216(VP Get spans; $0)
-	C_OBJECT:C1216(VP Get spans; $1)
-End if 
+#DECLARE($ranges : Object)->$result : Object
 
 If (vp_initStorage)
 	
@@ -28,23 +18,19 @@ If (vp_initStorage)
 	
 	If (Check_parameters_count(1; $nbParameters))
 		
-		$ranges:=$1
 		var $area : Text:=$ranges.area
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			C_OBJECT:C1216($params)
-			$params:=New object:C1471()
-			
 			If (Value type:C1509($ranges.ranges)=Is collection:K8:32)
+				var $params:=New object:C1471()
 				$params.ranges:=$ranges.ranges
 				
-				C_OBJECT:C1216($ret)
-				$ret:=vp_runFunction($area; "get-spans"; $params)
+				var $ret:=vp_runFunction($area; "get-spans"; $params)
 				
 				If (Value type:C1509($ret.ranges)=Is collection:K8:32)
 					$ret.area:=$area
-					$0:=$ret
+					$result:=$ret
 				End if 
 				
 			End if 
