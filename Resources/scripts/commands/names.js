@@ -21,8 +21,13 @@
         let formula = rangesToFormula(params.ranges);
         let scope = Utils.resolveSheetOrWorkbook(params.options.scope)
 
-        if ((formula.length > 0) && (scope != null))
-            scope.addCustomName(params.name, formula, 0, 0, params.options.comment);
+        if ((formula.length > 0) && (scope != null)) {
+            var customName = scope.getCustomName(params.name);
+            if (customName != null)
+                customName.set(null, formula, 0, 0, params.options.comment);
+            else
+                scope.addCustomName(params.name, formula, 0, 0, params.options.comment);
+        }
     });
 
     Utils.addCommand('add-formula-name', function (params) {
