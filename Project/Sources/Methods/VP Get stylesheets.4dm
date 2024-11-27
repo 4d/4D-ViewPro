@@ -26,8 +26,7 @@ If (vp_initStorage)
 			
 			var $Obj_result:=vp_runFunction($area; "get-stylesheets"; {sheetIndex: $sheetIndex})
 			
-			$result:=$Obj_result.collection
-			$result.map(Formula:C1597(vp_convert_from_stylesheet($1.value)))
+			$result:=$Obj_result.collection.map(Formula:C1597(vp_convert_from_stylesheet($1.value)))
 			
 		End if 
 	End if 
