@@ -24,7 +24,7 @@ If (vp_initStorage)
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			var $printInfo : Object:=vp_runFunction($area; "get-print-info"; {heetIndex: $sheetIndex})
+			var $printInfo : Object:=vp_runFunction($area; "get-print-info"; {sheetIndex: $sheetIndex})
 			
 			vp_get_picture($printInfo; "footerCenterImage")
 			vp_get_picture($printInfo; "footerLeftImage")
@@ -41,12 +41,12 @@ If (vp_initStorage)
 					ARRAY LONGINT:C221($arWidth; 0)
 					ARRAY LONGINT:C221($arHeight; 0)
 					PRINT OPTION VALUES:C785(Paper option:K47:1; $arPapers; $arWidth; $arHeight)
-					C_LONGINT:C283($i)
-					For ($i; 1; Size of array:C274($arPapers))
-						If (($printInfo.paperSize.width=Int:C8($arWidth{$i}/0.72))\
-							 & ($printInfo.paperSize.height=Int:C8($arHeight{$i}/0.72)))
-							$printInfo.paperSize.kind:=$arPapers{$i}
-							$i:=Size of array:C274($arPapers)
+					var $arIndex : Integer
+					For ($arIndex; 1; Size of array:C274($arPapers))
+						If (($printInfo.paperSize.width=Int:C8($arWidth{$arIndex}/0.72))\
+							 & ($printInfo.paperSize.height=Int:C8($arHeight{$arIndex}/0.72)))
+							$printInfo.paperSize.kind:=$arPapers{$arIndex}
+							$arIndex:=Size of array:C274($arPapers)
 						End if 
 					End for 
 				End if 
