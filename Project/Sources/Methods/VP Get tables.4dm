@@ -13,7 +13,7 @@ If (vp_initStorage)
 		
 		If (vp_isReady($area; Current method name:C684))
 			
-			If ($nbParameters<3)
+			If ($nbParameters<2)
 				$sheet:=-1
 			End if 
 			
