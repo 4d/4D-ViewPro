@@ -22,11 +22,10 @@
         let scope = Utils.resolveSheetOrWorkbook(params.options.scope)
 
         if ((formula.length > 0) && (scope != null)) {
-            var customName = scope.getCustomName(params.name);
-            if (customName != null)
-                customName.set(null, formula, 0, 0, params.options.comment);
-            else
-                scope.addCustomName(params.name, formula, 0, 0, params.options.comment);
+            if (scope.getCustomName(params.name) != null) {
+                scope.removeCustomName(params.name);
+            }
+            scope.addCustomName(params.name, formula, 0, 0, params.options.comment);
         }
     });
 
