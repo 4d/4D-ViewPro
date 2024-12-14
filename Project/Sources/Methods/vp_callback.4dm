@@ -8,10 +8,6 @@ outside the component, so not directly available by $4d.xxx
 */
 #DECLARE($callback : Object)
 
-If (False:C215)
-	C_OBJECT:C1216(vp_callback; $1)
-End if 
-
 var $content; $pathname; $uuid : Text
 var $run; $success : Boolean
 var $areaValue; $formula; $status; $userObject : Object
@@ -29,7 +25,7 @@ If ($callback.command=Null:C1517)
 	
 End if 
 
-TRY_CALLBACK
+cs:C1710._ErrorCallBack.me.try()
 
 Case of 
 		
@@ -63,19 +59,19 @@ Case of
 					// Create-update the document
 					BLOB TO DOCUMENT:C526($pathname; $blob)
 					
-					If (Continue_callback)
+					If (Not:C34(cs:C1710._ErrorCallBack.me.hasErrors()))
 						
 						$success:=True:C214
 						
 					Else 
 						
-						THROW_CALLBACK(1; "Error, unable to write file "+File:C1566($pathname; fk platform path:K87:2).fullName+", check if file is not locked or in use.")
+						cs:C1710._ErrorCallBack.me.throw(1; "Error, unable to write file "+File:C1566($pathname; fk platform path:K87:2).fullName+", check if file is not locked or in use.")
 						
 					End if 
 					
 				Else 
 					
-					THROW_CALLBACK(2; "Internal error, empty document returned")
+					cs:C1710._ErrorCallBack.me.throw(2; "Internal error, empty document returned")
 					
 				End if 
 			End if 
@@ -130,9 +126,9 @@ If ($run)\
 				
 			Else 
 				
-				If (errCB_err.errors#Null:C1517)
+				If (cs:C1710._ErrorCallBack.me.hasErrors())
 					
-					$status:=errCB_err
+					$status:=cs:C1710._ErrorCallBack.me.result
 					$status.success:=False:C215
 					
 				End if 
@@ -159,4 +155,4 @@ If ($run)\
 	End if 
 End if 
 
-FINALLY_CALLBACK
+cs:C1710._ErrorCallBack.me.finally()
