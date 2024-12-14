@@ -15,6 +15,10 @@
  * 
  */
 
+function _vp_callback(params) {
+  $4d._vp_callback(params);
+}
+
 Utils.addCommand('import-json', function (params) {
   Utils.currentDocument = {};
   let doc = params.doc
@@ -61,11 +65,11 @@ Utils.addCommand('import-sjs', function (params) {
 
   Utils.spread.open(blob,
     function () {
-      $4d._vp_callback(params);
+      _vp_callback(params);
     },
     function (e) {
       params.error = e;
-      $4d._vp_callback(params);
+      _vp_callback(params);
     },
     options);
 });
@@ -86,18 +90,17 @@ Utils.addCommand('export-sjs', function (params) {
       var reader = new FileReader();
       reader.onloadend = function () {
         params.content = reader.result.substr(reader.result.indexOf(',') + 1);
-        $4d._vp_callback(params);
+        _vp_callback(params);
       }
       reader.readAsDataURL(blob);
     },
     function (e) {
       params.error = e;
-      $4d._vp_callback(params);
+      _vp_callback(params);
     },
     options
   );
 });
-
 
 Utils.addCommand('export-json', function (params) {
   let doc = {};
@@ -163,14 +166,14 @@ Utils.addCommand('export-excel', function (params) {
         var reader = new FileReader();
         reader.onloadend = function () {
           params.content = reader.result.substr(reader.result.indexOf(',') + 1);
-          $4d._vp_callback(params);
+          _vp_callback(params);
         }
         reader.readAsDataURL(blob);
       },
       function (e) {
         Utils.spread.options.tabStripVisible = tabStripVisible;
         params.error = e;
-        $4d._vp_callback(params);
+        _vp_callback(params);
       },
       options);
     return;
@@ -192,14 +195,14 @@ Utils.addCommand('export-excel', function (params) {
       var reader = new FileReader();
       reader.onloadend = function () {
         params.content = reader.result.substr(reader.result.indexOf(',') + 1);
-        $4d._vp_callback(params);
+        _vp_callback(params);
       }
       reader.readAsDataURL(blob);
     },
     function (e) {
       Utils.spread.options.tabStripVisible = tabStripVisible;
       params.error = e;
-      $4d._vp_callback(params);
+      _vp_callback(params);
     },
     options);
 });
@@ -221,11 +224,11 @@ Utils.addCommand('import-excel', function (params) {
 
     Utils.spread.open(blob,
       function () {
-        $4d._vp_callback(params);
+        _vp_callback(params);
       },
       function (e) {
         params.error = e;
-        $4d._vp_callback(params);
+        _vp_callback(params);
       },
       options);
     return;
@@ -249,16 +252,16 @@ Utils.addCommand('import-excel', function (params) {
         }
       } catch (e) {
         params.error = e;
-        $4d._vp_callback(params);
+        _vp_callback(params);
       }
 
       Utils.spread.resumePaint();
 
-      $4d._vp_callback(params);
+      _vp_callback(params);
     },
     function (e) {
       params.error = e;
-      $4d._vp_callback(params);
+      _vp_callback(params);
     },
     options);
 });
@@ -338,13 +341,13 @@ Utils.addCommand('export-pdf', function (params) {
       var reader = new FileReader();
       reader.onloadend = function () {
         params.content = reader.result.substr(reader.result.indexOf(',') + 1);
-        $4d._vp_callback(params);
+        _vp_callback(params);
       }
       reader.readAsDataURL(blob);
     },
       function (e) {
         params.error = e;
-        $4d._vp_callback(params);
+        _vp_callback(params);
       },
       options,
       sheetIndex);
