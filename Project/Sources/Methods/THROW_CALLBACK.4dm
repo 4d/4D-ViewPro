@@ -1,11 +1,5 @@
 //%attributes = {"invisible":true}
-C_LONGINT:C283($1)
-C_TEXT:C284($2)
+#DECLARE($errorCode : Integer; $errorMessage : Text)
 
-If (False:C215)
-	C_LONGINT:C283(THROW_CALLBACK ;$1)
-	C_TEXT:C284(THROW_CALLBACK ;$2)
-End if 
-
-errCB_err.errorCode:=$1
-errCB_err.errorMessage:=$2
+errCB_err.errorCode:=$errorCode
+errCB_err.errorMessage:=$errorMessage
