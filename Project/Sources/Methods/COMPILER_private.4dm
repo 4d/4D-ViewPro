@@ -5,9 +5,6 @@ var Feature : cs:C1710._feature
 C_BLOB:C604(_ttc_; _ttf_)  // the TTC exporter class cannot have Blob members yet
 
 //___________________________________
-C_OBJECT:C1216(vp_callback; $1)
-
-//___________________________________
 C_TEXT:C284(vp_runCommand; $1)
 C_TEXT:C284(vp_runCommand; $2)
 C_OBJECT:C1216(vp_runCommand; $3)

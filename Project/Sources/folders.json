@@ -155,12 +155,10 @@
 	},
 	"err callback": {
 		"methods": [
-			"CATCH_CALLBACK",
-			"COMPILER_err_callback",
-			"Continue_callback",
-			"FINALLY_CALLBACK",
-			"THROW_CALLBACK",
-			"TRY_CALLBACK"
+			"CATCH_CALLBACK"
+		],
+		"classes": [
+			"_ErrorCallBack"
 		]
 	},
 	"events": {
