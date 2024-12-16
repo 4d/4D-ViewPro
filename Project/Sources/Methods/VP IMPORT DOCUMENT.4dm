@@ -5,274 +5,177 @@
 // An error is returned if the filePath parameter is invalid, or if the file is missing or malformed.
 #DECLARE($area : Text; $filePath : Text; $params : Object)
 
-var $textBuffer; $fileName : Text
-var $documentObject; $pathObject; $callback; $areaVariable : Object
+var $textBuffer : Text
+var $documentObject; $callback : Object
 var $blobBuffer : Blob
 
-If (vp_initStorage)
-	
-	err_TRY
-	
-	If (Check_parameters_count(2; Count parameters:C259))
-		
-		If ($params=Null:C1517)
-			
-			$params:=New object:C1471
-			
-		End if 
-		
-		
-		If (vp_isReady($area; Current method name:C684))
-			
-			var $isOK:=(Length:C16($filePath)>0)
-			
-			If ($isOK)
-				
-				If (Position:C15(Folder separator:K24:12; $filePath)=0)
-					
-					$fileName:=$filePath
-					
-					// Search for a document located near the 4D structure file
-					$filePath:=Get 4D folder:C485(Database folder:K5:14; *)+$fileName
-					
-				Else 
-					
-					$pathObject:=Path to object:C1547($filePath)
-					$fileName:=$pathObject.name+$pathObject.extension
-					
-				End if 
-				
-				Case of 
-						
-						//________________________________________
-					: (Test path name:C476($filePath)#Is a document:K24:1)
-						
-						$isOK:=False:C215
-						
-						// File "{name}" not found ({path})
-						err_THROW(New object:C1471("component"; "xbox"; "code"; 600; "name"; $fileName; "path"; $filePath))
-						
-						//________________________________________
-				End case 
-				
-				If ($isOK)
-					
-					Case of 
-							// MARK:- 4VP
-						: ($filePath="@.4VP")
-							
-							$textBuffer:=Document to text:C1236($filePath; "UTF-8")
-							
-							If (err_continue)
-								
-								$documentObject:=JSON Parse:C1218($textBuffer)
-								
-								If (err_continue)
-									
-									If ($documentObject.spreadJS#Null:C1517)
-										
-										vp_UPDATE($documentObject)
-										
-									Else 
-										
-										// Allow to open a spreadJS' native document by changing the ".json"
-										// Extension to ".4VP"
-										$documentObject:=New object:C1471("version"; Storage:C1525.ViewPro.version; "spreadJS"; $documentObject)
-										
-									End if 
-									
-									// Validate data with shema
-									If (vp_isDocumentValid($documentObject))
-										
-										vp_runFunction($area; "import-json"; New object:C1471("doc"; $documentObject; "new"; False:C215))
-										// Is there a user callback method to execute ?
-										
-										If ($params.formula#Null:C1517)
-											$callback:=New object:C1471
-											$callback.path:=$filePath
-											$callback.command:="import-4VP"
-											$callback.areaName:=$area
-											
-											// Get an UUID to associate with the callback method
-											$callback.uuid:=Generate UUID:C1066
-											
-											// Keep the callback method
-											$areaVariable:=vp_getAreaVariable($area)
-											If ($areaVariable#Null:C1517)
-												If (Value type:C1509($areaVariable.callbacks)=Is object:K8:27)
-													
-													$areaVariable.callbacks[$callback.uuid]:=$params
-												End if 
-											End if 
-											
-											vp_callback($callback)
-										End if 
-										
-									Else 
-										
-										// The file "{name}" is not a valid 4D View Pro file.
-										err_THROW(New object:C1471("code"; 4; "name"; $fileName))
-										
-									End if 
-									
-								Else 
-									
-									err_THROW(New object:C1471("code"; 7; "name"; $fileName))
-									
-								End if 
-								
-							Else 
-								
-								// Cannot open file "{name}" ({path})
-								err_THROW(New object:C1471("component"; "xbox"; "code"; 602; "name"; $fileName; "path"; $filePath))
-								
-							End if 
-							// MARK:- xlsx
-						: ($filePath="@.xlsx")
-							DOCUMENT TO BLOB:C525($filePath; $blobBuffer)
-							
-							If (err_continue)
-								BASE64 ENCODE:C895($blobBuffer; $textBuffer)
-								
-								If (Length:C16($textBuffer)>0)
-									
-									// Keep the export file destination pathname
-									$callback:=New object:C1471
-									$callback.path:=$filePath
-									$callback.content:=$textBuffer
-									$callback.command:="import-excel"
-									$callback.areaName:=$area
-									$callback.password:=$params.password
-									$callback.excelOptions:=$params.excelOptions
-									$callback.excelIO:=$params.excelIO
-									
-									// Is there a user callback method to execute ?
-									If ($params.formula#Null:C1517)
-										
-										// Get an UUID to associate with the callback method
-										$callback.uuid:=Generate UUID:C1066
-										
-										// Keep the callback method
-										
-										$areaVariable:=vp_getAreaVariable($area)
-										
-										If ($areaVariable#Null:C1517)
-											If (Value type:C1509($areaVariable.callbacks)=Is object:K8:27)
-												$areaVariable.callbacks[$callback.uuid]:=$params
-											End if 
-										End if 
-										
-									End if 
-									
-									// Launch export
-									$documentObject:=vp_runFunction($area; "import-excel"; $callback)
-									
-								End if 
-								
-							End if 
-							
-							// MARK:- sjs
-						: ($filePath="@.sjs")
-							DOCUMENT TO BLOB:C525($filePath; $blobBuffer)
-							
-							If (err_continue)
-								BASE64 ENCODE:C895($blobBuffer; $textBuffer)
-								
-								If (Length:C16($textBuffer)>0)
-									
-									// Keep the export file destination pathname
-									$callback:=New object:C1471
-									$callback.path:=$filePath
-									$callback.content:=$textBuffer
-									$callback.command:="import-sjs"
-									$callback.areaName:=$area
-									$callback.sjsOptions:=$params.sjsOptions
-									
-									// Is there a user callback method to execute ?
-									If ($params.formula#Null:C1517)
-										
-										// Get an UUID to associate with the callback method
-										$callback.uuid:=Generate UUID:C1066
-										
-										// Keep the callback method
-										
-										$areaVariable:=vp_getAreaVariable($area)
-										
-										If ($areaVariable#Null:C1517)
-											If (Value type:C1509($areaVariable.callbacks)=Is object:K8:27)
-												$areaVariable.callbacks[$callback.uuid]:=$params
-											End if 
-										End if 
-										
-									End if 
-									
-									// Launch export
-									$documentObject:=vp_runFunction($area; "import-sjs"; $callback)
-									
-								End if 
-								
-							End if 
-							
-						Else   // if not xls or 4VP then csv
-							// MARK:- csv
-							If ($params.csvOptions.rowDelimiter#Null:C1517)
-								$textBuffer:=Document to text:C1236($filePath; "UTF-8"; Document unchanged:K24:18)
-							Else 
-								$textBuffer:=Document to text:C1236($filePath; "UTF-8"; Document with LF:K24:22)
-							End if 
-							
-							If (err_continue)
-								
-								var $jsParams : Object
-								$jsParams:=($params.csvOptions#Null:C1517) ? OB Copy:C1225($params.csvOptions) : New object:C1471()
-								If ($jsParams.rowDelimiter=Null:C1517)
-									$jsParams.rowDelimiter:=Char:C90(Line feed:K15:40)  // we read file with LF
-								End if 
-								$jsParams.csv:=$textBuffer
-								
-								vp_runFunction($area; "import-csv"; $jsParams)  // suppose synchrone, no js callback 
-								// Is there a user callback method to execute ?
-								
-								If ($params.formula#Null:C1517)
-									
-									$callback:=New object:C1471
-									$callback.path:=$filePath
-									$callback.command:="import-csv"
-									$callback.areaName:=$area
-									
-									// Get an UUID to associate with the callback method
-									$callback.uuid:=Generate UUID:C1066
-									
-									// Keep the callback method
-									$areaVariable:=vp_getAreaVariable($area)
-									If ($areaVariable#Null:C1517)
-										If (Value type:C1509($areaVariable.callbacks)=Is object:K8:27)
-											
-											$areaVariable.callbacks[$callback.uuid]:=$params
-										End if 
-									End if 
-									
-									vp_callback($callback)
-								End if 
-							End if 
-							
-					End case 
-				End if 
-			Else   //-----
-				
-				// Output document path is empty.
-				err_THROW(New object:C1471("component"; "xbox"; "code"; 3107))
-				
-			End if 
-			
-			If (Not:C34($isOK))
-				
-				err_THROW(New object:C1471("code"; 7; "name"; $fileName))
-				
-			End if 
-		End if 
-	End if 
-	
+If (Not:C34(vp_initStorage))
+	return 
+End if 
+
+If (Not:C34(Check_parameters_count(2; Count parameters:C259)))
+	return 
+End if 
+
+err_TRY
+
+If (Not:C34(vp_isReady($area; Current method name:C684)))
 	err_FINALLY
+	return 
+End if 
+
+If ($params=Null:C1517)
+	$params:={}
+End if 
+
+// check file path and name
+var $fileName : Text:=""
+var $isOk:=False:C215
+Case of 
+	: (Length:C16($filePath)=0)
+		
+		err_THROW({component: "xbox"; code: 3107/*Output document path is empty.*/})
+		
+	: (Position:C15(Folder separator:K24:12; $filePath)=0)
+		
+		$fileName:=$filePath
+		
+		// Search for a document located near the 4D structure file
+		$filePath:=Get 4D folder:C485(Database folder:K5:14; *)+$fileName
+		$isOk:=True:C214
+		
+	Else 
+		
+		var $pathObject:=Path to object:C1547($filePath)
+		$fileName:=$pathObject.name+$pathObject.extension
+		$isOk:=True:C214
+		
+End case 
+
+If ($isOK && (Test path name:C476($filePath)#Is a document:K24:1))
+	
+	$isOK:=False:C215
+	err_THROW({component: "xbox"; code: 600/*File not found*/; name: $fileName; path: $filePath})
 	
 End if 
+
+// go import if ok
+Case of 
+	: (Not:C34($isOk))
+		
+		err_THROW({code: 7/*Cannot import file*/; name: $fileName})
+		
+		// MARK:- 4VP
+	: ($filePath="@.4VP")
+		
+		$textBuffer:=Document to text:C1236($filePath; "UTF-8")
+		
+		If (Not:C34(err_continue))
+			err_THROW({component: "xbox"; code: 602/*Cannot open file "{name}" ({path})*/; name: $fileName; path: $filePath})
+			err_FINALLY
+			return 
+		End if 
+		
+		$documentObject:=JSON Parse:C1218($textBuffer)
+		
+		If (Not:C34(err_continue))
+			err_THROW({code: 7/*Cannot import file*/; name: $fileName})
+			err_FINALLY
+			return 
+		End if 
+		
+		If ($documentObject.spreadJS#Null:C1517)
+			
+			vp_UPDATE($documentObject)
+			
+		Else 
+			
+			// Allow to open a spreadJS' native document by changing the ".json"
+			// Extension to ".4VP"
+			$documentObject:={version: Storage:C1525.ViewPro.version; spreadJS: $documentObject}
+			
+		End if 
+		
+		// Validate data with shema
+		If (vp_isDocumentValid($documentObject))
+			
+			vp_runFunction($area; "import-json"; {doc: $documentObject; new: False:C215})
+			vp_syncCallback("import-4VP"; $area; $params; $filePath)
+			
+		Else 
+			
+			err_THROW({code: 4/*The file "{name}" is not a valid 4D View Pro file.*/; name: $fileName})
+			
+		End if 
+		
+		// MARK:- xlsx
+	: ($filePath="@.xlsx")
+		
+		DOCUMENT TO BLOB:C525($filePath; $blobBuffer)
+		
+		If (err_continue)
+			
+			BASE64 ENCODE:C895($blobBuffer; $textBuffer)
+			
+			If (Length:C16($textBuffer)>0)
+				
+				// Keep the export file destination pathname
+				$callback:=vp_newCallback("import-excel"; $area; $params)
+				$callback.path:=$filePath
+				$callback.content:=$textBuffer
+				$callback.password:=$params.password
+				$callback.excelOptions:=$params.excelOptions
+				$callback.excelIO:=$params.excelIO
+				
+				// Launch export
+				$documentObject:=vp_runFunction($area; "import-excel"; $callback)
+				
+			End if 
+			
+		End if 
+		
+		// MARK:- sjs
+	: ($filePath="@.sjs")
+		
+		DOCUMENT TO BLOB:C525($filePath; $blobBuffer)
+		
+		If (err_continue)
+			
+			BASE64 ENCODE:C895($blobBuffer; $textBuffer)
+			
+			If (Length:C16($textBuffer)>0)
+				
+				// Keep the export file destination pathname
+				$callback:=vp_newCallback("import-sjs"; $area; $params)
+				$callback.path:=$filePath
+				$callback.content:=$textBuffer
+				$callback.sjsOptions:=$params.sjsOptions
+				
+				// Launch export
+				$documentObject:=vp_runFunction($area; "import-sjs"; $callback)
+				
+			End if 
+			
+		End if 
+		
+	Else   // if not xls or 4VP then csv
+		// MARK:- csv
+		
+		$textBuffer:=Document to text:C1236($filePath; "UTF-8"; ($params.csvOptions.rowDelimiter#Null:C1517) ? Document unchanged:K24:18 : Document with LF:K24:22)
+		
+		If (err_continue)
+			
+			var $jsParams : Object:=($params.csvOptions#Null:C1517) ? OB Copy:C1225($params.csvOptions) : {}
+			If ($jsParams.rowDelimiter=Null:C1517)
+				$jsParams.rowDelimiter:=Char:C90(Line feed:K15:40)  // we read file with LF
+			End if 
+			$jsParams.csv:=$textBuffer
+			
+			vp_runFunction($area; "import-csv"; $jsParams)  // suppose synchrone, no js callback 
+			vp_syncCallback("import-csv"; $area; $params; $filePath)
+			
+		End if 
+		
+End case 
+
+err_FINALLY

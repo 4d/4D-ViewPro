@@ -218,6 +218,7 @@
 			"vp_make_picture",
 			"vp_makeFont",
 			"vp_METADATA",
+			"vp_newCallback",
 			"vp_parse_collection_get",
 			"vp_parse_collection_set",
 			"vp_parse_element_get",
@@ -229,6 +230,7 @@
 			"vp_runCommand",
 			"vp_runFunction",
 			"vp_saveFile",
+			"vp_syncCallback",
 			"vp_UPDATE",
 			"vp_UPDATE_SJS"
 		],

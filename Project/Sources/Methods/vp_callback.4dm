@@ -13,13 +13,7 @@ var $run; $success : Boolean
 var $areaValue; $formula; $status; $userObject : Object
 var $blob : 4D:C1709.Blob
 
-If ($callback=Null:C1517)
-	
-	return 
-	
-End if 
-
-If ($callback.command=Null:C1517)
+If (($callback=Null:C1517) || ($callback.command=Null:C1517))
 	
 	return 
 	
