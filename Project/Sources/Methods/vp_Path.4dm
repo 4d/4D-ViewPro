@@ -62,11 +62,7 @@ If (Length:C16($pathObject.name)>0)
 		If (Test path name:C476($pathObject.parentFolder)#Is a folder:K24:2)
 			
 			// Folder "{name}" not found ({path}).
-			err_THROW(New object:C1471(\
-				"component"; "xbox"; \
-				"code"; 650; \
-				"name"; Path to object:C1547($pathObject.parentFolder).name; \
-				"path"; $pathObject.parentFolder))
+			err_THROW({component: "xbox"; code: 650; name: Path to object:C1547($pathObject.parentFolder).name; path: $pathObject.parentFolder})
 			
 			$pathObject:=New object:C1471
 			

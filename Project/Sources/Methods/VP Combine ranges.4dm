@@ -25,8 +25,7 @@ If (vp_initStorage)
 		
 		If (OB Get type:C1230($Obj_first; "area")#Is text:K8:3)
 			
-			err_THROW(New object:C1471(\
-				"code"; 9))  // Property "area" is missing
+			err_THROW({code: 9})  // Property "area" is missing
 			
 		Else 
 			
@@ -41,22 +40,19 @@ If (vp_initStorage)
 				
 				If (OB Get type:C1230($Obj_current; "area")#Is text:K8:3)
 					
-					err_THROW(New object:C1471(\
-						"code"; 9))  // Property "area" is missing
+					err_THROW({code: 9})  // Property "area" is missing
 					
 				Else 
 					
 					If ($Obj_current.area#$Obj_first.area)
 						
-						err_THROW(New object:C1471(\
-							"code"; 10))  // Ranges should have same "area" property
+						err_THROW({code: 10})  // Ranges should have same "area" property
 						
 					Else 
 						
 						If (OB Get type:C1230($Obj_current; "ranges")#Is collection:K8:32)
 							
-							err_THROW(New object:C1471(\
-								"code"; 11))  // Ranges are missing
+							err_THROW({code: 11})  // Ranges are missing
 							
 						Else 
 							
@@ -65,8 +61,7 @@ If (vp_initStorage)
 								
 								If (Not:C34(OB Is defined:C1231($Obj_range)))
 									
-									err_THROW(New object:C1471(\
-										"code"; 12))
+									err_THROW({code: 12}) // No object found in "ranges" collection.
 									
 								Else 
 									

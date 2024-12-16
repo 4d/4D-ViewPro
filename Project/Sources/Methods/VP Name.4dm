@@ -20,7 +20,7 @@ If (vp_initStorage)
 		
 		
 		If (Length:C16($name)=0)
-			err_THROW(New object:C1471("code"; 18))
+			err_THROW({code: 18})
 		Else 
 			
 			If ($nbParameters<3)
@@ -30,7 +30,7 @@ If (vp_initStorage)
 			End if 
 			
 			If ($sheet<-2)
-				err_THROW(New object:C1471("code"; 17))
+				err_THROW({code: 17 /*Sheet must be greater or equal than -2*/})
 			Else 
 				
 				var $ranges:={}

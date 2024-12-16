@@ -31,14 +31,12 @@ Case of
 		//______________________________________________________
 	: ($Obj_in=Null:C1517)
 		
-		err_THROW(New object:C1471(\
-			"code"; 1))
+		err_THROW({code: 1 /*Invalid 4D View Pro object*/})
 		
 		//______________________________________________________
 	: ($Obj_in.version=Null:C1517)
 		
-		err_THROW(New object:C1471(\
-			"code"; 1))
+		err_THROW({code: 1 /*Invalid 4D View Pro object*/})
 		
 		//______________________________________________________
 	: ($Obj_in.version=Storage:C1525.ViewPro.spreadJSVersion)  // Current version
@@ -61,8 +59,7 @@ Case of
 				//……………………………………………………………………………………………………………………………………………………………………
 			: ($Lon_docMajor<9)
 				
-				err_THROW(New object:C1471(\
-					"code"; 1))
+				err_THROW({code: 1 /*Invalid 4D View Pro object*/})
 				
 				//……………………………………………………………………………………………………………………………………………………………………
 			: ($Lon_docMajor<=10)

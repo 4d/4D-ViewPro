@@ -25,7 +25,7 @@ If (vp_initStorage)
 		End if 
 		
 		If ($sheet<-1)
-			err_THROW(New object:C1471("code"; 17))
+			err_THROW({code: 17 /*Sheet must be greater or equal than -2*/})
 		Else 
 			
 			var $ranges:=New object:C1471()
