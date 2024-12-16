@@ -25,9 +25,6 @@ Case of
 		// We must keep parameters for later use
 		// when the asynchronous export will be ending
 		
-		// Keep the export file destination pathname
-		var $callback : Object:={areaName: $area}
-		
 		// Is there a user callback method to execute ?
 		If ($options.formula=Null:C1517)
 			
@@ -37,22 +34,10 @@ Case of
 			
 		Else 
 			
-			// Get an UUID to associate with the callback method
-			$callback.uuid:=Generate UUID:C1066
-			$callback.command:="export-blob"
+			// Keep the export file destination pathname
+			var $callback:=vp_newCallback("export-blob"; $area; $options)
 			$callback.sjsOptions:=OB Copy:C1225($options)
 			OB REMOVE:C1226($callback.sjsOptions; "formula")
-			
-			// Keep the callback method
-			
-			var $areaValue : Object:=vp_getAreaVariable($area)
-			
-			If ($areaValue#Null:C1517)\
-				 && (Value type:C1509($areaValue.callbacks)=Is object:K8:27)
-				
-				$areaValue.callbacks[$callback.uuid]:=$options
-				
-			End if 
 			
 			vp_runFunction($area; "export-sjs"; $callback)
 			

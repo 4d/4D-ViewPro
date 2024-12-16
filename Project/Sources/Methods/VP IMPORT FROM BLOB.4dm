@@ -30,29 +30,9 @@ If (vp_initStorage)
 					var $textBuffer : Text
 					BASE64 ENCODE:C895($viewProBlobObject; $textBuffer)
 					
-					var $callback:={\
-						content: $textBuffer; \
-						command: "import-blob"; \
-						areaName: $areaName; \
-						sjsOptions: $options}
-					
-					// Is there a user callback method to execute ?
-					If ($options.formula#Null:C1517)
-						
-						// Get an UUID to associate with the callback method
-						$callback.uuid:=Generate UUID:C1066
-						
-						// Keep the callback method
-						
-						var $areaVariable:=vp_getAreaVariable($areaName)
-						
-						If ($areaVariable#Null:C1517)
-							If (Value type:C1509($areaVariable.callbacks)=Is object:K8:27)
-								$areaVariable.callbacks[$callback.uuid]:=$options
-							End if 
-						End if 
-						
-					End if 
+					var $callback:=vp_newCallback("import-blob"; $areaName; $options)
+					$callback.content:=$textBuffer
+					$callback.sjsOptions:=$options
 					
 					vp_runFunction($areaName; "import-sjs"; $callback)
 					
