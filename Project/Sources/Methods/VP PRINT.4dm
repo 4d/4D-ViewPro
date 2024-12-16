@@ -28,11 +28,11 @@ If (Not:C34($infos.headless))
 			End if 
 			
 			If ($sheetIndex<-2)
-				err_THROW(New object:C1471("code"; 17))
+				err_THROW({code: 17 /*Sheet must be greater or equal than -2*/})
 			Else 
 				
 				If ($sheetIndex>=VP Get sheet count($area))
-					err_THROW(New object:C1471("code"; 19))
+					err_THROW({code: 19 /*Sheet index should not be greater than or equal to the number of sheets*/})
 				Else 
 					
 					If (vp_isReady($area; Current method name:C684))

@@ -24,9 +24,7 @@ If (vp_initStorage)
 						//………………………………………………………………………………………
 					: ($viewProObject=Null:C1517)
 						
-						err_THROW(New object:C1471(\
-							"code"; 2; \
-							"message"; "'export-json'"))
+						err_THROW({code: 2; message: "'export-json'"})
 						
 						//………………………………………………………………………………………
 					: (err_continue)

@@ -40,11 +40,7 @@ If (vp_initStorage)
 					// File "{name}" not found ({path})
 					$path:=Path to object:C1547($filePath)
 					
-					err_THROW(New object:C1471(\
-						"component"; "xbox"; \
-						"code"; 600; \
-						"name"; $path.name+$path.extension; \
-						"path"; $filePath))
+					err_THROW({component: "xbox"; code: 600; name: $path.name+$path.extension; path: $filePath})
 					
 					//______________________________________________________
 				Else 
@@ -84,20 +80,14 @@ If (vp_initStorage)
 							
 						Else 
 							
-							err_THROW(New object:C1471(\
-								"code"; 7; \
-								"name"; $fileName))
+							err_THROW({code: 7; name: $fileName})
 							
 						End if 
 						
 					Else 
 						
 						// Cannot open file "{name}" ({path})
-						err_THROW(New object:C1471(\
-							"component"; "xbox"; \
-							"code"; 602; \
-							"name"; $fileName; \
-							"path"; $filePath))
+						err_THROW({component: "xbox"; code: 602; name: $fileName; path: $filePath})
 						
 					End if 
 					

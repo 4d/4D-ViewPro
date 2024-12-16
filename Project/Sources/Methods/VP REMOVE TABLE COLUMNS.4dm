@@ -20,10 +20,10 @@ If (vp_initStorage)
 			End if 
 			
 			If ($sheet<-1)
-				err_THROW(New object:C1471("code"; 17))
+				err_THROW({code: 17 /*Sheet must be greater or equal than -2*/})
 			Else 
 				If ($sheet>=VP Get sheet count($area))
-					err_THROW(New object:C1471("code"; 19))
+					err_THROW({code: 19 /*Sheet index should not be greater than or equal to the number of sheets*/})
 				Else 
 					
 					var $params:=New object:C1471()

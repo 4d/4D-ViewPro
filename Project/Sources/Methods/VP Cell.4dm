@@ -30,17 +30,17 @@ Case of
 		//______________________________________________________
 	: ($column<0)
 		
-		err_THROW({code: 13})
+		err_THROW({code: 13 /*Column must be greater or equal than zero*/})
 		
 		//______________________________________________________
 	: ($row<0)
 		
-		err_THROW({code: 14})
+		err_THROW({code: 14 /*Row must be greater or equal than zero*/})
 		
 		//______________________________________________________
 	: ($sheet<-1)
 		
-		err_THROW({code: 17})
+		err_THROW({code: 17 /*Sheet must be greater or equal than -2*/})
 		
 		//______________________________________________________
 	Else 

@@ -29,7 +29,7 @@ Case of
 				//╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
 			: ($o=Null:C1517)
 				
-				err_THROW({code: 23})
+				err_THROW({code: 23 /*No data retrieved, possibly a timeout (suspension or breakpoint)*/})
 				
 				return 
 				

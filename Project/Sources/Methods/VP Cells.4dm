@@ -30,27 +30,27 @@ Case of
 		//______________________________________________________
 	: ($column<0)
 		
-		err_THROW({code: 13})
+		err_THROW({code: 13 /*Column must be greater or equal than zero*/})
 		
 		//______________________________________________________
 	: ($row<0)
 		
-		err_THROW({code: 14})
+		err_THROW({code: 14 /*Row must be greater or equal than zero*/})
 		
 		//______________________________________________________
 	: ($columnCount<0)
 		
-		err_THROW({code: 15})
+		err_THROW({code: 15 /*Column count must be greater than zero*/})
 		
 		//______________________________________________________
 	: ($rowCount<0)
 		
-		err_THROW({code: 16})
+		err_THROW({code: 16 /*Row count must be greater than zero*/})
 		
 		//______________________________________________________
 	: ($sheet<(-1))
 		
-		err_THROW({code: 17})
+		err_THROW({code: 17 /*Sheet must be greater or equal than -2*/})
 		
 		//______________________________________________________
 	Else 

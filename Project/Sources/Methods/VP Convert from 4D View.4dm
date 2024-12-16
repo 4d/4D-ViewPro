@@ -34,9 +34,7 @@ End if
 If (BLOB size:C605($Blb_view)=0)
 	
 	// Error Load 4D View document
-	err_THROW(New object:C1471(\
-		"component"; "MISC"; \
-		"code"; 10600))
+	err_THROW({component: "MISC"; code: 10600})
 	
 Else 
 	
@@ -44,7 +42,7 @@ Else
 	
 	If (OB Is defined:C1231($obj_d4; "error"))
 		
-		err_THROW(New object:C1471("code"; 20))
+		err_THROW({code: 20})  // 4D View document is corrupted and cannot be converted
 		
 	Else 
 		

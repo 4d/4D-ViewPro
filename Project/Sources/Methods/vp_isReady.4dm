@@ -27,10 +27,7 @@ Else
 	
 	If (Not:C34($success))
 		
-		err_THROW(New object:C1471(\
-			"code"; 5; \
-			"object"; $area; \
-			"command"; $commandName))
+		err_THROW({code: 5; object: $area; command: $commandName})  // The area "{object}" is not yet available. The command "{command}" cannot be applied
 		
 	End if 
 End if 

@@ -24,23 +24,18 @@ If (vp_initStorage)
 						//______________________________________________________
 					: ($viewProObject=Null:C1517)
 						
-						// Invalid object
-						err_THROW(New object:C1471(\
-							"code"; 1))
+						
+						err_THROW({code: 1}) // Invalid object
 						
 						//______________________________________________________
 					: ($viewProObject.version=Null:C1517)
 						
-						// Invalid object
-						err_THROW(New object:C1471(\
-							"code"; 1))
+						err_THROW({code: 1}) // Invalid object
 						
 						//______________________________________________________
 					: ($viewProObject.spreadJS.version#Storage:C1525.ViewPro.spreadJSVersion)
 						
-						// Invalid object
-						err_THROW(New object:C1471(\
-							"code"; 1))
+						err_THROW({code: 1}) // Invalid object
 						
 						//______________________________________________________
 					Else 
@@ -51,9 +46,7 @@ If (vp_initStorage)
 							
 						Else 
 							
-							// Invalid object
-							err_THROW(New object:C1471(\
-								"code"; 1))
+							err_THROW({code: 1}) // Invalid object
 							
 						End if 
 						

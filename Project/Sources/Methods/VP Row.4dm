@@ -19,7 +19,7 @@ If (vp_initStorage)
 	If (Check_parameters_count(2; $nbParameters))
 		
 		If ($row<0)
-			err_THROW(New object:C1471("code"; 14))
+			err_THROW({code: 14 /*Row must be greater or equal than zero*/})
 		Else 
 			
 			If ($nbParameters<3)
@@ -29,7 +29,7 @@ If (vp_initStorage)
 			End if 
 			
 			If ($rowCount<1)
-				err_THROW(New object:C1471("code"; 16))
+				err_THROW({code: 16 /*Row count must be greater than zero*/})
 			Else 
 				If ($nbParameters<4)
 					
@@ -38,7 +38,7 @@ If (vp_initStorage)
 				End if 
 				
 				If ($sheet<-1)
-					err_THROW(New object:C1471("code"; 17))
+					err_THROW({code: 17 /*Sheet must be greater or equal than -2*/})
 				Else 
 					
 					var $ranges:={row: $row; rowCount: $rowCount}
