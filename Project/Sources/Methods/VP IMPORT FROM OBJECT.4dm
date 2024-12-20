@@ -5,57 +5,62 @@
 // An error is returned if the viewPro object is invalid.
 #DECLARE($area : Text; $viewProObject : Object)
 
-If (vp_initStorage)
+If (Not:C34(vp_initStorage))
+	return 
+End if 
+
+If (Not:C34(Check_parameters_count(2; Count parameters:C259)))
+	return 
+End if 
+
+err_TRY
+
+If (Not:C34(vp_isReady($area; Current method name:C684)))
+	err_FINALLY
+	return 
+End if 
+
+If (($viewProObject=Null:C1517) | (OB Is empty:C1297($viewProObject)))
 	
-	err_TRY
+	VP NEW DOCUMENT($area)
 	
-	If (Check_parameters_count(2; Count parameters:C259))
-		
-		
-		If (vp_isReady($area; Current method name:C684))
-			If (($viewProObject=Null:C1517) | (OB Is empty:C1297($viewProObject)))
-				VP NEW DOCUMENT($area)
+Else 
+	
+	vp_UPDATE_SJS($viewProObject.spreadJS)
+	
+	Case of 
+			
+			//______________________________________________________
+		: ($viewProObject=Null:C1517)
+			
+			
+			err_THROW({code: 1})  // Invalid object
+			
+			//______________________________________________________
+		: ($viewProObject.version=Null:C1517)
+			
+			err_THROW({code: 1})  // Invalid object
+			
+			//______________________________________________________
+		: ($viewProObject.spreadJS.version#Storage:C1525.ViewPro.spreadJSVersion)
+			
+			err_THROW({code: 1})  // Invalid object
+			
+			//______________________________________________________
+		Else 
+			
+			If (vp_isDocumentValid($viewProObject))
+				
+				vp_runFunction($area; "import-json"; {doc: $viewProObject; new: False:C215})
+				
 			Else 
 				
-				vp_UPDATE_SJS($viewProObject.spreadJS)
+				err_THROW({code: 1})  // Invalid object
 				
-				Case of 
-						
-						//______________________________________________________
-					: ($viewProObject=Null:C1517)
-						
-						
-						err_THROW({code: 1}) // Invalid object
-						
-						//______________________________________________________
-					: ($viewProObject.version=Null:C1517)
-						
-						err_THROW({code: 1}) // Invalid object
-						
-						//______________________________________________________
-					: ($viewProObject.spreadJS.version#Storage:C1525.ViewPro.spreadJSVersion)
-						
-						err_THROW({code: 1}) // Invalid object
-						
-						//______________________________________________________
-					Else 
-						
-						If (vp_isDocumentValid($viewProObject))
-							
-							vp_runFunction($area; "import-json"; New object:C1471("doc"; $viewProObject; "new"; False:C215))
-							
-						Else 
-							
-							err_THROW({code: 1}) // Invalid object
-							
-						End if 
-						
-						//______________________________________________________
-				End case 
 			End if 
-		End if 
-	End if 
-	
-	err_FINALLY
-	
+			
+			//______________________________________________________
+	End case 
 End if 
+
+err_FINALLY
