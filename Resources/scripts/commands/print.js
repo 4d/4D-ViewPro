@@ -126,7 +126,12 @@
 
     // we need to set a time out to let the 4D code get out of the function
     // other wise the printing dialog is non responding
-    setTimeout(()=>{Utils.spread.print(sheetIndex);},500);
+    if (sheetIndex == null) {
+      setTimeout(()=>{ Utils.spread.print(); }, 500);
+    }
+    else {
+      setTimeout(()=>{ Utils.spread.print(sheetIndex); }, 500);
+    }
   });
 
   Utils.addCommand('set-print-info', function (params) {
