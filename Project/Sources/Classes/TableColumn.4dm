@@ -1,6 +1,6 @@
 
 
-Class constructor( ...  : Variant)
+Class constructor()
 	var $nbParameters : Integer
 	$nbParameters:=Count parameters:C259
 	
