@@ -3,22 +3,16 @@
 
 var $obj:=vp_getAreaVariable($area)
 
-If ($obj#Null:C1517)
-	If ($obj.inited)
-		
-		C_COLLECTION:C1488($Obj_commandsBuffer)
-		$Obj_commandsBuffer:=$obj.commandBuffers
-		
-		If ($Obj_commandsBuffer#Null:C1517)
-			
-			If ($Obj_commandsBuffer.length>0)
-				
-				WA EXECUTE JAVASCRIPT FUNCTION:C1043(*; $area; "runCommands"; *; $Obj_commandsBuffer)
-				
-			End if 
-			
-			$Obj_commandsBuffer.clear()
-		End if 
-		
-	End if 
+If (($obj=Null:C1517) || (Not:C34($obj.inited)))
+	return 
+End if 
+
+var $commandsBuffer : Collection:=$obj.commandBuffers
+
+If (($commandsBuffer#Null:C1517) && ($commandsBuffer.length>0))
+	
+	WA EXECUTE JAVASCRIPT FUNCTION:C1043(*; $area; "runCommands"; *; $commandsBuffer)
+	
+	$commandsBuffer.clear()
+	
 End if 
