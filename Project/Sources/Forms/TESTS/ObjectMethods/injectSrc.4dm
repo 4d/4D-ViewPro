@@ -27,6 +27,7 @@ For each ($lang; New collection:C1472("en"; "fr"))  // will have duplicate copy 
 	$copyFileText:=Replace string:C233($copyFileText; "${BRANCH_ROOT}/"; $folder.path)
 	$copyFileText:=Replace string:C233($copyFileText; "${THIRD_PARTY}"; $folder.path+"ThirdParty")
 	$copyFileText:=Replace string:C233($copyFileText; "${TARGET_CONTENTS}/Components/4D ViewPro.4dbase/Resources/"; Folder:C1567(fk resources folder:K87:11).path)
+	$copyFileText:=Replace string:C233($copyFileText; "${TARGET_CONTENTS}/Components/4D ViewPro.4dbase/Contents/Resources/"; Folder:C1567(fk resources folder:K87:11).path)
 	
 	$copyFileText:=Replace string:C233($copyFileText; "${LibLangueLproj}"; $lang+".lproj")
 	$copyFileText:=Replace string:C233($copyFileText; "${Lib2Langue}"; $lang)
