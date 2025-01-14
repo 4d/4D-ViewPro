@@ -142,8 +142,8 @@ Class constructor($area : Text)
 	This:C1470[""]:={options: $o}
 	
 	var $key : Text
-	
-	$o:=VP Get workbook options($area)
+		
+	$o:=OB Copy:C1225(VP Get workbook options($area))  // to not have object created by another thread (ie. js one)
 	
 	For each ($key; $o)
 		
