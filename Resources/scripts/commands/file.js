@@ -16,11 +16,11 @@
  */
 
 function _vp_do_callback(params) {
-  if (Utils.customFunctionCounter>0) {
+  if (Utils.customFunctionsInProgress>0) {
     setTimeout(() => {
-      if(Utils.customFunctionCounterDebug) {
+      if(Utils.customFunctionsLog) {
         console.log("Postpone callback after import/export:" + JSON.stringify(params));
-        if(Utils.customFunctionCounterVerbose) {
+        if(Utils.customFunctionsLogStack) {
           console.log(new Error().stack);
         }
       }
@@ -28,9 +28,9 @@ function _vp_do_callback(params) {
     }, 100);
   }
   else {
-    if(Utils.customFunctionCounterDebug) {
+    if(Utils.customFunctionsLog) {
       console.log("_vp_do_callback:" + JSON.stringify(params));
-      if(Utils.customFunctionCounterVerbose) {
+      if(Utils.customFunctionsLogStack) {
           console.log(new Error().stack);
       }
     }

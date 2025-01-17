@@ -173,6 +173,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         Utils.customFunctionNames = [];
         Utils.customFunctions = {};
+        Utils.customFunctionsInProgress = 0; // the number of custom functions in progress
+        Utils.customFunctionsLog = false; // log when a custom function is called and when it ends
+        Utils.customFunctionsLogStack = false; // when logging show the stack
 
         init4DCommands();
         initInternalComponentCommands();

@@ -953,10 +953,6 @@ function vp_setOptimizer(timeout) {
     }, timeout);
 }
 
-Utils.customFunctionCounter=0;
-Utils.customFunctionCounterDebug=true;
-Utils.customFunctionCounterVerbose=false;
-
 const _vp_registerTasks = [];
 function _vp_registerTaskAfterCommand(task) {
     if (typeof task === 'function') {
@@ -974,10 +970,10 @@ function _vp_executeTasksAfterCommand() {
 }
 
 function _vp_startCustomFunction(method) {
-    Utils.customFunctionCounter+=1;
-    if(Utils.customFunctionCounterDebug) {
-        console.log("_vp_startCustomFunction: " + Utils.customFunctionCounter.toString()+" "+JSON.stringify(method));
-        if(Utils.customFunctionCounterVerbose) {
+    Utils.customFunctionsInProgress+=1;
+    if(Utils.customFunctionsLog) {
+        console.log("_vp_startCustomFunction: " + Utils.customFunctionsInProgress.toString()+" "+JSON.stringify(method));
+        if(Utils.customFunctionsLogStack) {
             console.log(new Error().stack);
         }
     }
@@ -986,10 +982,10 @@ function _vp_startCustomFunction(method) {
 
 function _vp_endCustomFunction() {
     vp_endLongOperation();
-    Utils.customFunctionCounter-=1;
-    if(Utils.customFunctionCounterDebug) {
-        console.log("_vp_endCustomFunction: " + Utils.customFunctionCounter.toString());
-        if(Utils.customFunctionCounterVerbose) {
+    Utils.customFunctionsInProgress-=1;
+    if(Utils.customFunctionsLog) {
+        console.log("_vp_endCustomFunction: " + Utils.customFunctionsInProgress.toString());
+        if(Utils.customFunctionsLogStack) {
             console.log(new Error().stack);
         }
     }
