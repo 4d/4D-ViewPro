@@ -375,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function customFunctionEvaluateAsync(method, isFormula, ...args) {
 
-        vp_startLongOperation();
+        _vp_startCustomFunction(method);
         let context = args[0];
         try {
 
@@ -485,13 +485,13 @@ document.addEventListener('DOMContentLoaded', function () {
              }
              if (!ok) {
                  context.setAsyncResult(Utils.errors.wrongTypeOfArgument);
-                 vp_endLongOperation();
+                 _vp_endCustomFunction();
                  return;
              }
          }
         } catch (e) { 
              Utils.logEvent({ type: 'error-catched', data: e });
-             vp_endLongOperation();
+             _vp_endCustomFunction();
              context.setAsyncResult((e.message="too much recursion") ? Utils.errors.numberRelated : Utils.errors.calc);
              throw e;
         }
@@ -506,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function () {
                          else
                              context.setAsyncResult(Utils.errors.wrongTypeOfArgument);
                      } finally {
-                         vp_endLongOperation();
+                        _vp_endCustomFunction();
                      }
                  });
              } else {
@@ -518,13 +518,13 @@ document.addEventListener('DOMContentLoaded', function () {
                          else
                              context.setAsyncResult(Utils.errors.wrongTypeOfArgument);
                      } finally {
-                         vp_endLongOperation();
+                        _vp_endCustomFunction();
                      }
                  });
              }
          } catch (e) {
              Utils.logEvent({ type: 'error-catched', data: e });
-             vp_endLongOperation();
+             _vp_endCustomFunction();
          }
      }
 

@@ -98,9 +98,11 @@ Case of
 		
 		// Validate data with shema
 		If (vp_isDocumentValid($documentObject))
-			
-			vp_runFunction($area; "import-json"; {doc: $documentObject; new: False:C215})
-			vp_syncCallback("import-4VP"; $area; $params; $filePath)
+
+			$callback:=vp_newCallback("import-4VP"; $area; $params)
+			$callback.doc:=$documentObject
+			$callback.new:=False:C215
+			vp_runFunction($area; "import-json"; $callback)
 			
 		Else 
 			
@@ -165,14 +167,14 @@ Case of
 		
 		If (err_continue)
 			
-			var $jsParams : Object:=($params.csvOptions#Null:C1517) ? OB Copy:C1225($params.csvOptions) : {}
-			If ($jsParams.rowDelimiter=Null:C1517)
-				$jsParams.rowDelimiter:=Char:C90(Line feed:K15:40)  // we read file with LF
+			$callback:=vp_newCallback("import-csv"; $area; $params)
+			$callback.csvOptions:=($params.csvOptions#Null:C1517) ? OB Copy:C1225($params.csvOptions) : {}
+			If ($callback.csvOptions.rowDelimiter=Null:C1517)
+				$callback.csvOptions.rowDelimiter:=Char:C90(Line feed:K15:40)  // we read file with LF
 			End if 
-			$jsParams.csv:=$textBuffer
+			$callback.csvOptions.csv:=$textBuffer
 			
-			vp_runFunction($area; "import-csv"; $jsParams)  // suppose synchrone, no js callback 
-			vp_syncCallback("import-csv"; $area; $params; $filePath)
+			vp_runFunction($area; "import-csv"; $callback)
 			
 		End if 
 		

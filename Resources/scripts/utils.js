@@ -948,5 +948,49 @@ function vp_setOptimizer(timeout) {
             Utils.needToUpdateFormulaBar = false;
         }
 
+        _vp_executeTasksAfterCommand();
+
     }, timeout);
+}
+
+Utils.customFunctionCounter=0;
+Utils.customFunctionCounterDebug=true;
+Utils.customFunctionCounterVerbose=false;
+
+const _vp_registerTasks = [];
+function _vp_registerTaskAfterCommand(task) {
+    if (typeof task === 'function') {
+        _vp_registerTasks.push(task);
+    } else {
+        console.error("Task after command must be a function!");
+    }
+}
+
+function _vp_executeTasksAfterCommand() {
+    while (_vp_registerTasks.length > 0) {
+        const task = _vp_registerTasks.shift();
+        task();
+    }
+}
+
+function _vp_startCustomFunction(method) {
+    Utils.customFunctionCounter+=1;
+    if(Utils.customFunctionCounterDebug) {
+        console.log("_vp_startCustomFunction: " + Utils.customFunctionCounter.toString()+" "+JSON.stringify(method));
+        if(Utils.customFunctionCounterVerbose) {
+            console.log(new Error().stack);
+        }
+    }
+    vp_startLongOperation();
+}
+
+function _vp_endCustomFunction() {
+    vp_endLongOperation();
+    Utils.customFunctionCounter-=1;
+    if(Utils.customFunctionCounterDebug) {
+        console.log("_vp_endCustomFunction: " + Utils.customFunctionCounter.toString());
+        if(Utils.customFunctionCounterVerbose) {
+            console.log(new Error().stack);
+        }
+    }
 }

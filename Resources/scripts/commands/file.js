@@ -15,8 +15,33 @@
  * 
  */
 
+function _vp_do_callback(params) {
+  if (Utils.customFunctionCounter>0) {
+    setTimeout(() => {
+      if(Utils.customFunctionCounterDebug) {
+        console.log("Postpone callback after import/export:" + JSON.stringify(params));
+        if(Utils.customFunctionCounterVerbose) {
+          console.log(new Error().stack);
+        }
+      }
+      _vp_do_callback(params);
+    }, 100);
+  }
+  else {
+    if(Utils.customFunctionCounterDebug) {
+      console.log("_vp_do_callback:" + JSON.stringify(params));
+      if(Utils.customFunctionCounterVerbose) {
+          console.log(new Error().stack);
+      }
+    }
+    $4d._vp_callback(params);
+  }
+}
+
 function _vp_callback(params) {
-  $4d._vp_callback(params);
+  _vp_registerTaskAfterCommand(() => { 
+    _vp_do_callback(params);
+  });
 }
 
 Utils.addCommand('import-json', function (params) {
@@ -46,9 +71,10 @@ Utils.addCommand('import-json', function (params) {
       sheetName += '1';
       Utils.currentSheet.name(sheetName);
     }
-
-
+    _vp_callback(params);
   } catch (e) { 
+    params.error = e;
+    _vp_callback(params);
     Utils.logEvent({ type: 'error-catched', data: e });
   }
 
@@ -301,28 +327,32 @@ Utils.addCommand('import-csv', function (params) {
 
   let instance = null;
 
-  if (('range' in params) && ('ranges' in params.range) && (params.range.ranges.constructor === Array)) {
-    instance = Utils.getFirstRange(params.range.ranges);
+  let cvsOptions = params.cvsOptions || {};
+
+  if (('range' in cvsOptions) && ('ranges' in cvsOptions.range) && (cvsOptions.range.ranges.constructor === Array)) {
+    instance = Utils.getFirstRange(cvsOptions.range.ranges);
   } else {
     instance = Utils.getFirstRange([{ sheetIndex: -1, row: 0, column: 0 }]);
   }
 
   let rowDelimiter = "\r\n";
-  if ('rowDelimiter' in params && typeof params.rowDelimiter === 'string') {
-    rowDelimiter = params.rowDelimiter;
+  if ('rowDelimiter' in cvsOptions && typeof cvsOptions.rowDelimiter === 'string') {
+    rowDelimiter = cvsOptions.rowDelimiter;
   }
 
   let columnDelimiter = ",";
-  if ('columnDelimiter' in params && typeof params.columnDelimiter === 'string') {
-    columnDelimiter = params.columnDelimiter;
+  if ('columnDelimiter' in cvsOptions && typeof cvsOptions.columnDelimiter === 'string') {
+    columnDelimiter = cvsOptions.columnDelimiter;
   }
 
   instance.sheet.setCsv(
     instance.row,
     instance.column,
-    params.csv,
+    cvsOptions.csv,
     rowDelimiter,
     columnDelimiter);
+
+  _vp_callback(params);
 
 });
 
