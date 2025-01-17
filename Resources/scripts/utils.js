@@ -88,7 +88,7 @@ Utils.initContextMenu = function () {
     Utils.spread.contextMenu.menuData.push(removeRowPageBreak);
     Utils.spread.contextMenu.menuData.push(insertColPageBreak);
     Utils.spread.contextMenu.menuData.push(removeColPageBreak);
-}
+};
 
 Utils.diagnostics = {
     events: []
@@ -106,7 +106,7 @@ Utils.logEvent = function ({ type, data }) {
 
     Utils.diagnostics.events.push(event);
     if (Utils.debug || type.includes("error")) console.log(event);
-}
+};
 
 Utils.adjustFormat = function (format) {
     let propertyName = '';
@@ -138,7 +138,7 @@ Utils.adjustFormat = function (format) {
     }
 
     return format;
-}
+};
 
 /**
  * http://help.grapecity.com/spread/SpreadJSWeb/webframe.html#resulterror.html
@@ -178,7 +178,7 @@ Utils.resolveSheet = function (sheetIndex) {
         return Utils.spread.getSheet(sheetIndex);
     else
         return null;
-}
+};
 
 // resolve a given sheet index to a sheet index that exists, and resolve sheet index = -1 to current sheet index
 Utils.resolveSheetIndex = function (sheetIndex) {
@@ -191,7 +191,7 @@ Utils.resolveSheetIndex = function (sheetIndex) {
         }
     }
     return trueSheetIndex;
-}
+};
 
 // same as resolveSheet but returns workbook when sheet Index = -2 or is undefined
 Utils.resolveSheetOrWorkbook = function (sheetIndex) {
@@ -202,7 +202,7 @@ Utils.resolveSheetOrWorkbook = function (sheetIndex) {
         instance = Utils.resolveSheet(sheetIndex);
     }
     return instance;
-}
+};
 
 
 // resolve 4D View Pro ranges
@@ -317,7 +317,7 @@ Utils.getRanges = function (range, instancesArray) {
             }
         }
     }
-}
+};
 
 Utils.getFirstRange = function (ranges) {
 
@@ -336,7 +336,7 @@ Utils.getFirstRange = function (ranges) {
     }
 
     return ret;
-}
+};
 
 /**
  * Copied from SJS: _indexToLetters (Todo: Any impact on culture change ?)
@@ -638,7 +638,7 @@ Utils.initEvents = function () {
             obj.changedCells = {
                 'area': Utils.areaName,
                 'ranges': []
-            }
+            };
             tmp.forEach(cell => {
                 obj.changedCells.ranges.push({ 'sheet': sheet, 'row': cell.row, 'column': cell.col });
             });
@@ -770,7 +770,7 @@ Utils.initEvents = function () {
         */
     });
 
-}
+};
 
 Utils.commandInsertColPageBreak = {
     canUndo: true,
@@ -890,7 +890,7 @@ Utils.initCommands = function () {
     commandManager.register("removeColPageBreak", Utils.commandRemoveColPageBreak, undefined, false, false, false, false);
     commandManager.register("insertPageBreak", Utils.commandInsertPageBreak, undefined, false, false, false, false);
     commandManager.register("removePageBreak", Utils.commandRemovePageBreak, undefined, false, false, false, false);
-}
+};
 
 Utils._tryToGetAutoCreatedColumn = true;
 
@@ -909,14 +909,14 @@ Utils.longOperationTimeout = 1000 * 60; // timeout 1 minute for long operation
 Utils._longOperationTimeouts = [];
 Utils.pushLongOperationTimeout = function (timeout) {
     Utils._longOperationTimeouts.push(timeout);
-}
+};
 Utils.popLongOperationTimeout = function () {
     return Utils._longOperationTimeouts.pop();
-}
+};
 Utils._getLongOperationTimeout = function () {
     let timeout = Utils.popLongOperationTimeout();
     return (timeout) ? timeout: Utils.longOperationTimeout;
-}
+};
 
 function vp_startLongOperation() {
     vp_counter++;

@@ -113,13 +113,13 @@ Utils.addCommand('find', function (params) {
                         if (searchCondition.searchFlags & GC.Spread.Sheets.Search.SearchFlags.useWildCards) {
                             regexString += '.*';
                         } else {
-                            regexString += '\\*'
+                            regexString += '\\*';
                         }
                     } else if (c === '?') {
                         if (searchCondition.searchFlags & GC.Spread.Sheets.Search.SearchFlags.useWildCards) {
                             regexString += '.{1}';
                         } else {
-                            regexString += '\\?'
+                            regexString += '\\?';
                         }
                     } else {
                         regexString += '\\' + c;
@@ -244,7 +244,7 @@ Utils.addCommand('find', function (params) {
                                         // do the replace
                                         if (replace != null) {
 
-                                            let cell = Utils.spread.getSheet(result.foundSheetIndex).getCell(result.foundRowIndex, result.foundColumnIndex)
+                                            let cell = Utils.spread.getSheet(result.foundSheetIndex).getCell(result.foundRowIndex, result.foundColumnIndex);
                                             let text;
 
                                             if ((result.searchFoundFlag & GC.Spread.Sheets.Search.SearchFoundFlags.cellText) != 0) {

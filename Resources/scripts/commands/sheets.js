@@ -53,7 +53,7 @@
         'allowInsertColumns',
         'allowDeleteRows',
         'allowDeleteColumns'
-    ]
+    ];
 
     let sheetAreaOffsetAttributes = [
         'left',
@@ -116,7 +116,7 @@
             });
 
             function getSubOptions(ar, name) {
-                ret[name] = {}
+                ret[name] = {};
                 let val = sheet.options[name];
                 ar.forEach(attribute => {
                     if (attribute in val) {

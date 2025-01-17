@@ -10,10 +10,10 @@
         let day = this.getDate();
         if ((year < 1911) || ((year == 1911) && ((month < 2)) || ((month == 2) && (day < 11)))) {
             let utcDate = new Date(Date.UTC(year, month, day));
-            let localDate = new Date(year, month, day)
+            let localDate = new Date(year, month, day);
             return (localDate.getTime() - utcDate.getTime()) / 60000;
         } else {
             return _getTimezoneOffset.apply(this);
         }
-    }
+    };
 })();

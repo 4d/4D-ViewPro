@@ -6,12 +6,12 @@ customDesignerFunctions.saveAs = function (blob, fileName, allowAll) {
   reader.onloadend = function () {
     let content = reader.result.substr(reader.result.indexOf(',') + 1);
     $4d._vp_saveFile(content, fileName, allowAll, function (ret, err) { });
-  }
-}
+  };
+};
 
 customDesignerFunctions.computePdfFonts = function (sheetIndex, callback) {
   Utils.computePdfFonts(sheetIndex, callback);
-}
+};
 
 customDesignerFunctions.localizedCommandList = function (list) {
   if(list == null) {
@@ -31,7 +31,7 @@ customDesignerFunctions.localizedCommandList = function (list) {
 
     list.forEach(i => {
       if ((i.value in mapper) && ('alias' in mapper[i.value])) {
-        i.text = mapper[i.value].alias
+        i.text = mapper[i.value].alias;
       }
     });
   }
@@ -41,7 +41,7 @@ customDesignerFunctions.localizedCommandList = function (list) {
   });
 
   return list;
-}
+};
 
 customDesignerFunctions.localizedCommandName = function (name, lower) {
   let mapping = GC.Spread.CalcEngine.getMapping();
@@ -52,7 +52,7 @@ customDesignerFunctions.localizedCommandName = function (name, lower) {
     let mapper = mapping.builtInFunctionsMapping;
 
     if (name in mapper) {
-      name = mapper[name].alias
+      name = mapper[name].alias;
     }
   }
 
@@ -61,14 +61,14 @@ customDesignerFunctions.localizedCommandName = function (name, lower) {
   }
 
   return name;
-}
+};
 
 customDesignerFunctions.spreadFrom4vp = function (data) {
   if ((data != null) && (typeof data === "object") && ("spreadJS" in data)) {
   //  vp_resetOptimizer();
     return data.spreadJS;
   } else return null;
-}
+};
 
 customDesignerFunctions.spreadTo4vp = function (data) {
   Utils.addFormatedText(data);
@@ -79,20 +79,20 @@ customDesignerFunctions.spreadTo4vp = function (data) {
   vpFile.dateModified = d.toISOString();
   vpFile.spreadJS = data;
   return vpFile;
-}
+};
 
 customDesignerFunctions.notifyReady = function () {
   let loaders = document.getElementsByClassName("loading-placeholder");
   loaders[0].hidden = true;
   loaders[1].hidden = true;
   designerReady = true;
-}
+};
 
 customDesignerFunctions.initEvents = function (newSpread) {
   spread = newSpread;
   Utils.initEvents();
   Utils.initCommands();
-}
+};
 
 customDesignerFunctions.getCustomFunctionsList = function () {
   let list = Utils.customFunctionNames;
@@ -103,18 +103,18 @@ customDesignerFunctions.getCustomFunctionsList = function () {
       value: r
     };
   });
-}
+};
 
 customDesignerFunctions.fillWithArraySystemFonts = function () {
   return vp_fonts.map(val => { return { text: val, value: val }; });
-}
+};
 
 customDesignerFunctions.fillWithTruncatedArraySystemFonts = function () {
   return vp_fonts.map(val => {
     let value = val.replace(/"/g, '');
     return { text: value, value: val };
   });
-}
+};
 
 
 customDesignerFunctions.init = function () {
@@ -132,4 +132,4 @@ customDesignerFunctions.init = function () {
 
    // add custom functions to the custom section of the insert function dialog
    vp_insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[13].items = customDesignerFunctions.getCustomFunctionsList();
-}
+};

@@ -46,7 +46,7 @@ function _vp_callback(params) {
 
 Utils.addCommand('import-json', function (params) {
   Utils.currentDocument = {};
-  let doc = params.doc
+  let doc = params.doc;
 
   if (doc.version) Utils.currentDocument.d4Version = doc.version;
   if (doc.dateCreation) Utils.currentDocument.d4DateCreation = doc.dateCreation;
@@ -117,7 +117,7 @@ Utils.addCommand('export-sjs', function (params) {
       reader.onloadend = function () {
         params.content = reader.result.substr(reader.result.indexOf(',') + 1);
         _vp_callback(params);
-      }
+      };
       reader.readAsDataURL(blob);
     },
     function (e) {
@@ -193,7 +193,7 @@ Utils.addCommand('export-excel', function (params) {
         reader.onloadend = function () {
           params.content = reader.result.substr(reader.result.indexOf(',') + 1);
           _vp_callback(params);
-        }
+        };
         reader.readAsDataURL(blob);
       },
       function (e) {
@@ -222,7 +222,7 @@ Utils.addCommand('export-excel', function (params) {
       reader.onloadend = function () {
         params.content = reader.result.substr(reader.result.indexOf(',') + 1);
         _vp_callback(params);
-      }
+      };
       reader.readAsDataURL(blob);
     },
     function (e) {
@@ -372,7 +372,7 @@ Utils.addCommand('export-pdf', function (params) {
       reader.onloadend = function () {
         params.content = reader.result.substr(reader.result.indexOf(',') + 1);
         _vp_callback(params);
-      }
+      };
       reader.readAsDataURL(blob);
     },
       function (e) {
@@ -463,7 +463,7 @@ Utils.computePdfFonts = function (sheetIndex, callback) {
     }
     callback();
   });
-}
+};
 
 // parse through all the cells of the document and add the formated values
 // to allow to convert the document to SVG without messing with computing them outside SpreadJS
@@ -635,7 +635,7 @@ Utils.addFormatedText = function (json) {
     let wordWrapWidth;
 
     if (font == null) {
-      font = "11pt Calibri"
+      font = "11pt Calibri";
     }
 
     let fontObj = _getFontObject(font);
@@ -724,7 +724,7 @@ Utils.addFormatedText = function (json) {
       let biggestLineWidth = 0;
 
       for (let line in lines) {
-        result.lines[line] = { text: lines[line], width: _measureTextWidth(ctx, ctx.font, lines[line]) }
+        result.lines[line] = { text: lines[line], width: _measureTextWidth(ctx, ctx.font, lines[line]) };
         if (result.lines[line].width > biggestLineWidth) {
           biggestLineWidth = result.lines[line].width;
         }
@@ -751,7 +751,7 @@ Utils.addFormatedText = function (json) {
             if ('formatter' in style) {
               aFormatter = style.formatter;
             } else if ('parentName' in style) {
-              aFormatter = __resolveStyleSheetByName(style.parentName)
+              aFormatter = __resolveStyleSheetByName(style.parentName);
             }
             return true;
           } else {
@@ -791,7 +791,7 @@ Utils.addFormatedText = function (json) {
             if (key in style) {
               aValue = style[key];
             } else if ('parentName' in style) {
-              aValue = __resolveStyleSheetByName(style.parentName)
+              aValue = __resolveStyleSheetByName(style.parentName);
             }
             return true;
           } else {
@@ -1063,7 +1063,7 @@ Utils.addFormatedText = function (json) {
               } else if (typeof cell.style == 'string') {
                 // this is a very particular case where the style is not an object 
                 // but a string that contains the name of the stylesheet
-                let styleName = cell.style
+                let styleName = cell.style;
                 cell.style = { 'parentName': styleName };
                 formatter = _handleStyleSheetFormatter(styleName, true);
                 if (formatter != null) {
@@ -1126,4 +1126,4 @@ Utils.addFormatedText = function (json) {
     }
     sheetIndex++;
   }
-}
+};

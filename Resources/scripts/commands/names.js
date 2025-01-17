@@ -19,7 +19,7 @@
     Utils.addCommand('add-range-name', function (params) {
 
         let formula = rangesToFormula(params.ranges);
-        let scope = Utils.resolveSheetOrWorkbook(params.options.scope)
+        let scope = Utils.resolveSheetOrWorkbook(params.options.scope);
 
         if ((formula.length > 0) && (scope != null)) {
             var customName = scope.getCustomName(params.name);
@@ -32,7 +32,7 @@
 
     Utils.addCommand('add-formula-name', function (params) {
 
-        let scope = Utils.resolveSheetOrWorkbook(params.options.scope)
+        let scope = Utils.resolveSheetOrWorkbook(params.options.scope);
 
         if ((params.formula.length > 0) && (scope != null))
             scope.addCustomName(params.name, params.formula, params.options.baseRow, params.options.baseColumn, params.options.comment);
@@ -53,7 +53,7 @@
                         formula: formulaToString(nameInfo.getExpression()),
                         comment: nameInfo.getComment()
                     };
-                })
+                });
             };
         }
         return ret;
@@ -149,7 +149,7 @@
             if (rangeExpression != '') {
 
                 if (addComma)
-                    expression += ','
+                    expression += ',';
                 else
                     addComma = true;
 
