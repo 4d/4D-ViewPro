@@ -594,7 +594,7 @@
                     highlightLastColumn: table.highlightLastColumn(),
                     highlightFirstColumn: table.highlightFirstColumn(),
                     theme: getTheme(table.style())
-                }
+                };
             }
         }
 

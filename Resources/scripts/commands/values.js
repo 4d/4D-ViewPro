@@ -321,7 +321,7 @@
         }
 
         return objectValue;
-    }
+    };
 
     Utils.addCommand('get-value', function (params) {
 

@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return +value.toFixed(13);
             }
             return value;
-        }
+        };
         // END OF PATCH
     }
 
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             else
                 ret.push(parameter);
-        })
+        });
         return ret;
     }
 
@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.minArgs = command.minParams;
                 this.maxArgs = command.maxParams;
                 this.name = command.name;
-            }
+            };
             myFunc.prototype = new CustomAsyncFunction();
             myFunc.prototype.evaluateAsync = function (...args) {
 
@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.minArgs = method.minParams;
                 this.maxArgs = method.maxParams;
                 this.name = method.name;
-            }
+            };
             myFunc.prototype = new CustomAsyncFunction();
             myFunc.prototype.evaluateAsync = function (...args) {
 
@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', function () {
                      if (ok) {
                          let zeroDate = new Date(1899, 11, 30, 0, 0, 0, 0);
                          let diff = arg.getTime() - zeroDate.getTime();
-                         args[i] = { "time": Math.floor(diff / 1000) }
+                         args[i] = { "time": Math.floor(diff / 1000) };
                      }
                      break;
 
@@ -460,10 +460,10 @@ document.addEventListener('DOMContentLoaded', function () {
                          ar.forEach(function (row, rowIndex) {
                              row.forEach(function (content, colIndex) {
                                  if ((content != null) && (content.constructor === Date)) {
-                                     ar[rowIndex][colIndex] = { "value": Utils.convertValueTo4D(content) }
+                                     ar[rowIndex][colIndex] = { "value": Utils.convertValueTo4D(content) };
                                  }
                                  else if ((content != null) && (typeof(content) === 'object')) {
-                                     ar[rowIndex][colIndex] = Utils._transformObjectDateValues(content)
+                                     ar[rowIndex][colIndex] = Utils._transformObjectDateValues(content);
                                  }
                              });
                          });
@@ -475,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                  case -1: // standard mode, convert only dates
                      if ((arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date)) {
-                         args[i] = Utils.convertValueTo4D(arg, "value")
+                         args[i] = Utils.convertValueTo4D(arg, "value");
                          if (isFormula) {
                              args[i].value.$4d_convertValueToDate = true;
                          }
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var myFunc = function () { };
             myFunc.prototype = new GC.Spread.CalcEngine.Functions.AsyncFunction(method.spreadJSMethod, minParams, maxParams, summary);
 
-            let patchAcceptsReference = method.parametersType != null && method.parametersType.includes(42/*col*/)
+            let patchAcceptsReference = method.parametersType != null && method.parametersType.includes(42/*col*/);
             if(patchAcceptsReference) {
                 myFunc.prototype.acceptsReference=function(numParameter) {
                     return (method.parametersType[numParameter] == 42);
@@ -640,7 +640,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
             return oldActivateEditorFn.apply(this, arguments);
-        }
+        };
 
         // Handle the keydown on formula text box
         let formulaTextBoxEl = document.querySelector("div[gcuielement='gcAttachedFormulaTextBox']");
@@ -649,7 +649,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (event.code === "NumpadDecimal" && event.type === "keydown") {
                     handleKeyDown(event);
                 }
-            })
+            });
         }
 
         // Override the isReservedKey method
@@ -658,11 +658,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (e.code === "NumpadDecimal" && e.type === "keydown" && !context.isEditing) {
                 setTimeout(() => {
                     context.sheet.startEdit(false, ",");
-                })
+                });
                 return true;
             }
             return oldisReservedKeyFn.apply(this, arguments);
-        }
+        };
     }
 
 

@@ -55,7 +55,7 @@ Utils.parseElementSet = function (element) {
         }
     }
     return element;
-}
+};
 
 Utils.parseObjectSet = function(obj) {
     let keys = Object.keys(obj);
@@ -66,15 +66,15 @@ Utils.parseObjectSet = function(obj) {
     });
 
     return ret;
-}
+};
 
 Utils.parseArraySet = function(ar) {
-    let ret = []
+    let ret = [];
     ar.forEach(element => {
         ret.push(Utils.parseElementSet(element));
     });
     return ret;
-}
+};
 
 
 Utils.addCommand('set-data-context', function (params) {
@@ -118,7 +118,7 @@ Utils.addCommand('get-data-context', function (params) {
                 } else if (element.constructor === Date) {
                     if ((element.getDate() == 30) && (element.getFullYear() == 1899) && (element.getMonth() == 11)) {
                         // we have a time
-                        return { time: (element.getHours() * 3600) + (element.getMinutes() * 60) + element.getSeconds() }
+                        return { time: (element.getHours() * 3600) + (element.getMinutes() * 60) + element.getSeconds() };
                     } else if ((element.getHours() == 0) && (element.getMinutes() == 0) && (element.getSeconds() == 0) && (element.getMilliseconds() == 0)) {
                         // We have a date
                         return {
@@ -196,7 +196,7 @@ Utils.addCommand('get-data-context', function (params) {
     }
 
     function _parseArray(ar) {
-        let ret = []
+        let ret = [];
         ar.forEach(element => {
             ret.push(_parseElement(element));
         });

@@ -29,7 +29,7 @@
 
 	AreaNameFunction.prototype.evaluate = function (params) {
 		return Utils.areaName;
-	}
+	};
 
 	let areaName = new AreaNameFunction();
 
@@ -58,13 +58,13 @@
 		}
 
 		return Utils.indexToLetters(column + 1);
-	}
+	};
 
 	let ColumnLetter = new ColumnLetterFunction();
 
 	ColumnLetter.isContextSensitive = ColumnLetter.acceptsReference = function () {
 		return true;
-	}
+	};
 
 	Utils.defineGlobalCustomFunction(ColumnLetter.name, ColumnLetter, 'custom-command');
 
@@ -101,13 +101,13 @@
 		}
 
 		return Utils.errors.notAny;
-	}
+	};
 
 	let FindCell = new FindCellFunction();
 
 	FindCell.isContextSensitive = FindCell.acceptsReference = FindCell.returnReference = function () {
 		return true;
-	}
+	};
 
 	Utils.defineGlobalCustomFunction(FindCell.name, FindCell, 'custom-command');
 })();
