@@ -21,6 +21,22 @@ Case of
 		
 		METHOD OPEN PATH:C1213("[projectForm]/TESTS/test")
 		
+	: (Macintosh control down:C544)
+		
+		$t:=File:C1566("/RESOURCES/DEV/exporte.pdf").platformPath
+		$o:={formula: Formula:C1597(ALERT:C41("test export")); format: vk pdf format:K89:21}
+		
+		VP EXPORT DOCUMENT("ViewProArea"; $t; $o)
+		
+		//______________________________________________________
+	: (True:C214)
+		
+		$t:=File:C1566("/RESOURCES/DEV/Objects.4vp").platformPath
+		$o:={formula: Formula:C1597(ALERT:C41("test"))}
+		VP IMPORT DOCUMENT("ViewProArea"; $t; $o)
+		
+		
+		
 		//MARK:ACI0103752
 		//______________________________________________________
 	: (True:C214)
