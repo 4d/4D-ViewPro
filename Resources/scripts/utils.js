@@ -1,18 +1,18 @@
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 
 class Utils {
@@ -26,7 +26,7 @@ class Utils {
     }
 
     static set currentDocument(doc) {
-        currentDocument = doc;
+        currentDocument = doc; // TODO: maybe to review, want to not use a global variable
     }
 
     static get currentSheet() {
@@ -34,7 +34,7 @@ class Utils {
     }
 
     static get currentCell() {
-        let sheet = Utils.currentSheet;
+        const sheet = Utils.currentSheet;
         return {
             row: sheet.getActiveRowIndex(),
             column: sheet.getActiveColumnIndex()
@@ -46,37 +46,37 @@ Utils.needToUpdateFormulaBar = false;
 Utils.debug = false;
 
 Utils.initContextMenu = function () {
-    var insertPageBreak = {
+    const insertPageBreak = {
         text: contextMenuRes.insertPageBreak,
         name: "insertPageBreak",
         command: "insertPageBreak",
         workArea: "viewport"
     };
-    var removePageBreak = {
+    const removePageBreak = {
         text: contextMenuRes.removePageBreak,
         name: "removePageBreak",
         command: "removePageBreak",
         workArea: "viewport"
     };
-    var insertRowPageBreak = {
+    const insertRowPageBreak = {
         text: contextMenuRes.insertPageBreak,
         name: "insertRowPageBreak",
         command: "insertRowPageBreak",
         workArea: "rowHeader"
     };
-    var removeRowPageBreak = {
+    const removeRowPageBreak = {
         text: contextMenuRes.removePageBreak,
         name: "removeRowPageBreak",
         command: "removeRowPageBreak",
         workArea: "rowHeader"
     };
-    var insertColPageBreak = {
+    const insertColPageBreak = {
         text: contextMenuRes.insertPageBreak,
         name: "insertColPageBreak",
         command: "insertColPageBreak",
         workArea: "colHeader"
     };
-    var removeColPageBreak = {
+    const removeColPageBreak = {
         text: contextMenuRes.removePageBreak,
         name: "removeColPageBreak",
         command: "removeColPageBreak",
@@ -98,7 +98,7 @@ Utils.logEvent = function ({ type, data }) {
     if (Utils.diagnostics.events.length >= 500) {
         Utils.diagnostics.events = [];
     }
-    let event = {
+    const event = {
         time: new Date(),
         type,
         data
@@ -132,7 +132,7 @@ Utils.adjustFormat = function (format) {
     }
 
     if (propertyName != '') {
-        let culture = GC.Spread.Common.CultureManager.getCultureInfo();
+        const culture = GC.Spread.Common.CultureManager.getCultureInfo();
         format = culture.DateTimeFormat[propertyName];
         format = format.replaceAll("'", '"');
     }
@@ -155,21 +155,21 @@ Utils.errors = {
 };
 
 Utils.b64ToBlob = function (b64string) {
-    let byteString = atob(b64string);
+    const byteString = atob(b64string);
 
     // write the bytes of the string to an ArrayBuffer
-    let ia = new Uint8Array(byteString.length);
+    const ia = new Uint8Array(byteString.length);
     for (let i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
     }
 
     // write the ArrayBuffer to a blob, and you're done
-    let blob = new Blob([ia.buffer], { type: "application/octet-stream" });
+    const blob = new Blob([ia.buffer], { type: "application/octet-stream" });
 
     return blob;
 };
 
-// return the sheet corresponding to the sheet index, 
+// return the sheet corresponding to the sheet index,
 // check boundaries and return current sheet if sheet index = -1 or is undefined
 Utils.resolveSheet = function (sheetIndex) {
     if (((sheetIndex == undefined) || (sheetIndex == -1)) && (Utils.spread.getSheetCount() > 0))
@@ -208,7 +208,7 @@ Utils.resolveSheetOrWorkbook = function (sheetIndex) {
 // resolve 4D View Pro ranges
 Utils.getRanges = function (range, instancesArray) {
 
-    let hasName = ("name" in range) && (typeof (range.name) === 'string');
+    const hasName = ("name" in range) && (typeof (range.name) === 'string');
 
     if (hasName) {
         // === name
@@ -224,14 +224,14 @@ Utils.getRanges = function (range, instancesArray) {
         }
 
         if (instance != null) {
-            let n = instance.getCustomName(range.name);
+            const n = instance.getCustomName(range.name);
             if (n != null) {
-                let expression = GC.Spread.Sheets.CalcEngine.expressionToFormula(sheet, n.getExpression());
-                let rangesInExpression = GC.Spread.Sheets.CalcEngine.formulaToRanges(sheet, expression);
+                const expression = GC.Spread.Sheets.CalcEngine.expressionToFormula(sheet, n.getExpression());
+                const rangesInExpression = GC.Spread.Sheets.CalcEngine.formulaToRanges(sheet, expression);
                 if ((rangesInExpression != null) && (rangesInExpression.constructor === Array)) {
                     rangesInExpression.forEach(rangeInExpression => {
-                        let i = Utils.spread.getSheetIndex(rangeInExpression.sheetName);
-                        let s = Utils.spread.getSheet(i);
+                        const i = Utils.spread.getSheetIndex(rangeInExpression.sheetName);
+                        const s = Utils.spread.getSheet(i);
                         if (s != null) {
                             rangeInExpression.ranges.forEach(rangeElement => {
                                 instancesArray.push({
@@ -250,14 +250,14 @@ Utils.getRanges = function (range, instancesArray) {
             }
         }
     } else {
-        let sheet = Utils.resolveSheet(range.sheet);
+        const sheet = Utils.resolveSheet(range.sheet);
 
         if (sheet != null) {
 
-            let hasRow = ('row' in range) && (typeof (range.row) === 'number');
-            let hasColumn = ('column' in range) && (typeof (range.column) === 'number');
-            let hasRowCount = ('rowCount' in range) && (typeof (range.rowCount) === 'number');
-            let hasColumnCount = ('columnCount' in range) && (typeof (range.columnCount) === 'number');
+            const hasRow = ('row' in range) && (typeof (range.row) === 'number');
+            const hasColumn = ('column' in range) && (typeof (range.column) === 'number');
+            const hasRowCount = ('rowCount' in range) && (typeof (range.rowCount) === 'number');
+            const hasColumnCount = ('columnCount' in range) && (typeof (range.columnCount) === 'number');
 
             if (hasRow && hasColumn && !hasRowCount && !hasColumnCount) {
                 // === cell
@@ -326,7 +326,7 @@ Utils.getFirstRange = function (ranges) {
     if ((ranges.constructor === Array)
         && (ranges.length > 0)) {
 
-        let instancesArray = [];
+        const instancesArray = [];
 
         Utils.getRanges(ranges[0], instancesArray);
 
@@ -343,11 +343,11 @@ Utils.getFirstRange = function (ranges) {
  * @param {number} index Column index
  */
 Utils.indexToLetters = function (index) {
-    let t = 'A';
-    let aCode = t.charCodeAt(0);
+    const t = 'A';
+    const aCode = t.charCodeAt(0);
     let sb = '';
     for (; index > 0; index = parseInt((index - 1) / 26), 10) {
-        let n = (index - 1) % 26;
+        const n = (index - 1) % 26;
         sb = String.fromCharCode(aCode + n) + sb;
     }
     return sb;
@@ -386,7 +386,7 @@ Utils._isContextInsideCalcRef = function(context, calcRef) {
     if (context.ctx.source.id != calcRef.getSource().id) {
         return false; // not same sheet
     }
-    let range = new GC.Spread.Sheets.Range(calcRef.getRow(), calcRef.getColumn(), calcRef.getRowCount(), calcRef.getColumnCount());
+    const range = new GC.Spread.Sheets.Range(calcRef.getRow(), calcRef.getColumn(), calcRef.getRowCount(), calcRef.getColumnCount());
     return range.contains(context.row, context.col, 1, 1);
 };
 
@@ -404,7 +404,7 @@ Utils.updateFormulaBar = function () {
         }
 
         if (formulaBar) {
-            let sheet = Utils.spread.getActiveSheet();
+            const sheet = Utils.spread.getActiveSheet();
             let formula = sheet.getFormula(sheet.getActiveRowIndex(), sheet.getActiveColumnIndex());
             if (formula) {
                 formula = "=" + formula;
@@ -447,7 +447,7 @@ Utils.initEvents = function () {
             hasFromSheet = true;
         }
 
-        let copyed = JSON.parse(JSON.stringify(data));
+        const copyed = JSON.parse(JSON.stringify(data));
 
         if (hasSheet) {
             data.sheet = sheet;
@@ -482,13 +482,13 @@ Utils.initEvents = function () {
             'ranges': []
         };
 
-        let sheetIndex = Utils.spread.getSheetIndex(obj.sheetName);
+        const sheetIndex = Utils.spread.getSheetIndex(obj.sheetName);
         let lastElement = -999;
         obj[name1 + 'List'].forEach(element => {
             if (element == lastElement + 1) {
                 obj.range.ranges[obj.range.ranges.length - 1][name2 + 'Count']++;
             } else {
-                let r = { 'sheet': sheetIndex };
+                const r = { 'sheet': sheetIndex };
                 r[name2] = element;
                 r[name2 + 'Count'] = 1;
                 obj.range.ranges.push(r);
@@ -526,19 +526,19 @@ Utils.initEvents = function () {
     }
 
     Utils.spread.bind(GC.Spread.Sheets.Events.ColumnWidthChanged, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
         makeRangeList(obj, 'col', 'column');
         Utils.send4DEvent("OnColumnResize", obj);
     });
 
     Utils.spread.bind(GC.Spread.Sheets.Events.RowHeightChanged, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
         makeRangeList(obj, 'row', 'row');
         Utils.send4DEvent("OnRowResize", obj);
     });
 
     Utils.spread.bind(GC.Spread.Sheets.Events.CellClick, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
         makeRange(obj);
 
         if (data.sheetArea === GC.Spread.Sheets.SheetArea.viewport) {
@@ -561,7 +561,7 @@ Utils.initEvents = function () {
 
     Utils.spread.bind(GC.Spread.Sheets.Events.CellDoubleClick, function (event, data) {
         if (data.sheetArea === GC.Spread.Sheets.SheetArea.viewport) {
-            let obj = prepareEvent(data);
+            const obj = prepareEvent(data);
             makeRange(obj);
             delete obj.sheetArea;
             Utils.send4DEvent("OnDoubleClick", obj);
@@ -569,12 +569,12 @@ Utils.initEvents = function () {
     });
 
     Utils.spread.bind(GC.Spread.Sheets.Events.SelectionChanged, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
 
         function makeSelection(name) {
-            let sheetIndex = Utils.spread.getSheetIndex(obj.sheetName);
+            const sheetIndex = Utils.spread.getSheetIndex(obj.sheetName);
             obj[name] = { 'area': Utils.areaName, 'ranges': obj[name] };
-            if(obj[name].ranges != null) {
+            if (obj[name].ranges != null) {
                 obj[name].ranges.forEach(element => {
                     element.column = element.col;
                     element.columnCount = element.colCount;
@@ -602,21 +602,21 @@ Utils.initEvents = function () {
     });
 
     Utils.spread.bind(GC.Spread.Sheets.Events.EditChange, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
         makeRange(obj);
         obj.action = 'editChange';
         Utils.send4DEvent("OnAfterEdit", obj);
     });
 
     Utils.spread.bind(GC.Spread.Sheets.Events.ValueChanged, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
         makeRange(obj);
         obj.action = 'valueChanged';
         Utils.send4DEvent("OnAfterEdit", obj);
     });
 
     Utils.spread.bind(GC.Spread.Sheets.Events.RangeChanged, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
 
         obj.range = {
             'area': Utils.areaName,
@@ -633,8 +633,8 @@ Utils.initEvents = function () {
         };
 
         if ('changedCells' in obj) {
-            let tmp = obj.changedCells;
-            let sheet = Utils.spread.getSheetIndex(obj.sheetName);
+            const tmp = obj.changedCells;
+            const sheet = Utils.spread.getSheetIndex(obj.sheetName);
             obj.changedCells = {
                 'area': Utils.areaName,
                 'ranges': []
@@ -659,7 +659,7 @@ Utils.initEvents = function () {
     });
 
     Utils.spread.bind(GC.Spread.Sheets.Events.DragDropBlockCompleted, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
 
         function makeDestRange(name) {
             obj[name + 'Range'] = {
@@ -690,21 +690,21 @@ Utils.initEvents = function () {
     });
 
     Utils.spread.bind(GC.Spread.Sheets.Events.DragFillBlockCompleted, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
         makeNamedRange(obj, 'fillRange');
         obj.action = 'dragFillBlock';
         Utils.send4DEvent("OnAfterEdit", obj);
     });
 
     Utils.spread.bind(GC.Spread.Sheets.Events.UserFormulaEntered, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
         makeRange(obj);
         obj.action = 'formulaChanged';
         Utils.send4DEvent("OnAfterEdit", obj);
     });
 
     Utils.spread.bind(GC.Spread.Sheets.Events.ClipboardPasted, function (event, data) {
-        let obj = prepareEvent(data);
+        const obj = prepareEvent(data);
         makeNamedRange(obj, 'cellRange');
         obj.action = 'clipboardPasted';
         Utils.send4DEvent("OnAfterEdit", obj);
@@ -712,34 +712,34 @@ Utils.initEvents = function () {
 
     Utils.spread.bind(GC.Spread.Sheets.Events.ClipboardChanged, function (event, data) {
 
-        let toSend = data.copyData;
+        const toSend = data.copyData;
         setTimeout(function () { $4d._vp_sendDataToClipboard(toSend); }, 500);
 
         /*        try {
                     let activeSheet = Utils.spread.getActiveSheet();
                     let activeSheetName = activeSheet.name();
                     let selectedRanges = activeSheet.getSelections();
-        
+
                     if (selectedRanges.length > 0) {
                         Utils.spread.addSheet(0, new GC.Spread.Sheets.Worksheet("__tmp__"));
                         let sheet = Utils.spread.getSheet(0);
                         sheet.visible(false);
                         sheet.setRowCount(activeSheet.getRowCount());
                         sheet.setColumnCount(activeSheet.getColumnCount());
-        
+
                         let src = selectedRanges[0];
                         let srcRange = [new GC.Spread.Sheets.Range(src.row, src.col, src.rowCount, src.colCount)];
                         let destRange = [new GC.Spread.Sheets.Range(src.row, src.col, 1, 1)];
-        
+
                         spread.commandManager().execute({
                             cmd: "clipboardPaste",
                             sheetName: sheet.name(), fromSheet: activeSheet, fromRanges: srcRange,
                             pastedRanges: destRange, isCutting: false, clipboardText: "",
                             pasteOption: 0
                         });
-        
+
                         let savedSheet = sheet.toJSON();
-        
+
                         // cut values only on same sheet to get a version with values
                         // that can be used if the user wants to paste values
                         spread.commandManager().execute({
@@ -748,7 +748,7 @@ Utils.initEvents = function () {
                             pastedRanges: destRange, isCutting: false, clipboardText: "",
                             pasteOption: GC.Spread.Sheets.ClipboardPasteOptions.valuesAndFormatting
                         });
-        
+
                         let sheetWithValues = sheet.toJSON()
                         data.copyData.json = {
                             sheet: savedSheet,
@@ -763,7 +763,7 @@ Utils.initEvents = function () {
                         Utils.spread.removeSheet(0);
                         Utils.spread.setActiveSheet(activeSheetName);
                         Utils.updateFormulaBar();
-        
+
                         $4d._vp_sendDataToClipboard(data);
                     }
                 } finally { }
@@ -775,13 +775,13 @@ Utils.initEvents = function () {
 Utils.commandInsertColPageBreak = {
     canUndo: true,
     execute: function (context, options, isUndo) {
-        var Commands = GC.Spread.Sheets.Commands;
+        const Commands = GC.Spread.Sheets.Commands;
         if (isUndo) {
             Commands.undoTransaction(context, options);
             return true;
         } else {
             Commands.startTransaction(context, options);
-            let sheet = context.getSheetFromName(options.sheetName);
+            const sheet = context.getSheetFromName(options.sheetName);
             sheet.isPrintLineVisible(true);
             sheet.setColumnPageBreak(options.col ? options.col : options.activeCol, true);
             Commands.endTransaction(context, options);
@@ -793,13 +793,13 @@ Utils.commandInsertColPageBreak = {
 Utils.commandRemoveColPageBreak = {
     canUndo: true,
     execute: function (context, options, isUndo) {
-        var Commands = GC.Spread.Sheets.Commands;
+        const Commands = GC.Spread.Sheets.Commands;
         if (isUndo) {
             Commands.undoTransaction(context, options);
             return true;
         } else {
             Commands.startTransaction(context, options);
-            let sheet = context.getSheetFromName(options.sheetName);
+            const sheet = context.getSheetFromName(options.sheetName);
             sheet.isPrintLineVisible(true);
             sheet.setColumnPageBreak(options.col ? options.col : options.activeCol, false);
             Commands.endTransaction(context, options);
@@ -811,13 +811,13 @@ Utils.commandRemoveColPageBreak = {
 Utils.commandInsertRowPageBreak = {
     canUndo: true,
     execute: function (context, options, isUndo) {
-        var Commands = GC.Spread.Sheets.Commands;
+        const Commands = GC.Spread.Sheets.Commands;
         if (isUndo) {
             Commands.undoTransaction(context, options);
             return true;
         } else {
             Commands.startTransaction(context, options);
-            let sheet = context.getSheetFromName(options.sheetName);
+            const sheet = context.getSheetFromName(options.sheetName);
             sheet.isPrintLineVisible(true);
             sheet.setRowPageBreak(options.row ? options.row : options.activeRow, true);
             Commands.endTransaction(context, options);
@@ -829,13 +829,13 @@ Utils.commandInsertRowPageBreak = {
 Utils.commandRemoveRowPageBreak = {
     canUndo: true,
     execute: function (context, options, isUndo) {
-        var Commands = GC.Spread.Sheets.Commands;
+        const Commands = GC.Spread.Sheets.Commands;
         if (isUndo) {
             Commands.undoTransaction(context, options);
             return true;
         } else {
             Commands.startTransaction(context, options);
-            let sheet = context.getSheetFromName(options.sheetName);
+            const sheet = context.getSheetFromName(options.sheetName);
             sheet.isPrintLineVisible(true);
             sheet.setRowPageBreak(options.row ? options.row : options.activeRow, false);
             Commands.endTransaction(context, options);
@@ -847,13 +847,13 @@ Utils.commandRemoveRowPageBreak = {
 Utils.commandInsertPageBreak = {
     canUndo: true,
     execute: function (context, options, isUndo) {
-        var Commands = GC.Spread.Sheets.Commands;
+        const Commands = GC.Spread.Sheets.Commands;
         if (isUndo) {
             Commands.undoTransaction(context, options);
             return true;
         } else {
             Commands.startTransaction(context, options);
-            let sheet = context.getSheetFromName(options.sheetName);
+            const sheet = context.getSheetFromName(options.sheetName);
             sheet.isPrintLineVisible(true);
             sheet.setColumnPageBreak(options.col ? options.col : options.activeCol, true);
             sheet.setRowPageBreak(options.row ? options.row : options.activeRow, true);
@@ -866,13 +866,13 @@ Utils.commandInsertPageBreak = {
 Utils.commandRemovePageBreak = {
     canUndo: true,
     execute: function (context, options, isUndo) {
-        var Commands = GC.Spread.Sheets.Commands;
+        const Commands = GC.Spread.Sheets.Commands;
         if (isUndo) {
             Commands.undoTransaction(context, options);
             return true;
         } else {
             Commands.startTransaction(context, options);
-            let sheet = context.getSheetFromName(options.sheetName);
+            const sheet = context.getSheetFromName(options.sheetName);
             sheet.isPrintLineVisible(true);
             sheet.setColumnPageBreak(options.col ? options.col : options.activeCol, false);
             sheet.setRowPageBreak(options.row ? options.row : options.activeRow, false);
@@ -883,7 +883,7 @@ Utils.commandRemovePageBreak = {
 };
 
 Utils.initCommands = function () {
-    var commandManager = spread.commandManager();
+    const commandManager = spread.commandManager();
     commandManager.register("insertRowPageBreak", Utils.commandInsertRowPageBreak, undefined, false, false, false, false);
     commandManager.register("removeRowPageBreak", Utils.commandRemoveRowPageBreak, undefined, false, false, false, false);
     commandManager.register("insertColPageBreak", Utils.commandInsertColPageBreak, undefined, false, false, false, false);
@@ -894,9 +894,9 @@ Utils.initCommands = function () {
 
 Utils._tryToGetAutoCreatedColumn = true;
 
-var vp_timerStarted = false;
-var vp_timer = null;
-var vp_counter = 0;
+let vp_timerStarted = false;
+let vp_timer = null;
+let vp_counter = 0;
 
 /*
 function vp_resetOptimizer() {
@@ -914,8 +914,8 @@ Utils.popLongOperationTimeout = function () {
     return Utils._longOperationTimeouts.pop();
 };
 Utils._getLongOperationTimeout = function () {
-    let timeout = Utils.popLongOperationTimeout();
-    return (timeout) ? timeout: Utils.longOperationTimeout;
+    const timeout = Utils.popLongOperationTimeout();
+    return (timeout) ? timeout : Utils.longOperationTimeout;
 };
 
 function vp_startLongOperation() {
@@ -926,7 +926,7 @@ function vp_startLongOperation() {
 function vp_endLongOperation() {
     vp_counter--;
     if (vp_counter == 0) {
-        vp_setOptimizer(200);   // timeout is 2/10th of seconds to allow spreadJS to start another long operation
+        vp_setOptimizer(200); // timeout is 2/10th of seconds to allow spreadJS to start another long operation
     }
 }
 
@@ -970,10 +970,10 @@ function _vp_executeTasksAfterCommand() {
 }
 
 function _vp_startCustomFunction(method) {
-    Utils.customFunctionsInProgress+=1;
-    if(Utils.customFunctionsLog) {
-        console.log("_vp_startCustomFunction: " + Utils.customFunctionsInProgress.toString()+" "+JSON.stringify(method));
-        if(Utils.customFunctionsLogStack) {
+    Utils.customFunctionsInProgress += 1;
+    if (Utils.customFunctionsLog) {
+        console.log("_vp_startCustomFunction: " + Utils.customFunctionsInProgress.toString() + " " + JSON.stringify(method));
+        if (Utils.customFunctionsLogStack) {
             console.log(new Error().stack);
         }
     }
@@ -982,10 +982,10 @@ function _vp_startCustomFunction(method) {
 
 function _vp_endCustomFunction() {
     vp_endLongOperation();
-    Utils.customFunctionsInProgress-=1;
-    if(Utils.customFunctionsLog) {
+    Utils.customFunctionsInProgress -= 1;
+    if (Utils.customFunctionsLog) {
         console.log("_vp_endCustomFunction: " + Utils.customFunctionsInProgress.toString());
-        if(Utils.customFunctionsLogStack) {
+        if (Utils.customFunctionsLogStack) {
             console.log(new Error().stack);
         }
     }

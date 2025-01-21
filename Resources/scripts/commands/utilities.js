@@ -1,18 +1,18 @@
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 
 Utils.addCommand('compute-formulas', function (params) {
@@ -31,15 +31,15 @@ Utils.addCommand('resume-calculation', function (params) {
 });
 
 Utils.addCommand('copy-data', function (params) {
-    var copyData = { text: '', html: '' };
-    var func = function (event, data) {
+    const copyData = { text: '', html: '' };
+    const func = function (event, data) {
         copyData.html = data.copyData.html;
         copyData.text = data.copyData.text;
         data.cancel = true;
     };
     Utils.spread.bind(GC.Spread.Sheets.Events.ClipboardChanging, func);
 
-    var options = { cmd: "copy", sheetName: Utils.currentSheet.name() };
+    const options = { cmd: "copy", sheetName: Utils.currentSheet.name() };
     Utils.spread.commandManager().execute(options);
 
     Utils.spread.unbind(GC.Spread.Sheets.Events.ClipboardChanging, func);
@@ -48,13 +48,13 @@ Utils.addCommand('copy-data', function (params) {
 });
 
 Utils.addCommand('paste-data', function (params) {
-    var oldClipOption = Utils.currentSheet.options.clipBoardOptions;
+    const oldClipOption = Utils.currentSheet.options.clipBoardOptions;
     Utils.currentSheet.options.clipBoardOptions = params.pasteOption;
 
-    var callback = function () {
+    const callback = function () {
         Utils.currentSheet.options.clipBoardOptions = oldClipOption;
     };
-    var options = {
+    const options = {
         cmd: "paste",
         sheetName: Utils.currentSheet.name(),
         pasteText: params.text,
@@ -65,7 +65,7 @@ Utils.addCommand('paste-data', function (params) {
 });
 
 Utils.addCommand('find', function (params) {
-    let foundRange = { area: params.range.area, ranges: [] };
+    const foundRange = { area: params.range.area, ranges: [] };
     Utils.spread.suspendPaint();
     let firstFind = true;
 
@@ -75,7 +75,7 @@ Utils.addCommand('find', function (params) {
             if (('ranges' in params.range) && (params.range.ranges.constructor === Array)) {
 
                 let searchInNextRange = true;
-                let searchCondition = new GC.Spread.Sheets.Search.SearchCondition();
+                const searchCondition = new GC.Spread.Sheets.Search.SearchCondition();
 
                 if ('order' in params) {
                     searchCondition.searchOrder = params.order;
@@ -103,7 +103,7 @@ Utils.addCommand('find', function (params) {
                 let regexString = '';
                 for (let i = 0; i < searchCondition.searchString.length; i++) {
 
-                    let c = searchCondition.searchString[i];
+                    const c = searchCondition.searchString[i];
 
                     if (((c >= 'a') && (c <= 'z'))
                         || ((c >= 'A') && (c <= 'A'))
@@ -136,18 +136,18 @@ Utils.addCommand('find', function (params) {
                     regexFlag += 'i';
                 }
 
-                let regexSearch = new RegExp(regexString, regexFlag);
+                const regexSearch = new RegExp(regexString, regexFlag);
 
                 params.range.ranges.forEach(range => {
 
-                    let instancesArray = [];
+                    const instancesArray = [];
 
                     Utils.getRanges(range, instancesArray);
 
                     instancesArray.forEach(instance => {
 
                         if (searchInNextRange) {
-                            let sheetIndex = Utils.spread.getSheetIndex(instance.sheet.name());
+                            const sheetIndex = Utils.spread.getSheetIndex(instance.sheet.name());
 
                             searchCondition.startSheetIndex = sheetIndex;
                             searchCondition.endSheetIndex = sheetIndex;
@@ -233,7 +233,7 @@ Utils.addCommand('find', function (params) {
                             if (searchInSameRange) {
                                 do {
 
-                                    let result = Utils.spread.search(searchCondition);
+                                    const result = Utils.spread.search(searchCondition);
 
                                     if (result.searchFoundFlag === GC.Spread.Sheets.Search.SearchFoundFlags.none) {
                                         searchInSameRange = false;
@@ -244,7 +244,7 @@ Utils.addCommand('find', function (params) {
                                         // do the replace
                                         if (replace != null) {
 
-                                            let cell = Utils.spread.getSheet(result.foundSheetIndex).getCell(result.foundRowIndex, result.foundColumnIndex);
+                                            const cell = Utils.spread.getSheet(result.foundSheetIndex).getCell(result.foundRowIndex, result.foundColumnIndex);
                                             let text;
 
                                             if ((result.searchFoundFlag & GC.Spread.Sheets.Search.SearchFoundFlags.cellText) != 0) {
@@ -253,7 +253,7 @@ Utils.addCommand('find', function (params) {
                                             }
 
                                             if ((result.searchFoundFlag & GC.Spread.Sheets.Search.SearchFoundFlags.cellFormula) != 0) {
-                                                let formula = cell.formula();
+                                                const formula = cell.formula();
                                                 if (formula != null) {
                                                     text = cell.formula().replace(regexSearch, replace);
                                                     cell.formula(text);

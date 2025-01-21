@@ -1,26 +1,26 @@
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 
 function _vp_do_callback(params) {
-  if (Utils.customFunctionsInProgress>0) {
+  if (Utils.customFunctionsInProgress > 0) {
     setTimeout(() => {
-      if(Utils.customFunctionsLog) {
+      if (Utils.customFunctionsLog) {
         console.log("Postpone callback after import/export:" + JSON.stringify(params));
-        if(Utils.customFunctionsLogStack) {
+        if (Utils.customFunctionsLogStack) {
           console.log(new Error().stack);
         }
       }
@@ -28,9 +28,9 @@ function _vp_do_callback(params) {
     }, 100);
   }
   else {
-    if(Utils.customFunctionsLog) {
+    if (Utils.customFunctionsLog) {
       console.log("_vp_do_callback:" + JSON.stringify(params));
-      if(Utils.customFunctionsLogStack) {
+      if (Utils.customFunctionsLogStack) {
           console.log(new Error().stack);
       }
     }
@@ -39,14 +39,14 @@ function _vp_do_callback(params) {
 }
 
 function _vp_callback(params) {
-  _vp_registerTaskAfterCommand(() => { 
+  _vp_registerTaskAfterCommand(() => {
     _vp_do_callback(params);
   });
 }
 
 Utils.addCommand('import-json', function (params) {
   Utils.currentDocument = {};
-  let doc = params.doc;
+  const doc = params.doc;
 
   if (doc.version) Utils.currentDocument.d4Version = doc.version;
   if (doc.dateCreation) Utils.currentDocument.d4DateCreation = doc.dateCreation;
@@ -72,7 +72,7 @@ Utils.addCommand('import-json', function (params) {
       Utils.currentSheet.name(sheetName);
     }
     _vp_callback(params);
-  } catch (e) { 
+  } catch (e) {
     params.error = e;
     _vp_callback(params);
     Utils.logEvent({ type: 'error-catched', data: e });
@@ -83,7 +83,7 @@ Utils.addCommand('import-json', function (params) {
 
 
 Utils.addCommand('import-sjs', function (params) {
-  var blob = Utils.b64ToBlob(params.content);
+  const blob = Utils.b64ToBlob(params.content);
 
   let options = {};
   if (params.sjsOptions != null)
@@ -102,7 +102,7 @@ Utils.addCommand('import-sjs', function (params) {
 
 Utils.addCommand('export-sjs', function (params) {
 
-  var options = {};
+  let options = {};
   if (('sjsOptions' in params) && (typeof (params.sjsOptions) === 'object')) {
     options = params.sjsOptions;
   }
@@ -113,7 +113,7 @@ Utils.addCommand('export-sjs', function (params) {
 
   Utils.spread.save(
     function (blob) {
-      var reader = new FileReader();
+      const reader = new FileReader();
       reader.onloadend = function () {
         params.content = reader.result.substr(reader.result.indexOf(',') + 1);
         _vp_callback(params);
@@ -129,15 +129,15 @@ Utils.addCommand('export-sjs', function (params) {
 });
 
 Utils.addCommand('export-json', function (params) {
-  let doc = {};
-  let document = Utils.currentDocument;
+  const doc = {};
+  const document = Utils.currentDocument;
 
   if (document.d4Version) doc.version = document.d4Version;
   if (document.d4DateCreation) doc.dateCreation = document.d4DateCreation;
   if (document.d4DateModified) doc.dateModified = document.d4DateModified;
   if (document.d4Meta) doc.meta = document.d4Meta;
 
-  let serializationOption = { includeBindingSource: true };
+  const serializationOption = { includeBindingSource: true };
 
   if (("valuesOnly" in params) && (typeof params.valuesOnly == "boolean"))
     serializationOption.ignoreFormula = params.valuesOnly;
@@ -161,10 +161,10 @@ Utils.addCommand('export-json', function (params) {
 
 Utils.addCommand('export-excel', function (params) {
 
-  let tabStripVisible = Utils.spread.options.tabStripVisible;
+  const tabStripVisible = Utils.spread.options.tabStripVisible;
   Utils.spread.options.tabStripVisible = true; // export with visible tabs
- 
-  let options = {};
+
+  const options = {};
   if (params["password"] != null)
     options.password = params.password;
 
@@ -182,14 +182,14 @@ Utils.addCommand('export-excel', function (params) {
       options.includeBindingSource = params.includeBindingSource;
 
     // apply all options from excelOptions
-    for (var key in params["excelOptions"] || {}) { // copy all not, filtering to not limit
+    for (const key in params["excelOptions"] || {}) { // copy all not, filtering to not limit
       options[key] = params["excelOptions"][key];
     }
 
     Utils.spread.save(
       function (blob) {
         Utils.spread.options.tabStripVisible = tabStripVisible;
-        var reader = new FileReader();
+        const reader = new FileReader();
         reader.onloadend = function () {
           params.content = reader.result.substr(reader.result.indexOf(',') + 1);
           _vp_callback(params);
@@ -205,20 +205,20 @@ Utils.addCommand('export-excel', function (params) {
     return;
   }
 
-  let serializationOption = {};
+  const serializationOption = {};
   if (params["valuesOnly"] != null)
     serializationOption.ignoreFormula = params.valuesOnly;
 
   if (params["includeBindingSource"] != null)
     serializationOption.includeBindingSource = params.includeBindingSource;
 
-  let json = Utils.spread.toJSON(serializationOption);
+  const json = Utils.spread.toJSON(serializationOption);
 
-  var excelIO = new GC.Spread.Excel.IO();
+  const excelIO = new GC.Spread.Excel.IO();
   excelIO.save(json,
     function (blob) {
       Utils.spread.options.tabStripVisible = tabStripVisible;
-      var reader = new FileReader();
+      const reader = new FileReader();
       reader.onloadend = function () {
         params.content = reader.result.substr(reader.result.indexOf(',') + 1);
         _vp_callback(params);
@@ -234,17 +234,17 @@ Utils.addCommand('export-excel', function (params) {
 });
 
 Utils.addCommand('import-excel', function (params) {
-  var blob = Utils.b64ToBlob(params.content);
+  const blob = Utils.b64ToBlob(params.content);
 
-  let options = {};
+  const options = {};
   if (params["password"] != null)
     options.password = params.password;
 
   if (!options.excelIO) {
 
     options.fileType = GC.Spread.Sheets.FileType.excel;
-  
-    for (var key in params["excelOptions"] || {}) { // copy all not, filtering to not limit
+
+    for (const key in params["excelOptions"] || {}) { // copy all not, filtering to not limit
       options[key] = params["excelOptions"][key];
     }
 
@@ -260,7 +260,7 @@ Utils.addCommand('import-excel', function (params) {
     return;
   }
 
-  var excelIO = new GC.Spread.Excel.IO();
+  const excelIO = new GC.Spread.Excel.IO();
   excelIO.open(blob,
     function (json) {
 
@@ -293,11 +293,11 @@ Utils.addCommand('import-excel', function (params) {
 });
 
 Utils.addCommand('export-csv', function (params) {
-  let doc = {};
+  const doc = {};
 
   if ('range' in params) {
     if (('ranges' in params.range) && (params.range.ranges.constructor === Array)) {
-      let instance = Utils.getFirstRange(params.range.ranges);
+      const instance = Utils.getFirstRange(params.range.ranges);
       if (instance != null) {
 
         let rowDelimiter = "\r\n";
@@ -327,7 +327,7 @@ Utils.addCommand('import-csv', function (params) {
 
   let instance = null;
 
-  let cvsOptions = params.cvsOptions || {};
+  const cvsOptions = params.cvsOptions || {};
 
   if (('range' in cvsOptions) && ('ranges' in cvsOptions.range) && (cvsOptions.range.ranges.constructor === Array)) {
     instance = Utils.getFirstRange(cvsOptions.range.ranges);
@@ -358,9 +358,9 @@ Utils.addCommand('import-csv', function (params) {
 
 
 Utils.addCommand('export-pdf', function (params) {
-  var sheetIndex = Utils.resolveSheetIndex(params.sheetIndex);
+  const sheetIndex = Utils.resolveSheetIndex(params.sheetIndex);
 
-  var options = null;
+  let options = null;
   if (('pdfOptions' in params) && (typeof (params.pdfOptions) === 'object')) {
     options = params.pdfOptions;
   }
@@ -368,7 +368,7 @@ Utils.addCommand('export-pdf', function (params) {
   Utils.computePdfFonts(sheetIndex, function () {
 
     Utils.spread.savePDF(function (blob) {
-      var reader = new FileReader();
+      const reader = new FileReader();
       reader.onloadend = function () {
         params.content = reader.result.substr(reader.result.indexOf(',') + 1);
         _vp_callback(params);
@@ -399,12 +399,12 @@ Utils.addCommand('register-pdf-fonts', function (params) {
 
 Utils.computePdfFonts = function (sheetIndex, callback) {
 
-  let json = Utils.spread.toJSON();
-  let fonts = {};
+  const json = Utils.spread.toJSON();
+  const fonts = {};
 
   function getFontFromHeaderOrFooter(sheet, name) {
     if (name in sheet.printInfo) {
-      let txt = sheet.printInfo[name];
+      const txt = sheet.printInfo[name];
       let i = 0;
       let bold = false;
       let italic = false;
@@ -433,8 +433,8 @@ Utils.computePdfFonts = function (sheetIndex, callback) {
     }
   }
 
-  for (var sheetName in json.sheets) {
-    let sheet = json.sheets[sheetName];
+  for (const sheetName in json.sheets) {
+    const sheet = json.sheets[sheetName];
     if ((sheetIndex == null) || (sheet.index == sheetIndex)) {
       if ('printInfo' in sheet) {
         getFontFromHeaderOrFooter(sheet, 'footerCenter');
@@ -445,11 +445,11 @@ Utils.computePdfFonts = function (sheetIndex, callback) {
         getFontFromHeaderOrFooter(sheet, 'headerRight');
       }
       if (('data' in sheet) && ('dataTable' in sheet.data)) {
-        let dataTable = sheet.data.dataTable;
-        let liveSheet = Utils.spread.getSheet(sheet.index);
-        for (var row in dataTable) {
-          for (var column in dataTable[row]) {
-            let liveCell = liveSheet.getCell(Number(row), Number(column));
+        const dataTable = sheet.data.dataTable;
+        const liveSheet = Utils.spread.getSheet(sheet.index);
+        for (const row in dataTable) {
+          for (const column in dataTable[row]) {
+            const liveCell = liveSheet.getCell(Number(row), Number(column));
             fonts[liveCell.font()] = "";
           }
         }
@@ -458,7 +458,7 @@ Utils.computePdfFonts = function (sheetIndex, callback) {
   }
 
   $4d._vp_computeFonts(fonts, function (toEmbed) {
-    for (var font in toEmbed) {
+    for (const font in toEmbed) {
       GC.Spread.Sheets.PDF.PDFFontsManager.registerFont(font, toEmbed[font]);
     }
     callback();
@@ -469,7 +469,7 @@ Utils.computePdfFonts = function (sheetIndex, callback) {
 // to allow to convert the document to SVG without messing with computing them outside SpreadJS
 Utils.addFormatedText = function (json) {
 
-  let formatterPool = {};
+  const formatterPool = {};
   let generalDateFormatter = null;
   let styleSheetPoolFormat = {};
   let cell = {};
@@ -477,19 +477,19 @@ Utils.addFormatedText = function (json) {
   let column = "";
   let sheet = null;
   let sheetIndex = 0;
-  let longDatePattern = GC.Spread.Common.CultureManager.getCultureInfo().DateTimeFormat.defaultDatePattern;
-  let shortDatePattern = GC.Spread.Common.CultureManager.getCultureInfo().DateTimeFormat.shortDatePattern;
+  const longDatePattern = GC.Spread.Common.CultureManager.getCultureInfo().DateTimeFormat.defaultDatePattern;
+  const shortDatePattern = GC.Spread.Common.CultureManager.getCultureInfo().DateTimeFormat.shortDatePattern;
 
   // _WordWrapHelper // SPREADJS_MIN
-  var _WordWrapHelper = GC.Spread.Sheets.q || GC.Spread.Sheets._WordWrapHelper;
-  var _getWrapInfo = _WordWrapHelper.un || _WordWrapHelper._getWrapInfo;
-  var _SJSGetWordWrapInfo = _WordWrapHelper.Ht || _WordWrapHelper._getWordWrapInfo;
-  var _getCtx = _WordWrapHelper.J || _WordWrapHelper._getCtx;
+  const _WordWrapHelper = GC.Spread.Sheets.q || GC.Spread.Sheets._WordWrapHelper;
+  const _getWrapInfo = _WordWrapHelper.un || _WordWrapHelper._getWrapInfo;
+  const _SJSGetWordWrapInfo = _WordWrapHelper.Ht || _WordWrapHelper._getWordWrapInfo;
+  const _getCtx = _WordWrapHelper.J || _WordWrapHelper._getCtx;
 
-  var _getFontHeight = GC.Spread.Sheets.util.vt || GC.Spread.Sheets.util._getFontHeight;
-  var _getFontObject = GC.Spread.Sheets.util._0 || GC.Spread.Sheets.util._getFontObject;
-  var _measureTextWidth = GC.Spread.Sheets.util.Mt || GC.Spread.Sheets.util._measureTextWidth;
-  var _setContextFont = GC.Spread.Sheets.util.bt || GC.Spread.Sheets.util._setContextFont;
+  const _getFontHeight = GC.Spread.Sheets.util.vt || GC.Spread.Sheets.util._getFontHeight;
+  const _getFontObject = GC.Spread.Sheets.util._0 || GC.Spread.Sheets.util._getFontObject;
+  const _measureTextWidth = GC.Spread.Sheets.util.Mt || GC.Spread.Sheets.util._measureTextWidth;
+  const _setContextFont = GC.Spread.Sheets.util.bt || GC.Spread.Sheets.util._setContextFont;
 
 
   let wordWrap = null;
@@ -497,7 +497,7 @@ Utils.addFormatedText = function (json) {
   let textOrientation = null;
   let rowHeight = 20;
   let columnWidth = 60;
-  let ctx = _getCtx();
+  const ctx = _getCtx();
   let cellPadding = null;
   let isVerticalText = null;
   let textIndent = null;
@@ -517,7 +517,7 @@ Utils.addFormatedText = function (json) {
       val = Utils.spread.getSheet(sheetIndex).getCell(row, column).value();
       if (format === 'General') {
         if (generalDateFormatter == null) {
-          let culture = GC.Spread.Common.CultureManager.getCultureInfo();
+          const culture = GC.Spread.Common.CultureManager.getCultureInfo();
           generalDateFormatter = new GC.Spread.Formatter.GeneralFormatter(culture.DateTimeFormat.shortDatePattern);
         }
         formatter = generalDateFormatter;
@@ -526,9 +526,9 @@ Utils.addFormatedText = function (json) {
       val = cell.value;
     }
 
-    let formatInfo = {};
-    let formated = formatter.format(val, formatInfo);
-    let result = {};
+    const formatInfo = {};
+    const formated = formatter.format(val, formatInfo);
+    const result = {};
 
     if (typeof (formatInfo) == 'object') {
       if ('conditionalForeColor' in formatInfo) {
@@ -562,7 +562,7 @@ Utils.addFormatedText = function (json) {
     }
 
     if ('spans' in sheet) {
-      for (let span in sheet.spans) {
+      for (const span in sheet.spans) {
         if (sheet.spans[span].row == row && sheet.spans[span].col == column) {
           for (let index = sheet.spans[span].row + 1; index <= sheet.spans[span].row + sheet.spans[span].rowCount - 1; ++index) {
             if (sheet.rows != null && sheet.rows[index] != null && 'size' in sheet.rows[index]) {
@@ -582,7 +582,7 @@ Utils.addFormatedText = function (json) {
     }
 
     if ('spans' in sheet) {
-      for (let span in sheet.spans) {
+      for (const span in sheet.spans) {
         if (sheet.spans[span].row == row && sheet.spans[span].col == column) {
           for (let index = sheet.spans[span].col + 1; index <= sheet.spans[span].col + sheet.spans[span].colCount - 1; ++index) {
             if (sheet.columns != null && sheet.columns[index] != null && 'size' in sheet.columns[index]) {
@@ -597,11 +597,11 @@ Utils.addFormatedText = function (json) {
     }
 
     if (cellPadding != null) {
-      var paddingArray = cellPadding.split(" ");
-      var topPadding = 0;
-      var bottomPadding = 0;
-      var leftPadding = 0;
-      var rightPadding = 0;
+      const paddingArray = cellPadding.split(" ");
+      let topPadding = 0;
+      let bottomPadding = 0;
+      let leftPadding = 0;
+      let rightPadding = 0;
 
       if (paddingArray.length == 1) {
         topPadding = parseInt(cellPadding);
@@ -638,22 +638,22 @@ Utils.addFormatedText = function (json) {
       font = "11pt Calibri";
     }
 
-    let fontObj = _getFontObject(font);
+    const fontObj = _getFontObject(font);
 
-    let textHeight = _convertUnitToPx(fontObj.fontSize);
+    const textHeight = _convertUnitToPx(fontObj.fontSize);
 
-    let lineHeight = _getFontHeight(font);
+    const lineHeight = _getFontHeight(font);
 
     if (textOrientation != null && textOrientation != 0) {
-      let textOrientationRadian = textOrientation * Math.PI / 180;
+      const textOrientationRadian = textOrientation * Math.PI / 180;
 
-      let abstextOrientationRadian = Math.abs(textOrientationRadian);
+      const abstextOrientationRadian = Math.abs(textOrientationRadian);
 
-      let lineSizeCosAdj = (textHeight / 2) * Math.cos(abstextOrientationRadian);
+      const lineSizeCosAdj = (textHeight / 2) * Math.cos(abstextOrientationRadian);
 
-      let sintextOrientation = Math.sin(abstextOrientationRadian);
+      const sintextOrientation = Math.sin(abstextOrientationRadian);
 
-      let costextOrientation = Math.cos(abstextOrientationRadian);
+      const costextOrientation = Math.cos(abstextOrientationRadian);
 
       //wordWrapWidth = _getRotateTextWordWrapWidth(row, column, sintextOrientation, costextOrientation, text, font, rowHeight);
       wordWrapWidth = (rowHeight - 4 - 2 * lineSizeCosAdj) / sintextOrientation;
@@ -670,7 +670,7 @@ Utils.addFormatedText = function (json) {
     if (wordWrapWidth <= isVerticalText ? text.length * lineHeight : _measureTextWidth(ctx, ctx.font, text)) {
       let lines;
 
-      let richText = [{
+      const richText = [{
         style: {
           font: font
         },
@@ -715,7 +715,7 @@ Utils.addFormatedText = function (json) {
         lines = _getWrapInfo(text, wordWrapWidth, font, false, ctx);
       }
 
-      let result = {};
+      const result = {};
 
       result.lines = [];
 
@@ -723,7 +723,7 @@ Utils.addFormatedText = function (json) {
 
       let biggestLineWidth = 0;
 
-      for (let line in lines) {
+      for (const line in lines) {
         result.lines[line] = { text: lines[line], width: _measureTextWidth(ctx, ctx.font, lines[line]) };
         if (result.lines[line].width > biggestLineWidth) {
           biggestLineWidth = result.lines[line].width;
@@ -821,7 +821,7 @@ Utils.addFormatedText = function (json) {
     if (name in sheet.data) {
       if (sheet.data[name].constructor == Array) {
         if (value < sheet.data[name].length) {
-          let aStyle = sheet.data[name][value];
+          const aStyle = sheet.data[name][value];
           if (typeof aStyle === 'object') {
             if ('style' in aStyle) {
               if (typeof aStyle.style === 'string') {
@@ -844,7 +844,7 @@ Utils.addFormatedText = function (json) {
     if (name in sheet.data) {
       if (sheet.data[name].constructor == Array) {
         if (value < sheet.data[name].length) {
-          let aStyle = sheet.data[name][value];
+          const aStyle = sheet.data[name][value];
           if (typeof aStyle === 'object') {
             if ('style' in aStyle) {
               if (typeof aStyle.style === 'string') {
@@ -932,7 +932,7 @@ Utils.addFormatedText = function (json) {
     return converted;
   }
 
-  for (let sheetName in json.sheets) {
+  for (const sheetName in json.sheets) {
     sheet = json.sheets[sheetName];
     styleSheetPoolFormat = {};
     if (('data' in sheet) && ('dataTable' in sheet.data)) {
@@ -985,30 +985,30 @@ Utils.addFormatedText = function (json) {
           }
         }
 
-      let dataTable = sheet.data.dataTable;
+      const dataTable = sheet.data.dataTable;
       for (row in dataTable) {
 
-        let rowFormatter = _getRowColumnFormatter('rowDataArray', row);
+        const rowFormatter = _getRowColumnFormatter('rowDataArray', row);
 
-        let rowWordWrap = _getRowColumnPropertie('rowDataArray', row, 'wordWrap');
-        let rowFont = _getRowColumnPropertie('rowDataArray', row, 'font');
-        let rowTextOrientation = _getRowColumnPropertie('rowDataArray', row, 'textOrientation');
-        let rowCellPadding = _getRowColumnPropertie('rowDataArray', row, 'cellPadding');
-        let rowIsVerticalText = _getRowColumnPropertie('rowDataArray', row, 'isVerticalText');
-        let rowTextIndent = _getRowColumnPropertie('rowDataArray', row, 'textIndent');
-        let rowVAlign = _getRowColumnPropertie('rowDataArray', row, 'vAlign');
+        const rowWordWrap = _getRowColumnPropertie('rowDataArray', row, 'wordWrap');
+        const rowFont = _getRowColumnPropertie('rowDataArray', row, 'font');
+        const rowTextOrientation = _getRowColumnPropertie('rowDataArray', row, 'textOrientation');
+        const rowCellPadding = _getRowColumnPropertie('rowDataArray', row, 'cellPadding');
+        const rowIsVerticalText = _getRowColumnPropertie('rowDataArray', row, 'isVerticalText');
+        const rowTextIndent = _getRowColumnPropertie('rowDataArray', row, 'textIndent');
+        const rowVAlign = _getRowColumnPropertie('rowDataArray', row, 'vAlign');
 
         for (column in dataTable[row]) {
 
-          let columnFormatter = _getRowColumnFormatter('columnDataArray', column);
+          const columnFormatter = _getRowColumnFormatter('columnDataArray', column);
 
-          let columnWordWrap = _getRowColumnPropertie('columnDataArray', column, 'wordWrap');
-          let columnFont = _getRowColumnPropertie('columnDataArray', column, 'font');
-          let columnTextOrientation = _getRowColumnPropertie('columnDataArray', column, 'textOrientation');
-          let columnCellPadding = _getRowColumnPropertie('columnDataArray', column, 'cellPadding');
-          let columnIsVerticalText = _getRowColumnPropertie('columnDataArray', column, 'isVerticalText');
-          let columnTextIndent = _getRowColumnPropertie('columnDataArray', column, 'textIndent');
-          let columnVAlign = _getRowColumnPropertie('columnDataArray', column, 'vAlign');
+          const columnWordWrap = _getRowColumnPropertie('columnDataArray', column, 'wordWrap');
+          const columnFont = _getRowColumnPropertie('columnDataArray', column, 'font');
+          const columnTextOrientation = _getRowColumnPropertie('columnDataArray', column, 'textOrientation');
+          const columnCellPadding = _getRowColumnPropertie('columnDataArray', column, 'cellPadding');
+          const columnIsVerticalText = _getRowColumnPropertie('columnDataArray', column, 'isVerticalText');
+          const columnTextIndent = _getRowColumnPropertie('columnDataArray', column, 'textIndent');
+          const columnVAlign = _getRowColumnPropertie('columnDataArray', column, 'vAlign');
 
           cell = dataTable[row][column];
           if ('value' in cell) {
@@ -1061,9 +1061,9 @@ Utils.addFormatedText = function (json) {
                   }
                 }
               } else if (typeof cell.style == 'string') {
-                // this is a very particular case where the style is not an object 
+                // this is a very particular case where the style is not an object
                 // but a string that contains the name of the stylesheet
-                let styleName = cell.style;
+                const styleName = cell.style;
                 cell.style = { 'parentName': styleName };
                 formatter = _handleStyleSheetFormatter(styleName, true);
                 if (formatter != null) {

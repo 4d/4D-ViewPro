@@ -1,28 +1,28 @@
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 
 (function () {
     Utils.addCommand('add-range-name', function (params) {
 
-        let formula = rangesToFormula(params.ranges);
-        let scope = Utils.resolveSheetOrWorkbook(params.options.scope);
+        const formula = rangesToFormula(params.ranges);
+        const scope = Utils.resolveSheetOrWorkbook(params.options.scope);
 
         if ((formula.length > 0) && (scope != null)) {
-            var customName = scope.getCustomName(params.name);
+            const customName = scope.getCustomName(params.name);
             if (customName != null)
                 customName.set(null, formula, 0, 0, params.options.comment);
             else
@@ -32,19 +32,19 @@
 
     Utils.addCommand('add-formula-name', function (params) {
 
-        let scope = Utils.resolveSheetOrWorkbook(params.options.scope);
+        const scope = Utils.resolveSheetOrWorkbook(params.options.scope);
 
         if ((params.formula.length > 0) && (scope != null))
             scope.addCustomName(params.name, params.formula, params.options.baseRow, params.options.baseColumn, params.options.comment);
     });
 
     Utils.addCommand('get-names', function (params) {
-        let ret = { collection: [] };
-        let scope = Utils.resolveSheetOrWorkbook(params.scope);
+        const ret = { collection: [] };
+        const scope = Utils.resolveSheetOrWorkbook(params.scope);
 
         if (scope != null) {
 
-            let nameInfos = scope.getCustomNames();
+            const nameInfos = scope.getCustomNames();
 
             if (nameInfos != null) {
                 ret.collection = nameInfos.map(nameInfo => {
@@ -62,10 +62,10 @@
     Utils.addCommand('get-formula-by-name', function (params) {
         let ret = {};
 
-        let scope = Utils.resolveSheetOrWorkbook(params.scope);
+        const scope = Utils.resolveSheetOrWorkbook(params.scope);
 
         if (scope != null) {
-            let nameInfo = scope.getCustomName(params.name);
+            const nameInfo = scope.getCustomName(params.name);
 
             if (nameInfo != null)
                 ret = {
@@ -80,7 +80,7 @@
 
     Utils.addCommand('remove-name', function (params) {
 
-        let scope = Utils.resolveSheetOrWorkbook(params.scope);
+        const scope = Utils.resolveSheetOrWorkbook(params.scope);
 
         if (scope != null) {
             scope.removeCustomName(params.name);
@@ -99,7 +99,7 @@
 
         function getSheetName(sheetIndex) {
             let sheetName = '';
-            let sheet = Utils.resolveSheet(sheetIndex);
+            const sheet = Utils.resolveSheet(sheetIndex);
 
             if (sheet != null)
                 sheetName = sheet.name();
@@ -113,12 +113,12 @@
         ranges.forEach(function (range) {
             let rangeExpression = '';
 
-            let hasRow = ('row' in range) && (typeof (range.row) === 'number');
-            let hasColumn = ('column' in range) && (typeof (range.column) === 'number');
-            let hasRowCount = ('rowCount' in range) && (typeof (range.rowCount) === 'number');
-            let hasColumnCount = ('columnCount' in range) && (typeof (range.columnCount) === 'number');
-            let hasSheet = ('sheet' in range) && (typeof (range.sheet) === 'number');
-            let hasName = ("name" in range) && (typeof (range.name) === 'string');
+            const hasRow = ('row' in range) && (typeof (range.row) === 'number');
+            const hasColumn = ('column' in range) && (typeof (range.column) === 'number');
+            const hasRowCount = ('rowCount' in range) && (typeof (range.rowCount) === 'number');
+            const hasColumnCount = ('columnCount' in range) && (typeof (range.columnCount) === 'number');
+            const hasSheet = ('sheet' in range) && (typeof (range.sheet) === 'number');
+            const hasName = ("name" in range) && (typeof (range.name) === 'string');
 
             if (hasName) {
                 // === name
@@ -129,8 +129,8 @@
                 rangeExpression = getCellExpression(range.column, range.row);
             } else if (hasRow && hasColumn && hasRowCount && hasColumnCount) {
                 // === range
-                let rightColumn = range.column + range.columnCount - 1;
-                let rightRow = range.row + range.rowCount - 1;
+                const rightColumn = range.column + range.columnCount - 1;
+                const rightRow = range.row + range.rowCount - 1;
                 rangeExpression = getCellExpression(range.column, range.row) + ':' + getCellExpression(rightColumn, rightRow);
             } else if (hasRow && hasRowCount && !hasColumn && !hasColumnCount) {
                 // === row

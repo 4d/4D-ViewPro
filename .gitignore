@@ -2,6 +2,7 @@
 .*
 !.gitignore
 !.gitattributes
+!.eslintrc.js
 
 #--------------------------------
 # Ignore data file

@@ -1,10 +1,10 @@
 class customDesignerFunctions { }
 
 customDesignerFunctions.saveAs = function (blob, fileName, allowAll) {
-  var reader = new FileReader();
+  const reader = new FileReader();
   reader.readAsDataURL(blob);
   reader.onloadend = function () {
-    let content = reader.result.substr(reader.result.indexOf(',') + 1);
+    const content = reader.result.substr(reader.result.indexOf(',') + 1);
     $4d._vp_saveFile(content, fileName, allowAll, function (ret, err) { });
   };
 };
@@ -14,20 +14,20 @@ customDesignerFunctions.computePdfFonts = function (sheetIndex, callback) {
 };
 
 customDesignerFunctions.localizedCommandList = function (list) {
-  if(list == null) {
+  if (list == null) {
     console.log("Passed command list is empty");
     console.log(new Error().stack);
     return null;
   }
-  if(typeof list === 'function') {
+  if (typeof list === 'function') {
     console.log("Passed command list is a function instead of Array. Please fix. (Function will be called)");
     console.log(new Error().stack);
-    list=list();
+    list = list();
   }
-  let mapping = GC.Spread.CalcEngine.getMapping();
+  const mapping = GC.Spread.CalcEngine.getMapping();
 
   if (mapping != null) {
-    let mapper = mapping.builtInFunctionsMapping;
+    const mapper = mapping.builtInFunctionsMapping;
 
     list.forEach(i => {
       if ((i.value in mapper) && ('alias' in mapper[i.value])) {
@@ -44,12 +44,12 @@ customDesignerFunctions.localizedCommandList = function (list) {
 };
 
 customDesignerFunctions.localizedCommandName = function (name, lower) {
-  let mapping = GC.Spread.CalcEngine.getMapping();
+  const mapping = GC.Spread.CalcEngine.getMapping();
 
   name = name.toUpperCase();
 
   if (mapping != null) {
-    let mapper = mapping.builtInFunctionsMapping;
+    const mapper = mapping.builtInFunctionsMapping;
 
     if (name in mapper) {
       name = mapper[name].alias;
@@ -72,9 +72,9 @@ customDesignerFunctions.spreadFrom4vp = function (data) {
 
 customDesignerFunctions.spreadTo4vp = function (data) {
   Utils.addFormatedText(data);
-  var vpFile = {};
+  const vpFile = {};
   vpFile.version = 1;
-  var d = new Date;
+  const d = new Date;
   vpFile.dateCreation = d.toISOString();
   vpFile.dateModified = d.toISOString();
   vpFile.spreadJS = data;
@@ -82,7 +82,7 @@ customDesignerFunctions.spreadTo4vp = function (data) {
 };
 
 customDesignerFunctions.notifyReady = function () {
-  let loaders = document.getElementsByClassName("loading-placeholder");
+  const loaders = document.getElementsByClassName("loading-placeholder");
   loaders[0].hidden = true;
   loaders[1].hidden = true;
   designerReady = true;
@@ -95,7 +95,7 @@ customDesignerFunctions.initEvents = function (newSpread) {
 };
 
 customDesignerFunctions.getCustomFunctionsList = function () {
-  let list = Utils.customFunctionNames;
+  const list = Utils.customFunctionNames;
   list.sort();
   return list.map(r => {
     return {
@@ -111,7 +111,7 @@ customDesignerFunctions.fillWithArraySystemFonts = function () {
 
 customDesignerFunctions.fillWithTruncatedArraySystemFonts = function () {
   return vp_fonts.map(val => {
-    let value = val.replace(/"/g, '');
+    const value = val.replace(/"/g, '');
     return { text: value, value: val };
   });
 };

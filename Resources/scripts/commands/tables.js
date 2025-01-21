@@ -1,31 +1,31 @@
 
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 
 (function () {
 
-    var stripSizeArray = [
+    const stripSizeArray = [
         "firstColumnStripSize",
         "firstRowStripSize",
         "secondColumnStripSize",
         "secondRowStripSize"
     ];
 
-    var stripStyleArray = [
+    const stripStyleArray = [
         "firstColumnStripStyle",
         "firstFooterCellStyle",
         "firstHeaderCellStyle",
@@ -41,13 +41,13 @@
         "wholeTableStyle"
     ];
 
-    var styleAttributesArray = [
+    const styleAttributesArray = [
         "backColor",
         "foreColor",
         "font"
     ];
 
-    var bordersArray = [
+    const bordersArray = [
         "borderBottom",
         "borderTop",
         "borderLeft",
@@ -57,7 +57,7 @@
     ];
 
     function getTheme(gcTheme) {
-        let theme = {};
+        const theme = {};
 
         stripSizeArray.forEach(function (size) {
 
@@ -68,11 +68,11 @@
 
         stripStyleArray.forEach(styleName => {
 
-            let gcStyle = gcTheme[styleName]();
+            const gcStyle = gcTheme[styleName]();
 
             if (gcStyle != undefined) {
 
-                let style = {};
+                const style = {};
 
                 styleAttributesArray.forEach(attributeName => {
                     if (gcStyle[attributeName] != undefined) {
@@ -86,7 +86,7 @@
 
                 bordersArray.forEach(borderName => {
                     if (gcStyle[borderName] != undefined) {
-                        let border = {};
+                        const border = {};
                         if (gcStyle[borderName].color != undefined) {
                             border.color = gcStyle[borderName].color;
                         }
@@ -112,7 +112,7 @@
 
         if (typeof theme === 'string') {
 
-            let themeNames = [];
+            const themeNames = [];
 
             [
                 { name: 'dark', limit: 11 },
@@ -142,9 +142,9 @@
 
                 if ((styleName in theme) && (typeof theme[styleName] === "object")) {
 
-                    let style = theme[styleName];
+                    const style = theme[styleName];
 
-                    let tableStyle = new GC.Spread.Sheets.Tables.TableStyle();
+                    const tableStyle = new GC.Spread.Sheets.Tables.TableStyle();
 
                     styleAttributesArray.forEach(attributeName => {
                         if ((attributeName in style) && (typeof style[attributeName] === "string")) {
@@ -158,7 +158,7 @@
 
                     bordersArray.forEach(borderName => {
                         if ((borderName in style) && (typeof style[borderName] === "object")) {
-                            let border = new GC.Spread.Sheets.LineBorder;
+                            const border = new GC.Spread.Sheets.LineBorder;
                             if (("color" in style[borderName]) && (typeof style[borderName].color === "string")) {
                                 border.color = style[borderName].color;
                             }
@@ -181,9 +181,9 @@
 
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
-            let i = Utils.getFirstRange(params.ranges);
+            const i = Utils.getFirstRange(params.ranges);
 
-            let options = {};
+            const options = {};
             let columns = [];
             let setAllowAutoExpand = false;
             let minHeight = 1;
@@ -254,15 +254,15 @@
                     i.rowCount = minHeight;
                 }
 
-                let table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
-                let tryToGetAutoCreatedColumn = Utils._tryToGetAutoCreatedColumn;
+                const table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
+                const tryToGetAutoCreatedColumn = Utils._tryToGetAutoCreatedColumn;
                 if (table != null) {
                     if (columns.length > 0) {
-                        let tableColumns = [];
-                        var index = 0;
+                        const tableColumns = [];
+                        let index = 0;
                         columns.forEach(column => {
-                            var tableColumn = new GC.Spread.Sheets.Tables.TableColumn(index + 1);
-                            if(tryToGetAutoCreatedColumn) {
+                            let tableColumn = new GC.Spread.Sheets.Tables.TableColumn(index + 1);
+                            if (tryToGetAutoCreatedColumn) {
                                 tableColumn = table.getColumn(tableColumn.name()) || tableColumn;
                             }
                             if (typeof (column) === 'object') {
@@ -280,7 +280,7 @@
                                 }
                             }
                             tableColumns.push(tableColumn);
-                            index+=1;
+                            index += 1;
                         });
                         table.autoGenerateColumns(false);
                         table.bindColumns(tableColumns);
@@ -288,7 +288,7 @@
                         columns.forEach(column => {
                             table.setColumnName(index, column.name + index.toString()); // force rename propagation
                             table.setColumnName(index, column.name);
-                            index+=1;
+                            index += 1;
                         });
                     }
                     if ((params.source == null) || (typeof params.source === 'string')) {
@@ -317,10 +317,10 @@
 
     Utils.addCommand('remove-table', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
+        const sheet = Utils.resolveSheet(params.sheet);
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
                 sheet.tables.remove(table, params.options);
             }
@@ -330,11 +330,11 @@
 
     Utils.addCommand('get-tables', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
-        let ret = { collection: [] };
+        const sheet = Utils.resolveSheet(params.sheet);
+        const ret = { collection: [] };
 
         if (sheet != null) {
-            let arr = sheet.tables.all();
+            const arr = sheet.tables.all();
             for (let i = 0; i < arr.length; i++) {
                 ret.collection.push(arr[i].name());
             }
@@ -345,10 +345,10 @@
 
     Utils.addCommand('insert-table-rows', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
+        const sheet = Utils.resolveSheet(params.sheet);
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
                 table.insertRows(params.row, params.count, params.isInsertAfter);
             }
@@ -358,10 +358,10 @@
 
     Utils.addCommand('insert-table-columns', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
+        const sheet = Utils.resolveSheet(params.sheet);
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
                 table.insertColumns(params.column, params.count, params.isInsertAfter);
             }
@@ -372,10 +372,10 @@
 
     Utils.addCommand('remove-table-rows', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
+        const sheet = Utils.resolveSheet(params.sheet);
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
                 table.deleteRows(params.row, params.count);
             }
@@ -385,10 +385,10 @@
 
     Utils.addCommand('remove-table-columns', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
+        const sheet = Utils.resolveSheet(params.sheet);
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
                  table.deleteColumns(params.column, params.count);
              }
@@ -399,9 +399,9 @@
 
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
-            let i = Utils.getFirstRange(params.ranges);
+            const i = Utils.getFirstRange(params.ranges);
 
-            let table = i.sheet.tables.findByName(params.name);
+            const table = i.sheet.tables.findByName(params.name);
             if (table != null) {
                 i.sheet.tables.resize(table, new GC.Spread.Sheets.Range(i.row, i.column, i.rowCount, i.columnCount));
             }
@@ -410,11 +410,11 @@
 
     Utils.addCommand('get-table-range', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
-        let result = { row: 0, column: 0, rowCount: 0, columnCount: 0 };
+        const sheet = Utils.resolveSheet(params.sheet);
+        const result = { row: 0, column: 0, rowCount: 0, columnCount: 0 };
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
                 let r = {};
                 if (params.onlyData) {
@@ -433,13 +433,13 @@
 
 
     Utils.addCommand('find-table', function (params) {
-        let ret = { table: '' };
+        const ret = { table: '' };
 
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
-            let i = Utils.getFirstRange(params.ranges);
+            const i = Utils.getFirstRange(params.ranges);
 
-            let table = i.sheet.tables.find(i.row, i.column);
+            const table = i.sheet.tables.find(i.row, i.column);
             if (table != null) {
                 ret.table = table.name();
             }
@@ -450,13 +450,13 @@
 
     Utils.addCommand('set-table-column-attributes', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
+        const sheet = Utils.resolveSheet(params.sheet);
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
-                let index = params.index;
-                let attributes = params.attributes;
+                const index = params.index;
+                const attributes = params.attributes;
                 if (typeof (attributes) === 'object') {
                     if (('name' in attributes) && (typeof attributes.name === 'string')) {
                         table.setColumnName(index, attributes.name);
@@ -486,14 +486,14 @@
 
     Utils.addCommand('get-table-column-attributes', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
+        const sheet = Utils.resolveSheet(params.sheet);
         let attributes = null;
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
-                let index = params.index;
-                let range = table.range();
+                const index = params.index;
+                const range = table.range();
                 if ((index >= 0) && (index < range.colCount)) {
                     attributes = {
                         name: table.getColumnName(index),
@@ -511,11 +511,11 @@
 
     Utils.addCommand('get-table-column-index', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
-        let ret = { index: -1 };
+        const sheet = Utils.resolveSheet(params.sheet);
+        const ret = { index: -1 };
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
                 ret.index = table.getColumnIndexInTable(params.column);
             }
@@ -525,11 +525,11 @@
 
     Utils.addCommand('get-table-dirty-rows', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
-        let ret = { dirtyRows: null };
+        const sheet = Utils.resolveSheet(params.sheet);
+        const ret = { dirtyRows: null };
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
                 ret.dirtyRows = table.getDirtyRows();
                 if (params.reset) {
@@ -543,10 +543,10 @@
 
     Utils.addCommand('set-table-theme', function (params) {
 
-        let sheet = Utils.resolveSheet(params.sheet);
+        const sheet = Utils.resolveSheet(params.sheet);
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
 
                 if (('bandColumns' in params.theme) && (typeof params.theme.bandColumns === 'boolean')) {
@@ -570,7 +570,7 @@
                         (typeof params.theme.theme === 'object')
                         || (typeof params.theme.theme === 'string')
                     )) {
-                    let tableTheme = buildTheme(params.theme.theme);
+                    const tableTheme = buildTheme(params.theme.theme);
                     table.style(tableTheme);
                 }
             }
@@ -582,10 +582,10 @@
 
         let ret = null;
 
-        let sheet = Utils.resolveSheet(params.sheet);
+        const sheet = Utils.resolveSheet(params.sheet);
 
         if (sheet != null) {
-            let table = sheet.tables.findByName(params.name);
+            const table = sheet.tables.findByName(params.name);
             if (table != null) {
 
                 ret = {

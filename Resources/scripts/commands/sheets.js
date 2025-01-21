@@ -1,23 +1,23 @@
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 
 (function () {
 
-    let optionsAttributes = [
+    const optionsAttributes = [
         'allowCellOverflow',
         'sheetTabColor',
         'frozenlineColor',
@@ -33,13 +33,13 @@
         'selectionBorderColor'
     ];
 
-    let gridlineAttributes = [
+    const gridlineAttributes = [
         'color',
         'showVerticalGridline',
         'showHorizontalGridline'
     ];
 
-    let protectionOptionsAttributes = [
+    const protectionOptionsAttributes = [
         'allowSelectLockedCells',
         'allowSelectUnlockedCells',
         'allowSort',
@@ -55,13 +55,13 @@
         'allowDeleteColumns'
     ];
 
-    let sheetAreaOffsetAttributes = [
+    const sheetAreaOffsetAttributes = [
         'left',
         'top'
     ];
 
     Utils.addCommand('set-sheet-options', function (params) {
-        let sheet = Utils.resolveSheet(params.index);
+        const sheet = Utils.resolveSheet(params.index);
 
         if (sheet != null) {
 
@@ -107,8 +107,8 @@
     });
 
     Utils.addCommand('get-sheet-options', function (params) {
-        let sheet = Utils.resolveSheet(params.index);
-        let ret = {};
+        const sheet = Utils.resolveSheet(params.index);
+        const ret = {};
 
         if (sheet != null) {
             optionsAttributes.forEach(attribute => {
@@ -117,7 +117,7 @@
 
             function getSubOptions(ar, name) {
                 ret[name] = {};
-                let val = sheet.options[name];
+                const val = sheet.options[name];
                 ar.forEach(attribute => {
                     if (attribute in val) {
                         ret[name][attribute] = sheet.options[name][attribute];
@@ -146,7 +146,7 @@
     });
 
     Utils.addCommand('get-sheet-index', function (params) {
-        let index = Utils.spread.getSheetIndex(params.name);      
+        const index = Utils.spread.getSheetIndex(params.name);
         return { "result": (index == null) ? -1 : index };
     });
 
@@ -164,7 +164,7 @@
     });
 
     Utils.addCommand('remove-sheet', function (params) {
-        let index = Utils.resolveSheetIndex(params.index);
+        const index = Utils.resolveSheetIndex(params.index);
 
         if (index != null)
             Utils.spread.removeSheet(index);
@@ -175,21 +175,21 @@
     });
 
     Utils.addCommand('set-current-sheet', function (params) {
-        let index = Utils.resolveSheetIndex(params.index);
+        const index = Utils.resolveSheetIndex(params.index);
 
         if (index != null)
             Utils.spread.setActiveSheetIndex(index);
     });
 
     Utils.addCommand('set-start-sheet', function (params) {
-        let index = Utils.resolveSheetIndex(params.index);
+        const index = Utils.resolveSheetIndex(params.index);
 
         if (index != null)
             Utils.spread.startSheetIndex(index);
     });
 
     Utils.addCommand('get-sheet-name', function (params) {
-        let sheet = Utils.resolveSheet(params.index);
+        const sheet = Utils.resolveSheet(params.index);
         let name = '';
 
         if (sheet != null)
@@ -199,7 +199,7 @@
     });
 
     Utils.addCommand('set-sheet-name', function (params) {
-        let sheet = Utils.resolveSheet(params.index);
+        const sheet = Utils.resolveSheet(params.index);
 
         if (sheet != null)
             sheet.name(params.name);

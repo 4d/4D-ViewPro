@@ -1,35 +1,35 @@
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 
 /**
  * Globals
- * 
+ *
  * /!\ Try not to add new globals unless really necessary
  * If using `Utils` is enough to do what you need to do
  * prefer using it over directly interacting with the global.
  * This leaves room for future evolution.
- * 
+ *
  * Examples:
- * 
+ *
  * - `Utils.getCommand(commandName)` -> get a command from `Commands`
  * - `Utils.addCommand(commandName, commandHandler)` -> add a new command to `Commands`
  * - `Utils.currentDocument` -> a reference to the current document object
  * - `Utils.spread` -> a reference to the `spread` global object
- * 
+ *
  * See `utils.js` for more.
  */
 
@@ -37,15 +37,15 @@
  * `var` used instead of `let` so the 4D code inside of the View Pro component
  * continues to work. When `let` is used the variable `spread` won't be
  * accessible via `window.spread`.
- * Try not to use `var`. 
+ * Try not to use `var`.
  */
-var spread;
-var useRibbon = false;
-var useToolbar = false;
-var designerReady = false;
+let spread;
+let useRibbon = false;
+let useToolbar = false;
+let designerReady = false; // eslint-disable-line prefer-const
 
-let currentDocument = {};
-let Commands = {};
+let currentDocument = {}; // eslint-disable-line prefer-const
+const Commands = {};
 
 function hideSpreadJSElements() {
     try {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //Create a spreadsheet
     hideSpreadJSElements();
     $4d._vp_init(function (obj, err) {
-        let options = obj.options || {};
+        const options = obj.options || {};
         GC.Spread.Sheets.LicenseKey = obj.licenseKey;
         if (options.userInterface === 'none') {
             obj.options.tabStripVisible = false;
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function createZone(options) {
             if (options.withFormulaBar) {
-                let formulaParent = document.getElementById("formulaBar");
+                const formulaParent = document.getElementById("formulaBar");
                 formulaParent.classList.remove('hidden');
                 if (options.userInterface === 'none') {
                     document.getElementById("ss").classList.add("withFormulaBar");
@@ -127,8 +127,8 @@ document.addEventListener('DOMContentLoaded', function () {
             spread = new GC.Spread.Sheets.Workbook(document.getElementById("ss"), { sheetCount: 1 });
 
             if (options.withFormulaBar) {
-                let formulaElement = document.getElementById("formulaTextBox");
-                let fbx = new GC.Spread.Sheets.FormulaTextBox.FormulaTextBox(formulaElement);
+                const formulaElement = document.getElementById("formulaTextBox");
+                const fbx = new GC.Spread.Sheets.FormulaTextBox.FormulaTextBox(formulaElement);
                 fbx.workbook(spread);
             }
             initSpread({ obj });
@@ -145,10 +145,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // in japanese, use builtin japanese culture
         if ((vp_localizedFolder !== 'ja.lproj') && (vp_localizedFolder !== 'en.lproj')) {
             // get a new culture based on 4D intl manager
-            let culture = getCulture(obj);
+            const culture = getCulture(obj);
 
             // get current culture name
-            let lang = vp_localizedFolder.substring(0, 2);
+            const lang = vp_localizedFolder.substring(0, 2);
 
             //set infos for this culture, and the localized strings
             GC.Spread.Common.CultureManager.addCultureInfo(lang, culture, vp_spreadJsResources);
@@ -196,11 +196,11 @@ document.addEventListener('DOMContentLoaded', function () {
             // install context menu
             Utils.initContextMenu();
         }
- 
+
         // BEGIN OF PATCH
         // ACI0104551 issue with if culture change when opening file, some things are not recomputed
         // playing with selection (without suspending draw) allow to activate some feature for next import
-        let sheet = Utils.resolveSheet(0);
+        const sheet = Utils.resolveSheet(0);
         if (sheet != null) {
             sheet.setSelection(0, 0, sheet.getColumnCount(), sheet.getColumnCount());
             sheet.setSelection(0, 0, 1, 1); // reset to default
@@ -212,9 +212,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // BEGIN OF PATCH
         // patch suggested by GrapeCity team as a workaround in case CAS-33873-K8Q7D0
         // problem will be solved on their side, id is SJS-14667
-        var getValueFn = GC.Spread.Sheets.Worksheet.prototype.getValue;
+        const getValueFn = GC.Spread.Sheets.Worksheet.prototype.getValue;
         GC.Spread.Sheets.Worksheet.prototype.getValue = function () {
-            var value = getValueFn.apply(this, arguments);
+            const value = getValueFn.apply(this, arguments);
             if (typeof value === 'number') {
                 return +value.toFixed(13);
             }
@@ -233,14 +233,14 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (ret.type == "boolean") {
             context.setAsyncResult(ret.boolean);
         } else if (ret.type == "dateTime") {
-            let dateTime = new Date(ret.dateTime.year, ret.dateTime.month - 1, ret.dateTime.day, ret.dateTime.hours, ret.dateTime.minutes, ret.dateTime.seconds);
+            const dateTime = new Date(ret.dateTime.year, ret.dateTime.month - 1, ret.dateTime.day, ret.dateTime.hours, ret.dateTime.minutes, ret.dateTime.seconds);
             context.setAsyncResult(dateTime);
         } else if (ret.type == "date") {
-            let date = new Date(ret.date.year, ret.date.month - 1, ret.date.day);
+            const date = new Date(ret.date.year, ret.date.month - 1, ret.date.day);
             context.setAsyncResult(date);
         } else if (ret.type == "time") {
             // 30 dec 1899 is day 0 for SpreadJS
-            let time = new Date(1899, 11, 30, ret.time.hours, ret.time.minutes, ret.time.seconds);
+            const time = new Date(1899, 11, 30, ret.time.hours, ret.time.minutes, ret.time.seconds);
             context.setAsyncResult(time);
         } else if (ret.type == "picture") {
             let style = Utils.currentSheet.getStyle(context.row, context.col);
@@ -261,20 +261,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function adjustParameters(parameters) {
-        let ret = [];
+        const ret = [];
 
         parameters.forEach(function (parameter) {
             if (parameter.constructor === Date) {
 
-                let day = parameter.getDate();
-                let month = parameter.getMonth();
-                let year = parameter.getFullYear();
+                const day = parameter.getDate();
+                const month = parameter.getMonth();
+                const year = parameter.getFullYear();
 
-                let hours = parameter.getHours();
-                let minutes = parameter.getMinutes();
-                let seconds = parameter.getSeconds();
+                const hours = parameter.getHours();
+                const minutes = parameter.getMinutes();
+                const seconds = parameter.getSeconds();
 
-                let val = {
+                const val = {
                     "value": { "day": day, "month": month + 1, "year": year },
                     "time": (hours * 3600) + (minutes * 60) + seconds
                 };
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- add some custom commands to emulate 4D specific commands
 
     function init4DCommands() {
-        let arr = [
+        const arr = [
             { name: 'RUNTIME_STRING', number: 10, minParams: 1, maxParams: 3 },
             { name: 'RUNTIME_DATE', number: 102, minParams: 1, maxParams: 1 },
             { name: 'RUNTIME_TIME', number: 179, minParams: 1, maxParams: 1 },
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         arr.forEach(function (command) {
 
-            let myFunc = function () {
+            const myFunc = function () {
                 this.minArgs = command.minParams;
                 this.maxArgs = command.maxParams;
                 this.name = command.name;
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 vp_startLongOperation();
 
-                let context = args[0];
+                const context = args[0];
                 args[0] = command.number;
                 args = adjustParameters(args);
                 try {
@@ -328,20 +328,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     vp_endLongOperation();
                 }
             };
-            let instance = new myFunc();
+            const instance = new myFunc();
             Utils.defineGlobalCustomFunction(command.name, instance, '4D-commands');
         });
     }
 
     // --- 4D project methods ------------------------------------------------------------
     function initInternalComponentCommands() {
-        let arr = [
+        const arr = [
             { name: 'RUNTIME_VIEW_STRING', method: 'vp_4DViewString', minParams: 1, maxParams: 2 }
         ];
 
         arr.forEach(function (method) {
 
-            let myFunc = function () {
+            const myFunc = function () {
                 this.minArgs = method.minParams;
                 this.maxArgs = method.maxParams;
                 this.name = method.name;
@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 vp_startLongOperation();
 
-                let context = args[0];
+                const context = args[0];
 
                 args[0] = method.method;
                 args = adjustParameters(args);
@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     vp_endLongOperation();
                 }
             };
-            let instance = new myFunc();
+            const instance = new myFunc();
             Utils.defineGlobalCustomFunction(method.name, instance, '4D-method');
         });
     }
@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function customFunctionEvaluateAsync(method, isFormula, ...args) {
 
         _vp_startCustomFunction(method);
-        let context = args[0];
+        const context = args[0];
         try {
 
          // check if parameters are respecting users type rules
@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
          for (i = 1; i < args.length; i++) { // start from 1, context is 0
 
-             let arg = args[i];
+             const arg = args[i];
              let ok = false;
 
              let wantedType = -1;
@@ -425,8 +425,8 @@ document.addEventListener('DOMContentLoaded', function () {
                  case 11: //time
                      ok = (arg != null) && (typeof (arg) === 'object') && (arg.constructor === Date);
                      if (ok) {
-                         let zeroDate = new Date(1899, 11, 30, 0, 0, 0, 0);
-                         let diff = arg.getTime() - zeroDate.getTime();
+                         const zeroDate = new Date(1899, 11, 30, 0, 0, 0, 0);
+                         const diff = arg.getTime() - zeroDate.getTime();
                          args[i] = { "time": Math.floor(diff / 1000) };
                      }
                      break;
@@ -442,11 +442,11 @@ document.addEventListener('DOMContentLoaded', function () {
                          args[i] = { "value": Utils._transformObjectDateValues(arg) };
                      } else {
                          args[i] = { "value": arg }; // we could pass native type as object (to not lost it)
-                     } 
+                     }
                      ok = true;
                      break;
 
-                 case 42: // collection	
+                 case 42: // collection
                      if (arg.getRangeCount && arg.getRangeCount() > 0) {
 
                          if (Utils._isContextInsideCalcRef(context, arg)) {
@@ -455,7 +455,7 @@ document.addEventListener('DOMContentLoaded', function () {
                              e.reason = "range contains current cell";
                              throw e;
                          }
-                         let ar = arg.getSource().getSheet().getArray(arg.getRow(),arg.getColumn(),arg.getRowCount(),arg.getColumnCount());
+                         const ar = arg.getSource().getSheet().getArray(arg.getRow(),arg.getColumn(),arg.getRowCount(),arg.getColumnCount());
 
                          ar.forEach(function (row, rowIndex) {
                              row.forEach(function (content, colIndex) {
@@ -467,7 +467,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                  }
                              });
                          });
-                         
+
                          args[i] = ar;
                          ok = true;
                      }
@@ -492,10 +492,10 @@ document.addEventListener('DOMContentLoaded', function () {
                  return;
              }
          }
-        } catch (e) { 
+        } catch (e) {
              Utils.logEvent({ type: 'error-catched', data: e });
              _vp_endCustomFunction();
-             context.setAsyncResult((e.message="too much recursion") ? Utils.errors.numberRelated : Utils.errors.calc);
+             context.setAsyncResult((e.message = "too much recursion") ? Utils.errors.numberRelated : Utils.errors.calc);
              throw e;
         }
 
@@ -535,17 +535,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         arr.forEach(function (method) {
 
-            let minParams = ('minParams' in method) ? method.minParams : 0;
-            let maxParams = ('maxParams' in method) ? method.maxParams : 100;
-            let parameters = ('parameters' in method) ? method.parameters : [];
-            let summary = ('summary' in method) ? method.summary : '';
-  
-            var myFunc = function () { };
+            const minParams = ('minParams' in method) ? method.minParams : 0;
+            const maxParams = ('maxParams' in method) ? method.maxParams : 100;
+            const parameters = ('parameters' in method) ? method.parameters : [];
+            const summary = ('summary' in method) ? method.summary : '';
+
+            const myFunc = function () { };
             myFunc.prototype = new GC.Spread.CalcEngine.Functions.AsyncFunction(method.spreadJSMethod, minParams, maxParams, summary);
 
-            let patchAcceptsReference = method.parametersType != null && method.parametersType.includes(42/*col*/);
-            if(patchAcceptsReference) {
-                myFunc.prototype.acceptsReference=function(numParameter) {
+            const patchAcceptsReference = method.parametersType != null && method.parametersType.includes(42/*col*/);
+            if (patchAcceptsReference) {
+                myFunc.prototype.acceptsReference = function(numParameter) {
                     return (method.parametersType[numParameter] == 42);
                 };
             }
@@ -557,23 +557,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 return { "description": summary, "parameters": parameters };
             };
 
-            myFunc.prototype.evaluateAsync  = function (...args) {
+            myFunc.prototype.evaluateAsync = function (...args) {
                 setTimeout(() => { try {
                     customFunctionEvaluateAsync(method, isFormula, ...args);
                 } catch (err) {} }, 1); // to allow user case edit to finish before evaluating
             };
-            let instance = new myFunc();
-            let upperName = method.spreadJSMethod.toUpperCase();
+            const instance = new myFunc();
+            const upperName = method.spreadJSMethod.toUpperCase();
             Utils.customFunctions[upperName] = instance;
             Utils.customFunctionNames.push(upperName);
-            Utils.defineGlobalCustomFunction(method.spreadJSMethod, instance, '4D-user-method');;
+            Utils.defineGlobalCustomFunction(method.spreadJSMethod, instance, '4D-user-method'); ;
         });
     }
 
     // --- virtual structure ------------------------------------------------------------
     function init4DFields(arr) {
         arr.forEach(function (obj) {
-            let myFunc = function () { };
+            const myFunc = function () { };
 
             let summary = '';
             if ('summary' in obj) {
@@ -593,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 vp_startLongOperation();
 
-                let context = args[0];
+                const context = args[0];
                 try {
                     $4d._vp_getTableField(obj.tableNumber, obj.fieldNumber, function (ret, err) {
                         try {
@@ -607,7 +607,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     vp_endLongOperation();
                 }
             };
-            let instance = new myFunc();
+            const instance = new myFunc();
             Utils.defineGlobalCustomFunction(obj.name, instance, '4D-virtual-structure');
         });
     }
@@ -632,7 +632,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Override the activateEditor method
-        let oldActivateEditorFn = GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor;
+        const oldActivateEditorFn = GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor;
         GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor = function (editorContext, cellStyle, cellRect, context) {
             editorContext.addEventListener("keydown", function (event) {
                 if (event.code === "NumpadDecimal" && event.type === "keydown") {
@@ -643,7 +643,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Handle the keydown on formula text box
-        let formulaTextBoxEl = document.querySelector("div[gcuielement='gcAttachedFormulaTextBox']");
+        const formulaTextBoxEl = document.querySelector("div[gcuielement='gcAttachedFormulaTextBox']");
         if (formulaTextBoxEl != null) {
             formulaTextBoxEl.addEventListener("keydown", function (event) {
                 if (event.code === "NumpadDecimal" && event.type === "keydown") {
@@ -653,7 +653,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Override the isReservedKey method
-        let oldisReservedKeyFn = GC.Spread.Sheets.CellTypes.Text.prototype.isReservedKey;
+        const oldisReservedKeyFn = GC.Spread.Sheets.CellTypes.Text.prototype.isReservedKey;
         GC.Spread.Sheets.CellTypes.Text.prototype.isReservedKey = function (e, context) {
             if (e.code === "NumpadDecimal" && e.type === "keydown" && !context.isEditing) {
                 setTimeout(() => {
@@ -667,7 +667,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function getCulture(obj) {
-        let culture = new GC.Spread.Common.CultureInfo();
+        const culture = new GC.Spread.Common.CultureInfo();
 
         culture.NumberFormat.currencySymbol = obj.intl.currency;
         culture.NumberFormat.currencyDecimalSeparator = obj.intl.decimalSeparator;
@@ -687,7 +687,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         culture.NumberFormat.arrayListSeparator = "\\";
 
-        // not this information in 4D intl manager, 
+        // not this information in 4D intl manager,
         // so a little hack to be able to not collide decimal separator
         if (obj.intl.decimalSeparator == ",") {
             culture.NumberFormat.arrayGroupSeparator = ";";
@@ -738,7 +738,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Hide the tabs strip
         Utils.spread.options.tabStripVisible = options.tabStripVisible;
         // Get the active sheet
-        let sheet = Utils.currentSheet;
+        const sheet = Utils.currentSheet;
         // Set the number of rows and columns like Excel default values.
         sheet.setRowCount(options.numberOfRows, GC.Spread.Sheets.SheetArea.viewport);
         sheet.setColumnCount(options.numberOfColumns, GC.Spread.Sheets.SheetArea.viewport);
@@ -759,23 +759,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     /*
         function initPasteHook() {
-    
+
             function pasteHandler(event) {
                 // check if we have some specific data in the clipboard
                 $4d._vp_getDataFromClipboard(function (data) {
                     if ("json" in data) {
                         if ((('src' in data.json) && (typeof (data.json.src) == "object"))
                             && (('sheet' in data.json) && (typeof (data.json.sheet) == "object"))) {
-    
+
                             // if we have some, then use them to paste in the current spreadsheet
-    
+
                             let activeSheet = Utils.currentSheet;
                             let src = data.json.src;
                             let srcRange = [new GC.Spread.Sheets.Range(src.row, src.column, src.rowCount, src.columnCount)];
                             let destRange = [new GC.Spread.Sheets.Range(activeSheet.getActiveRowIndex(), activeSheet.getActiveColumnIndex(), src.rowCount, src.columnCount)];
-    
+
                             let pasteOptions = GC.Spread.Sheets.ClipboardPasteOptions.all;
-    
+
                             let activeSheetName = activeSheet.name();
                             let n = Utils.spread.getSheetCount();
                             Utils.spread.addSheet(n, new GC.Spread.Sheets.Worksheet("__tmp__"));
@@ -784,23 +784,23 @@ document.addEventListener('DOMContentLoaded', function () {
                             sheet.setRowCount(activeSheet.getRowCount());
                             sheet.setColumnCount(activeSheet.getColumnCount());
                             sheet.fromJSON(data.json.sheet);
-    
+
                             spread.commandManager().execute({
                                 cmd: "clipboardPaste",
                                 sheetName: activeSheetName, fromSheet: sheet, fromRanges: srcRange,
                                 pastedRanges: destRange, isCutting: false, clipboardText: "",
                                 pasteOption: pasteOptions
                             });
-    
+
                             Utils.spread.removeSheet(n);
                             Utils.spread.setActiveSheet(activeSheetName);
                         }
                     }
                 });
             }
-    
+
             document.addEventListener('paste', pasteHandler);
-    
+
         }
     */
 });
