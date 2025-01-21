@@ -1,18 +1,18 @@
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 (function () {
 
@@ -21,7 +21,7 @@
         if (('attributes' in params) && ('ranges' in params) && (params.ranges.constructor === Array)) {
 
             params.ranges.forEach(range => {
-                let instancesArray = [];
+                const instancesArray = [];
 
                 Utils.getRanges(range, instancesArray);
 
@@ -63,12 +63,12 @@
 
     Utils.addCommand('get-column-attributes', function (params) {
 
-        let ar = [];
+        const ar = [];
 
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
             params.ranges.forEach(range => {
-                let instancesArray = [];
+                const instancesArray = [];
 
                 Utils.getRanges(range, instancesArray);
 
@@ -106,7 +106,7 @@
         if (('attributes' in params) && ('ranges' in params) && (params.ranges.constructor === Array)) {
 
             params.ranges.forEach(range => {
-                let instancesArray = [];
+                const instancesArray = [];
 
                 Utils.getRanges(range, instancesArray);
 
@@ -147,12 +147,12 @@
 
     Utils.addCommand('get-row-attributes', function (params) {
 
-        let ar = [];
+        const ar = [];
 
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
             params.ranges.forEach(range => {
-                let instancesArray = [];
+                const instancesArray = [];
 
                 Utils.getRanges(range, instancesArray);
 
@@ -184,16 +184,16 @@
     });
 
     function sortRangesBySheet(ranges) {
-        let sortedRanges = {};
+        const sortedRanges = {};
 
         ranges.forEach(range => {
-            let instancesArray = [];
+            const instancesArray = [];
 
             Utils.getRanges(range, instancesArray);
 
             instancesArray.forEach(i => {
 
-                let name = i.sheet.name();
+                const name = i.sheet.name();
                 if (!(name in sortedRanges)) {
                     sortedRanges[name] = [];
                 }
@@ -208,9 +208,9 @@
 
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
-            let ranges = sortRangesBySheet(params.ranges);
+            const ranges = sortRangesBySheet(params.ranges);
 
-            for (let sheetRanges in ranges) {
+            for (const sheetRanges in ranges) {
                 // we need to sort the columns in descending order
                 // so we can delete them from the end
                 ranges[sheetRanges].sort(function (a, b) {
@@ -230,9 +230,9 @@
 
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
-            let ranges = sortRangesBySheet(params.ranges);
+            const ranges = sortRangesBySheet(params.ranges);
 
-            for (let sheetRanges in ranges) {
+            for (const sheetRanges in ranges) {
                 // we need to sort the rows in descending order
                 // so we can delete them from the end
                 ranges[sheetRanges].sort(function (a, b) {
@@ -252,9 +252,9 @@
 
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
-            let ranges = sortRangesBySheet(params.ranges);
+            const ranges = sortRangesBySheet(params.ranges);
 
-            for (let sheetRanges in ranges) {
+            for (const sheetRanges in ranges) {
                 // we need to sort the columns in descending order
                 // so we can add them from the end
                 ranges[sheetRanges].sort(function (a, b) {
@@ -274,9 +274,9 @@
 
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
-            let ranges = sortRangesBySheet(params.ranges);
+            const ranges = sortRangesBySheet(params.ranges);
 
-            for (let sheetRanges in ranges) {
+            for (const sheetRanges in ranges) {
                 // we need to sort the rows in descending order
                 // so we can add them from the end
                 ranges[sheetRanges].sort(function (a, b) {
@@ -297,7 +297,7 @@
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
             params.ranges.forEach(range => {
-                let instancesArray = [];
+                const instancesArray = [];
 
                 Utils.getRanges(range, instancesArray);
 
@@ -322,7 +322,7 @@
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
             params.ranges.forEach(range => {
-                let instancesArray = [];
+                const instancesArray = [];
 
                 Utils.getRanges(range, instancesArray);
 
@@ -343,7 +343,7 @@
     });
 
     Utils.addCommand('set-frozen-panes', function (params) {
-        let instance = Utils.resolveSheet(params.sheetIndex);
+        const instance = Utils.resolveSheet(params.sheetIndex);
         if (instance != null) {
 
             if (('columnCount' in params.panes)
@@ -374,22 +374,22 @@
     });
 
     Utils.addCommand('get-frozen-panes', function (params) {
-        let ret={};
-        let instance = Utils.resolveSheet(params.sheetIndex);
-        
+        const ret = {};
+        const instance = Utils.resolveSheet(params.sheetIndex);
+
         if (instance != null) {
-            ret.columnCount=instance.frozenColumnCount();
-            ret.trailingColumnCount=instance.frozenTrailingColumnCount();
-            ret.rowCount=instance.frozenRowCount();
-            ret.trailingRowCount=instance.frozenTrailingRowCount();    
+            ret.columnCount = instance.frozenColumnCount();
+            ret.trailingColumnCount = instance.frozenTrailingColumnCount();
+            ret.rowCount = instance.frozenRowCount();
+            ret.trailingRowCount = instance.frozenTrailingRowCount();
         }
 
         return ret;
     });
 
     Utils.addCommand('get-row-count', function (params) {
-        let sheet = Utils.resolveSheet(params.sheetIndex);
-        var result = 0;
+        const sheet = Utils.resolveSheet(params.sheetIndex);
+        let result = 0;
 
         if (sheet != null)
             result = sheet.getRowCount();
@@ -398,8 +398,8 @@
     });
 
     Utils.addCommand('get-column-count', function (params) {
-        let sheet = Utils.resolveSheet(params.sheetIndex);
-        var result = 0;
+        const sheet = Utils.resolveSheet(params.sheetIndex);
+        let result = 0;
 
         if (sheet != null)
             result = sheet.getColumnCount();
@@ -408,14 +408,14 @@
     });
 
     Utils.addCommand('set-row-count', function (params) {
-        let sheet = Utils.resolveSheet(params.sheetIndex);
+        const sheet = Utils.resolveSheet(params.sheetIndex);
 
         if ((sheet != null) && (params.rowCount >= 0))
             sheet.setRowCount(params.rowCount);
     });
 
     Utils.addCommand('set-column-count', function (params) {
-        let sheet = Utils.resolveSheet(params.sheetIndex);
+        const sheet = Utils.resolveSheet(params.sheetIndex);
 
         if ((sheet != null) && (params.columnCount >= 0))
             sheet.setColumnCount(params.columnCount);

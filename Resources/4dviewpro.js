@@ -47,6 +47,7 @@ function runCommand(action, params = undefined) {
     return { result: commandHandler(params), error: "" };
 
   } catch (err) {
+    console.log(err.stack);
     return { result: null, error: (typeof err === 'string') ? err: err.message };
   } finally {
     Utils.spread.resumeCalcService(false);

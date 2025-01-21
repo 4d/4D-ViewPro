@@ -1,31 +1,31 @@
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 
 /**
  * The styling commands use some common helper functions (`getStyle`, `isDefined`).
  * To avoid polluting the global context with those functions that are
- * not relevant for other parts of View Pro we enclose the code in 
+ * not relevant for other parts of View Pro we enclose the code in
  * an Immediately-Invoked Function.
  * More about the concept at:
  * http://blog.mgechev.com/2012/08/29/self-invoking-functions-in-javascript-or-immediately-invoked-function-expression/
  */
 (function () {
 
-    let attributes = [
+    const attributes = [
         'backColor',
         'backgroundImage',
         'backgroundImageLayout',
@@ -58,7 +58,7 @@
 
         if (stylesheet != null) {
             ret = {};
-            
+
             if (withName) {
                 if ('name' in stylesheet) {
                     ret.name = stylesheet.name;
@@ -117,9 +117,9 @@
     }
 
     function makeStyleSheet(stylesheet) {
-        let ret = new GC.Spread.Sheets.Style();
+        const ret = new GC.Spread.Sheets.Style();
 
-        let keys = Object.keys(stylesheet);
+        const keys = Object.keys(stylesheet);
 
         keys.forEach(attribute => {
             if (attributes.find(validAttribute => {
@@ -133,12 +133,12 @@
 
     Utils.addCommand('add-stylesheet', function (params) {
 
-        let instance = Utils.resolveSheetOrWorkbook(params.sheetIndex);
+        const instance = Utils.resolveSheetOrWorkbook(params.sheetIndex);
 
         if (instance != null) {
             if (('stylesheet' in params) && (typeof (params.stylesheet) === 'object')) {
                 if (('name' in params) && (typeof (params.name) === 'string')) {
-                    let stylesheet = makeStyleSheet(params.stylesheet);
+                    const stylesheet = makeStyleSheet(params.stylesheet);
                     stylesheet.name = params.name;
                     instance.addNamedStyle(stylesheet);
                 }
@@ -148,11 +148,11 @@
 
     Utils.addCommand('set-default-style', function (params) {
 
-        let instance = Utils.resolveSheet(params.sheetIndex);
+        const instance = Utils.resolveSheet(params.sheetIndex);
 
         if (instance != null) {
             if (('stylesheet' in params) && (typeof (params.stylesheet) === 'object')) {
-                let stylesheet = makeStyleSheet(params.stylesheet);
+                const stylesheet = makeStyleSheet(params.stylesheet);
                 instance.setDefaultStyle(stylesheet);
             }
         }
@@ -160,10 +160,10 @@
 
     Utils.addCommand('get-default-style', function (params) {
         let ret = null;
-        let instance = Utils.resolveSheet(params.sheetIndex);
+        const instance = Utils.resolveSheet(params.sheetIndex);
 
         if (instance != null) {
-            let stylesheet = instance.getDefaultStyle();
+            const stylesheet = instance.getDefaultStyle();
             ret = restrainToSupportedAttributes(stylesheet, false);
         }
 
@@ -172,7 +172,7 @@
 
     Utils.addCommand('set-border', function (params) {
 
-        let border = new GC.Spread.Sheets.LineBorder();
+        const border = new GC.Spread.Sheets.LineBorder();
 
         if ('color' in params.border) {
             border.color = params.border.color;
@@ -189,12 +189,12 @@
         }
 
         params.ranges.forEach(range => {
-            let instancesArray = [];
+            const instancesArray = [];
 
             Utils.getRanges(range, instancesArray);
 
             instancesArray.forEach(instance => {
-                let cellRange = instance.sheet.getRange(instance.row, instance.column, instance.rowCount, instance.columnCount);
+                const cellRange = instance.sheet.getRange(instance.row, instance.column, instance.rowCount, instance.columnCount);
                 cellRange.setBorder(border, params.option);
             });
         });
@@ -203,11 +203,11 @@
 
     Utils.addCommand('set-cell-style', function (params) {
 
-        var style = makeStyleSheet(params.style);
-        let props = Object.keys(params.style);
+        const style = makeStyleSheet(params.style);
+        const props = Object.keys(params.style);
 
         params.ranges.forEach(range => {
-            let instancesArray = [];
+            const instancesArray = [];
 
             Utils.getRanges(range, instancesArray);
 
@@ -230,9 +230,9 @@
                     instance.rowCount = -1;
                 }
 
-                let cellRange = instance.sheet.getRange(instance.row, instance.column, instance.rowCount, instance.columnCount);
+                const cellRange = instance.sheet.getRange(instance.row, instance.column, instance.rowCount, instance.columnCount);
 
-                for (var propertyName in style) {
+                for (let propertyName in style) {
                     if (style.hasOwnProperty(propertyName)) {
                         if (propertyName.startsWith("_")) // now spreadJS use getter setter remapped on private properties
                         {
@@ -260,23 +260,23 @@
 
     Utils.addCommand('get-cell-style', function (params) {
 
-        let style = {};
+        const style = {};
 
         if ('ranges' in params) {
 
-            let instance = Utils.getFirstRange(params.ranges);
+            const instance = Utils.getFirstRange(params.ranges);
 
             if (instance != null) {
-                let cell = instance.sheet.getRange(instance.row, instance.column);
+                const cell = instance.sheet.getRange(instance.row, instance.column);
 
-                let name = instance.sheet.getStyleName(instance.row, instance.column);
+                const name = instance.sheet.getStyleName(instance.row, instance.column);
                 if (name != undefined) {
                     style.name = name;
                 }
 
                 attributes.forEach(propertyName => {
                     if (typeof cell[propertyName] === 'function') {
-                        let val = cell[propertyName]();
+                        const val = cell[propertyName]();
                         if (val != undefined) {
                             style[propertyName] = val;
                         }
@@ -291,7 +291,7 @@
 
     Utils.addCommand('remove-stylesheet', function (params) {
 
-        let instance = Utils.resolveSheetOrWorkbook(params.sheetIndex);
+        const instance = Utils.resolveSheetOrWorkbook(params.sheetIndex);
 
         if (instance != null) {
             if (('name' in params) && (typeof (params.name) === 'string')) {
@@ -302,11 +302,11 @@
 
     Utils.addCommand('get-stylesheet', function (params) {
         let ret = null;
-        let instance = Utils.resolveSheetOrWorkbook(params.sheetIndex);
+        const instance = Utils.resolveSheetOrWorkbook(params.sheetIndex);
 
         if (instance != null) {
             if (('name' in params) && (typeof (params.name) === 'string')) {
-                let stylesheet = instance.getNamedStyle(params.name);
+                const stylesheet = instance.getNamedStyle(params.name);
                 ret = restrainToSupportedAttributes(stylesheet, true);
             }
         }
@@ -315,11 +315,11 @@
     });
 
     Utils.addCommand('get-stylesheets', function (params) {
-        let ret = { collection: [] };
-        let instance = Utils.resolveSheetOrWorkbook(params.sheetIndex);
+        const ret = { collection: [] };
+        const instance = Utils.resolveSheetOrWorkbook(params.sheetIndex);
 
         if (instance != null) {
-            let ar = instance.getNamedStyles();
+            const ar = instance.getNamedStyles();
             ar.forEach(stylesheet => {
                 ret.collection.push(restrainToSupportedAttributes(stylesheet, true));
             });

@@ -1,18 +1,18 @@
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 
 Utils.parseElementSet = function (element) {
@@ -26,7 +26,7 @@ Utils.parseElementSet = function (element) {
                         return new Date(element.year, element.month - 1, element.day);
                     }
                 } else {
-                    let hasTime = ('time' in element) && typeof (element.time) === 'number';
+                    const hasTime = ('time' in element) && typeof (element.time) === 'number';
                     let hasTimeAndValue = false;
                     if (hasTime) {
                         hasTimeAndValue = ('value' in element)
@@ -34,13 +34,13 @@ Utils.parseElementSet = function (element) {
                             && ('type' in element.value)
                             && (element.value.type === '__date__');
 
-                        let attributesCount = Object.keys(element).length;
+                        const attributesCount = Object.keys(element).length;
 
                         if ((hasTime && (attributesCount == 1)) || (hasTimeAndValue && (attributesCount == 2))) {
                             let year = 1899;
                             let month = 11;
                             let day = 30;
-                            let seconds = element.time;
+                            const seconds = element.time;
                             if (hasTimeAndValue) {
                                 year = element.value.year;
                                 month = element.value.month - 1;
@@ -58,8 +58,8 @@ Utils.parseElementSet = function (element) {
 };
 
 Utils.parseObjectSet = function(obj) {
-    let keys = Object.keys(obj);
-    let ret = {};
+    const keys = Object.keys(obj);
+    const ret = {};
 
     keys.forEach(attributeName => {
         ret[attributeName] = Utils.parseElementSet(obj[attributeName]);
@@ -69,7 +69,7 @@ Utils.parseObjectSet = function(obj) {
 };
 
 Utils.parseArraySet = function(ar) {
-    let ret = [];
+    const ret = [];
     ar.forEach(element => {
         ret.push(Utils.parseElementSet(element));
     });
@@ -79,7 +79,7 @@ Utils.parseArraySet = function(ar) {
 
 Utils.addCommand('set-data-context', function (params) {
 
-    let instance = Utils.resolveSheet(params.sheetIndex);
+    const instance = Utils.resolveSheet(params.sheetIndex);
 
     if (instance != null) {
         let resetOption = false;
@@ -97,7 +97,7 @@ Utils.addCommand('set-data-context', function (params) {
             if (params.data === null) {
                 instance.setDataSource(null, resetOption);
             } else if (typeof (params.data) === 'object') {
-                let data = Utils.parseElementSet(params.data);
+                const data = Utils.parseElementSet(params.data);
                 if (params.data.constructor === Array) {
                     instance.setDataSource(data, resetOption);
                 } else {
@@ -149,14 +149,14 @@ Utils.addCommand('get-data-context', function (params) {
                         'value': element
                     };
                 } else if (element.startsWith("/OADate(") && element.endsWith(")/")) {
-                    let val = Number(element.substring(8, element.length - 2));
-                    let days = Math.trunc(val);
-                    let seconds = Math.floor((val - days) * 86400.0);
+                    const val = Number(element.substring(8, element.length - 2));
+                    const days = Math.trunc(val);
+                    const seconds = Math.floor((val - days) * 86400.0);
                     if (days == 0) {
                         // we have a time
                         return { time: seconds };
                     } else {
-                        let d = new Date(1899, 11, 30);
+                        const d = new Date(1899, 11, 30);
                         d.setDate(d.getDate() + days);
 
                         if (seconds == 0) {
@@ -185,8 +185,8 @@ Utils.addCommand('get-data-context', function (params) {
     }
 
     function _parseObject(obj) {
-        let keys = Object.keys(obj);
-        let ret = {};
+        const keys = Object.keys(obj);
+        const ret = {};
 
         keys.forEach(attributeName => {
             ret[attributeName] = _parseElement(obj[attributeName]);
@@ -196,15 +196,15 @@ Utils.addCommand('get-data-context', function (params) {
     }
 
     function _parseArray(ar) {
-        let ret = [];
+        const ret = [];
         ar.forEach(element => {
             ret.push(_parseElement(element));
         });
         return ret;
     }
 
-    let instance = Utils.resolveSheet(params.sheetIndex);
-    let returnValue = { value: null };
+    const instance = Utils.resolveSheet(params.sheetIndex);
+    const returnValue = { value: null };
     let obj = null;
 
     if (instance != null) {
@@ -223,7 +223,7 @@ Utils.addCommand('set-binding-path', function (params) {
     if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
         params.ranges.forEach(range => {
-            let instancesArray = [];
+            const instancesArray = [];
 
             Utils.getRanges(range, instancesArray);
 
@@ -237,12 +237,12 @@ Utils.addCommand('set-binding-path', function (params) {
 
 
 Utils.addCommand('get-binding-path', function (params) {
-    let returnValue = { value: '' };
+    const returnValue = { value: '' };
 
     if (('ranges' in params) && (params.ranges.constructor === Array)) {
-        let instance = Utils.getFirstRange(params.ranges);
+        const instance = Utils.getFirstRange(params.ranges);
         if (instance != null) {
-            let val = instance.sheet.getBindingPath(instance.row, instance.column);
+            const val = instance.sheet.getBindingPath(instance.row, instance.column);
             if ((typeof val === 'string') && (val.length > 0)) {
                 returnValue.value = val;
             }

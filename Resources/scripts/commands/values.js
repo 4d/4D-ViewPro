@@ -1,24 +1,24 @@
 /*!
- * 
+ *
  * 4DView Pro library 0.0.0
- * 
+ *
  * Copyright(c) 4D SAS.  All rights reserved.
- * 
+ *
  * 4D (the "Software") and the corresponding source code remain
  * the exclusive property of 4D and/or its licensors and are protected by national
  * and/or international legislations.
- * 
+ *
  * This file is part of the source code of the Software provided under the relevant
  * 4D License Agreement available on http://www.4D.com/license whose compliance
  * constitutes a prerequisite to any use of this file and more generally of the
  * Software and the corresponding source code.
- * 
+ *
  */
 
 (function () {
     Utils.addCommand('show-cell', function (params) {
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
-            let instance = Utils.getFirstRange(params.ranges);
+            const instance = Utils.getFirstRange(params.ranges);
             if (instance != null) {
                 instance.sheet.showCell(instance.row, instance.column, params.verticalPosition, params.horizontalPosition);
             }
@@ -26,13 +26,13 @@
     });
 
     Utils.addCommand('get-selection', function (params) {
-        let sheet = Utils.resolveSheet(params.sheetIndex);
+        const sheet = Utils.resolveSheet(params.sheetIndex);
         if (sheet != null) {
-            let sheetIndex = Utils.spread.getSheetIndex(sheet.name());
-            let selection = sheet.getSelections();
-            let ret = { 'ranges': [] };
+            const sheetIndex = Utils.spread.getSheetIndex(sheet.name());
+            const selection = sheet.getSelections();
+            const ret = { 'ranges': [] };
             selection.forEach(i => {
-                let range = { 'sheet': sheetIndex };
+                const range = { 'sheet': sheetIndex };
 
                 if (i.row != -1) {
                     range.row = i.row;
@@ -53,9 +53,9 @@
     });
 
     Utils.addCommand('get-active-cell', function (params) {
-        let sheet = Utils.resolveSheet(params.sheetIndex);
+        const sheet = Utils.resolveSheet(params.sheetIndex);
         if (sheet != null) {
-            let sheetIndex = Utils.spread.getSheetIndex(sheet.name());
+            const sheetIndex = Utils.spread.getSheetIndex(sheet.name());
             return {
                 'row': sheet.getActiveRowIndex(),
                 'column': Utils.currentSheet.getActiveColumnIndex(),
@@ -68,7 +68,7 @@
 
     Utils.addCommand('set-active-cell', function (params) {
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
-            let instance = Utils.getFirstRange(params.ranges);
+            const instance = Utils.getFirstRange(params.ranges);
             if (instance != null) {
                 instance.sheet.setActiveCell(instance.row, instance.column);
                 Utils.needToUpdateFormulaBar = true;
@@ -79,15 +79,15 @@
     function setSelection(params, addOnly) {
         if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
-            let selCleared = [];
+            const selCleared = [];
 
             params.ranges.forEach(range => {
-                let instancesArray = [];
+                const instancesArray = [];
 
                 Utils.getRanges(range, instancesArray);
 
                 instancesArray.forEach(i => {
-                    let sheetIndex = Utils.spread.getSheetIndex(i.sheet.name());
+                    const sheetIndex = Utils.spread.getSheetIndex(i.sheet.name());
 
                     if (i.type == "rows") {
                         i.column = -1;
@@ -121,7 +121,7 @@
     });
 
     Utils.addCommand('reset-selection', function (params) {
-        let sheet = Utils.resolveSheet(params.sheetIndex);
+        const sheet = Utils.resolveSheet(params.sheetIndex);
         if (sheet != null) {
             sheet.clearSelection();
             Utils.needToUpdateFormulaBar = true;
@@ -139,19 +139,19 @@
         }
         else if (typeof (value) == 'object') {
 
-            let hasDay = ('day' in value) && (typeof (value.day) === 'number');
-            let hasMonth = ('month' in value) && (typeof (value.month) === 'number');
-            let hasYear = ('year' in value) && (typeof (value.year) === 'number');
+            const hasDay = ('day' in value) && (typeof (value.day) === 'number');
+            const hasMonth = ('month' in value) && (typeof (value.month) === 'number');
+            const hasYear = ('year' in value) && (typeof (value.year) === 'number');
 
-            let hasSeconds = ('seconds' in value) && (typeof (value.seconds) === 'number');
-            let hasMinutes = ('minutes' in value) && (typeof (value.minutes) === 'number');
-            let hasHours = ('hours' in value) && (typeof (value.hours) === 'number');
-            
+            const hasSeconds = ('seconds' in value) && (typeof (value.seconds) === 'number');
+            const hasMinutes = ('minutes' in value) && (typeof (value.minutes) === 'number');
+            const hasHours = ('hours' in value) && (typeof (value.hours) === 'number');
+
             if (!hasDay && !hasMonth && !hasYear && !hasSeconds && !hasMinutes && !hasHours) {
                 ret = value;
             } else if (hasDay && hasMonth && hasYear && !hasSeconds && !hasMinutes && !hasHours) {
                 if (value.year != 0 || value.month != 0 || value.day != 0) {
-                    ret = { 
+                    ret = {
                         'value': new Date(value.year, value.month - 1, value.day)
                      };
                 }
@@ -166,7 +166,7 @@
                 } else {
                     if ((value.hours != 0) || (value.minutes != 0) || (value.seconds != 0)) {
                         ret = {
-                            'value': new Date(1899, 11, 30, 
+                            'value': new Date(1899, 11, 30,
                                 value.hours, value.minutes, value.seconds)
                         };
                     }
@@ -180,7 +180,7 @@
 
         if ('value' in params) {
 
-            let val = Utils.convertValuesFrom4D(params.value);
+            const val = Utils.convertValuesFrom4D(params.value);
 
             if (val != null) {
 
@@ -191,13 +191,13 @@
                 if (('ranges' in params) && (params.ranges.constructor === Array)) {
 
                     params.ranges.forEach(range => {
-                        let instancesArray = [];
+                        const instancesArray = [];
 
                         Utils.getRanges(range, instancesArray);
 
                         instancesArray.forEach(i => {
 
-                            let instance = i.sheet.getRange(i.row, i.column, i.rowCount, i.columnCount);
+                            const instance = i.sheet.getRange(i.row, i.column, i.rowCount, i.columnCount);
 
                             instance.formula(null);
                             instance.value(val.value);
@@ -217,14 +217,14 @@
 
         if (('value' in params) && (params.value.constructor === Array)) {
 
-            let ar = params.value;
+            const ar = params.value;
 
             if (ar.length > 0) {
 
                 ar.forEach(function (row, rowIndex) {
                     if ((row != null) && (row.constructor === Array)) {
                         row.forEach(function (content, colIndex) {
-                            let val = Utils.convertValuesFrom4D(content);
+                            const val = Utils.convertValuesFrom4D(content);
                             if (val != null) {
                                 ar[rowIndex][colIndex] = val.value;
                             } else {
@@ -237,7 +237,7 @@
                 });
 
                 if ('ranges' in params) {
-                    let instance = Utils.getFirstRange(params.ranges);
+                    const instance = Utils.getFirstRange(params.ranges);
                     if (instance != null) {
                         instance.sheet.setArray(instance.row, instance.column, ar);
                     }
@@ -251,7 +251,7 @@
 
         if (('value' in params) && (params.value.constructor === Array)) {
 
-            let ar = params.value;
+            const ar = params.value;
 
             if (ar.length > 0) {
 
@@ -268,7 +268,7 @@
                 });
 
                 if ('ranges' in params) {
-                    let instance = Utils.getFirstRange(params.ranges);
+                    const instance = Utils.getFirstRange(params.ranges);
                     if (instance != null) {
                         instance.sheet.setArray(instance.row, instance.column, ar, true);
                     }
@@ -282,21 +282,21 @@
 		if (value === null) return null;
 		if (value.constructor === Date) {
 			ret = {};
-			
-			let day = value.getDate();
-			let month = value.getMonth();
-			let year = value.getFullYear();
-			
+
+			const day = value.getDate();
+			const month = value.getMonth();
+			const year = value.getFullYear();
+
 			ret[dateKey] = { 'day': day, 'month': month + 1, 'year': year };
-			
-			let hours = value.getHours();
-			let minutes = value.getMinutes();
-			let seconds = value.getSeconds();
-			
+
+			const hours = value.getHours();
+			const minutes = value.getMinutes();
+			const seconds = value.getSeconds();
+
 			ret.time = (hours * 3600) + (minutes * 60) + seconds;
 
 			ret.$4d_convertToDate = true;
- 
+
 			return ret;
 		}
 		else if (typeof(value) === "object") {
@@ -309,7 +309,7 @@
         if (objectValue === null) return null;
 
         for (const property in objectValue) {
-            var child = objectValue[property];
+            const child = objectValue[property];
             if (child != null) {
                 if (child.constructor === Date) {
                     objectValue[property] = Utils.convertValueTo4D(child);
@@ -325,10 +325,10 @@
 
     Utils.addCommand('get-value', function (params) {
 
-        let ret = { 'value': null };
+        const ret = { 'value': null };
 
         if ('ranges' in params) {
-            let instance = Utils.getFirstRange(params.ranges);
+            const instance = Utils.getFirstRange(params.ranges);
             if (instance != null) {
                 ret.value = Utils.convertValueTo4D(instance.sheet.getCell(instance.row, instance.column).value());
             }
@@ -339,12 +339,12 @@
 
     Utils.addCommand('get-values', function (params) {
 
-        let ret = { 'value': [[]] };
+        const ret = { 'value': [[]] };
 
         if ('ranges' in params) {
-            let instance = Utils.getFirstRange(params.ranges);
+            const instance = Utils.getFirstRange(params.ranges);
             if (instance != null) {
-                let ar = instance.sheet.getArray(instance.row, instance.column, instance.rowCount, instance.columnCount);
+                const ar = instance.sheet.getArray(instance.row, instance.column, instance.rowCount, instance.columnCount);
 
                 ar.forEach(function (row, rowIndex) {
                     row.forEach(function (content, colIndex) {
@@ -363,12 +363,12 @@
 
     Utils.addCommand('get-formulas', function (params) {
 
-        let ret = { 'value': [[]] };
+        const ret = { 'value': [[]] };
 
         if ('ranges' in params) {
-            let instance = Utils.getFirstRange(params.ranges);
+            const instance = Utils.getFirstRange(params.ranges);
             if (instance != null) {
-                let ar = instance.sheet.getArray(instance.row, instance.column, instance.rowCount, instance.columnCount, true);
+                const ar = instance.sheet.getArray(instance.row, instance.column, instance.rowCount, instance.columnCount, true);
 
                 ar.forEach(function (row, rowIndex) {
                     row.forEach(function (col, colIndex) {
@@ -394,12 +394,12 @@
                 format = Utils.adjustFormat(params.format);
 
             params.ranges.forEach(range => {
-                let instancesArray = [];
+                const instancesArray = [];
 
                 Utils.getRanges(range, instancesArray);
 
                 instancesArray.forEach(i => {
-                    let instance = i.sheet.getRange(i.row, i.column, i.rowCount, i.columnCount);
+                    const instance = i.sheet.getRange(i.row, i.column, i.rowCount, i.columnCount);
 
                     instance.formula(params.formula);
 
@@ -415,10 +415,10 @@
 
     Utils.addCommand('get-formula', function (params) {
 
-        let ret = { 'value': '' };
+        const ret = { 'value': '' };
 
         if ('ranges' in params) {
-            let instance = Utils.getFirstRange(params.ranges);
+            const instance = Utils.getFirstRange(params.ranges);
             if (instance != null) {
                 ret.value = instance.sheet.getCell(instance.row, instance.column).formula();
             }
