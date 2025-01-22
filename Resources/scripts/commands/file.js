@@ -40,10 +40,12 @@ function _vp_do_callback(params) {
 
 function _vp_callback(params) {
   if (params.command.startsWith("import")) {
+    Utils.importInProgress -= 1;
     _vp_registerTaskAfterCommand(() => {
       _vp_do_callback(params);
     });
   } else {
+    Utils.exportInProgress -= 1;
     _vp_do_callback(params);
   }
 }
@@ -57,8 +59,8 @@ Utils.addCommand('import-json', function (params) {
   if (doc.dateModified) Utils.currentDocument.d4DateModified = doc.dateModified;
   if (doc.meta) Utils.currentDocument.d4Meta = doc.meta;
 
+  Utils.importInProgress += 1;
   try {
-
     if (useRibbon) {
       Utils.spread.fromJSON(doc.spreadJS);
       designer.refresh();
@@ -93,6 +95,7 @@ Utils.addCommand('import-sjs', function (params) {
   if (params.sjsOptions != null)
     options = params.sjsOptions;
 
+  Utils.importInProgress += 1;
   Utils.spread.open(blob,
     function () {
       _vp_callback(params);
@@ -115,6 +118,7 @@ Utils.addCommand('export-sjs', function (params) {
     options.includeBindingSource = true;
   }
 
+  Utils.exportInProgress += 1;
   Utils.spread.save(
     function (blob) {
       const reader = new FileReader();
@@ -190,6 +194,7 @@ Utils.addCommand('export-excel', function (params) {
       options[key] = params["excelOptions"][key];
     }
 
+    Utils.exportInProgress += 1;
     Utils.spread.save(
       function (blob) {
         Utils.spread.options.tabStripVisible = tabStripVisible;
@@ -218,6 +223,7 @@ Utils.addCommand('export-excel', function (params) {
 
   const json = Utils.spread.toJSON(serializationOption);
 
+  Utils.exportInProgress += 1;
   const excelIO = new GC.Spread.Excel.IO();
   excelIO.save(json,
     function (blob) {
@@ -252,6 +258,7 @@ Utils.addCommand('import-excel', function (params) {
       options[key] = params["excelOptions"][key];
     }
 
+    Utils.importInProgress += 1;
     Utils.spread.open(blob,
       function () {
         _vp_callback(params);
@@ -299,6 +306,7 @@ Utils.addCommand('import-excel', function (params) {
 Utils.addCommand('export-csv', function (params) {
   const doc = {};
 
+  // Utils.exportInProgress += 1; // commented, not async callback for the moment
   if ('range' in params) {
     if (('ranges' in params.range) && (params.range.ranges.constructor === Array)) {
       const instance = Utils.getFirstRange(params.range.ranges);
@@ -349,6 +357,7 @@ Utils.addCommand('import-csv', function (params) {
     columnDelimiter = cvsOptions.columnDelimiter;
   }
 
+  Utils.importInProgress += 1;
   instance.sheet.setCsv(
     instance.row,
     instance.column,
@@ -369,6 +378,7 @@ Utils.addCommand('export-pdf', function (params) {
     options = params.pdfOptions;
   }
 
+  Utils.exportInProgress += 1;
   Utils.computePdfFonts(sheetIndex, function () {
 
     Utils.spread.savePDF(function (blob) {
