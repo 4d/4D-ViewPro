@@ -39,9 +39,13 @@ function _vp_do_callback(params) {
 }
 
 function _vp_callback(params) {
-  _vp_registerTaskAfterCommand(() => {
+  if (params.command.startsWith("import")) {
+    _vp_registerTaskAfterCommand(() => {
+      _vp_do_callback(params);
+    });
+  } else {
     _vp_do_callback(params);
-  });
+  }
 }
 
 Utils.addCommand('import-json', function (params) {
