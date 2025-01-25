@@ -321,10 +321,8 @@ Utils.addCommand('find', function (params) {
                 });
             }
         }
-    } catch (e) {
-        throw e;
+        return foundRange;
     } finally {
         Utils.spread.resumePaint();
-        return foundRange;
     }
 });

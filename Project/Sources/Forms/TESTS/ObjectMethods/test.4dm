@@ -31,6 +31,7 @@ Case of
 		//______________________________________________________
 	: (True:C214)
 		
+		$o:={formula: Formula:C1597(ALERT:C41("test")); format: vk pdf format:K89:21}
 		VP IMPORT FROM OBJECT("ViewProArea"; VP Export to object("ViewProArea"); $o)
 		
 		//______________________________________________________

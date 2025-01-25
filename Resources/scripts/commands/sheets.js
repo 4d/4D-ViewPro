@@ -73,7 +73,7 @@
                     }
                 });
 
-                function setSubOptions(ar, name) {
+                function setSubOptions(ar, name) { // eslint-disable-line no-inner-declarations
                     if ((params.options[name] != null) && (typeof params.options[name] === 'object')) {
                         ar.forEach(attribute => {
                             if (attribute in params.options[name]) {
@@ -115,7 +115,7 @@
                 ret[attribute] = sheet.options[attribute];
             });
 
-            function getSubOptions(ar, name) {
+            function getSubOptions(ar, name) { // eslint-disable-line no-inner-declarations
                 ret[name] = {};
                 const val = sheet.options[name];
                 ar.forEach(attribute => {
