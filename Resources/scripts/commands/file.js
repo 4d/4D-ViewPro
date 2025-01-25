@@ -59,17 +59,25 @@ Utils.addCommand('import-json', function (params) {
   if (doc.dateModified) Utils.currentDocument.d4DateModified = doc.dateModified;
   if (doc.meta) Utils.currentDocument.d4Meta = doc.meta;
 
+  const deserializationOptions = {};
+  const deserializationOptionNames = ["ignoreFormula", "ignoreStyle", "frozenColumnsAsRowHeaders", "frozenRowsAsColumnHeaders", "doNotRecalculateAfterLoad"];
+  for (const option of deserializationOptionNames) {
+    if (option in params) {
+      deserializationOptions[option] = params[option];
+    }
+  }
+
   Utils.importInProgress += 1;
   try {
-    if (useRibbon) {
-      Utils.spread.fromJSON(doc.spreadJS);
-      designer.refresh();
-    } else if (useToolbar) {
-      importJson(doc.spreadJS);
+    if (useToolbar) {
+      importJson(doc.spreadJS, deserializationOptions);
       Utils.initEvents();
       Utils.initCommands();
     } else {
-      Utils.spread.fromJSON(doc.spreadJS);
+      Utils.spread.fromJSON(doc.spreadJS, deserializationOptions);
+      if (useRibbon) {
+        designer.refresh();
+      }
     }
 
     if (params.new && (vp_localizedFolder != '')) {
@@ -150,8 +158,12 @@ Utils.addCommand('export-json', function (params) {
   if (("valuesOnly" in params) && (typeof params.valuesOnly == "boolean"))
     serializationOption.ignoreFormula = params.valuesOnly;
 
-  if (("includeBindingSource" in params) && (typeof params.includeBindingSource == "boolean"))
-    serializationOption.includeBindingSource = params.includeBindingSource;
+  const serializationOptionNames = ["includeBindingSource", "ignoreFormula", "ignoreStyle", "ignoreFormula", "rowHeadersAsFrozenColumns", "columnHeadersAsFrozenRows"]; //  "saveAsView"
+  for (const option of serializationOptionNames) {
+    if (option in params) {
+      serializationOption[option] = params[option];
+    }
+  }
 
   doc.spreadJS = Utils.spread.toJSON(serializationOption);
 
@@ -667,7 +679,7 @@ Utils.addFormatedText = function (json) {
 
       const sintextOrientation = Math.sin(abstextOrientationRadian);
 
-      const costextOrientation = Math.cos(abstextOrientationRadian);
+      // const costextOrientation = Math.cos(abstextOrientationRadian);
 
       //wordWrapWidth = _getRotateTextWordWrapWidth(row, column, sintextOrientation, costextOrientation, text, font, rowHeight);
       wordWrapWidth = (rowHeight - 4 - 2 * lineSizeCosAdj) / sintextOrientation;

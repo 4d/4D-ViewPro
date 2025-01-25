@@ -5788,7 +5788,7 @@ function importSpreadFromJSON(file, fileContent) {
     }
     return true;
 }
-function importJson(spreadJson) {
+function importJson(spreadJson, deserializationOptions) {
     function updateActiveCells() {
         for (var i = 0; i < spread.getSheetCount(); i++) {
             var sheet = spread.getSheet(i),
@@ -5804,7 +5804,7 @@ function importJson(spreadJson) {
 
     if (spreadJson.version && spreadJson.sheets) {
         spread.unbindAll();
-        spread.fromJSON(spreadJson);
+        spread.fromJSON(spreadJson, deserializationOptions);
         app.reset(true);
         updateActiveCells();
         spread.focus();

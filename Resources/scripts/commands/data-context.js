@@ -46,7 +46,7 @@ Utils.parseElementSet = function (element) {
                                 month = element.value.month - 1;
                                 day = element.value.day;
                             }
-                            return new Date(year, month, day, 0, 0, element.time);
+                            return new Date(year, month, day, 0, 0, seconds);
                         }
                     }
                 }

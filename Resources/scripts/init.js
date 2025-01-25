@@ -50,7 +50,7 @@ const Commands = {};
 function hideSpreadJSElements() {
     try {
         $('li [href="#file"]').hide();
-    } catch (e) { }
+    } catch (err) { }
 }
 
 function adaptSpreadUI(options) {
@@ -542,7 +542,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const parameters = ('parameters' in method) ? method.parameters : [];
             const summary = ('summary' in method) ? method.summary : '';
 
-            const myFunc = function () { };
+            const myFunc = function () { }; // eslint-disable-line no-empty-function
             myFunc.prototype = new GC.Spread.CalcEngine.Functions.AsyncFunction(method.spreadJSMethod, minParams, maxParams, summary);
 
             const patchAcceptsReference = method.parametersType != null && method.parametersType.includes(42/*col*/);
@@ -575,7 +575,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- virtual structure ------------------------------------------------------------
     function init4DFields(arr) {
         arr.forEach(function (obj) {
-            const myFunc = function () { };
+            const myFunc = function () { }; // eslint-disable-line no-empty-function
 
             let summary = '';
             if ('summary' in obj) {
@@ -635,7 +635,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Override the activateEditor method
         const oldActivateEditorFn = GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor;
-        GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor = function (editorContext, cellStyle, cellRect, context) {
+        GC.Spread.Sheets.CellTypes.Text.prototype.activateEditor = function (editorContext, cellStyle, cellRect, context) { // eslint-disable-line no-unused-vars
             editorContext.addEventListener("keydown", function (event) {
                 if (event.code === "NumpadDecimal" && event.type === "keydown") {
                     handleKeyDown(event);

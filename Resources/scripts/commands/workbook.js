@@ -97,7 +97,7 @@
 
     });
 
-    Utils.addCommand('get-workbook-options', function (params) {
+    Utils.addCommand('get-workbook-options', function () {
 
         const ret = {};
 

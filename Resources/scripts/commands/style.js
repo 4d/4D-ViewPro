@@ -204,7 +204,7 @@
     Utils.addCommand('set-cell-style', function (params) {
 
         const style = makeStyleSheet(params.style);
-        const props = Object.keys(params.style);
+        // const props = Object.keys(params.style);
 
         params.ranges.forEach(range => {
             const instancesArray = [];
