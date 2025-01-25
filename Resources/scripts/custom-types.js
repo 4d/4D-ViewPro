@@ -27,16 +27,14 @@ class D4Picture extends GC.Spread.Sheets.CellTypes.Text {
         try {
             if (context.sheet.options.showFormulas) {
                 style.backgroundImage = undefined;
-            } else {
-                if (value === CustomAsyncFunction.prototype.defaultValue()) {
+            } else if (value === CustomAsyncFunction.prototype.defaultValue()) {
 
-                } else if (value !== "") {
-                    if (!this.deletionInProgress) {
-                        this.deletionInProgress = true;
-                        style.backgroundImage = undefined;
-                        context.sheet.setStyle(context.row, context.col, style);
-                        context.sheet.setCellType(context.row, context.col);
-                    }
+            } else if (value !== "") {
+                if (!this.deletionInProgress) {
+                    this.deletionInProgress = true;
+                    style.backgroundImage = undefined;
+                    context.sheet.setStyle(context.row, context.col, style);
+                    context.sheet.setCellType(context.row, context.col);
                 }
             }
         } catch (e) {

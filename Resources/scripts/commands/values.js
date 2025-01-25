@@ -163,13 +163,11 @@
                         'value': new Date(value.year, value.month - 1, value.day,
                             value.hours, value.minutes, value.seconds)
                     };
-                } else {
-                    if ((value.hours != 0) || (value.minutes != 0) || (value.seconds != 0)) {
-                        ret = {
-                            'value': new Date(1899, 11, 30,
-                                value.hours, value.minutes, value.seconds)
-                        };
-                    }
+                } else if ((value.hours != 0) || (value.minutes != 0) || (value.seconds != 0)) {
+                    ret = {
+                        'value': new Date(1899, 11, 30,
+                            value.hours, value.minutes, value.seconds)
+                    };
                 }
             }
         }

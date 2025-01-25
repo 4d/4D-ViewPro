@@ -118,10 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById("ss").classList.add("withFormulaBar");
                 }
             }
-            else {
-                if (options.userInterface === 'none') {
-                    document.getElementById("ss").classList.add("withoutFormulaBar");
-                }
+            else if (options.userInterface === 'none') {
+                document.getElementById("ss").classList.add("withoutFormulaBar");
             }
 
             spread = new GC.Spread.Sheets.Workbook(document.getElementById("ss"), { sheetCount: 1 });

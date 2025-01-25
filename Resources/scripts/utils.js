@@ -415,10 +415,8 @@ Utils.updateFormulaBar = function () {
                 if (formulaBar.length > 0) {
                     formulaBar.text(formula);
                 }
-            } else {
-                if (formulaBar) {
-                    formulaBar.value = formula;
-                }
+            } else if (formulaBar) {
+                formulaBar.value = formula;
             }
         }
     }
