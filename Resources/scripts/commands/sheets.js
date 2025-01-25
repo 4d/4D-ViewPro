@@ -137,7 +137,7 @@
         return ret;
     });
 
-    Utils.addCommand('get-sheet-count', function (params) {
+    Utils.addCommand('get-sheet-count', function () {
         return { "result": Utils.spread.getSheetCount() };
     });
 
@@ -170,7 +170,7 @@
             Utils.spread.removeSheet(index);
     });
 
-    Utils.addCommand('get-current-sheet', function (params) {
+    Utils.addCommand('get-current-sheet', function () {
         return { "result": Utils.spread.getActiveSheetIndex() };
     });
 

@@ -27,7 +27,7 @@
 
 	AreaNameFunction.prototype = new CustomFunction();
 
-	AreaNameFunction.prototype.evaluate = function (params) {
+	AreaNameFunction.prototype.evaluate = function () {
 		return Utils.areaName;
 	};
 

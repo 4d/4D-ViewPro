@@ -15,22 +15,22 @@
  *
  */
 
-Utils.addCommand('compute-formulas', function (params) {
+Utils.addCommand('compute-formulas', function () {
     Utils.spread.resumeCalcService(false); // it has been suspended by runCommand
     Utils.spread.suspendCalcService(); // to keep the balance if it has been suspended by user
     Utils.spread.resumeCalcService(true); // finally do it and force computing
     Utils.spread.suspendCalcService(); // so it can be resumed when leaving runCommand
 });
 
-Utils.addCommand('suspend-calculation', function (params) {
+Utils.addCommand('suspend-calculation', function () {
     Utils.spread.suspendCalcService(false);
 });
 
-Utils.addCommand('resume-calculation', function (params) {
+Utils.addCommand('resume-calculation', function () {
     Utils.spread.resumeCalcService(false);
 });
 
-Utils.addCommand('copy-data', function (params) {
+Utils.addCommand('copy-data', function () {
     const copyData = { text: '', html: '' };
     const func = function (event, data) {
         copyData.html = data.copyData.html;

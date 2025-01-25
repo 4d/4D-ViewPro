@@ -5,7 +5,13 @@ customDesignerFunctions.saveAs = function (blob, fileName, allowAll) {
   reader.readAsDataURL(blob);
   reader.onloadend = function () {
     const content = reader.result.substr(reader.result.indexOf(',') + 1);
-    $4d._vp_saveFile(content, fileName, allowAll, function (ret, err) { });
+    $4d._vp_saveFile(content, fileName, allowAll, function (ret, err) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(ret);
+      }
+    });
   };
 };
 

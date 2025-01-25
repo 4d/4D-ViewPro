@@ -31,11 +31,14 @@ Case of
 		//______________________________________________________
 	: (True:C214)
 		
+		VP IMPORT FROM OBJECT("ViewProArea"; VP Export to object("ViewProArea"); $o)
+		
+		//______________________________________________________
+	: (True:C214)
+		
 		$t:=File:C1566("/RESOURCES/DEV/Objects.4vp").platformPath
 		$o:={formula: Formula:C1597(ALERT:C41("test"))}
 		VP IMPORT DOCUMENT("ViewProArea"; $t; $o)
-		
-		
 		
 		//MARK:ACI0103752
 		//______________________________________________________
