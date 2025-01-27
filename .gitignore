@@ -84,4 +84,4 @@ Resources/SpreadJS/*
 Resources/ui/ribbon/lib/css/*
 Resources/ui/ribbon/lib/scripts/*
 Project/Sources/dependencies.json
-Logs/unit.log
+Logs/*

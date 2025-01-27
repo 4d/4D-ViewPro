@@ -28,7 +28,7 @@ If (($viewProObject=Null:C1517) | (OB Is empty:C1297($viewProObject)))
 	
 	VP NEW DOCUMENT($area)
 	
-	vp_syncCallback("import-4VP"; $area; $params)
+	vp_syncCallback("import-4VP"; $area; $params)  // suppose no custom function in default.4dvp file (if it change, VP NEW DOCUMENT must take some callback too)
 	
 Else 
 	
