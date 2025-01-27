@@ -945,26 +945,7 @@ function vp_setOptimizer(timeout) {
             Utils.updateFormulaBar();
             Utils.needToUpdateFormulaBar = false;
         }
-
-        _vp_executeTasksAfterCommand();
-
     }, timeout);
-}
-
-const _vp_registerTasks = [];
-function _vp_registerTaskAfterCommand(task) {
-    if (typeof task === 'function') {
-        _vp_registerTasks.push(task);
-    } else {
-        console.error("Task after command must be a function!");
-    }
-}
-
-function _vp_executeTasksAfterCommand() {
-    while (_vp_registerTasks.length > 0) {
-        const task = _vp_registerTasks.shift();
-        task();
-    }
 }
 
 function _vp_startCustomFunction(method) {
