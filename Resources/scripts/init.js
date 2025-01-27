@@ -174,6 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
         Utils.customFunctionsInProgress = 0; // the number of custom functions in progress
         Utils.customFunctionsLog = false; // log when a custom function is called and when it ends
         Utils.customFunctionsLogStack = false; // when logging show the stack
+        Utils.customFunctionsCheckDelay = 100; // delay to check if custom functions are still in progress
         Utils.importInProgress = 0; // the number of import in progress
         Utils.exportInProgress = 0; // the number of export in progress
 

@@ -16,20 +16,20 @@
  */
 
 function _vp_do_callback(params) {
-  if (Utils.customFunctionsInProgress > 0) {
+  if ((Utils.customFunctionsInProgress > 0) && (params.command.startsWith("import")) ){
     setTimeout(() => {
       if (Utils.customFunctionsLog) {
-        console.log("Postpone callback after import/export:" + JSON.stringify(params));
+        console.log("Postpone callback after import: " + JSON.stringify(params));
         if (Utils.customFunctionsLogStack) {
           console.log(new Error().stack);
         }
       }
       _vp_do_callback(params);
-    }, 100);
+    }, Utils.customFunctionsCheckDelay);
   }
   else {
     if (Utils.customFunctionsLog) {
-      console.log("_vp_do_callback:" + JSON.stringify(params));
+      console.log("Callback: " + JSON.stringify(params));
       if (Utils.customFunctionsLogStack) {
           console.log(new Error().stack);
       }
@@ -41,13 +41,10 @@ function _vp_do_callback(params) {
 function _vp_callback(params) {
   if (params.command.startsWith("import")) {
     Utils.importInProgress -= 1;
-    _vp_registerTaskAfterCommand(() => {
-      _vp_do_callback(params);
-    });
   } else {
     Utils.exportInProgress -= 1;
-    _vp_do_callback(params);
   }
+  _vp_do_callback(params);
 }
 
 Utils.addCommand('import-json', function (params) {
