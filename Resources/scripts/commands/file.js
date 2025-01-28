@@ -44,7 +44,9 @@ function _vp_callback(params) {
   } else {
     Utils.exportInProgress -= 1;
   }
-  _vp_do_callback(params);
+  setTimeout(() => {
+    _vp_do_callback(params);
+  }, Utils.customFunctionsDelayBeforeCheck);
 }
 
 Utils.addCommand('import-json', function (params) {
