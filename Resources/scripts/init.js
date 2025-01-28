@@ -39,7 +39,7 @@
  * accessible via `window.spread`.
  * Try not to use `var`.
  */
-let spread;
+var spread; // eslint-disable-line no-var
 let useRibbon = false;
 let useToolbar = false;
 let designerReady = false; // eslint-disable-line prefer-const
