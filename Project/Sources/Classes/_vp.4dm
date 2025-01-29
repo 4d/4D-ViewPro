@@ -2,6 +2,9 @@ property area : Text
 property _formats : Collection
 property wookbook : cs:C1710._workbook
 
+property sheet : Integer
+property sheetName : Text
+
 property inited : Boolean
 
 Class constructor($area : Text)

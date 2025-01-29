@@ -3,7 +3,6 @@
 #DECLARE($area : Text; $commandName : Text) : Boolean
 
 var $success : Boolean
-var $o : Object
 
 If (Not:C34(Asserted:C1132(Count parameters:C259>=2; "Missing parameter")))
 	
@@ -11,7 +10,7 @@ If (Not:C34(Asserted:C1132(Count parameters:C259>=2; "Missing parameter")))
 	
 End if 
 
-$o:=vp_getAreaVariable($area)
+var $o:=vp_getAreaVariable($area)
 
 If ($o=Null:C1517)
 	

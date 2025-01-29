@@ -8,13 +8,8 @@
 
 If (Asserted:C1132($error#Null:C1517))
 	
-	If ($error.component=Null:C1517)
-		
-		$error.component:=err_component
-		
-	End if 
-	
-	$error.deferred:=True:C214  // (Structure file#Structure file(*))
+	$error.component:=$error.component || err_component
+	$error.deferred:=True:C214
 	
 	_4D THROW ERROR:C1520($error)
 	
