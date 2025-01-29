@@ -16,6 +16,11 @@ $workbook:=cs:C1710._workbook.new($vp.area)
 
 Case of 
 		
+		//mark:-ACI0105390
+	: (True:C214)
+		
+		VP EXPORT TO BLOB($vp.area; {Formula: Null:C1517})
+		
 		//______________________________________________________
 	: (Macintosh option down:C545)
 		
