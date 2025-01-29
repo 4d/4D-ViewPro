@@ -28,9 +28,8 @@ Case of
 		// Is there a user callback method to execute ?
 		If ($options.formula=Null:C1517)
 			
-			err_THROW(New object:C1471(\
-				"code"; 2; \
-				"message"; "export-blob"))
+			// mark:ACI0105390
+			err_THROW({code: 24; parameter: "formula"})
 			
 		Else 
 			

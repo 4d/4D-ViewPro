@@ -101,7 +101,10 @@ Příkaz "{command}" nelze použít.</target>
           <source>No data retrieved, possibly a timeout (suspension or breakpoint)</source>
           <target>Nebyla načtena žádná data, možná vypršel časový limit (pozastavení nebo bod přerušení)</target>
         </trans-unit>
-      </group>
+        <trans-unit id="sGuo6GaCfXna9XNUh0sxGw" resname="ERR_4DVP_24">
+          <source>The "{parameter}" parameter is mandatory</source>
+          <target state="new">The "{parameter}" parameter is mandatory</target>
+        </trans-unit></group>
       <group resname="Convert">
         <trans-unit id="8" resname="Convert_sheet">
           <source>Sheet1</source>
