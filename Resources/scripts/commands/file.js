@@ -350,29 +350,29 @@ Utils.addCommand('import-csv', function (params) {
 
   let instance = null;
 
-  const cvsOptions = params.cvsOptions || {};
+  const csvOptions = params.csvOptions || {};
 
-  if (('range' in cvsOptions) && ('ranges' in cvsOptions.range) && (cvsOptions.range.ranges.constructor === Array)) {
-    instance = Utils.getFirstRange(cvsOptions.range.ranges);
+  if (('range' in csvOptions) && ('ranges' in csvOptions.range) && (csvOptions.range.ranges.constructor === Array)) {
+    instance = Utils.getFirstRange(csvOptions.range.ranges);
   } else {
     instance = Utils.getFirstRange([{ sheetIndex: -1, row: 0, column: 0 }]);
   }
 
   let rowDelimiter = "\r\n";
-  if ('rowDelimiter' in cvsOptions && typeof cvsOptions.rowDelimiter === 'string') {
-    rowDelimiter = cvsOptions.rowDelimiter;
+  if ('rowDelimiter' in csvOptions && typeof csvOptions.rowDelimiter === 'string') {
+    rowDelimiter = csvOptions.rowDelimiter;
   }
 
   let columnDelimiter = ",";
-  if ('columnDelimiter' in cvsOptions && typeof cvsOptions.columnDelimiter === 'string') {
-    columnDelimiter = cvsOptions.columnDelimiter;
+  if ('columnDelimiter' in csvOptions && typeof csvOptions.columnDelimiter === 'string') {
+    columnDelimiter = csvOptions.columnDelimiter;
   }
 
   Utils.importInProgress += 1;
   instance.sheet.setCsv(
     instance.row,
     instance.column,
-    cvsOptions.csv,
+    csvOptions.csv,
     rowDelimiter,
     columnDelimiter);
 
