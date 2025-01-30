@@ -38,8 +38,7 @@ If (vp_initStorage)
 					
 				Else 
 					
-					// Invalid object
-					err_THROW(New object:C1471("code"; 1))
+					err_THROW({code: 1})  // invalid object
 					
 				End if 
 			End if 
