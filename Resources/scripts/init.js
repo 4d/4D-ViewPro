@@ -176,6 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
         Utils.customFunctionsLogStack = false; // when logging show the stack
         Utils.customFunctionsCheckDelay = 100; // delay to check if custom functions are still in progress
         Utils.customFunctionsDelayBeforeCheck= 100; // delay before checking if custom functions are still in progress
+        Utils.customFunctionsMaxLogged = Number.MAX_SAFE_INTEGER; // max number of custom functions logged
         Utils.importInProgress = 0; // the number of import in progress
         Utils.exportInProgress = 0; // the number of export in progress
 
@@ -379,8 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function customFunctionEvaluateAsync(method, isFormula, ...args) {
-
-        _vp_startCustomFunction(method);
+        vp_startLongOperation(); // end will be called by _vp_endCustomFunction
         const context = args[0];
         try {
 
@@ -560,6 +560,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             myFunc.prototype.evaluateAsync = function (...args) {
+                _vp_startCustomFunction(method);
                 setTimeout(() => { try {
                     customFunctionEvaluateAsync(method, isFormula, ...args);
                 } catch (err) {} }, 1); // to allow user case edit to finish before evaluating
