@@ -950,19 +950,19 @@ function vp_setOptimizer(timeout) {
 
 function _vp_startCustomFunction(method) {
     Utils.customFunctionsInProgress += 1;
-    if (Utils.customFunctionsLog) {
+    if (Utils.customFunctionsLog && (Utils.customFunctionsMaxLogged > Utils.customFunctionsInProgress)) {
         console.log("_vp_startCustomFunction: " + Utils.customFunctionsInProgress.toString() + " " + JSON.stringify(method));
         if (Utils.customFunctionsLogStack) {
             console.log(new Error().stack);
         }
     }
-    vp_startLongOperation();
+    // no vp_startLongOperation() here because it is already done later in asynchronous code 
 }
 
 function _vp_endCustomFunction() {
     vp_endLongOperation();
     Utils.customFunctionsInProgress -= 1;
-    if (Utils.customFunctionsLog) {
+    if (Utils.customFunctionsLog && (Utils.customFunctionsMaxLogged > Utils.customFunctionsInProgress)) {
         console.log("_vp_endCustomFunction: " + Utils.customFunctionsInProgress.toString());
         if (Utils.customFunctionsLogStack) {
             console.log(new Error().stack);
