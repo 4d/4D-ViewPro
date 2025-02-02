@@ -103,8 +103,9 @@ Příkaz "{command}" nelze použít.</target>
         </trans-unit>
         <trans-unit id="sGuo6GaCfXna9XNUh0sxGw" resname="ERR_4DVP_24">
           <source>The "{parameter}" parameter is mandatory</source>
-          <target state="new">The "{parameter}" parameter is mandatory</target>
-        </trans-unit></group>
+          <target>Parametr "{parameter}" je povinný</target>
+        </trans-unit>
+      </group>
       <group resname="Convert">
         <trans-unit id="8" resname="Convert_sheet">
           <source>Sheet1</source>
