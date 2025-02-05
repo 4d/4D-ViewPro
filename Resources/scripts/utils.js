@@ -956,7 +956,7 @@ function _vp_startCustomFunction(method) {
             console.log(new Error().stack);
         }
     }
-    // no vp_startLongOperation() here because it is already done later in asynchronous code 
+    // no vp_startLongOperation() here because it is already done later in asynchronous code
 }
 
 function _vp_endCustomFunction() {
@@ -969,3 +969,32 @@ function _vp_endCustomFunction() {
         }
     }
 }
+
+function _vp_hasAsyncCommands() {
+    return Utils.customFunctionsInProgress > 0
+        || Utils.importInProgress > 0
+        || Utils.exportInProgress > 0;
+}
+
+function _vp_waitAsyncCommands(future, maxEndingTime) {
+    const hasTimeout = (maxEndingTime - Date.now()) < 0;
+    if (_vp_hasAsyncCommands() && !hasTimeout) {
+        setTimeout(() => {
+            _vp_waitAsyncCommands(future, maxEndingTime);
+        }, Utils.customFunctionsCheckDelay);
+    }
+    else {
+        if (hasTimeout) console.warn("Timeout waiting for async commands. timeout=" + Utils.waitFlushCommandAsyncTimeout.toString());
+        future.resolve();
+    }
+}
+
+Utils._waitAsyncCommands = function () {
+    const future = new JSBridge4DFuture(); // from CEF JS bridge we inject
+    // opti: maybe if (! _vp_hasAsyncCommands()) return null; // just check flushed command could have been launched
+    setTimeout(() => {
+        if (Utils.customFunctionsLog) console.log('Request async wait commands');
+        _vp_waitAsyncCommands(future, Date.now() + Utils.waitFlushCommandAsyncTimeout);
+    }, Utils.customFunctionsDelayBeforeCheck);
+    return future;
+};

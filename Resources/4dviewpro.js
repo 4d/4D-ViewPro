@@ -57,7 +57,7 @@ function runCommand(action, params = undefined) {
 }
 
 
-function runCommands(actions) {
+function runCommands(actions, waitAsync) {
   try {
     vp_startLongOperation();
     Utils.spread.suspendCalcService(false);
@@ -73,6 +73,11 @@ function runCommands(actions) {
       commandHandler(action.params);
       
     });
+
+    if(waitAsync) {
+      const future = Utils._waitAsyncCommands();
+      if (future) return future;
+    }
 
   } finally {
     Utils.spread.resumeCalcService(false);
