@@ -16,7 +16,7 @@
  */
 
 function _vp_do_callback(params) {
-  if ((Utils.customFunctionsInProgress > 0) && (params.command.startsWith("import")) ){
+  if ((Utils.customFunctionsInProgress > 0) && (params.command.startsWith("import")) ) {
     setTimeout(() => {
       if (Utils.customFunctionsLog) {
         console.log("Postpone callback after import: " + JSON.stringify(params));
