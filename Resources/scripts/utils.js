@@ -976,12 +976,13 @@ function _vp_hasAsyncCommands() {
         || Utils.exportInProgress > 0;
 }
 
-function _vp_waitAsyncCommands(future, maxEndingTime) {
+function _vp_waitAsyncCommands(future, maxEndingTime, iter) {
     const hasTimeout = (maxEndingTime - Date.now()) < 0;
     if (_vp_hasAsyncCommands() && !hasTimeout) {
+        const delay = Math.min(Utils.waitFlushCommandAsyncTimeoutCheckDelay + (Utils.waitFlushCommandAsyncTimeoutCheckDelay * Math.log1p(iter)), Utils.waitFlushCommandAsyncTimeoutMaxDelay);
         setTimeout(() => {
-            _vp_waitAsyncCommands(future, maxEndingTime);
-        }, Utils.customFunctionsCheckDelay);
+            _vp_waitAsyncCommands(future, maxEndingTime, iter + 1);
+        }, delay);
     }
     else {
         if (hasTimeout) console.warn("Timeout waiting for async commands. timeout=" + Utils.waitFlushCommandAsyncTimeout.toString());
@@ -994,7 +995,7 @@ Utils._waitAsyncCommands = function () {
     // opti: maybe if (! _vp_hasAsyncCommands()) return null; // just check flushed command could have been launched
     setTimeout(() => {
         if (Utils.customFunctionsLog) console.log('Request async wait commands');
-        _vp_waitAsyncCommands(future, Date.now() + Utils.waitFlushCommandAsyncTimeout);
+        _vp_waitAsyncCommands(future, Date.now() + Utils.waitFlushCommandAsyncTimeout, 0);
     }, Utils.customFunctionsDelayBeforeCheck);
     return future;
 };

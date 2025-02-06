@@ -179,7 +179,9 @@ document.addEventListener('DOMContentLoaded', function () {
         Utils.customFunctionsMaxLogged = Number.MAX_SAFE_INTEGER; // max number of custom functions logged
         Utils.importInProgress = 0; // the number of import in progress
         Utils.exportInProgress = 0; // the number of export in progress
-        Utils.waitFlushCommandAsyncTimeout = 5 * 60 * 1000;
+        Utils.waitFlushCommandAsyncTimeout = 15 * 60 * 1000;
+        Utils.waitFlushCommandAsyncTimeoutCheckDelay = 500;
+        Utils.waitFlushCommandAsyncTimeoutMaxDelay = 10000;
 
         init4DCommands();
         initInternalComponentCommands();

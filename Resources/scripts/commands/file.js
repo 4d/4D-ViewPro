@@ -389,7 +389,7 @@ Utils.addCommand('export-pdf', function (params) {
     options = params.pdfOptions;
   }
 
-  Utils.exportInProgress += 1; 
+  Utils.exportInProgress += 1;
 
   if (params.fonts)
   {
@@ -411,7 +411,7 @@ Utils.addCommand('export-pdf', function (params) {
       _vp_callback(params);
     },
     options,
-    sheetIndex); 
+    sheetIndex);
 });
 
 Utils.addCommand('register-pdf-fonts', function (params) {
@@ -435,13 +435,13 @@ Utils.addCommand('register-pdf-fonts', function (params) {
       weight: "",
       size: ""
   };
-  
+
   let parseSize = false;
   let parseName = false;
-  
+
   for (let i = 0; i < elements.length; i++) {
       let element = elements[i];
-      
+
       if (!parseSize) {
           if (["normal", "initial", "inherit"].includes(element)) {
               continue;
@@ -455,7 +455,7 @@ Utils.addCommand('register-pdf-fonts', function (params) {
               parseSize = true;
           }
       }
-      
+
       if (parseName) {
           obj.family += element + " ";
       } else if (parseSize) {
@@ -463,9 +463,9 @@ Utils.addCommand('register-pdf-fonts', function (params) {
           parseName = true;
       }
   }
-  
+
   obj.family = obj.family.trim();
-  
+
   if (obj.family.length > 2) {
       if (obj.family.startsWith("\"") || obj.family.startsWith("'")) {
           obj.family = obj.family.substring(1);
@@ -474,12 +474,12 @@ Utils.addCommand('register-pdf-fonts', function (params) {
           obj.family = obj.family.substring(0, obj.family.length - 1);
       }
   }
-  
+
   let hasComma = obj.family.indexOf(",");
   if (hasComma > 0) {
       obj.family = obj.family.substring(0, hasComma);
   }
-  
+
   return obj;
 }
 
@@ -491,7 +491,7 @@ function filterFonts(fontStrings) {
 function _vp_getFonts(sheetIndex) {
 
   const json = Utils.spread.toJSON();
-  let fonts = {};
+  const fonts = {};
 
   function getFontFromHeaderOrFooter(sheet, name) {
     if (name in sheet.printInfo) {
