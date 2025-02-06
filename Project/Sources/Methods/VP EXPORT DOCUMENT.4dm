@@ -117,6 +117,7 @@ Case of
 					
 					$callback.command:="export-pdf"
 					$callback.pdfOptions:=$params.pdfOptions
+					$callback.fonts:=vp_computeFonts(vp_getFonts($area; $params.sheetIndex))
 					If (OB Is defined:C1231($params; "sheetIndex"))
 						$callback.sheetIndex:=$params.sheetIndex
 					End if 
