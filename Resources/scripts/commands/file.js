@@ -389,24 +389,29 @@ Utils.addCommand('export-pdf', function (params) {
     options = params.pdfOptions;
   }
 
-  Utils.exportInProgress += 1;
-  Utils.computePdfFonts(sheetIndex, function () {
+  Utils.exportInProgress += 1; 
 
-    Utils.spread.savePDF(function (blob) {
-      const reader = new FileReader();
-      reader.onloadend = function () {
-        params.content = reader.result.substr(reader.result.indexOf(',') + 1);
-        _vp_callback(params);
-      };
-      reader.readAsDataURL(blob);
+  if (params.fonts)
+  {
+    for (const font in params.fonts) {
+      GC.Spread.Sheets.PDF.PDFFontsManager.registerFont(font, params.fonts[font]);
+    }
+  }
+
+  Utils.spread.savePDF(function (blob) {
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      params.content = reader.result.substr(reader.result.indexOf(',') + 1);
+      _vp_callback(params);
+    };
+    reader.readAsDataURL(blob);
+  },
+    function (e) {
+      params.error = e;
+      _vp_callback(params);
     },
-      function (e) {
-        params.error = e;
-        _vp_callback(params);
-      },
-      options,
-      sheetIndex);
-  });
+    options,
+    sheetIndex); 
 });
 
 Utils.addCommand('register-pdf-fonts', function (params) {
@@ -421,11 +426,72 @@ Utils.addCommand('register-pdf-fonts', function (params) {
 
 });
 
+/*function parseFontString(fontString) {
+  let elements = fontString.split(/\s+/).filter(el => el.trim() !== "");
+  let obj = {
+      family: "",
+      variant: "",
+      style: "",
+      weight: "",
+      size: ""
+  };
+  
+  let parseSize = false;
+  let parseName = false;
+  
+  for (let i = 0; i < elements.length; i++) {
+      let element = elements[i];
+      
+      if (!parseSize) {
+          if (["normal", "initial", "inherit"].includes(element)) {
+              continue;
+          } else if (element === "small-caps") {
+              obj.variant = element;
+          } else if (["oblique", "italic"].includes(element)) {
+              obj.style = element;
+          } else if (["lighter", "bold", "bolder", "100", "200", "300", "400", "500", "600", "700", "800", "900"].includes(element)) {
+              obj.weight = element;
+          } else {
+              parseSize = true;
+          }
+      }
+      
+      if (parseName) {
+          obj.family += element + " ";
+      } else if (parseSize) {
+          obj.size = element;
+          parseName = true;
+      }
+  }
+  
+  obj.family = obj.family.trim();
+  
+  if (obj.family.length > 2) {
+      if (obj.family.startsWith("\"") || obj.family.startsWith("'")) {
+          obj.family = obj.family.substring(1);
+      }
+      if (obj.family.endsWith("\"") || obj.family.endsWith("'")) {
+          obj.family = obj.family.substring(0, obj.family.length - 1);
+      }
+  }
+  
+  let hasComma = obj.family.indexOf(",");
+  if (hasComma > 0) {
+      obj.family = obj.family.substring(0, hasComma);
+  }
+  
+  return obj;
+}
 
-Utils.computePdfFonts = function (sheetIndex, callback) {
+function filterFonts(fontStrings) {
+  const excludedFamilies = new Set(["Courier", "Times", "Helvetica", "Symbol", "ZapfDingbats"]);
+  return fontStrings.map(parseFontString).filter(font => !excludedFamilies.has(font.family));
+}*/
+
+function _vp_getFonts(sheetIndex) {
 
   const json = Utils.spread.toJSON();
-  const fonts = {};
+  let fonts = {};
 
   function getFontFromHeaderOrFooter(sheet, name) {
     if (name in sheet.printInfo) {
@@ -481,6 +547,20 @@ Utils.computePdfFonts = function (sheetIndex, callback) {
       }
     }
   }
+  return fonts;
+};
+
+Utils.computePdfFonts = function (sheetIndex, callback) {
+
+  const fonts = _vp_getFonts(sheetIndex);
+
+  /*
+  // this code allow to not call 4D,  but maybe js code is not sync with 4d code
+  if(filterFonts(Object.keys(fonts)).length === 0) {
+      callback();
+    return;
+  }
+  */
 
   $4d._vp_computeFonts(fonts, function (toEmbed) {
     for (const font in toEmbed) {

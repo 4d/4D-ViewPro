@@ -209,6 +209,7 @@
 			"vp_getAreaVariable",
 			"vp_getCellRange",
 			"vp_getCustomFunctions",
+			"vp_getFonts",
 			"vp_initStorage",
 			"vp_initStorage_no_licence_check",
 			"vp_isDocumentValid",
