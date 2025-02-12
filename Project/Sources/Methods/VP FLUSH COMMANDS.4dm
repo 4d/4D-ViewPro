@@ -8,7 +8,7 @@
 // Description: plays all recorded commands
 // ----------------------------------------------------
 // ----- Declarations
-#DECLARE($area : Text; $options : Integer)
+#DECLARE($area : Text; $formula : Object)
 
 If (Not:C34(vp_initStorage))
 	return 
@@ -22,7 +22,22 @@ err_TRY
 
 If (vp_isReady($area; Current method name:C684))
 	
-	vp_FLUSH($area; $options=vk flush wait asynchronous calls:K89:160)
+	If ($formula=Null:C1517)
+		
+		vp_FLUSH($area)
+		
+	Else 
+		
+		If (OB Instance of:C1731($formula; 4D:C1709.Function))
+			$formula:={formula: $formula}
+		End if 
+		
+		var $callback:=vp_newCallback("asyncflush"; $area; $formula)
+		
+		vp_runFunction($area; "asyncflush"; $callback)  // will vp_FLUSH
+		
+	End if 
+	
 	
 End if 
 

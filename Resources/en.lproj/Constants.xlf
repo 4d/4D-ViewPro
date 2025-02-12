@@ -662,14 +662,6 @@ This file is distributed under the same license as the product package.-->
 					<source>vk sjs format</source>
 					<target>vk sjs format</target>
 				</trans-unit>
-				<trans-unit d4:value="0" id="89_165">
-					<source>vk flush do not wait asynchronous calls</source>
-					<target>vk flush do not wait asynchronous calls</target>
-				</trans-unit>
-				<trans-unit d4:value="1" id="89_166">
-					<source>vk flush wait asynchronous calls</source>
-					<target>vk flush wait asynchronous calls</target>
-				</trans-unit>
 	  </group>
     </body>
   </file>

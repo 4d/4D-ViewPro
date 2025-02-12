@@ -90,6 +90,12 @@ Case of
 		$run:=True:C214
 		
 		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+	: ($callback.command="asyncflush")
+		
+		$success:=True:C214
+		$run:=True:C214
+		
+		//┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 End case 
 
 If ($run)\
@@ -128,23 +134,28 @@ If ($run)\
 				End if 
 			End if 
 			
-			If (($callback.command="import-blob")\
-				 | ($callback.command="export-blob"))
-				
-				If ($callback.command="import-blob")
+			Case of 
+				: (($callback.command="import-blob")\
+					 | ($callback.command="export-blob"))
 					
-					$blob:=$userObject.blob
-					OB REMOVE:C1226($userObject; "blob")
+					If ($callback.command="import-blob")
+						
+						$blob:=$userObject.blob
+						OB REMOVE:C1226($userObject; "blob")
+						
+					End if 
 					
-				End if 
-				
-				$formula.call(Null:C1517; $callback.areaName; $blob; $userObject; $status)
-				
-			Else 
-				
-				$formula.call(Null:C1517; $callback.areaName; $pathname; $userObject; $status)
-				
-			End if 
+					$formula.call(Null:C1517; $callback.areaName; $blob; $userObject; $status)
+					
+				: ($callback.command="asyncflush")
+					
+					$formula.call(Null:C1517; $callback.areaName; $status)
+					
+				Else 
+					
+					$formula.call(Null:C1517; $callback.areaName; $pathname; $userObject; $status)
+					
+			End case 
 		End if 
 	End if 
 End if 
