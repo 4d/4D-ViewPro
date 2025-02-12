@@ -1,5 +1,5 @@
 //%attributes = {"invisible":true}
-#DECLARE($area : Text; $waitAsync : Boolean)
+#DECLARE($area : Text)
 
 var $obj:=vp_getAreaVariable($area)
 
@@ -9,15 +9,10 @@ End if
 
 var $commandsBuffer : Collection:=$obj.commandBuffers
 
-Case of 
-	: ((($commandsBuffer#Null:C1517) && ($commandsBuffer.length>0)))
-		
-		WA EXECUTE JAVASCRIPT FUNCTION:C1043(*; $area; "runCommands"; *; $commandsBuffer; $waitAsync)
-		
-		$commandsBuffer.clear()
-		
-	: ($waitAsync)
-		
-		WA EXECUTE JAVASCRIPT FUNCTION:C1043(*; $area; "runCommands"; *; []; $waitAsync)
-		
-End case 
+If ((($commandsBuffer#Null:C1517) && ($commandsBuffer.length>0)))
+	
+	WA EXECUTE JAVASCRIPT FUNCTION:C1043(*; $area; "runCommands"; *; $commandsBuffer)
+	
+	$commandsBuffer.clear()
+	
+End if 
