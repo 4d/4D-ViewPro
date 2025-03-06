@@ -20,7 +20,7 @@ C_TEXT:C284($0)
 C_LONGINT:C283($1)
 C_BOOLEAN:C305($2)
 
-C_LONGINT:C283($Lon_color; $nbParameters)
+C_LONGINT:C283($Lon_color)
 C_TEXT:C284($Txt_color)
 C_BOOLEAN:C305($withName)
 
@@ -32,26 +32,10 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=2; "Missing parameter"))
-	
-	// Required parameters
-	$Lon_color:=$1
-	$withName:=$2
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		// <NONE>
-		
-	End if 
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
+// Required parameters
+$Lon_color:=$1
+$withName:=$2
 
 // ----------------------------------------------------
 If ($withName)

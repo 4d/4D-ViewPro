@@ -164,7 +164,7 @@ ________________________________________________________
 C_OBJECT:C1216($0)
 C_OBJECT:C1216($1)
 
-C_LONGINT:C283($Lon_i; $nbParameters)
+C_LONGINT:C283($Lon_i)
 C_TEXT:C284($Txt_style)
 C_OBJECT:C1216($Obj_d4; $Obj_printInfo)
 
@@ -175,27 +175,12 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
-	
-	// Required parameters
-	$Obj_d4:=$1
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		// <NONE>
-		
-	End if 
-	
-	$Obj_printInfo:=New object:C1471
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
+// Required parameters
+$Obj_d4:=$1
+
+$Obj_printInfo:=New object:C1471
+
 
 If (False:C215)
 	

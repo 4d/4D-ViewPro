@@ -58,7 +58,7 @@ C_OBJECT:C1216($0)
 C_OBJECT:C1216($1)
 C_OBJECT:C1216($2)
 
-C_LONGINT:C283($Lon_i; $nbParameters)
+C_LONGINT:C283($Lon_i)
 C_TEXT:C284($Txt_key)
 C_OBJECT:C1216($Obj_d4; $Obj_in; $Obj_out)
 
@@ -70,30 +70,22 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=2; "Missing parameter"))
+// Required parameters
+$Obj_in:=$1
+
+// Optional parameters
+If (Count parameters:C259>=2)
 	
-	// Required parameters
-	$Obj_in:=$1
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		$Obj_d4:=$2
-		
-	End if 
-	
-	$Txt_key:=$Obj_in.key
-	
-	$Obj_out:=New object:C1471(\
-		"value"; New object:C1471)
-	
-Else 
-	
-	ABORT:C156
+	$Obj_d4:=$2
 	
 End if 
+
+$Txt_key:=$Obj_in.key
+
+$Obj_out:=New object:C1471(\
+"value"; New object:C1471)
+
 
 // ----------------------------------------------------
 Case of 
