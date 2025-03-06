@@ -14,6 +14,7 @@
 
 var $i; $j; $indx; $pos : Integer
 var $column; $format; $row; $timeSeparator : Text
+var $keysIndx : Text
 var $cell; $color; $dataTable; $key; $style : Object
 var $col : Collection
 
@@ -24,12 +25,11 @@ GET SYSTEM FORMAT:C994(System date short pattern:K60:7; $dateFormat)
 
 GET SYSTEM FORMAT:C994(Time separator:K60:11; $timeSeparator)
 
-ARRAY TEXT:C222($_SKIPPED_PROPERTIES; 8)
 ARRAY TEXT:C222($_ignoredProperties; 0)
 ARRAY TEXT:C222($_keys; 0)
 
-
 // MARK:Ignored keys
+ARRAY TEXT:C222($_SKIPPED_PROPERTIES; 8)
 $_SKIPPED_PROPERTIES{1}:="showGrid"
 $_SKIPPED_PROPERTIES{2}:="spellCheck"
 $_SKIPPED_PROPERTIES{3}:="pictHeights"
@@ -40,7 +40,6 @@ $_SKIPPED_PROPERTIES{7}:="condensed"
 $_SKIPPED_PROPERTIES{8}:="extended"
 
 ARRAY TEXT:C222($tTxt_tags; 7)
-
 $tTxt_tags{1}:="table"
 $tTxt_tags{2}:="field"
 $tTxt_tags{3}:="variableName"
@@ -48,6 +47,29 @@ $tTxt_tags{4}:="controlType"
 $tTxt_tags{5}:="method"
 $tTxt_tags{6}:="command"
 $tTxt_tags{7}:="title"
+
+ARRAY TEXT:C222($FOREGROUND_COLOR_PROPERTIES; 6)
+$FOREGROUND_COLOR_PROPERTIES{1}:="_normalColorEven"
+$FOREGROUND_COLOR_PROPERTIES{2}:="_normalColorOdd"
+$FOREGROUND_COLOR_PROPERTIES{3}:="_zeroColorOdd"
+$FOREGROUND_COLOR_PROPERTIES{4}:="_zeroColorEven"
+$FOREGROUND_COLOR_PROPERTIES{5}:="_minusColorOdd"
+$FOREGROUND_COLOR_PROPERTIES{6}:="_minusColorEven"
+
+ARRAY TEXT:C222($FONT_PROPERTIES; 4)
+$FONT_PROPERTIES{1}:="_bold"
+$FONT_PROPERTIES{2}:="_italic"
+$FONT_PROPERTIES{3}:="_size"
+$FONT_PROPERTIES{4}:="_font"
+
+ARRAY TEXT:C222($BACKGROUND_COLOR_PROPERTIES; 2)
+$BACKGROUND_COLOR_PROPERTIES{1}:="_backColorEven"
+$BACKGROUND_COLOR_PROPERTIES{2}:="_backColorOdd"
+
+ARRAY TEXT:C222($CELL_KINDS; 3)
+$CELL_KINDS{1}:="value"
+$CELL_KINDS{2}:="empty"
+$CELL_KINDS{3}:="formula"
 
 
 $dataTable:=New object:C1471
@@ -87,8 +109,10 @@ For each ($col; $in._cells)
 				// 4D method that is dynamically linked to a cell with a button control (radioButton, checkBox, etc)
 				
 				// Keep the information
-				$cell.tag:=$cell.tag || New object:C1471
-
+				If ($cell.tag=Null:C1517)
+					$cell.tag:=New object:C1471
+				End if 
+				
 				For ($i; 1; Size of array:C274($tTxt_tags); 1)
 					
 					If ($cell[$tTxt_tags{$i}]#Null:C1517)
@@ -99,14 +123,17 @@ For each ($col; $in._cells)
 				End for 
 			End if 
 			
-			If (($cell.kind="value")\
-				 | ($cell.kind="empty")\
-				 | ($cell.kind="formula"))
+			If (Find in array:C230($CELL_KINDS; $cell.kind)>0)
 				
 				$row:=String:C10($cell.row-1)
 				$column:=String:C10($cell.column-1)
-				$dataTable[$row]:=$dataTable[$row] || New object:C1471
-				$dataTable[$row][$column]:=$dataTable[$row][$column] || New object:C1471
+				If ($dataTable[$row]=Null:C1517)
+					$dataTable[$row]:=New object:C1471($column; New object:C1471())
+				Else 
+					If ($dataTable[$row][$column]=Null:C1517)
+						$dataTable[$row][$column]:=New object:C1471
+					End if 
+				End if 
 				
 				Case of 
 						
@@ -243,12 +270,13 @@ For each ($col; $in._cells)
 					
 					// For each property in the cell styles
 					For ($indx; 1; Size of array:C274($_keys); 1)
+						$keysIndx:=$_keys{$indx}
 						
-						If (Find in array:C230($_ignoredProperties; $_keys{$indx})=-1)
+						If (Find in array:C230($_ignoredProperties; $keysIndx)=-1)
 							
 							$key:=convert_styleKey(New object:C1471(\
-								"key"; $_keys{$indx}; \
-								"value"; $cell.style[$_keys{$indx}]; \
+								"key"; $keysIndx; \
+								"value"; $cell.style[$keysIndx]; \
 								"source"; "cell"; \
 								"type"; $cell.valueType); $in)
 							
@@ -283,36 +311,26 @@ For each ($col; $in._cells)
 									End if 
 									
 									//______________________________________________________
-									
-								: ($key.type="_bold")\
-									 | ($key.type="_italic")\
-									 | ($key.type="_size")\
-									 | ($key.type="_font")
+								: (Find in array:C230($FONT_PROPERTIES; $key.type)>0)
 									
 									// Temporary keep the result
 									$style.font[$key.type]:=$key.value
 									
 									//______________________________________________________
-								: ($key.type="_normalColorEven")\
-									 | ($key.type="_normalColorOdd")\
-									 | ($key.type="_zeroColorOdd")\
-									 | ($key.type="_zeroColorEven")\
-									 | ($key.type="_minusColorOdd")\
-									 | ($key.type="_minusColorEven")
+								: (Find in array:C230($FOREGROUND_COLOR_PROPERTIES; $key.type)>0)
 									
 									// Temporary keep the result
 									$style.foreColor[$key.type]:=$key.value
 									
 									//______________________________________________________
-								: ($key.type="_backColorEven")\
-									 | ($key.type="_backColorOdd")
+								: (Find in array:C230($BACKGROUND_COLOR_PROPERTIES; $key.type)>0)
 									
 									$style.backColor[$key.type]:=$key.value
 									
 									//______________________________________________________
-								: ($_keys{$indx}="numericFormat")\
-									 & (String:C10($cell.valueType)="real")\
-									 & (Position:C15("%"; String:C10($key.value))>0)
+								: ($keysIndx="numericFormat")\
+									 && (String:C10($cell.valueType)="real")\
+									 && (Position:C15("%"; String:C10($key.value))>0)
 									
 									// Compare with main stylesheet to not add common elements
 									If ($in._defaultStyle[$key.type]#Null:C1517)
@@ -406,30 +424,24 @@ For each ($col; $in._cells)
 					OB GET PROPERTY NAMES:C1232($in._defaultStyle; $_keys)
 					
 					For ($indx; 1; Size of array:C274($_keys); 1)
-						
+						$keysIndx:=$_keys{$indx}
 						Case of 
 								
 								//______________________________________________________
-							: (Position:C15("_normalColorEven"; $_keys{$indx})=1)\
-								 | (Position:C15("_normalColorOdd"; $_keys{$indx})=1)\
-								 | (Position:C15("_zeroColorEven"; $_keys{$indx})=1)\
-								 | (Position:C15("_zeroColorOdd"; $_keys{$indx})=1)\
-								 | (Position:C15("_minusColorEven"; $_keys{$indx})=1)\
-								 | (Position:C15("_minusColorOdd"; $_keys{$indx})=1)
+							: (Find in array:C230($FOREGROUND_COLOR_PROPERTIES; $keysIndx)>0)
 								
-								If ($style.foreColor[$_keys{$indx}]=Null:C1517)
+								If ($style.foreColor[$keysIndx]=Null:C1517)
 									
-									$style.foreColor[$_keys{$indx}]:=$in._defaultStyle[$_keys{$indx}]
+									$style.foreColor[$keysIndx]:=$in._defaultStyle[$keysIndx]
 									
 								End if 
 								
 								//______________________________________________________
-							: (Position:C15("_backColorEven"; $_keys{$indx})=1)\
-								 | (Position:C15("_backColorOdd"; $_keys{$indx})=1)
+							: (Find in array:C230($BACKGROUND_COLOR_PROPERTIES; $keysIndx)>0)
 								
-								If ($style.backColor[$_keys{$indx}]=Null:C1517)
+								If ($style.backColor[$keysIndx]=Null:C1517)
 									
-									$style.backColor[$_keys{$indx}]:=$in._defaultStyle[$_keys{$indx}]
+									$style.backColor[$keysIndx]:=$in._defaultStyle[$keysIndx]
 									
 								End if 
 								
@@ -561,10 +573,10 @@ For each ($col; $in._cells)
 					OB GET PROPERTY NAMES:C1232($in._defaultStyle; $_keys)
 					
 					For ($indx; 1; Size of array:C274($_keys); 1)
-						
-						If (Position:C15("_"; $_keys{$indx})=1)
+						$keysIndx:=$_keys{$indx}
+						If (Position:C15("_"; $keysIndx)=1)
 							
-							$color[$_keys{$indx}]:=$in._defaultStyle[$_keys{$indx}]
+							$color[$keysIndx]:=$in._defaultStyle[$keysIndx]
 							
 						End if 
 					End for 
@@ -671,8 +683,11 @@ For each ($col; $in._cells)
 			Else 
 				
 				// Keep the information
-				$cell.tag:=$cell.tag || New object:C1471
-				$cell.tag.kind:=$cell.kind
+				If ($cell.tag=Null:C1517)
+					$cell.tag:=New object:C1471("kind"; $cell.kind)
+				Else 
+					$cell.tag.kind:=$cell.kind
+				End if 
 				
 			End if 
 		End if 

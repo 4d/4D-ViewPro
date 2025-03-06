@@ -54,7 +54,7 @@ For ($row; 1; $Coll_d4.length-1; 1)
 	
 	If ($Coll_d4[$row]#Null:C1517)
 		
-		$Obj_new.size:=Choose:C955($Coll_d4[$row].height#Null:C1517; Round:C94($Coll_d4[$row].height*$kNum_sizeConversionFactor; 0); 20)
+		$Obj_new.size:=($Coll_d4[$row].height#Null:C1517) ? (Round:C94($Coll_d4[$row].height*$kNum_sizeConversionFactor; 0)) : 20
 		
 		If ($Coll_d4[$row].visible#Null:C1517)
 			
