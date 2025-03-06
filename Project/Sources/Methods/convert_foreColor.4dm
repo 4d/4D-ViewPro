@@ -41,11 +41,11 @@ $Obj_cell:=$3
 Case of 
 		
 		//______________________________________________________
-	: (($Obj_cell.valueType=Null:C1517) | (String:C10($Obj_cell.valueType)="real") | (String:C10($Obj_cell.valueType)="hour"))
+	: (($Obj_cell.valueType=Null:C1517) || (String:C10($Obj_cell.valueType)="real") || (String:C10($Obj_cell.valueType)="hour"))
 		
 		
 		If (Num:C11($Obj_foreColor._zeroColorEven)=Num:C11($Obj_foreColor._zeroColorOdd))\
-			 | ((($Obj_cell.row-1)%2)=0)  // Both or even line
+			 || ((($Obj_cell.row-1)%2)=0)  // Both or even line
 			
 			$Zero_color:=convert_color(Num:C11($Obj_foreColor._zeroColorOdd); True:C214)
 			
@@ -57,7 +57,7 @@ Case of
 		
 		
 		If (Num:C11($Obj_foreColor._minusColorEven)=Num:C11($Obj_foreColor._minusColorOdd))\
-			 | ((($Obj_cell.row-1)%2)=0)  // Both or even line
+			 || ((($Obj_cell.row-1)%2)=0)  // Both or even line
 			
 			$Negative_color:=convert_color(Num:C11($Obj_foreColor._minusColorOdd); True:C214)
 			
@@ -70,7 +70,7 @@ Case of
 		//…………………………………………………………………………………………………………
 		
 		If (Num:C11($Obj_foreColor._normalColorEven)=Num:C11($Obj_foreColor._normalColorOdd))\
-			 | ((($Obj_cell.row-1)%2)=0)  // Both or even line
+			 || ((($Obj_cell.row-1)%2)=0)  // Both or even line
 			
 			$Txt_color:=convert_color(Num:C11($Obj_foreColor._normalColorOdd); True:C214)
 			
@@ -86,7 +86,7 @@ Case of
 	Else 
 		
 		If (Num:C11($Obj_foreColor._normalColorEven)=Num:C11($Obj_foreColor._normalColorOdd))\
-			 | (((Num:C11($Obj_cell.row)-1)%2)=0)  // Both or even line
+			 || (((Num:C11($Obj_cell.row)-1)%2)=0)  // Both or even line
 			
 			$Txt_color:=convert_color(Num:C11($Obj_foreColor._normalColorOdd); True:C214)
 			

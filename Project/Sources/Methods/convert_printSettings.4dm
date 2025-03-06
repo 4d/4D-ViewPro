@@ -462,7 +462,7 @@ If (False:C215)
 	//      ]
 	//    },
 	
-	$Obj_printInfo.centering:=Choose:C955(Bool:C1537($Obj_d4.printSettings.centered); 3; 0)
+	$Obj_printInfo.centering:=(Bool:C1537($Obj_d4.printSettings.centered)) ? 3 : 0
 	
 	$Obj_printInfo.showBorder:=$Obj_d4.printSettings.borders
 End if 
