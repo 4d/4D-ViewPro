@@ -124,7 +124,7 @@ C_OBJECT:C1216($2)
 
 C_BLOB:C604($Blb_buffer)
 C_LONGINT:C283($kLon_centered; $kLon_none; $kLon_stretch; $kLon_zoom; $Lon_height)
-C_LONGINT:C283($Lon_i; $nbParameters; $Lon_picture; $Lon_width; $Lon_x; $Lon_y)
+C_LONGINT:C283($Lon_i; $Lon_picture; $Lon_width; $Lon_x; $Lon_y)
 C_LONGINT:C283($wanted_codec)
 C_PICTURE:C286($Pic_buffer)
 C_TEXT:C284($Dom_pattern; $Dom_rect; $Dom_svg; $Txt_image; $Txt_pictureName; $codec)
@@ -135,7 +135,7 @@ C_LONGINT:C283($convert_unique_id)
 
 ARRAY LONGINT:C221($tLon_columnWidth; 0)
 ARRAY LONGINT:C221($tLon_rowHeight; 0)
-ARRAY TEXT:C222($ktTxt_codecs; 0)
+ARRAY TEXT:C222($ktTxt_codecs; 3)
 ARRAY TEXT:C222($tTxt_codecs; 0)
 
 If (False:C215)
@@ -146,39 +146,31 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
+// Required parameters
+$Col_pictures:=$1
+
+// Optional parameters
+If (Count parameters:C259>=2)
 	
-	// Required parameters
-	$Col_pictures:=$1
+	$Obj_viewPro:=$2
 	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		$Obj_viewPro:=$2
-		
-		$Obj_default:=$Obj_viewPro.spreadJS.sheets.Sheet1.defaults
-		
-	End if 
-	
-	$kLon_stretch:=0
-	$kLon_centered:=1
-	$kLon_zoom:=2
-	$kLon_none:=3
-	$kNum_sizeConversionFactor:=0.06666666666667
-	
-	APPEND TO ARRAY:C911($ktTxt_codecs; ".png")
-	APPEND TO ARRAY:C911($ktTxt_codecs; ".jpg")
-	APPEND TO ARRAY:C911($ktTxt_codecs; ".gif")
-	
-	$Col_floatingObjects:=New collection:C1472
-	
-Else 
-	
-	ABORT:C156
+	$Obj_default:=$Obj_viewPro.spreadJS.sheets.Sheet1.defaults
 	
 End if 
+
+$kLon_stretch:=0
+$kLon_centered:=1
+$kLon_zoom:=2
+$kLon_none:=3
+$kNum_sizeConversionFactor:=0.06666666666667
+
+$ktTxt_codecs{1}:=".png"
+$ktTxt_codecs{2}:=".jpg"
+$ktTxt_codecs{3}:=".gif"
+
+$Col_floatingObjects:=New collection:C1472
+
 
 // ----------------------------------------------------
 

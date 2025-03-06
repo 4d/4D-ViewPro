@@ -21,7 +21,6 @@ C_TEXT:C284($0)
 C_OBJECT:C1216($1)
 C_OBJECT:C1216($2)
 
-C_LONGINT:C283($nbParameters)
 C_TEXT:C284($Txt_color; $Zero_color; $Negative_color)
 C_OBJECT:C1216($Obj_cell; $Obj_style; $Obj_foreColor)
 
@@ -34,28 +33,10 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=2; "Missing parameter"))
-	
-	// Required parameters
-	$Obj_style:=$1
-	$Obj_foreColor:=$2
-	$Obj_cell:=$3
-	
-	// Optional parameters
-	If ($nbParameters>=3)
-		
-		// <NONE>
-		
-	End if 
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
-
+$Obj_style:=$1
+$Obj_foreColor:=$2
+$Obj_cell:=$3
 // ----------------------------------------------------
 Case of 
 		

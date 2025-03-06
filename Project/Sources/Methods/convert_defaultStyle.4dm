@@ -18,10 +18,10 @@ ________________________________________________________
 C_OBJECT:C1216($0)
 C_OBJECT:C1216($1)
 
-C_LONGINT:C283($Lon_key; $nbParameters)
+C_LONGINT:C283($Lon_key)
 C_OBJECT:C1216($Obj_d4; $Obj_key; $Obj_style)
 
-ARRAY TEXT:C222($tTxt_ignoredProperties; 0)
+ARRAY TEXT:C222($tTxt_ignoredProperties; 13)
 ARRAY TEXT:C222($tTxt_keys; 0)
 
 If (False:C215)
@@ -31,63 +31,48 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
-	
-	// Required parameters
-	$Obj_d4:=$1
-	
-	// Optional parameters
-	If ($nbParameters>=4)
-		
-		// <NONE>
-		
-	End if 
-	
-	// Ignored keys [
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "showGrid")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "spellCheck")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "pictHeights")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "inputFilter")
-	
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"backColorEven")
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"backColorOdd")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "outline")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "shadow")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "condensed")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "extended")
-	
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"normalColorOdd")
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"zeroColorEven")
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"zeroColorOdd")
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"minusColorEven")
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"minusColorOdd")
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"rotation")
-	
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"wordWrap")
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"forceTextFormat")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "numericFormat")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "stringFormat")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "boolFormat")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "dateTimeFormat")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "pictureFormat")
-	//]
-	
-	// Create a new style
-	$Obj_style:=New object:C1471(\
-		"name"; "cells"; \
-		"themeFont"; "Body"; \
-		"font"; New object:C1471; \
-		"formatter"; "General"; \
-		"multiLine"; True:C214; \
-		"locked"; False:C215)
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
+// Required parameters
+$Obj_d4:=$1
+
+// Ignored keys [
+$tTxt_ignoredProperties{1}:="showGrid"
+$tTxt_ignoredProperties{2}:="spellCheck"
+$tTxt_ignoredProperties{3}:="pictHeights"
+$tTxt_ignoredProperties{4}:="inputFilter"
+
+//$tTxt_ignoredProperties{5}:="backColorEven"
+//$tTxt_ignoredProperties{6}:="backColorOdd"
+$tTxt_ignoredProperties{5}:="outline"
+$tTxt_ignoredProperties{6}:="shadow"
+$tTxt_ignoredProperties{7}:="condensed"
+$tTxt_ignoredProperties{8}:="extended"
+
+//$tTxt_ignoredProperties{9}:="normalColorOdd"
+//$tTxt_ignoredProperties{10}:="zeroColorEven"
+//$tTxt_ignoredProperties{11}:="zeroColorOdd"
+//$tTxt_ignoredProperties{12}:="minusColorEven"
+//$tTxt_ignoredProperties{13}:="minusColorOdd"
+//$tTxt_ignoredProperties{14}:="rotation"
+
+//$tTxt_ignoredProperties{15}:="wordWrap"
+//$tTxt_ignoredProperties{16}:="forceTextFormat"
+$tTxt_ignoredProperties{9}:="numericFormat"
+$tTxt_ignoredProperties{10}:="stringFormat"
+$tTxt_ignoredProperties{11}:="boolFormat"
+$tTxt_ignoredProperties{12}:="dateTimeFormat"
+$tTxt_ignoredProperties{13}:="pictureFormat"
+//]
+
+// Create a new style
+$Obj_style:=New object:C1471(\
+"name"; "cells"; \
+"themeFont"; "Body"; \
+"font"; New object:C1471; \
+"formatter"; "General"; \
+"multiLine"; True:C214; \
+"locked"; False:C215)
+
 
 // ----------------------------------------------------
 OB GET PROPERTY NAMES:C1232($Obj_d4.defaultStyle; $tTxt_keys)

@@ -46,7 +46,7 @@ C_TEXT:C284($0)
 C_LONGINT:C283($1)
 C_COLLECTION:C1488($2)
 
-C_LONGINT:C283($Lon_formatID; $Lon_i; $nbParameters)
+C_LONGINT:C283($Lon_formatID; $Lon_i)
 C_TEXT:C284($Txt_char; $Txt_currency; $Txt_decimal; $Txt_format; $Txt_thousand)
 C_COLLECTION:C1488($Col_customFormats)
 
@@ -58,31 +58,23 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
+// Required parameters
+$Lon_formatID:=$1
+
+// Optional parameters
+If (Count parameters:C259>=2)
 	
-	// Required parameters
-	$Lon_formatID:=$1
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		$Col_customFormats:=$2
-		
-	End if 
-	
-	GET SYSTEM FORMAT:C994(Currency symbol:K60:3; $Txt_currency)
-	GET SYSTEM FORMAT:C994(Decimal separator:K60:1; $Txt_decimal)
-	GET SYSTEM FORMAT:C994(Thousand separator:K60:2; $Txt_thousand)
-	
-	$Txt_char:=Char:C90(NBSP ASCII CODE:K15:43)
-	
-Else 
-	
-	ABORT:C156
+	$Col_customFormats:=$2
 	
 End if 
+
+GET SYSTEM FORMAT:C994(Currency symbol:K60:3; $Txt_currency)
+GET SYSTEM FORMAT:C994(Decimal separator:K60:1; $Txt_decimal)
+GET SYSTEM FORMAT:C994(Thousand separator:K60:2; $Txt_thousand)
+
+$Txt_char:=Char:C90(NBSP ASCII CODE:K15:43)
+
 
 // ----------------------------------------------------
 Case of 
@@ -98,7 +90,7 @@ Case of
 		If ($Lon_formatID=0)
 			$Txt_format:=""
 		Else 
-			$Txt_format:=Get localized string:C991("FORMAT_4DVIEW_NUMERIC_"+String:C10($Lon_formatID))
+			$Txt_format:=Localized string:C991("FORMAT_4DVIEW_NUMERIC_"+String:C10($Lon_formatID))
 		End if 
 		//ARRAY TEXT($tTxt_formats;18)
 		//$tTxt_formats{0}:="General"

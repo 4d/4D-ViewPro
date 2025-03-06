@@ -12,7 +12,7 @@ C_COLLECTION:C1488($0)
 C_OBJECT:C1216($1)
 C_OBJECT:C1216($2)
 
-C_LONGINT:C283($column; $Lon_ii; $Lon_key; $nbParameters; $Lon_range; $row)
+C_LONGINT:C283($column; $Lon_ii; $Lon_key; $Lon_range; $row)
 C_TEXT:C284($Txt_column; $Txt_row)
 C_OBJECT:C1216($Obj_d4; $Obj_data; $Obj_dataTable; $Obj_key; $Obj_style; $Obj_styleRange)
 C_OBJECT:C1216($Obj_viewPro)
@@ -20,48 +20,39 @@ C_COLLECTION:C1488($Coll_namedStyles)
 C_OBJECT:C1216($cell)
 C_TEXT:C284($color)
 
-ARRAY TEXT:C222($tTxt_ignoredProperties; 0)
+ARRAY TEXT:C222($tTxt_ignoredProperties; 12)
 ARRAY TEXT:C222($tTxt_keys; 0)
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
+// Required parameters
+$Obj_d4:=$1
+
+// Optional parameters
+If (Count parameters:C259>=2)
 	
-	// Required parameters
-	$Obj_d4:=$1
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		$Obj_viewPro:=$2
-		$Obj_data:=$Obj_viewPro.spreadJS.sheets.Sheet1.data
-		$Obj_dataTable:=$Obj_data.dataTable
-		
-	End if 
-	
-	// Ignored keys
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "showGrid")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "spellCheck")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "pictHeights")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "inputFilter")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "outline")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "shadow")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "condensed")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "extended")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "zeroColorEven")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "zeroColorOdd")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "minusColorEven")
-	APPEND TO ARRAY:C911($tTxt_ignoredProperties; "minusColorOdd")
-	
-	$Coll_namedStyles:=New collection:C1472
-	
-Else 
-	
-	ABORT:C156
+	$Obj_viewPro:=$2
+	$Obj_data:=$Obj_viewPro.spreadJS.sheets.Sheet1.data
+	$Obj_dataTable:=$Obj_data.dataTable
 	
 End if 
+
+$tTxt_ignoredProperties{1}:="showGrid"
+$tTxt_ignoredProperties{2}:="spellCheck"
+$tTxt_ignoredProperties{3}:="pictHeights"
+$tTxt_ignoredProperties{4}:="inputFilter"
+$tTxt_ignoredProperties{5}:="outline"
+$tTxt_ignoredProperties{6}:="shadow"
+$tTxt_ignoredProperties{7}:="condensed"
+$tTxt_ignoredProperties{8}:="extended"
+$tTxt_ignoredProperties{9}:="zeroColorEven"
+$tTxt_ignoredProperties{10}:="zeroColorOdd"
+$tTxt_ignoredProperties{11}:="minusColorEven"
+$tTxt_ignoredProperties{12}:="minusColorOdd"
+
+$Coll_namedStyles:=New collection:C1472
+
 
 For each ($Obj_styleRange; $Obj_d4.styleRanges)
 	
@@ -372,7 +363,7 @@ For each ($Obj_styleRange; $Obj_d4.styleRanges)
 							
 							//#ACI0097857 [
 							//If ($Obj_dataTable[$Txt_row][$Txt_column].style.font#Null)\
-																																																																																& ($Obj_style.font#Null)
+								& ($Obj_style.font#Null)
 							//If ($Obj_dataTable[$Txt_row][$Txt_column].style.font#$Obj_style.font)
 							//$Obj_dataTable[$Txt_row][$Txt_column].style.font:=mergeFontStyleDefinition ($Obj_dataTable[$Txt_row][$Txt_column].style.font;$Obj_style.font)
 							//End if

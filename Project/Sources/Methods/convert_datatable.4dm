@@ -10,12 +10,11 @@
 // For each object in the collection cells, a new cell in the dataTable is created if it doesn't exist
 // For each cell added in the dataTable, the styles are automatically applied
 // ----------------------------------------------------
-var $0 : Object
-var $1 : Object
+#DECLARE($in : Object) : Object
 
-var $i; $j; $indx; $nbParameters; $pos : Integer
+var $i; $j; $indx; $pos : Integer
 var $column; $format; $row; $timeSeparator : Text
-var $cell; $color; $in; $dataTable; $key; $style : Object
+var $cell; $color; $dataTable; $key; $style : Object
 var $col : Collection
 
 var $BASE_DATE : Date:=Storage:C1525.ViewPro.BASE_DATE
@@ -25,22 +24,31 @@ GET SYSTEM FORMAT:C994(System date short pattern:K60:7; $dateFormat)
 
 GET SYSTEM FORMAT:C994(Time separator:K60:11; $timeSeparator)
 
-ARRAY TEXT:C222($_SKIPPED_PROPERTIES; 0)
+ARRAY TEXT:C222($_SKIPPED_PROPERTIES; 8)
 ARRAY TEXT:C222($_ignoredProperties; 0)
 ARRAY TEXT:C222($_keys; 0)
 
-// Required parameters
-$in:=$1
 
 // MARK:Ignored keys
-APPEND TO ARRAY:C911($_SKIPPED_PROPERTIES; "showGrid")
-APPEND TO ARRAY:C911($_SKIPPED_PROPERTIES; "spellCheck")
-APPEND TO ARRAY:C911($_SKIPPED_PROPERTIES; "pictHeights")
-APPEND TO ARRAY:C911($_SKIPPED_PROPERTIES; "inputFilter")
-APPEND TO ARRAY:C911($_SKIPPED_PROPERTIES; "outline")
-APPEND TO ARRAY:C911($_SKIPPED_PROPERTIES; "shadow")
-APPEND TO ARRAY:C911($_SKIPPED_PROPERTIES; "condensed")
-APPEND TO ARRAY:C911($_SKIPPED_PROPERTIES; "extended")
+$_SKIPPED_PROPERTIES{1}:="showGrid"
+$_SKIPPED_PROPERTIES{2}:="spellCheck"
+$_SKIPPED_PROPERTIES{3}:="pictHeights"
+$_SKIPPED_PROPERTIES{4}:="inputFilter"
+$_SKIPPED_PROPERTIES{5}:="outline"
+$_SKIPPED_PROPERTIES{6}:="shadow"
+$_SKIPPED_PROPERTIES{7}:="condensed"
+$_SKIPPED_PROPERTIES{8}:="extended"
+
+ARRAY TEXT:C222($tTxt_tags; 7)
+
+$tTxt_tags{1}:="table"
+$tTxt_tags{2}:="field"
+$tTxt_tags{3}:="variableName"
+$tTxt_tags{4}:="controlType"
+$tTxt_tags{5}:="method"
+$tTxt_tags{6}:="command"
+$tTxt_tags{7}:="title"
+
 
 $dataTable:=New object:C1471
 
@@ -80,17 +88,7 @@ For each ($col; $in._cells)
 				
 				// Keep the information
 				$cell.tag:=$cell.tag || New object:C1471
-				
-				ARRAY TEXT:C222($tTxt_tags; 7)
-				
-				$tTxt_tags{1}:="table"
-				$tTxt_tags{2}:="field"
-				$tTxt_tags{3}:="variableName"
-				$tTxt_tags{4}:="controlType"
-				$tTxt_tags{5}:="method"
-				$tTxt_tags{6}:="command"
-				$tTxt_tags{7}:="title"
-				
+
 				For ($i; 1; Size of array:C274($tTxt_tags); 1)
 					
 					If ($cell[$tTxt_tags{$i}]#Null:C1517)
