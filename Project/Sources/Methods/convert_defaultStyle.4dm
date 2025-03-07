@@ -17,6 +17,7 @@ ________________________________________________________
 // Declarations
 C_OBJECT:C1216($0)
 C_OBJECT:C1216($1)
+var $2; $3 : Pointer
 
 C_LONGINT:C283($Lon_key)
 C_OBJECT:C1216($Obj_d4; $Obj_key; $Obj_style)
@@ -27,6 +28,8 @@ ARRAY TEXT:C222($tTxt_keys; 0)
 If (False:C215)
 	C_OBJECT:C1216(convert_defaultStyle; $0)
 	C_OBJECT:C1216(convert_defaultStyle; $1)
+	C_POINTER:C301(convert_defaultStyle; $2)
+	C_POINTER:C301(convert_defaultStyle; $3)
 End if 
 
 // ----------------------------------------------------
@@ -85,7 +88,7 @@ For ($Lon_key; 1; Size of array:C274($tTxt_keys); 1)
 		$Obj_key:=convert_styleKey(New object:C1471(\
 			"key"; $tTxt_keys{$Lon_key}; \
 			"value"; $Obj_d4.defaultStyle[$tTxt_keys{$Lon_key}]; \
-			"source"; "cell"); $Obj_d4)
+			"source"; "cell"); $Obj_d4; $2; $3)
 		
 		Case of 
 				

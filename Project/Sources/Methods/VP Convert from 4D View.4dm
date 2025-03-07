@@ -119,17 +119,44 @@ Else
 		$Obj_viewPro.spreadJS.AutoFitType:=1  // cell:0 (default), cellWithHeader:1
 		
 		// STYLE-SHEETS ================================================================== [
+		
+		$Obj_d4._numFormatCache:=New object:C1471()
+		
+		// convert style prop
+		ARRAY TEXT:C222($CONVERT_STYLEKEY_IGNORED_PROP; 11)
+		// obsolete
+		$CONVERT_STYLEKEY_IGNORED_PROP{1}:="outline"
+		$CONVERT_STYLEKEY_IGNORED_PROP{2}:="shadow"
+		$CONVERT_STYLEKEY_IGNORED_PROP{3}:="condensed"
+		$CONVERT_STYLEKEY_IGNORED_PROP{4}:="extended"
+		// TODO??
+		$CONVERT_STYLEKEY_IGNORED_PROP{5}:="showGrid"
+		$CONVERT_STYLEKEY_IGNORED_PROP{6}:="spellCheck"
+		$CONVERT_STYLEKEY_IGNORED_PROP{7}:="pictHeights"
+		$CONVERT_STYLEKEY_IGNORED_PROP{8}:="inputFilter"
+		$CONVERT_STYLEKEY_IGNORED_PROP{9}:="stringFormat"
+		$CONVERT_STYLEKEY_IGNORED_PROP{10}:="boolFormat"
+		$CONVERT_STYLEKEY_IGNORED_PROP{11}:="pictureFormat"
+		
+		ARRAY TEXT:C222($CONVERT_STYLEKEY_FORECOLOR_PROP; 6)
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{1}:="normalColorEven"
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{2}:="normalColorOdd"
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{3}:="zeroColorOdd"
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{4}:="zeroColorEven"
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{5}:="minusColorOdd"
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{6}:="minusColorEven"
+		
 		// Keep the default style definition in a temporary key
-		$Obj_d4._defaultStyle:=convert_defaultStyle($Obj_d4)
+		$Obj_d4._defaultStyle:=convert_defaultStyle($Obj_d4; ->$CONVERT_STYLEKEY_IGNORED_PROP; ->$CONVERT_STYLEKEY_FORECOLOR_PROP)
 		
 		// ================================================================================
 		// =            #TO_DO : Detect style for even and odd to create 2 styles         =
 		// ================================================================================
 		
 		$Coll_namedStyles:=New collection:C1472
-		$stylesheets:=convert_styleSheets($Obj_d4)
+		$stylesheets:=convert_styleSheets($Obj_d4; ->$CONVERT_STYLEKEY_IGNORED_PROP; ->$CONVERT_STYLEKEY_FORECOLOR_PROP)
 		// Append headers' style
-		$Coll_namedStyles[$Coll_namedStyles.length]:=convert_headerStyles($Obj_d4)
+		$Coll_namedStyles[$Coll_namedStyles.length]:=convert_headerStyles($Obj_d4; ->$CONVERT_STYLEKEY_IGNORED_PROP; ->$CONVERT_STYLEKEY_FORECOLOR_PROP)
 		
 		// Append default style [
 		$Obj_style:=OB Copy:C1225($Obj_d4._defaultStyle)
@@ -307,7 +334,8 @@ Else
 			"defaultDataNode"; New object:C1471("style"; \
 			"cells"))
 		
-		$Obj_dataTable:=convert_datatable($Obj_d4)
+		
+		$Obj_dataTable:=convert_datatable($Obj_d4; ->$CONVERT_STYLEKEY_IGNORED_PROP; ->$CONVERT_STYLEKEY_FORECOLOR_PROP)
 		
 		$Obj_viewPro.spreadJS.sheets.Sheet1.data.dataTable:=$Obj_dataTable
 		

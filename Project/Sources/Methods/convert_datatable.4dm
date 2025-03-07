@@ -10,7 +10,7 @@
 // For each object in the collection cells, a new cell in the dataTable is created if it doesn't exist
 // For each cell added in the dataTable, the styles are automatically applied
 // ----------------------------------------------------
-#DECLARE($in : Object) : Object
+#DECLARE($in : Object; $styleIgnored : Pointer; $styleForeColor : Pointer) : Object
 
 var $i; $j; $indx; $pos : Integer
 var $column; $format; $row; $timeSeparator : Text
@@ -48,7 +48,7 @@ $tTxt_tags{5}:="method"
 $tTxt_tags{6}:="command"
 $tTxt_tags{7}:="title"
 
-ARRAY TEXT:C222($FOREGROUND_COLOR_PROPERTIES; 6)
+ARRAY TEXT:C222($FOREGROUND_COLOR_PROPERTIES; 6)  // or replace by $styleForeColor
 $FOREGROUND_COLOR_PROPERTIES{1}:="_normalColorEven"
 $FOREGROUND_COLOR_PROPERTIES{2}:="_normalColorOdd"
 $FOREGROUND_COLOR_PROPERTIES{3}:="_zeroColorOdd"
@@ -278,7 +278,7 @@ For each ($col; $in._cells)
 								"key"; $keysIndx; \
 								"value"; $cell.style[$keysIndx]; \
 								"source"; "cell"; \
-								"type"; $cell.valueType); $in)
+								"type"; $cell.valueType); $in; $styleIgnored; $styleForeColor)
 							
 							If ($key.type=Null:C1517)
 								

@@ -20,6 +20,8 @@ ________________________________________________________
 // Declarations
 C_COLLECTION:C1488($0)
 C_OBJECT:C1216($1)
+C_POINTER:C301($2)
+C_POINTER:C301($3)
 
 C_LONGINT:C283($Lon_i; $Lon_key; $Lon_styleSheet)
 C_OBJECT:C1216($Obj_d4; $Obj_key; $Obj_style; $Obj_styleSheet)
@@ -31,6 +33,8 @@ ARRAY TEXT:C222($tTxt_keys; 0)
 If (False:C215)
 	C_COLLECTION:C1488(convert_styleSheets; $0)
 	C_OBJECT:C1216(convert_styleSheets; $1)
+	C_POINTER:C301(convert_styleSheets; $2)
+	C_POINTER:C301(convert_styleSheets; $3)
 End if 
 
 // ----------------------------------------------------
@@ -90,7 +94,7 @@ For ($Lon_styleSheet; 0; $Obj_d4.styleSheets.length-1; 1)
 				"key"; $tTxt_keys{$Lon_key}; \
 				"value"; $Obj_styleSheet.style[$tTxt_keys{$Lon_key}]; \
 				"source"; "style_sheet"); \
-				$Obj_d4)
+				$Obj_d4; $2; $3)
 			
 			Case of 
 					

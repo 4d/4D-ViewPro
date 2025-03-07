@@ -45,15 +45,18 @@ ________________________________________________________
 C_TEXT:C284($0)
 C_LONGINT:C283($1)
 C_COLLECTION:C1488($2)
+C_OBJECT:C1216($3)
 
 C_LONGINT:C283($Lon_formatID; $Lon_i)
-C_TEXT:C284($Txt_char; $Txt_currency; $Txt_decimal; $Txt_format; $Txt_thousand)
-C_COLLECTION:C1488($Col_customFormats)
+var $Txt_char; $Txt_currency; $Txt_decimal; $Txt_format; $Txt_thousand : Text
+var $Col_customFormats : Collection
+var $cache : Object
 
 If (False:C215)
 	C_TEXT:C284(convert_numericFormat; $0)
 	C_LONGINT:C283(convert_numericFormat; $1)
 	C_COLLECTION:C1488(convert_numericFormat; $2)
+	C_OBJECT:C1216(convert_numericFormat; $3)
 End if 
 
 // ----------------------------------------------------
@@ -66,6 +69,7 @@ $Lon_formatID:=$1
 If (Count parameters:C259>=2)
 	
 	$Col_customFormats:=$2
+	$cache:=$3
 	
 End if 
 
@@ -142,6 +146,10 @@ Case of
 						
 						$Txt_format:=$Col_customFormats[$Lon_i].format
 						
+						If ($cache[$Txt_format]#Null:C1517)
+							return $cache[$Txt_format]
+						End if 
+						
 						C_BOOLEAN:C305($found)
 						C_LONGINT:C283($len; $pos; $start)
 						$start:=1
@@ -176,6 +184,8 @@ Case of
 						//]
 						
 						$Txt_format:=Replace string:C233($Txt_format; ".#"; ".0")
+						
+						$cache[$Col_customFormats[$Lon_i].format]:=$Txt_format
 						
 					Else 
 						
