@@ -11,6 +11,8 @@ ________________________________________________________
 C_COLLECTION:C1488($0)
 C_OBJECT:C1216($1)
 C_OBJECT:C1216($2)
+C_POINTER:C301($3)
+C_POINTER:C301($4)
 
 C_LONGINT:C283($column; $Lon_ii; $Lon_key; $Lon_range; $row)
 C_TEXT:C284($Txt_column; $Txt_row)
@@ -51,6 +53,25 @@ $tTxt_ignoredProperties{10}:="zeroColorOdd"
 $tTxt_ignoredProperties{11}:="minusColorEven"
 $tTxt_ignoredProperties{12}:="minusColorOdd"
 
+
+ARRAY TEXT:C222($FOREGROUND_COLOR_PROPERTIES; 6)
+$FOREGROUND_COLOR_PROPERTIES{1}:="_normalColorEven"
+$FOREGROUND_COLOR_PROPERTIES{2}:="_normalColorOdd"
+$FOREGROUND_COLOR_PROPERTIES{3}:="_zeroColorOdd"
+$FOREGROUND_COLOR_PROPERTIES{4}:="_zeroColorEven"
+$FOREGROUND_COLOR_PROPERTIES{5}:="_minusColorOdd"
+$FOREGROUND_COLOR_PROPERTIES{6}:="_minusColorEven"
+
+ARRAY TEXT:C222($BACKGROUND_COLOR_PROPERTIES; 2)
+$BACKGROUND_COLOR_PROPERTIES{1}:="_backColorEven"
+$BACKGROUND_COLOR_PROPERTIES{2}:="_backColorOdd"
+
+ARRAY TEXT:C222($FONT_PROPERTIES; 4)
+$FONT_PROPERTIES{1}:="_bold"
+$FONT_PROPERTIES{2}:="_italic"
+$FONT_PROPERTIES{3}:="_size"
+$FONT_PROPERTIES{4}:="_font"
+
 $Coll_namedStyles:=New collection:C1472
 
 
@@ -76,7 +97,7 @@ For each ($Obj_styleRange; $Obj_d4.styleRanges)
 				"value"; $Obj_styleRange.style[$tTxt_keys{$Lon_key}]; \
 				"source"; "range"; \
 				"type"; $Obj_styleRange.valueType); \
-				$Obj_d4)
+				$Obj_d4; $3; $4)
 			
 			Case of 
 					
@@ -107,28 +128,19 @@ For each ($Obj_styleRange; $Obj_d4.styleRanges)
 					End if 
 					
 					//______________________________________________________
-				: ($Obj_key.type="_bold")\
-					 | ($Obj_key.type="_italic")\
-					 | ($Obj_key.type="_size")\
-					 | ($Obj_key.type="_font")
+				: (Find in array:C230($FONT_PROPERTIES; $Obj_key.type)>0)
 					
 					// Temporary keep the result
 					$Obj_style.font[$Obj_key.type]:=$Obj_key.value
 					
 					//______________________________________________________
-				: ($Obj_key.type="_normalColorEven")\
-					 | ($Obj_key.type="_normalColorOdd")\
-					 | ($Obj_key.type="_zeroColorOdd")\
-					 | ($Obj_key.type="_zeroColorEven")\
-					 | ($Obj_key.type="_minusColorOdd")\
-					 | ($Obj_key.type="_minusColorEven")
+				: (Find in array:C230($FOREGROUND_COLOR_PROPERTIES; $Obj_key.type)>0)
 					
 					// Temporary keep the result
 					$Obj_style.foreColor[$Obj_key.type]:=$Obj_key.value
 					
 					//______________________________________________________
-				: ($Obj_key.type="_backColorEven")\
-					 | ($Obj_key.type="_backColorOdd")
+				: (Find in array:C230($BACKGROUND_COLOR_PROPERTIES; $Obj_key.type)>0)
 					
 					$Obj_style.backColor[$Obj_key.type]:=$Obj_key.value
 					
