@@ -18,7 +18,7 @@ ________________________________________________________
 C_OBJECT:C1216($1)
 C_OBJECT:C1216($2)
 
-C_LONGINT:C283($column; $Lon_i; $Lon_j; $Lon_left; $nbParameters; $row)
+C_LONGINT:C283($column; $Lon_i; $Lon_j; $Lon_left; $row)
 C_LONGINT:C283($Lon_top; $tmp_row; $tmp_col)
 C_TEXT:C284($Txt_border; $Txt_col; $Txt_row)
 C_OBJECT:C1216($Obj_border; $Obj_d4; $Obj_data; $Obj_dataTable; $Obj_edge)
@@ -31,28 +31,12 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=2; "Missing parameter"))
-	
-	// Required parameters
-	$Obj_d4:=$1
-	$Obj_data:=$2
-	
-	// Optional parameters
-	If ($nbParameters>=3)
-		
-		// <NONE>
-		
-	End if 
-	
-	$Obj_dataTable:=$Obj_data.dataTable
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
+// Required parameters
+$Obj_d4:=$1
+$Obj_data:=$2
+
+$Obj_dataTable:=$Obj_data.dataTable
 
 // ----------------------------------------------------
 

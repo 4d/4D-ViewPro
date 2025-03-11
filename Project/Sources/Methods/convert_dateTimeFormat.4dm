@@ -23,7 +23,7 @@ C_TEXT:C284($0)
 C_LONGINT:C283($1)
 C_COLLECTION:C1488($2)
 
-C_LONGINT:C283($Lon_format; $Lon_i; $nbParameters)
+C_LONGINT:C283($Lon_format; $Lon_i)
 C_TEXT:C284($Txt_dateSeparator; $Txt_dayPosition; $Txt_format; $Txt_monthPosition)
 C_TEXT:C284($Txt_timeSeparator; $Txt_yearPosition)
 C_COLLECTION:C1488($Col_customFormats)
@@ -36,35 +36,27 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
+// Required parameters
+$Lon_format:=$1
+
+// Optional parameters
+If (Count parameters:C259>=2)
 	
-	// Required parameters
-	$Lon_format:=$1
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		$Col_customFormats:=$2
-		
-	End if 
-	
-	// Default value
-	GET SYSTEM FORMAT:C994(System date short pattern:K60:7; $Txt_format)
-	
-Else 
-	
-	ABORT:C156
+	$Col_customFormats:=$2
 	
 End if 
 
+// Default value
+GET SYSTEM FORMAT:C994(System date short pattern:K60:7; $Txt_format)
+
+
 C_TEXT:C284($hours; $minutes; $seconds; $and)
 
-$hours:=Get localized string:C991("hours")
-$minutes:=Get localized string:C991("minutes")
-$seconds:=Get localized string:C991("seconds")
-$and:=Get localized string:C991("FORMAT_4D_VIEW_CONJONCTION_5")
+$hours:=Localized string:C991("hours")
+$minutes:=Localized string:C991("minutes")
+$seconds:=Localized string:C991("seconds")
+$and:=Localized string:C991("FORMAT_4D_VIEW_CONJONCTION_5")
 
 // ----------------------------------------------------
 Case of 

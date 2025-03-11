@@ -5,78 +5,62 @@ result := ***convert_rows*** ( d4 )
  <- result (Object)
 ________________________________________________________
 */
-  // ----------------------------------------------------
-  // Project method : convert_rows
-  // Database: Convert4DView
-  // ID[468E356A18C34DFD99B01837ABCE059B]
-  // Created #26-9-2017 by Vincent de Lachaux
-  // ----------------------------------------------------
-  // User name (OS): wilofice
-  // Date and time: 16-08-17, 11:00:27
-  // ----------------------------------------------------
-  // Description:
-  // Convert 4D View rows properties into SpreadJS rows properties
-  // ----------------------------------------------------
-  // Declarations
+// ----------------------------------------------------
+// Project method : convert_rows
+// Database: Convert4DView
+// ID[468E356A18C34DFD99B01837ABCE059B]
+// Created #26-9-2017 by Vincent de Lachaux
+// ----------------------------------------------------
+// User name (OS): wilofice
+// Date and time: 16-08-17, 11:00:27
+// ----------------------------------------------------
+// Description:
+// Convert 4D View rows properties into SpreadJS rows properties
+// ----------------------------------------------------
+// Declarations
 C_OBJECT:C1216($0)
 C_COLLECTION:C1488($1)
 
-C_LONGINT:C283($nbParameters;$row)
+C_LONGINT:C283($row)
 C_REAL:C285($kNum_sizeConversionFactor)
-C_OBJECT:C1216($Obj_dataTable;$Obj_new;$Obj_result)
-C_COLLECTION:C1488($Coll_d4;$Coll_rows)
+C_OBJECT:C1216($Obj_dataTable; $Obj_new; $Obj_result)
+C_COLLECTION:C1488($Coll_d4; $Coll_rows)
 
 If (False:C215)
-	C_OBJECT:C1216(convert_rows ;$0)
-	C_COLLECTION:C1488(convert_rows ;$1)
+	C_OBJECT:C1216(convert_rows; $0)
+	C_COLLECTION:C1488(convert_rows; $1)
 End if 
 
-  // ----------------------------------------------------
-  // Initialisations
-$nbParameters:=Count parameters:C259
+// ----------------------------------------------------
+// Initialisations
 
-If (Asserted:C1132($nbParameters>=1;"Missing parameter"))
-	
-	  // Required parameters
-	$Coll_d4:=$1
-	
-	  // Optional parameters
-	If ($nbParameters>=2)
-		
-		  // <NONE>
-		
-	End if 
-	
-	$kNum_sizeConversionFactor:=0.06666666666667
-	
-	$Coll_rows:=New collection:C1472
-	
-	$Obj_dataTable:=New object:C1471
-	
-	$Obj_result:=New object:C1471(\
-		"rows";$Coll_rows;\
-		"dataTable";$Obj_dataTable)
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
+// Required parameters
+$Coll_d4:=$1
 
-  // ----------------------------------------------------
-For ($row;1;$Coll_d4.length-1;1)
+$kNum_sizeConversionFactor:=0.06666666666667
+
+$Coll_rows:=New collection:C1472
+
+$Obj_dataTable:=New object:C1471
+
+$Obj_result:=New object:C1471(\
+"rows"; $Coll_rows; \
+"dataTable"; $Obj_dataTable)
+
+// ----------------------------------------------------
+For ($row; 1; $Coll_d4.length-1; 1)
 	
 	$Obj_new:=New object:C1471
 	
 	If ($Coll_d4[$row]#Null:C1517)
 		
-		$Obj_new.size:=Choose:C955($Coll_d4[$row].height#Null:C1517;Round:C94($Coll_d4[$row].height*$kNum_sizeConversionFactor;0);20)
+		$Obj_new.size:=($Coll_d4[$row].height#Null:C1517) ? (Round:C94($Coll_d4[$row].height*$kNum_sizeConversionFactor; 0)) : 20
 		
 		If ($Coll_d4[$row].visible#Null:C1517)
 			
 			If ($Coll_d4[$row].visible)
 				
-				  // NOTHING MORE TO DO - Visible is the default value
+				// NOTHING MORE TO DO - Visible is the default value
 				
 			Else 
 				
@@ -89,7 +73,7 @@ For ($row;1;$Coll_d4.length-1;1)
 			
 			$Obj_dataTable[String:C10($row-1)]:=New object:C1471
 			$Obj_dataTable[String:C10($row-1)]["0"]:=New object:C1471(\
-				"value";$Coll_d4[$row].title)
+				"value"; $Coll_d4[$row].title)
 			
 		End if 
 	End if 
@@ -98,16 +82,16 @@ For ($row;1;$Coll_d4.length-1;1)
 	
 End for 
 
-  // Remove empty dataTable if any
+// Remove empty dataTable if any
 If (OB Is empty:C1297($Obj_dataTable))
 	
-	OB REMOVE:C1226($Obj_result;"dataTable")
+	OB REMOVE:C1226($Obj_result; "dataTable")
 	
 End if 
 
-  // ----------------------------------------------------
-  // Return
+// ----------------------------------------------------
+// Return
 $0:=$Obj_result
 
-  // ----------------------------------------------------
-  // End
+// ----------------------------------------------------
+// End

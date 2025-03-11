@@ -16,79 +16,83 @@ ________________________________________________________
 // For each object in the collection cells, a new cell in the dataTable is created if it doesn't exist
 // For each cell added in the dataTable, the styles are automatically applied
 // ----------------------------------------------------
-// Declarations
-C_OBJECT:C1216($0)
-C_OBJECT:C1216($1)
+#DECLARE($Obj_d4 : Object; $Obj_styleIgnored : Pointer; $Obj_styleForeColor : Pointer) : Object
 
-C_LONGINT:C283($Lon_i; $Lon_ii; $Lon_key; $nbParameters; $Lon_x)
-C_TEXT:C284($Txt_col; $Txt_format; $Txt_row; $Txt_timeSeparator)
-C_OBJECT:C1216($Obj_cell; $Obj_color; $Obj_d4; $Obj_dataTable; $Obj_key; $Obj_style)
+var $Lon_i; $j; $indx; $pos : Integer
+var $Txt_col; $Txt_format; $Txt_row; $Txt_timeSeparator : Text
+var $keysIndx : Text
+var $Obj_cell; $Obj_color; $Obj_dataTable; $Obj_key; $Obj_style : Object
+var $col : Collection
 
-ARRAY TEXT:C222($orig_tTxt_ignoredProperties; 0)
+var $dateFormat : Text
+GET SYSTEM FORMAT:C994(System date short pattern:K60:7; $dateFormat)
+
+GET SYSTEM FORMAT:C994(Time separator:K60:11; $Txt_timeSeparator)
+
 ARRAY TEXT:C222($tTxt_ignoredProperties; 0)
 ARRAY TEXT:C222($tTxt_keys; 0)
 
-If (False:C215)
-	C_OBJECT:C1216(convert_datatable; $0)
-	C_OBJECT:C1216(convert_datatable; $1)
-End if 
+// MARK:Ignored keys
+ARRAY TEXT:C222($_SKIPPED_PROPERTIES; 8)
+$_SKIPPED_PROPERTIES{1}:="showGrid"
+$_SKIPPED_PROPERTIES{2}:="spellCheck"
+$_SKIPPED_PROPERTIES{3}:="pictHeights"
+$_SKIPPED_PROPERTIES{4}:="inputFilter"
+$_SKIPPED_PROPERTIES{5}:="outline"
+$_SKIPPED_PROPERTIES{6}:="shadow"
+$_SKIPPED_PROPERTIES{7}:="condensed"
+$_SKIPPED_PROPERTIES{8}:="extended"
 
-// ----------------------------------------------------
-// Initialisations
-$nbParameters:=Count parameters:C259
+ARRAY TEXT:C222($tTxt_tags; 7)
+$tTxt_tags{1}:="table"
+$tTxt_tags{2}:="field"
+$tTxt_tags{3}:="variableName"
+$tTxt_tags{4}:="controlType"
+$tTxt_tags{5}:="method"
+$tTxt_tags{6}:="command"
+$tTxt_tags{7}:="title"
 
-If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
-	
-	// Required parameters
-	$Obj_d4:=$1
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		// <NONE>
-		
-	End if 
-	
-	// Ignored keys [
-	APPEND TO ARRAY:C911($orig_tTxt_ignoredProperties; "showGrid")
-	APPEND TO ARRAY:C911($orig_tTxt_ignoredProperties; "spellCheck")
-	APPEND TO ARRAY:C911($orig_tTxt_ignoredProperties; "pictHeights")
-	APPEND TO ARRAY:C911($orig_tTxt_ignoredProperties; "inputFilter")
-	APPEND TO ARRAY:C911($orig_tTxt_ignoredProperties; "outline")
-	APPEND TO ARRAY:C911($orig_tTxt_ignoredProperties; "shadow")
-	APPEND TO ARRAY:C911($orig_tTxt_ignoredProperties; "condensed")
-	APPEND TO ARRAY:C911($orig_tTxt_ignoredProperties; "extended")
-	//APPEND TO ARRAY($tTxt_ignoredProperties;"rotation")
-	//]
-	
-	$Obj_dataTable:=New object:C1471
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
+ARRAY TEXT:C222($FOREGROUND_COLOR_PROPERTIES; 6)  // or replace by $Obj_styleForeColor
+$FOREGROUND_COLOR_PROPERTIES{1}:="_normalColorEven"
+$FOREGROUND_COLOR_PROPERTIES{2}:="_normalColorOdd"
+$FOREGROUND_COLOR_PROPERTIES{3}:="_zeroColorOdd"
+$FOREGROUND_COLOR_PROPERTIES{4}:="_zeroColorEven"
+$FOREGROUND_COLOR_PROPERTIES{5}:="_minusColorOdd"
+$FOREGROUND_COLOR_PROPERTIES{6}:="_minusColorEven"
+
+ARRAY TEXT:C222($FONT_PROPERTIES; 4)
+$FONT_PROPERTIES{1}:="_bold"
+$FONT_PROPERTIES{2}:="_italic"
+$FONT_PROPERTIES{3}:="_size"
+$FONT_PROPERTIES{4}:="_font"
+
+ARRAY TEXT:C222($BACKGROUND_COLOR_PROPERTIES; 2)
+$BACKGROUND_COLOR_PROPERTIES{1}:="_backColorEven"
+$BACKGROUND_COLOR_PROPERTIES{2}:="_backColorOdd"
+
+ARRAY TEXT:C222($CELL_KINDS; 3)
+$CELL_KINDS{1}:="value"
+$CELL_KINDS{2}:="empty"
+$CELL_KINDS{3}:="formula"
+
+
+$Obj_dataTable:=New object:C1471
 
 $Obj_d4.lastColumn:=0
 $Obj_d4.lastRow:=0
-
-// ----------------------------------------------------
-// For each cell
-//For ($Lon_cell;0;$Obj_d4.cells.length-1;1)
-C_COLLECTION:C1488($col)
 
 For each ($col; $Obj_d4._cells)
 	If ($col#Null:C1517)
 		For each ($Obj_cell; $col)
 			If ($Obj_cell#Null:C1517)
-				//#redmine:95674
+				
+				// MARK:redmine:95674
 				CLEAR VARIABLE:C89($Obj_style)
-				COPY ARRAY:C226($orig_tTxt_ignoredProperties; $tTxt_ignoredProperties)
-				//$Obj_cell:=$Obj_d4.cells[$Lon_cell]
+				COPY ARRAY:C226($_SKIPPED_PROPERTIES; $tTxt_ignoredProperties)
 				
 				// Keep the last used column & row
-				$Obj_d4.lastColumn:=Choose:C955($Obj_cell.column>$Obj_d4.lastColumn; $Obj_cell.column; $Obj_d4.lastColumn)
-				$Obj_d4.lastRow:=Choose:C955($Obj_cell.row>$Obj_d4.lastRow; $Obj_cell.row; $Obj_d4.lastRow)
+				$Obj_d4.lastColumn:=$Obj_cell.column>$Obj_d4.lastColumn ? $Obj_cell.column : $Obj_d4.lastColumn
+				$Obj_d4.lastRow:=$Obj_cell.row>$Obj_d4.lastRow ? $Obj_cell.row : $Obj_d4.lastRow
 				
 				If ($Obj_cell.table#Null:C1517)\
 					 | ($Obj_cell.field#Null:C1517)\
@@ -109,15 +113,6 @@ For each ($col; $Obj_d4._cells)
 						
 					End if 
 					
-					ARRAY TEXT:C222($tTxt_tags; 7)
-					$tTxt_tags{1}:="table"
-					$tTxt_tags{2}:="field"
-					$tTxt_tags{3}:="variableName"
-					$tTxt_tags{4}:="controlType"
-					$tTxt_tags{5}:="method"
-					$tTxt_tags{6}:="command"
-					$tTxt_tags{7}:="title"
-					
 					For ($Lon_i; 1; Size of array:C274($tTxt_tags); 1)
 						
 						If ($Obj_cell[$tTxt_tags{$Lon_i}]#Null:C1517)
@@ -128,23 +123,18 @@ For each ($col; $Obj_d4._cells)
 					End for 
 				End if 
 				
-				If (($Obj_cell.kind="value")\
-					 | ($Obj_cell.kind="empty")\
-					 | ($Obj_cell.kind="formula"))
+				If (Find in array:C230($CELL_KINDS; $Obj_cell.kind)>0)
 					
 					$Txt_row:=String:C10($Obj_cell.row-1)
 					$Txt_col:=String:C10($Obj_cell.column-1)
 					
 					If ($Obj_dataTable[$Txt_row]=Null:C1517)
 						
-						$Obj_dataTable[$Txt_row]:=New object:C1471
-						
-					End if 
-					
-					If ($Obj_dataTable[$Txt_row][$Txt_col]=Null:C1517)
-						
-						$Obj_dataTable[$Txt_row][$Txt_col]:=New object:C1471
-						
+						$Obj_dataTable[$Txt_row]:=New object:C1471($Txt_col; New object:C1471())
+					Else 
+						If ($Obj_dataTable[$Txt_row][$Txt_col]=Null:C1517)
+							$Obj_dataTable[$Txt_row][$Txt_col]:=New object:C1471
+						End if 
 					End if 
 					
 					Case of 
@@ -158,11 +148,7 @@ For each ($col; $Obj_d4._cells)
 						: ($Obj_cell.formulaPro#Null:C1517)
 							
 							// Keep the formula
-							If ($Obj_cell.formulaPro="=")
-								$Obj_dataTable[$Txt_row][$Txt_col].formula:=$Obj_cell.formula
-							Else 
-								$Obj_dataTable[$Txt_row][$Txt_col].formula:=$Obj_cell.formulaPro
-							End if 
+							$Obj_dataTable[$Txt_row][$Txt_col].formula:=$Obj_cell.formulaPro="=" ? $Obj_cell.formula : $Obj_cell.formulaPro
 							
 							//______________________________________________________
 						: ($Obj_cell.value=Null:C1517)
@@ -219,66 +205,67 @@ For each ($col; $Obj_d4._cells)
 						C_BOOLEAN:C305($forceTextFormat)
 						$forceTextFormat:=False:C215
 						
-						If ($Obj_cell.style.forceTextFormat#Null:C1517)
+						// If forceTextFormat, ignore other formats
+						If ($Obj_cell.style.forceTextFormat#Null:C1517)\
+							 && ($Obj_cell.style.forceTextFormat)
 							
-							// If forceTextFormat, ignore other formats [
-							If ($Obj_cell.style.forceTextFormat)
-								$forceTextFormat:=True:C214
+							$forceTextFormat:=True:C214
+							
+							If (Find in array:C230($tTxt_keys; "dateTimeFormat")>0)
 								
-								If (Find in array:C230($tTxt_keys; "dateTimeFormat")>0)
+								APPEND TO ARRAY:C911($tTxt_ignoredProperties; "dateTimeFormat")
+								
+							Else 
+								
+								$pos:=Find in array:C230($tTxt_ignoredProperties; "dateTimeFormat")
+								
+								If ($pos>0)
 									
-									APPEND TO ARRAY:C911($tTxt_ignoredProperties; "dateTimeFormat")
+									DELETE FROM ARRAY:C228($tTxt_ignoredProperties; $pos)
+									
+								End if 
+							End if 
+							
+							If (Find in array:C230($tTxt_keys; "numericFormat")>0)
+								
+								APPEND TO ARRAY:C911($tTxt_ignoredProperties; "numericFormat")
+								
+							Else 
+								
+								$pos:=Find in array:C230($tTxt_ignoredProperties; "numericFormat")
+								
+								If ($pos>0)
+									
+									DELETE FROM ARRAY:C228($tTxt_ignoredProperties; $pos)
+									
+								End if 
+							End if 
+						End if 
+						
+						If (Not:C34($forceTextFormat))\
+							 && ($Obj_cell.valueType#Null:C1517)
+							
+							If ($Obj_cell.valueType="date")\
+								 | ($Obj_cell.valueType="hour")
+								
+								If ($Obj_cell.style.dateTimeFormat=Null:C1517)
+									
+									$Obj_cell.style.dateTimeFormat:=$Obj_cell.valueType="date" ? 1 : 17
+									APPEND TO ARRAY:C911($tTxt_keys; "dateTimeFormat")
 									
 								Else 
-									
-									$Lon_x:=Find in array:C230($tTxt_ignoredProperties; "dateTimeFormat")
-									
-									If ($Lon_x>0)
-										
-										DELETE FROM ARRAY:C228($tTxt_ignoredProperties; $Lon_x)
-										
-									End if 
-								End if 
-								
-								If (Find in array:C230($tTxt_keys; "numericFormat")>0)
 									
 									APPEND TO ARRAY:C911($tTxt_ignoredProperties; "numericFormat")
 									
-								Else 
-									
-									$Lon_x:=Find in array:C230($tTxt_ignoredProperties; "numericFormat")
-									
-									If ($Lon_x>0)
-										
-										DELETE FROM ARRAY:C228($tTxt_ignoredProperties; $Lon_x)
-										
-									End if 
 								End if 
-							End if 
-							//]
-							
-						End if 
-						
-						If (Not:C34($forceTextFormat))
-							
-							If ($Obj_cell.valueType#Null:C1517)
 								
-								If ($Obj_cell.valueType="date")\
-									 | ($Obj_cell.valueType="hour")
+							Else 
+								
+								If ($Obj_cell.valueType="real")\
+									 && ($Obj_cell.style.numericFormat#Null:C1517)
 									
-									If ($Obj_cell.style.dateTimeFormat=Null:C1517)
-										$Obj_cell.style.dateTimeFormat:=Choose:C955($Obj_cell.valueType="date"; 1; 17)
-										APPEND TO ARRAY:C911($tTxt_keys; "dateTimeFormat")
-									Else 
-										APPEND TO ARRAY:C911($tTxt_ignoredProperties; "numericFormat")
-									End if 
+									APPEND TO ARRAY:C911($tTxt_ignoredProperties; "dateTimeFormat")
 									
-								Else 
-									If ($Obj_cell.valueType="real")
-										If ($Obj_cell.style.numericFormat#Null:C1517)
-											APPEND TO ARRAY:C911($tTxt_ignoredProperties; "dateTimeFormat")
-										End if 
-									End if 
 								End if 
 							End if 
 						End if 
@@ -290,35 +277,37 @@ For each ($col; $Obj_d4._cells)
 							"backColor"; New object:C1471)
 						
 						// For each property in the cell styles
-						For ($Lon_key; 1; Size of array:C274($tTxt_keys); 1)
+						For ($indx; 1; Size of array:C274($tTxt_keys); 1)
+							$keysIndx:=$tTxt_keys{$indx}
 							
-							If (Find in array:C230($tTxt_ignoredProperties; $tTxt_keys{$Lon_key})=-1)
+							If (Find in array:C230($tTxt_ignoredProperties; $keysIndx)=-1)
 								
 								$Obj_key:=convert_styleKey(New object:C1471(\
-									"key"; $tTxt_keys{$Lon_key}; \
-									"value"; $Obj_cell.style[$tTxt_keys{$Lon_key}]; \
+									"key"; $keysIndx; \
+									"value"; $Obj_cell.style[$keysIndx]; \
 									"source"; "cell"; \
-									"type"; $Obj_cell.valueType); \
-									$Obj_d4)
+									"type"; $Obj_cell.valueType); $Obj_d4; $Obj_styleIgnored; $Obj_styleForeColor)
+								
+								If ($Obj_key.type=Null:C1517)
+									
+									continue
+									
+								End if 
 								
 								Case of 
-										
-										//______________________________________________________
-									: ($Obj_key.type=Null:C1517)
-										
-										// NOTHING MORE TO DO
 										
 										//______________________________________________________
 									: ($Obj_key.type="_styleSheet")  // StyleSheet reference
 										
 										If ($Obj_d4._styleSheets#Null:C1517)
 											
-											For ($Lon_ii; 0; $Obj_d4._styleSheets.length-1; 1)
+											For ($j; 0; $Obj_d4._styleSheets.length-1; 1)
 												
-												If ($Obj_d4._styleSheets[$Lon_ii].id=$Obj_key.value)
+												If ($Obj_d4._styleSheets[$j].id=$Obj_key.value)
 													
-													$Obj_style.parentName:=$Obj_d4._styleSheets[$Lon_ii].name
-													$Lon_ii:=$Obj_d4._styleSheets.length  // Break
+													$Obj_style.parentName:=$Obj_d4._styleSheets[$j].name
+													
+													break
 													
 												End if 
 											End for 
@@ -330,37 +319,28 @@ For each ($col; $Obj_d4._cells)
 										End if 
 										
 										//______________________________________________________
-									: ($Obj_key.type="_bold")\
-										 | ($Obj_key.type="_italic")\
-										 | ($Obj_key.type="_size")\
-										 | ($Obj_key.type="_font")
+									: (Find in array:C230($FONT_PROPERTIES; $Obj_key.type)>0)
 										
 										// Temporary keep the result
 										$Obj_style.font[$Obj_key.type]:=$Obj_key.value
 										
 										//______________________________________________________
-									: ($Obj_key.type="_normalColorEven")\
-										 | ($Obj_key.type="_normalColorOdd")\
-										 | ($Obj_key.type="_zeroColorOdd")\
-										 | ($Obj_key.type="_zeroColorEven")\
-										 | ($Obj_key.type="_minusColorOdd")\
-										 | ($Obj_key.type="_minusColorEven")
+									: (Find in array:C230($FOREGROUND_COLOR_PROPERTIES; $Obj_key.type)>0)
 										
 										// Temporary keep the result
 										$Obj_style.foreColor[$Obj_key.type]:=$Obj_key.value
 										
 										//______________________________________________________
-									: ($Obj_key.type="_backColorEven")\
-										 | ($Obj_key.type="_backColorOdd")
+									: (Find in array:C230($BACKGROUND_COLOR_PROPERTIES; $Obj_key.type)>0)
 										
 										$Obj_style.backColor[$Obj_key.type]:=$Obj_key.value
 										
 										//______________________________________________________
-									: ($tTxt_keys{$Lon_key}="numericFormat")\
-										 & (String:C10($Obj_cell.valueType)="real")\
-										 & (Position:C15("%"; String:C10($Obj_key.value))>0)
+									: ($keysIndx="numericFormat")\
+										 && (String:C10($Obj_cell.valueType)="real")\
+										 && (Position:C15("%"; String:C10($Obj_key.value))>0)
 										
-										// Compare with main stylesheet to not add common elements [
+										// Compare with main stylesheet to not add common elements
 										If ($Obj_d4._defaultStyle[$Obj_key.type]#Null:C1517)
 											
 											If ($Obj_key.value#$Obj_d4._defaultStyle[$Obj_key.type])
@@ -410,17 +390,32 @@ For each ($col; $Obj_d4._cells)
 							End if 
 						End for 
 						
-						If (($Obj_style.textOrientation#Null:C1517) & ($Obj_style.hAlign=Null:C1517) & ($Obj_cell.valueType#Null:C1517))
-							If (($Obj_style.textOrientation=90) & ($Obj_cell.valueType="string"))
+						If (($Obj_style.textOrientation#Null:C1517)\
+							 & ($Obj_style.hAlign=Null:C1517)\
+							 & ($Obj_cell.valueType#Null:C1517))
+							
+							If (($Obj_style.textOrientation=90)\
+								 & ($Obj_cell.valueType="string"))
+								
 								$Obj_style.hAlign:=0
+								
 							End if 
-							If (($Obj_style.textOrientation=-90) & ($Obj_cell.valueType#"string"))
+							
+							If (($Obj_style.textOrientation=-90)\
+								 & ($Obj_cell.valueType#"string"))
+								
 								$Obj_style.hAlign:=2
+								
 							End if 
 						End if 
 						
 						// Append the style to the data table element if any [
-						If (Not:C34(OB Is empty:C1297($Obj_style.font)))
+						
+						If (OB Is empty:C1297($Obj_style.font))
+							
+							OB REMOVE:C1226($Obj_style; "font")
+							
+						Else 
 							
 							// Transform the font properties as a text description
 							$Obj_style.font:=convert_fontObjectToText($Obj_style.font)
@@ -434,40 +429,29 @@ For each ($col; $Obj_d4._cells)
 								OB REMOVE:C1226($Obj_style; "font")
 								
 							End if 
-							
-						Else 
-							
-							OB REMOVE:C1226($Obj_style; "font")
-							
 						End if 
 						
 						OB GET PROPERTY NAMES:C1232($Obj_d4._defaultStyle; $tTxt_keys)
 						
-						For ($Lon_key; 1; Size of array:C274($tTxt_keys); 1)
-							
+						For ($indx; 1; Size of array:C274($tTxt_keys); 1)
+							$keysIndx:=$tTxt_keys{$indx}
 							Case of 
 									
 									//______________________________________________________
-								: (Position:C15("_normalColorEven"; $tTxt_keys{$Lon_key})=1)\
-									 | (Position:C15("_normalColorOdd"; $tTxt_keys{$Lon_key})=1)\
-									 | (Position:C15("_zeroColorEven"; $tTxt_keys{$Lon_key})=1)\
-									 | (Position:C15("_zeroColorOdd"; $tTxt_keys{$Lon_key})=1)\
-									 | (Position:C15("_minusColorEven"; $tTxt_keys{$Lon_key})=1)\
-									 | (Position:C15("_minusColorOdd"; $tTxt_keys{$Lon_key})=1)
+								: (Find in array:C230($FOREGROUND_COLOR_PROPERTIES; $keysIndx)>0)
 									
-									If ($Obj_style.foreColor[$tTxt_keys{$Lon_key}]=Null:C1517)
+									If ($Obj_style.foreColor[$keysIndx]=Null:C1517)
 										
-										$Obj_style.foreColor[$tTxt_keys{$Lon_key}]:=$Obj_d4._defaultStyle[$tTxt_keys{$Lon_key}]
+										$Obj_style.foreColor[$keysIndx]:=$Obj_d4._defaultStyle[$keysIndx]
 										
 									End if 
 									
 									//______________________________________________________
-								: (Position:C15("_backColorEven"; $tTxt_keys{$Lon_key})=1)\
-									 | (Position:C15("_backColorOdd"; $tTxt_keys{$Lon_key})=1)
+								: (Find in array:C230($BACKGROUND_COLOR_PROPERTIES; $keysIndx)>0)
 									
-									If ($Obj_style.backColor[$tTxt_keys{$Lon_key}]=Null:C1517)
+									If ($Obj_style.backColor[$keysIndx]=Null:C1517)
 										
-										$Obj_style.backColor[$tTxt_keys{$Lon_key}]:=$Obj_d4._defaultStyle[$tTxt_keys{$Lon_key}]
+										$Obj_style.backColor[$keysIndx]:=$Obj_d4._defaultStyle[$keysIndx]
 										
 									End if 
 									
@@ -475,7 +459,11 @@ For each ($col; $Obj_d4._cells)
 							End case 
 						End for 
 						
-						If (Not:C34(OB Is empty:C1297($Obj_style.foreColor)))
+						If (OB Is empty:C1297($Obj_style.foreColor))
+							
+							OB REMOVE:C1226($Obj_style; "foreColor")
+							
+						Else 
 							
 							// Calculate the correct foreColor
 							$Obj_style.foreColor:=convert_foreColor($Obj_style; $Obj_style.foreColor; $Obj_cell)
@@ -496,14 +484,13 @@ For each ($col; $Obj_d4._cells)
 									
 								End if 
 							End if 
-							
-						Else 
-							
-							OB REMOVE:C1226($Obj_style; "foreColor")
-							
 						End if 
 						
-						If (Not:C34(OB Is empty:C1297($Obj_style.backColor)))
+						If (OB Is empty:C1297($Obj_style.backColor))
+							
+							OB REMOVE:C1226($Obj_style; "backColor")
+							
+						Else 
 							
 							// Calculate the correct backColor
 							If (Num:C11($Obj_style.backColor._backColorEven)=Num:C11($Obj_style.backColor._backColorOdd))\
@@ -533,11 +520,6 @@ For each ($col; $Obj_d4._cells)
 									
 								End if 
 							End if 
-							
-						Else 
-							
-							OB REMOVE:C1226($Obj_style; "backColor")
-							
 						End if 
 						
 						If (Not:C34(OB Is empty:C1297($Obj_style)))
@@ -558,11 +540,9 @@ For each ($col; $Obj_d4._cells)
 								//______________________________________________________
 							: ($Obj_cell.valueType="date")
 								
-								GET SYSTEM FORMAT:C994(System date short pattern:K60:7; $Txt_format)
-								
-								If (Position:C15("yy"; $Txt_format)=0)
+								If (Position:C15("yy"; $dateFormat)=0)
 									
-									$Txt_format:=Replace string:C233($Txt_format; "y"; "yy")
+									$Txt_format:=Replace string:C233($dateFormat; "y"; "yy")
 									
 								End if 
 								
@@ -573,7 +553,6 @@ For each ($col; $Obj_d4._cells)
 								//______________________________________________________
 							: ($Obj_cell.valueType="hour")
 								
-								GET SYSTEM FORMAT:C994(Time separator:K60:11; $Txt_timeSeparator)
 								$Txt_format:="[hh]"+$Txt_timeSeparator+"mm"+$Txt_timeSeparator+"ss"
 								
 								$Obj_dataTable[$Txt_row][$Txt_col].style:=New object:C1471(\
@@ -584,10 +563,7 @@ For each ($col; $Obj_d4._cells)
 								//______________________________________________________
 							: ($Obj_cell.valueType="long8")  //#96218 date+time
 								
-								GET SYSTEM FORMAT:C994(System date short pattern:K60:7; $Txt_format)
-								GET SYSTEM FORMAT:C994(Time separator:K60:11; $Txt_timeSeparator)
-								
-								$Txt_format:=$Txt_format+" "+"hh"+$Txt_timeSeparator+"mm"+$Txt_timeSeparator+"ss"
+								$Txt_format:=$dateFormat+" "+"hh"+$Txt_timeSeparator+"mm"+$Txt_timeSeparator+"ss"
 								
 								$Obj_dataTable[$Txt_row][$Txt_col].style:=New object:C1471(\
 									"parentName"; "cells"; \
@@ -601,22 +577,17 @@ For each ($col; $Obj_d4._cells)
 								//______________________________________________________
 						End case 
 						
-						// Get the default style colors
-						If (OB Is empty:C1297($Obj_style))
-							
-							$Obj_style:=New object:C1471
-							
-						End if 
-						
+						// Mark:Get the default style colors
+						$Obj_style:=$Obj_style || New object:C1471
 						$Obj_color:=New object:C1471
 						
 						OB GET PROPERTY NAMES:C1232($Obj_d4._defaultStyle; $tTxt_keys)
 						
-						For ($Lon_key; 1; Size of array:C274($tTxt_keys); 1)
-							
-							If (Position:C15("_"; $tTxt_keys{$Lon_key})=1)
+						For ($indx; 1; Size of array:C274($tTxt_keys); 1)
+							$keysIndx:=$tTxt_keys{$indx}
+							If (Position:C15("_"; $keysIndx)=1)
 								
-								$Obj_color[$tTxt_keys{$Lon_key}]:=$Obj_d4._defaultStyle[$tTxt_keys{$Lon_key}]
+								$Obj_color[$keysIndx]:=$Obj_d4._defaultStyle[$keysIndx]
 								
 							End if 
 						End for 
@@ -648,90 +619,86 @@ For each ($col; $Obj_d4._cells)
 								End if 
 							End if 
 						End if 
+					End if 
+					
+					// If there are some carriage returns in the string applies the wordWrap
+					// Style to be sure they are correctly displayed
+					If ($Obj_cell.valueType#Null:C1517)\
+						 && ($Obj_cell.valueType="string")\
+						 && (Position:C15(Char:C90(13); $Obj_cell.value)>0)
 						
-						//#redmine:95674
-						//If (Not(OB Is empty($Obj_style)))
-						//$Obj_dataTable[$Txt_row][$Txt_col].style:=$Obj_style
-						//End if
+						$Obj_style.wordWrap:=True:C214
 						
 					End if 
 					
-					// if there are some carriage returns in the string applies the wordWrap
-					// style to be sure they are correctly displayed
-					If ($Obj_cell.valueType#Null:C1517)
-						If ($Obj_cell.valueType="string")
-							If (Position:C15(Char:C90(13); $obj_cell.value)>0)
-								$obj_style.wordWrap:=True:C214
+					If (OB Is empty:C1297($Obj_style))
+						
+						continue
+						
+					End if 
+					
+					// mark:#redmine:95674
+					If ($Obj_style.foreColor=$Obj_d4._defaultStyle.foreColor)
+						
+						OB REMOVE:C1226($Obj_style; "foreColor")
+						
+					End if 
+					
+					If ($Obj_d4._defaultStyle._backColorEven#Null:C1517)\
+						 | ($Obj_d4._defaultStyle._backColorOdd#Null:C1517)
+						
+						// mark:Calculate the correct backColor
+						If (Num:C11($Obj_d4._defaultStyle._backColorEven)=Num:C11($Obj_d4._defaultStyle._backColorOdd))\
+							 | ((($Obj_cell.row-1)%2)=0)  // Both or even line
+							
+							If (Num:C11($Obj_d4._defaultStyle._backColorOdd)#0)\
+								 && ($Obj_style.backColor#Null:C1517)\
+								 && ($Obj_style.backColor=convert_color(Num:C11($Obj_d4._defaultStyle._backColorOdd); False:C215))
+								
+								OB REMOVE:C1226($Obj_style; "backColor")
+								
+							End if 
+							
+						Else 
+							
+							If (Num:C11($Obj_color._backColorEven)#0)\
+								 && ($Obj_style.backColor=convert_color(Num:C11($Obj_color._backColorEven); False:C215))
+								
+								OB REMOVE:C1226($Obj_style; "backColor")
+								
 							End if 
 						End if 
 					End if 
 					
-					//#redmine:95674 [
-					If (Not:C34(OB Is empty:C1297($Obj_style)))
+					If (OB Is empty:C1297($Obj_style))
 						
-						If ($obj_style.foreColor=$Obj_d4._defaultStyle.foreColor)
-							OB REMOVE:C1226($Obj_style; "foreColor")
-						End if 
+						continue
 						
-						If ($Obj_d4._defaultStyle._backColorEven#Null:C1517)\
-							 | ($Obj_d4._defaultStyle._backColorOdd#Null:C1517)
-							
-							// Calculate the correct backColor
-							If (Num:C11($Obj_d4._defaultStyle._backColorEven)=Num:C11($Obj_d4._defaultStyle._backColorOdd))\
-								 | ((($Obj_cell.row-1)%2)=0)  // Both or even line
-								
-								If (Num:C11($Obj_d4._defaultStyle._backColorOdd)#0)
-									
-									If ($Obj_style.backColor#Null:C1517)
-										If ($Obj_style.backColor=convert_color(Num:C11($Obj_d4._defaultStyle._backColorOdd); False:C215))
-											OB REMOVE:C1226($Obj_style; "backColor")
-										End if 
-									End if 
-								End if 
-								
-							Else 
-								
-								If (Num:C11($Obj_color._backColorEven)#0)
-									
-									If ($Obj_style.backColor=convert_color(Num:C11($Obj_color._backColorEven); False:C215))
-										OB REMOVE:C1226($Obj_style; "backColor")
-									End if 
-									
-								End if 
-							End if 
-						End if 
-						
-						If (Not:C34(OB Is empty:C1297($Obj_style)))
-							
-							
-							If ($Obj_dataTable[$Txt_row][$Txt_col].style=Null:C1517)
-								
-								$Obj_dataTable[$Txt_row][$Txt_col].style:=$Obj_style
-								
-							Else 
-								
-								OB GET PROPERTY NAMES:C1232($Obj_style; $tTxt_keys)
-								
-								For ($Lon_ii; 1; Size of array:C274($tTxt_keys); 1)
-									
-									$Obj_dataTable[$Txt_row][$Txt_col].style[$tTxt_keys{$Lon_ii}]:=$Obj_style[$tTxt_keys{$Lon_ii}]
-									
-								End for 
-							End if 
-						End if 
 					End if 
-					//]
+					
+					If ($Obj_dataTable[$Txt_row][$Txt_col].style=Null:C1517)
+						
+						$Obj_dataTable[$Txt_row][$Txt_col].style:=$Obj_style
+						
+					Else 
+						
+						OB GET PROPERTY NAMES:C1232($Obj_style; $tTxt_keys)
+						
+						For ($j; 1; Size of array:C274($tTxt_keys); 1)
+							
+							$Obj_dataTable[$Txt_row][$Txt_col].style[$tTxt_keys{$j}]:=$Obj_style[$tTxt_keys{$j}]
+							
+						End for 
+					End if 
 					
 				Else 
 					
 					// Keep the information
 					If ($Obj_cell.tag=Null:C1517)
-						
-						$Obj_cell.tag:=New object:C1471
-						
+						$Obj_cell.tag:=New object:C1471("kind"; $Obj_cell.kind)
+					Else 
+						$Obj_cell.tag.kind:=$Obj_cell.kind
 					End if 
-					
-					$Obj_cell.tag.kind:=$Obj_cell.kind
 					
 				End if 
 			End if 
@@ -739,9 +706,4 @@ For each ($col; $Obj_d4._cells)
 	End if 
 End for each 
 
-// ----------------------------------------------------
-// Return
-$0:=$Obj_dataTable
-
-// ----------------------------------------------------
-// End
+return $Obj_dataTable

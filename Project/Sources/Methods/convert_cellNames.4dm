@@ -38,7 +38,7 @@ ________________________________________________________
 C_COLLECTION:C1488($0)
 C_OBJECT:C1216($1)
 
-C_LONGINT:C283($Lon_i; $nbParameters)
+C_LONGINT:C283($Lon_i)
 C_OBJECT:C1216($Obj_d4)
 C_COLLECTION:C1488($Col_celNames)
 
@@ -49,27 +49,9 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
-	
-	// Required parameters
-	$Obj_d4:=$1
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		// <NONE>
-		
-	End if 
-	
-	$Col_celNames:=New collection:C1472
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
+$Obj_d4:=$1
+$Col_celNames:=New collection:C1472
 
 // ----------------------------------------------------
 For ($Lon_i; 0; $Obj_d4.cellNames.length-1; 1)

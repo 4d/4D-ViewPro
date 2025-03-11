@@ -20,7 +20,7 @@ C_TEXT:C284($0)
 C_TEXT:C284($1)
 C_TEXT:C284($2)
 
-C_LONGINT:C283($Lon_i; $nbParameters)
+C_LONGINT:C283($Lon_i)
 C_TEXT:C284($Txt_gatherFont; $Txt_pattern; $Txt_srcFont; $Txt_targetFont)
 
 If (False:C215)
@@ -34,29 +34,13 @@ ARRAY TEXT:C222($tTxt_current; 0x0000; 0x0000)
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=2; "Missing parameter"))
-	
-	// Required parameters
-	$Txt_targetFont:=$1
-	$Txt_srcFont:=$2
-	
-	// Optional parameters
-	If ($nbParameters>=3)
-		
-		// <NONE>
-		
-	End if 
-	
-	//$Txt_pattern:="(?-msi)^(bold)*\\s?(italic)*\\s?(\\d+pt)*\\s?([^$]*)$"
-	$Txt_pattern:="(?m-si)^(italic)*\\s?(bold)*\\s?(\\d+pt)*\\s?([^$]*)$"
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
+// Required parameters
+$Txt_targetFont:=$1
+$Txt_srcFont:=$2
+
+//$Txt_pattern:="(?-msi)^(bold)*\\s?(italic)*\\s?(\\d+pt)*\\s?([^$]*)$"
+$Txt_pattern:="(?m-si)^(italic)*\\s?(bold)*\\s?(\\d+pt)*\\s?([^$]*)$"
 
 // ----------------------------------------------------
 If (Rgx_ExtractText($Txt_pattern; $Txt_srcFont; "1 2 3 4"; ->$tTxt_default)=0)

@@ -1,8 +1,8 @@
 //%attributes = {"invisible":true,"shared":true,"preemptive":"capable"}
 /*
 viewPro := ***VP Convert from 4D View*** ( view )
- -> view (BLOB)
- <- viewPro (Object)
+-> view (BLOB)
+<- viewPro (Object)
 ________________________________________________________
 */
 // ----------------------------------------------------
@@ -15,18 +15,11 @@ ________________________________________________________
 // Convert a 4D View document to 4D View Pro document
 // ----------------------------------------------------
 // Declarations
-C_OBJECT:C1216($0)
-C_BLOB:C604($1)
+#DECLARE($Blb_view : Blob)->$Obj_viewPro : Object
 
-C_BLOB:C604($Blb_view)
-C_LONGINT:C283($Lon_i; $nbParameters)
-C_OBJECT:C1216($Obj_columns; $Obj_d4; $Obj_dataTable; $Obj_rows; $Obj_style; $Obj_viewPro)
-C_COLLECTION:C1488($Coll_namedStyles; $stylesheets)
-
-If (False:C215)
-	C_OBJECT:C1216(VP Convert from 4D View; $0)
-	C_BLOB:C604(VP Convert from 4D View; $1)
-End if 
+var $Lon_i; $nbParameters : Integer
+var $Obj_columns; $Obj_d4; $Obj_dataTable; $Obj_rows; $Obj_style : Object
+var $Coll_namedStyles; $stylesheets : Collection
 
 vp_initStorage_no_licence_check
 
@@ -36,9 +29,7 @@ TRY
 
 If (Check_parameters_count(1; $nbParameters))
 	
-	$Blb_view:=$1
 End if 
-
 
 If (BLOB size:C605($Blb_view)=0)
 	
@@ -130,17 +121,44 @@ Else
 		$Obj_viewPro.spreadJS.AutoFitType:=1  // cell:0 (default), cellWithHeader:1
 		
 		// STYLE-SHEETS ================================================================== [
+		
+		$Obj_d4._numFormatCache:=New object:C1471()
+		
+		// convert style prop
+		ARRAY TEXT:C222($CONVERT_STYLEKEY_IGNORED_PROP; 11)
+		// obsolete
+		$CONVERT_STYLEKEY_IGNORED_PROP{1}:="outline"
+		$CONVERT_STYLEKEY_IGNORED_PROP{2}:="shadow"
+		$CONVERT_STYLEKEY_IGNORED_PROP{3}:="condensed"
+		$CONVERT_STYLEKEY_IGNORED_PROP{4}:="extended"
+		// TODO??
+		$CONVERT_STYLEKEY_IGNORED_PROP{5}:="showGrid"
+		$CONVERT_STYLEKEY_IGNORED_PROP{6}:="spellCheck"
+		$CONVERT_STYLEKEY_IGNORED_PROP{7}:="pictHeights"
+		$CONVERT_STYLEKEY_IGNORED_PROP{8}:="inputFilter"
+		$CONVERT_STYLEKEY_IGNORED_PROP{9}:="stringFormat"
+		$CONVERT_STYLEKEY_IGNORED_PROP{10}:="boolFormat"
+		$CONVERT_STYLEKEY_IGNORED_PROP{11}:="pictureFormat"
+		
+		ARRAY TEXT:C222($CONVERT_STYLEKEY_FORECOLOR_PROP; 6)
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{1}:="normalColorEven"
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{2}:="normalColorOdd"
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{3}:="zeroColorOdd"
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{4}:="zeroColorEven"
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{5}:="minusColorOdd"
+		$CONVERT_STYLEKEY_FORECOLOR_PROP{6}:="minusColorEven"
+		
 		// Keep the default style definition in a temporary key
-		$Obj_d4._defaultStyle:=convert_defaultStyle($Obj_d4)
+		$Obj_d4._defaultStyle:=convert_defaultStyle($Obj_d4; ->$CONVERT_STYLEKEY_IGNORED_PROP; ->$CONVERT_STYLEKEY_FORECOLOR_PROP)
 		
 		// ================================================================================
 		// =            #TO_DO : Detect style for even and odd to create 2 styles         =
 		// ================================================================================
 		
 		$Coll_namedStyles:=New collection:C1472
-		$stylesheets:=convert_styleSheets($Obj_d4)
+		$stylesheets:=convert_styleSheets($Obj_d4; ->$CONVERT_STYLEKEY_IGNORED_PROP; ->$CONVERT_STYLEKEY_FORECOLOR_PROP)
 		// Append headers' style
-		$Coll_namedStyles[$Coll_namedStyles.length]:=convert_headerStyles($Obj_d4)
+		$Coll_namedStyles[$Coll_namedStyles.length]:=convert_headerStyles($Obj_d4; ->$CONVERT_STYLEKEY_IGNORED_PROP; ->$CONVERT_STYLEKEY_FORECOLOR_PROP)
 		
 		// Append default style [
 		$Obj_style:=OB Copy:C1225($Obj_d4._defaultStyle)
@@ -318,7 +336,8 @@ Else
 			"defaultDataNode"; New object:C1471("style"; \
 			"cells"))
 		
-		$Obj_dataTable:=convert_datatable($Obj_d4)
+		
+		$Obj_dataTable:=convert_datatable($Obj_d4; ->$CONVERT_STYLEKEY_IGNORED_PROP; ->$CONVERT_STYLEKEY_FORECOLOR_PROP)
 		
 		$Obj_viewPro.spreadJS.sheets.Sheet1.data.dataTable:=$Obj_dataTable
 		
@@ -406,9 +425,3 @@ End if
 
 FINALLY
 
-// ----------------------------------------------------
-// Return
-$0:=$Obj_viewPro
-
-// ----------------------------------------------------
-// End
