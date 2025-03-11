@@ -3,6 +3,7 @@
 
 err_TRY
 
+// MARK:- Declaration
 C_OBJECT:C1216($sheets; $table; $cell; $style)
 C_TEXT:C284($svgSource)
 C_TEXT:C284($svgRef)
@@ -37,7 +38,6 @@ C_TEXT:C284($valueStr)
 C_COLLECTION:C1488($bgImgCol)
 C_OBJECT:C1216($strPart)
 C_TEXT:C284($defaultGridLineColor)
-$defaultGridLineColor:="rgb(212,212,212)"
 C_OBJECT:C1216($parsedStyle)
 C_COLLECTION:C1488($namedStyleQuery)
 C_BOOLEAN:C305($borderOrientation)
@@ -48,7 +48,10 @@ C_OBJECT:C1216($bcObj)
 C_LONGINT:C283($rowCount; $colCount)
 C_LONGINT:C283($maxSvgWidth; $maxSvgHeight)
 
+// MARK:- Initialize Objects and Constants 
 $bcObj:=New object:C1471("bcGrid"; New object:C1471; "bcCol"; New collection:C1472)
+
+$defaultGridLineColor:="rgb(212,212,212)"
 
 svg_defineColorConstant
 
@@ -101,11 +104,12 @@ $valCol:=New collection:C1472
 
 $lineObj:=New object:C1471("H"; New object:C1471; "V"; New object:C1471; "lines"; New collection:C1472)
 
+// MARK:- Workbook and Sheets Handling
 If (Value type:C1509($vpObject.spreadJS)=Is object:K8:27)
 	$workbook:=$vpObject.spreadJS
 	
 	$sheetCol:=New collection:C1472
-	
+	var $s : Text
 	For each ($s; $workbook.sheets)
 		$sheetCol.push($workbook.sheets[$s])
 	End for each 
@@ -130,6 +134,7 @@ If (Value type:C1509($vpObject.spreadJS)=Is object:K8:27)
 	
 End if 
 
+// MARK:- Default Styles and Theme
 If ($sheets#Null:C1517)
 	$table:=$sheets.data.dataTable
 	If ($sheets.data.defaultDataNode.style#Null:C1517)
@@ -191,6 +196,7 @@ If ($defaultStyle#Null:C1517)
 	End if 
 End if 
 
+// MARK:- Cell Range and Dimensions
 var $range : Object:=vp_getCellRange($vpObject; $cells)
 
 If ($sheets.columnCount#Null:C1517)
@@ -209,6 +215,7 @@ If ($range.y2>=$rowCount)
 	$range.y2:=$rowCount-1
 End if 
 
+// MARK:- Row and Column Positions
 C_LONGINT:C283($size)
 
 C_LONGINT:C283($startY)
@@ -385,6 +392,7 @@ Case of
 		$svgWidth:=$svgWidth-$size
 End case 
 
+// MARK:- SVG Initialization
 $svgRef:=DOM Create XML Ref:C861("svg"; "http://www.w3.org/2000/svg"; "xmlns:xlink"; "http://www.w3.org/1999/xlink"; "version"; "1.1")
 XML SET OPTIONS:C1090($svgRef; XML String encoding:K45:21; XML String encoding:K45:21)
 DOM SET XML DECLARATION:C859($svgRef; "UTF-8"; True:C214)
@@ -395,6 +403,7 @@ If ($defaultStyle#Null:C1517)
 	End if 
 End if 
 
+// MARK:- Spans Handling
 ///MAX SVG SIZE///
 
 If ($range.isAll=True:C214) | ($range.isAllCol=True:C214)
@@ -474,6 +483,7 @@ If ($sheets#Null:C1517)
 	End if 
 End if 
 
+// MARK:- Cell Parsing and Style Application
 For ($iterY; $range.y1; $range.y2)
 	
 	$rowHeight:=$defaultRowHeight
@@ -735,7 +745,7 @@ End if
 					
 				End if 
 				
-				// Gestion du Row Style
+				// MARK: Gestion du Row Style
 				$style:=Null:C1517
 				If (Value type:C1509($sheets.data.rowDataArray)=Is collection:K8:32)
 					If ($sheets.data.rowDataArray.length>($iterY-$range.y1))
@@ -817,7 +827,7 @@ End if
 					End while 
 				End if 
 				
-				// Gestion du Column Style
+				// MARK: Gestion du Column Style
 				$style:=Null:C1517
 				If (Value type:C1509($sheets.data.columnDataArray)=Is collection:K8:32)
 					If ($sheets.data.columnDataArray.length>($iterX-$range.x1))
@@ -900,7 +910,7 @@ End if
 					End while 
 				End if 
 				
-				// Gestion du Default Style
+				// MARK: Gestion du Default Style
 				If ($defaultStyle#Null:C1517)
 					svg_parseStyle($defaultStyle; $parsedStyle)
 					
@@ -956,7 +966,7 @@ End if
 					End while 
 				End if 
 				
-				//Ajout de la backgroundImage
+				// MARK: Ajout de la backgroundImage
 				If ($parsedStyle.backgroundImage#"") | ($parsedStyle.cellTypeName="1")
 					
 					$x1:=$colPos{Int:C8($iterX-$range.x1+1)}
@@ -987,7 +997,7 @@ End if
 					
 				End if 
 				
-				//Ajout de la value avec toutes les options
+				// MARK: Ajout de la value avec toutes les options
 				If (($cell#Null:C1517) & ($displayValue) & ($cellMergeStatus.type#EATED))
 					$colWidth:=$initialColWidth
 					$rowHeight:=$initialRowHeight
@@ -1393,7 +1403,7 @@ End if
 							End case 
 						End if 
 						
-						//// OVERFLOW HANDLING ////
+						// MARK: //// OVERFLOW HANDLING ////
 						Case of 
 							: ($parsedStyle.textOrientation#0) & ($parsedStyle.textOrientation#NONE_TEXT_ORIENTATION)
 								$leftOverflow:=0
@@ -1616,12 +1626,14 @@ End if
 	
 End for 
 
+// MARK:- Drawing SVG Elements
 svg_drawBackColor($svgRef; $bcObj.bcCol)
 svg_drawBgImg($svgRef; $bgImgCol)
 svg_drawCellValue($svgRef; $valCol; Choose:C955(($svgHeight>$maxSvgHeight); $maxSvgHeight; $svgHeight); Choose:C955(($svgWidth>$maxSvgWidth); $maxSvgWidth; $svgWidth))
 
 svg_sortLineMap($lineObj; $range)
 
+// MARK:- Drawing Gridlines
 If (Value type:C1509($sheets.printInfo)=Is object:K8:27)
 	If (Value type:C1509($sheets.printInfo.showGridLine)=Is boolean:K8:9)
 		If ($sheets.printInfo.showGridLine=True:C214)
@@ -1633,6 +1645,7 @@ End if
 svg_drawLine($svgRef; $lineObj; $range; ->$colPos; ->$rowPos)
 svg_drawDoubleLine($svgRef; $lineObj; $range; ->$colPos; ->$rowPos)
 
+// MARK:- Floating Objects Handling
 If ($sheets.floatingObjects#Null:C1517)
 	For each ($obj; $sheets.floatingObjects)
 		
@@ -1744,6 +1757,7 @@ DOM SET XML ATTRIBUTE:C866($svgRef; "x"; "0"; "y"; "0"; "width"; String:C10(Choo
 //DOM EXPORT TO FILE($svgRef; saveImgFileName)
 //End if
 
+// MARK:- Export SVG to Picture
 var $svgImg : Picture
 
 SVG EXPORT TO PICTURE:C1017($svgRef; $svgImg; Own XML data source:K45:18)
