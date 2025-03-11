@@ -36,6 +36,8 @@ If (False:C215)
 	// ----------------------------------------------------
 	C_OBJECT:C1216(convert_datatable; $0)
 	C_OBJECT:C1216(convert_datatable; $1)
+	C_POINTER:C301(convert_datatable; $2)
+	C_POINTER:C301(convert_datatable; $3)
 	
 	// ----------------------------------------------------
 	C_TEXT:C284(convert_dateTimeFormat; $0)
@@ -45,6 +47,8 @@ If (False:C215)
 	// ----------------------------------------------------
 	C_OBJECT:C1216(convert_defaultStyle; $0)
 	C_OBJECT:C1216(convert_defaultStyle; $1)
+	C_POINTER:C301(convert_defaultStyle; $2)
+	C_POINTER:C301(convert_defaultStyle; $3)
 	
 	// ----------------------------------------------------
 	C_TEXT:C284(convert_fontObjectToText; $0)
@@ -63,11 +67,14 @@ If (False:C215)
 	// ----------------------------------------------------
 	C_OBJECT:C1216(convert_headerStyles; $0)
 	C_OBJECT:C1216(convert_headerStyles; $1)
+	C_POINTER:C301(convert_headerStyles; $2)
+	C_POINTER:C301(convert_headerStyles; $3)
 	
 	// ----------------------------------------------------
 	C_TEXT:C284(convert_numericFormat; $0)
 	C_LONGINT:C283(convert_numericFormat; $1)
 	C_COLLECTION:C1488(convert_numericFormat; $2)
+	C_OBJECT:C1216(convert_numericFormat; $3)
 	
 	// ----------------------------------------------------
 	C_COLLECTION:C1488(convert_pictures; $0)
@@ -91,15 +98,21 @@ If (False:C215)
 	C_OBJECT:C1216(convert_styleKey; $0)
 	C_OBJECT:C1216(convert_styleKey; $1)
 	C_OBJECT:C1216(convert_styleKey; $2)
+	C_POINTER:C301(convert_styleKey; $3)
+	C_POINTER:C301(convert_styleKey; $4)
 	
 	// ----------------------------------------------------
 	C_COLLECTION:C1488(convert_styleRanges; $0)
 	C_OBJECT:C1216(convert_styleRanges; $1)
 	C_OBJECT:C1216(convert_styleRanges; $2)
+	C_POINTER:C301(convert_styleRanges; $3)
+	C_POINTER:C301(convert_styleRanges; $4)
 	
 	// ----------------------------------------------------
 	C_COLLECTION:C1488(convert_styleSheets; $0)
 	C_OBJECT:C1216(convert_styleSheets; $1)
+	C_POINTER:C301(convert_styleSheets; $2)
+	C_POINTER:C301(convert_styleSheets; $3)
 	
 	// ----------------------------------------------------
 	C_OBJECT:C1216(convert_smartResize; $1)

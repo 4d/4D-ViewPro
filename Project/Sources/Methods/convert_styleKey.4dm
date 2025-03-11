@@ -57,8 +57,9 @@ ________________________________________________________
 C_OBJECT:C1216($0)
 C_OBJECT:C1216($1)
 C_OBJECT:C1216($2)
+var $3; $4 : Pointer
 
-C_LONGINT:C283($Lon_i; $nbParameters)
+C_LONGINT:C283($Lon_i)
 C_TEXT:C284($Txt_key)
 C_OBJECT:C1216($Obj_d4; $Obj_in; $Obj_out)
 
@@ -66,56 +67,35 @@ If (False:C215)
 	C_OBJECT:C1216(convert_styleKey; $0)
 	C_OBJECT:C1216(convert_styleKey; $1)
 	C_OBJECT:C1216(convert_styleKey; $2)
+	C_POINTER:C301(convert_styleKey; $3)
+	C_POINTER:C301(convert_styleKey; $4)
 End if 
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=2; "Missing parameter"))
+// Required parameters
+$Obj_in:=$1
+
+// Optional parameters
+If (Asserted:C1132(Count parameters:C259>=4))
 	
-	// Required parameters
-	$Obj_in:=$1
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		$Obj_d4:=$2
-		
-	End if 
-	
-	$Txt_key:=$Obj_in.key
-	
-	$Obj_out:=New object:C1471(\
-		"value"; New object:C1471)
-	
-Else 
-	
-	ABORT:C156
+	$Obj_d4:=$2
 	
 End if 
+
+$Txt_key:=$Obj_in.key
+
+$Obj_out:=New object:C1471(\
+"value"; New object:C1471)
+
 
 // ----------------------------------------------------
 Case of 
 		
-		//________________________________________
-	: ($Txt_key="outline")\
-		 | ($Txt_key="shadow")\
-		 | ($Txt_key="condensed")\
-		 | ($Txt_key="extended")
+	: (Find in array:C230($3->; $Txt_key)>0)
+		// Ignored
 		
-		// Obsolete
-		
-		//________________________________________
-	: ($Txt_key="showGrid")\
-		 | ($Txt_key="spellCheck")\
-		 | ($Txt_key="pictHeights")\
-		 | ($Txt_key="inputFilter")\
-		 | ($Txt_key="stringFormat")\
-		 | ($Txt_key="boolFormat")\
-		 | ($Txt_key="pictureFormat")
-		
-		//#TO_DO ??
 		//________________________________________
 	: ($Txt_key="rotation")
 		
@@ -220,7 +200,7 @@ Case of
 		
 		//________________________________________
 	: (($Txt_key="backColorEven")\
-		 | ($Txt_key="backColorOdd"))
+		 || ($Txt_key="backColorOdd"))
 		
 		If ($Obj_in.source="cell")\
 			 | ($Obj_in.source="range")
@@ -243,12 +223,7 @@ Case of
 		End if 
 		
 		//________________________________________
-	: (($Txt_key="normalColorEven")\
-		 | ($Txt_key="normalColorOdd")\
-		 | ($Txt_key="zeroColorOdd")\
-		 | ($Txt_key="zeroColorEven")\
-		 | ($Txt_key="minusColorOdd")\
-		 | ($Txt_key="minusColorEven"))
+	: (Find in array:C230($4->; $Txt_key)>0)
 		
 		// For the cells must be compared to default style or the associated stylesheet
 		If ($Obj_in.source="cell")\
@@ -362,7 +337,7 @@ Case of
 	: ($Txt_key="numericFormat")
 		
 		$Obj_out.type:="formatter"
-		$Obj_out.value:=convert_numericFormat($Obj_in.value; $Obj_d4.customFormats)
+		$Obj_out.value:=convert_numericFormat($Obj_in.value; $Obj_d4.customFormats; $Obj_d4._numFormatCache)
 		
 		//________________________________________
 	: ($Txt_key="dateTimeFormat")

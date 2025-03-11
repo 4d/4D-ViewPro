@@ -1,10 +1,10 @@
 //%attributes = {"invisible":true}
-C_LONGINT:C283($index; $n; $1)
-$index:=$1
+#DECLARE($index : Integer) : Text
 
-C_LONGINT:C283($code)
+var $sb : Text
+var $code : Integer
 $code:=Character code:C91("A")
-C_TEXT:C284($sb)
+var $n : Integer
 
 While ($index>0)
 	$n:=Mod:C98($index-1; 26)
@@ -12,4 +12,4 @@ While ($index>0)
 	$index:=$index\26
 End while 
 
-$0:=$sb
+return $sb

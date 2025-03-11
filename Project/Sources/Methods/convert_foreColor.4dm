@@ -21,7 +21,6 @@ C_TEXT:C284($0)
 C_OBJECT:C1216($1)
 C_OBJECT:C1216($2)
 
-C_LONGINT:C283($nbParameters)
 C_TEXT:C284($Txt_color; $Zero_color; $Negative_color)
 C_OBJECT:C1216($Obj_cell; $Obj_style; $Obj_foreColor)
 
@@ -34,37 +33,19 @@ End if
 
 // ----------------------------------------------------
 // Initialisations
-$nbParameters:=Count parameters:C259
 
-If (Asserted:C1132($nbParameters>=2; "Missing parameter"))
-	
-	// Required parameters
-	$Obj_style:=$1
-	$Obj_foreColor:=$2
-	$Obj_cell:=$3
-	
-	// Optional parameters
-	If ($nbParameters>=3)
-		
-		// <NONE>
-		
-	End if 
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
-
+$Obj_style:=$1
+$Obj_foreColor:=$2
+$Obj_cell:=$3
 // ----------------------------------------------------
 Case of 
 		
 		//______________________________________________________
-	: (($Obj_cell.valueType=Null:C1517) | (String:C10($Obj_cell.valueType)="real") | (String:C10($Obj_cell.valueType)="hour"))
+	: (($Obj_cell.valueType=Null:C1517) || (String:C10($Obj_cell.valueType)="real") || (String:C10($Obj_cell.valueType)="hour"))
 		
 		
 		If (Num:C11($Obj_foreColor._zeroColorEven)=Num:C11($Obj_foreColor._zeroColorOdd))\
-			 | ((($Obj_cell.row-1)%2)=0)  // Both or even line
+			 || ((($Obj_cell.row-1)%2)=0)  // Both or even line
 			
 			$Zero_color:=convert_color(Num:C11($Obj_foreColor._zeroColorOdd); True:C214)
 			
@@ -76,7 +57,7 @@ Case of
 		
 		
 		If (Num:C11($Obj_foreColor._minusColorEven)=Num:C11($Obj_foreColor._minusColorOdd))\
-			 | ((($Obj_cell.row-1)%2)=0)  // Both or even line
+			 || ((($Obj_cell.row-1)%2)=0)  // Both or even line
 			
 			$Negative_color:=convert_color(Num:C11($Obj_foreColor._minusColorOdd); True:C214)
 			
@@ -89,7 +70,7 @@ Case of
 		//…………………………………………………………………………………………………………
 		
 		If (Num:C11($Obj_foreColor._normalColorEven)=Num:C11($Obj_foreColor._normalColorOdd))\
-			 | ((($Obj_cell.row-1)%2)=0)  // Both or even line
+			 || ((($Obj_cell.row-1)%2)=0)  // Both or even line
 			
 			$Txt_color:=convert_color(Num:C11($Obj_foreColor._normalColorOdd); True:C214)
 			
@@ -105,7 +86,7 @@ Case of
 	Else 
 		
 		If (Num:C11($Obj_foreColor._normalColorEven)=Num:C11($Obj_foreColor._normalColorOdd))\
-			 | (((Num:C11($Obj_cell.row)-1)%2)=0)  // Both or even line
+			 || (((Num:C11($Obj_cell.row)-1)%2)=0)  // Both or even line
 			
 			$Txt_color:=convert_color(Num:C11($Obj_foreColor._normalColorOdd); True:C214)
 			
