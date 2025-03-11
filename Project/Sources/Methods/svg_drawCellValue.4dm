@@ -928,7 +928,8 @@ End for each
 		
 		//// FORE COLOR ////
 		
-		If ($valObj.foreColor#"")
+		If (($valObj.foreColor#"") && ($valObj.foreColor#"$4D_NOCOLOR"))
+			
 			DOM SET XML ATTRIBUTE:C866($elemRef; "fill"; $valObj.foreColor)
 			
 		End if 
