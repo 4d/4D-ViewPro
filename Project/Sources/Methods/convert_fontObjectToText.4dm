@@ -105,6 +105,7 @@ If ($Obj_in._font#Null:C1517)
 				
 			End if 
 			
+			$hasSpace:=(Position:C15(" "; $Txt_buffer)>0)
 			$Obj_in._font:=$Txt_buffer
 			
 		End if 
