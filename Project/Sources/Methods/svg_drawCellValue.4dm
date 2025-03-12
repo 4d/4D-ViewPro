@@ -910,7 +910,7 @@ End for each
 		
 		//// TEXT DECORATION ////
 		
-		If ($valObj.textDecoration#"")
+		If (($valObj.textDecoration#"") && ($valObj.textDecoration#"$4D_tdnull"))
 			
 			// Double underline not implemented so it is replaced by a simple underline
 			$valObj.textDecoration:=Replace string:C233($valObj.textDecoration; "double"; "")

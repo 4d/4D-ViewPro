@@ -195,31 +195,35 @@ If ($parsed.font="")
 End if 
 
 If ($parsed.textDecoration="")
-	If (Value type:C1509($style.textDecoration)=Is real:K8:4)
-		
-		If ($style.textDecoration=0)
-			$parsed.textDecoration:="none"
+	Case of 
+		: (Value type:C1509($style.textDecoration)=Is real:K8:4)
 			
-		Else 
-			
-			Case of 
-				: (($style.textDecoration & 1)>0)
-					$parsed.textDecoration:="underline"
-				: (($style.textDecoration & 8)>0)
-					$parsed.textDecoration:="double underline"
-			End case 
-			
-			If (($style.textDecoration & 2)>0)
-				$parsed.textDecoration:=$parsed.textDecoration+" line-through"
+			If ($style.textDecoration=0)
+				$parsed.textDecoration:="none"
+				
+			Else 
+				
+				Case of 
+					: (($style.textDecoration & 1)>0)
+						$parsed.textDecoration:="underline"
+					: (($style.textDecoration & 8)>0)
+						$parsed.textDecoration:="double underline"
+				End case 
+				
+				If (($style.textDecoration & 2)>0)
+					$parsed.textDecoration:=$parsed.textDecoration+" line-through"
+				End if 
+				
+				If (($style.textDecoration & 4)>0)
+					$parsed.textDecoration:=$parsed.textDecoration+" overline"
+				End if 
+				
 			End if 
+		: (Value type:C1509($style.textDecoration)=Is null:K8:31)
 			
-			If (($style.textDecoration & 4)>0)
-				$parsed.textDecoration:=$parsed.textDecoration+" overline"
-			End if 
+			$parsed.textDecoration:="$4D_tdnull"
 			
-		End if 
-		
-	End if 
+	End case 
 End if 
 
 If ($parsed.isVerticalText=2)
