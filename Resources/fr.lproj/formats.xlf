@@ -106,7 +106,7 @@ This file is distributed under the same license as the product package.-->
                <target> à </target>
             </trans-unit>
             <trans-unit id="9oL5JOG4gBoMsX8Jl5SJPA" resname="FORMAT_4D_VIEW_CONJONCTION_5">
-               <source> et </source>
+               <source> and </source>
                <target> et </target>
             </trans-unit>
          </group>
@@ -203,7 +203,7 @@ This file is distributed under the same license as the product package.-->
                <target>minutes</target>
             </trans-unit>
              <trans-unit id="5N6kQtFTFR0SS0L2coO8vg" resname="seconds">
-               <source>secondes</source>
+               <source>seconds</source>
                <target>secondes</target>
             </trans-unit>
          </group>
