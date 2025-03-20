@@ -1202,14 +1202,20 @@ Utils.addFormatedText = function (json) {
             }
 
             // apply default date formatting
-            if (_noFormatInfo()
-              && ((typeof (cell.value) === 'string')
-                && (cell.value.startsWith("/OADate("))
-                && (cell.value.endsWith(")/")))) {
-              if (cell.value.indexOf(".") > -1) {
-                _createFormatInfo(longDatePattern);
-              } else {
-                _createFormatInfo(shortDatePattern);
+            if (_noFormatInfo()) {
+              if ((typeof (cell.value) === 'string')) {
+                if ((cell.value.startsWith("/OADate(")) && (cell.value.endsWith(")/"))) {
+                    _createFormatInfo((cell.value.indexOf(".") > -1)? longDatePattern: shortDatePattern);
+                }
+              }
+              else if (((typeof (cell.value) === 'number'))) {
+                let fixed = Number(cell.value.toFixed(13)).toString();
+                if (fixed != cell.value.toString()) {
+                  if (!('style' in cell)) {
+                    cell.style = {};
+                  }
+                  cell.style.formatInfo = { text: Number(cell.value.toFixed(13)).toString() };
+                }
               }
             }
 
