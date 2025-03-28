@@ -681,6 +681,8 @@ document.addEventListener('DOMContentLoaded', function () {
         culture.NumberFormat.numberDecimalSeparator = obj.intl.decimalSeparator;
         culture.NumberFormat.numberGroupSeparator = obj.intl.thousandSeparator;
 
+        culture.predefinedFormats = structuredClone(GC.Spread.Common.CultureManager.defaultCulture.predefinedFormats);
+
         if (obj.intl.currency === "€") {
             culture.predefinedFormats.Accounting = '#,##0 [$€-407]';
             culture.predefinedFormats.Currency = [
