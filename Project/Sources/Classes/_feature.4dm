@@ -1,21 +1,16 @@
-
-property ideVersion : Integer
-property ideBuild : Text
-property currentUser : Text
-property internalVersion : Integer
-property _features : Object
+property ideVersion; internalVersion : Text
+property ideBuild; currentUser : Text
 property localFile : 4D:C1709.File
 property isMain : Boolean
+property _features; local : Object
 
-property local : Collection
-
-Class constructor($version : Integer; $file : 4D:C1709.File)
+Class constructor($version : Text; $file : 4D:C1709.File)
 	
 	var $build : Integer
 	
 	Super:C1705()
 	
-	This:C1470.ideVersion:=Num:C11(Application version:C493($build))
+	This:C1470.ideVersion:=String:C10(Application version:C493($build))
 	This:C1470.ideBuild:=String:C10($build)
 	This:C1470.currentUser:=Current system user:C484
 	
@@ -57,15 +52,27 @@ Function unstable($feature)
 	
 	//====================================================================
 	/// Storing a feature as delivered
-Function delivered($feature; $version : Integer)
+Function delivered($feature; $version : Text)
 	
 	This:C1470._features[This:C1470._feature($feature)]:=(This:C1470.ideVersion>=$version)
 	
 	//====================================================================
-	/// Storing a feature as debug (only available in dev mode)
-Function debug($feature)
+	/// Storing a feature as debug (only available in matrix database)
+Function matrix($feature)
 	
 	This:C1470._features[This:C1470._feature($feature)]:=(Structure file:C489=Structure file:C489(*))
+	
+	//====================================================================
+	/// .matrix() alias
+Function debug($feature)
+	
+	This:C1470.matrix($feature)
+	
+	//====================================================================
+	/// Storing a feature as debug (only available in dev mode)
+Function interpeted($feature)
+	
+	This:C1470._features[This:C1470._feature($feature)]:=(Not:C34(Is compiled mode:C492))
 	
 	//====================================================================
 	/// Storing a feature as only available in main branch
@@ -78,6 +85,18 @@ Function main($feature)
 Function wip($feature)
 	
 	This:C1470._features[This:C1470._feature($feature)]:=(Structure file:C489=Structure file:C489(*))
+	
+	//====================================================================
+	// Activate a feature for project mode only
+Function project($feature)
+	
+	This:C1470._features[This:C1470._feature($feature)]:=Bool:C1537(Get database parameter:C643(Is host database a project:K37:99))
+	
+	//====================================================================
+	// Activate a feature for binary database only
+Function binary($feature)
+	
+	This:C1470._features[This:C1470._feature($feature)]:=Not:C34(Bool:C1537(Get database parameter:C643(Is host database a project:K37:99)))
 	
 	//====================================================================
 	/// Storing an alias name for a feature
@@ -99,7 +118,7 @@ Function dev($feature; $user)
 			//______________________________________________________
 		: (Value type:C1509($user)=Is collection:K8:32)
 			
-			This:C1470._features[This:C1470._feature($feature)]:=($user.indexOf(This:C1470.currentUser)#-1)
+			This:C1470._features[This:C1470._feature($feature)]:=($user.includes(This:C1470.currentUser))
 			
 			//______________________________________________________
 		: (Value type:C1509($user)=Is text:K8:3)
@@ -193,7 +212,7 @@ Function loadLocal()
 								//______________________________________________________
 							: ($key="version")
 								
-								$enabled:=(This:C1470.ideVersion>=Num:C11($o.enabled[$key]))
+								$enabled:=(This:C1470.ideVersion>=String:C10($o.enabled[$key]))
 								
 								//______________________________________________________
 							: ($key="type")
