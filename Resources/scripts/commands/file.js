@@ -381,7 +381,7 @@ var _setContextFont = GC.Spread.Sheets.util.bt;
         formatter = generalDateFormatter;
       }
     } else if (typeof (cell.value) === 'number') {
-      val = Number(cell.value).toFixed(13);
+      val = Number(cell.value.toFixed(13));
     } else {
       val = cell.value;
     }
