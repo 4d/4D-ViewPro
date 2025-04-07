@@ -1,53 +1,33 @@
 //%attributes = {"invisible":true,"shared":true,"preemptive":"capable"}
+#DECLARE($vpObject : Object; $cells : Object)->$result : Picture
+
 TRY
 
-C_OBJECT:C1216($1; $vpObject; $2; $cells; $range)
-
 // MARK:- Declaration
-C_OBJECT:C1216($sheets; $table; $cell; $style)
-C_TEXT:C284($svgSource)
-C_TEXT:C284($svgRef)
-C_TEXT:C284($elemRef)
-C_LONGINT:C283($iterX; $iterY; $svgHeight; $svgWidth; $x1; $x2; $y1; $y2; $height; $width)
-C_LONGINT:C283($defaultColWidth; $defaultRowHeight; $initialColWidth; $initialRowHeight)
 ARRAY LONGINT:C221($colPos; 0)
 ARRAY LONGINT:C221($rowPos; 0)
-C_REAL:C285($colWidth; $rowHeight)
-C_OBJECT:C1216($lineObj)
-C_OBJECT:C1216($obj)
-C_BOOLEAN:C305($displayValue)
-C_LONGINT:C283($pos)
-C_PICTURE:C286($0)
-C_OBJECT:C1216($defaultStyle)
-C_COLLECTION:C1488($valCol)
-C_LONGINT:C283($rightOverflow; $leftOverflow)
-C_REAL:C285($pictWidth; $pictHeight)
-C_REAL:C285($pictX; $pictY)
-C_TEXT:C284($shrinkStr)
-C_TEXT:C284($defaultFontSize; $fontSize)
-C_LONGINT:C283($textWidth)
-C_LONGINT:C283($i)
-C_BOOLEAN:C305($visible; $condition)
-C_OBJECT:C1216($namedStyle)
-C_OBJECT:C1216($workbook)
-C_COLLECTION:C1488($namedStyleCol)
-C_LONGINT:C283($index)
-C_BOOLEAN:C305($cascadingStyleSheet)
-C_COLLECTION:C1488($sheetCol)
-C_TEXT:C284($s)
-C_TEXT:C284($valueStr)
-C_COLLECTION:C1488($bgImgCol)
-C_OBJECT:C1216($strPart)
-C_TEXT:C284($defaultGridLineColor)
-C_OBJECT:C1216($parsedStyle)
-C_COLLECTION:C1488($namedStyleQuery)
-C_BOOLEAN:C305($borderOrientation)
-C_REAL:C285($borderOffset)
-C_BOOLEAN:C305($drawLine)
-C_LONGINT:C283($indexColWidth; $indexRowHeight)
-C_OBJECT:C1216($bcObj)
-C_LONGINT:C283($rowCount; $colCount)
-C_LONGINT:C283($maxSvgWidth; $maxSvgHeight)
+
+var $sheets; $table; $cell; $style : Object
+var $lineObj; $obj; $defaultStyle : Object
+var $namedStyle; $workbook; $parsedStyle; $bcObj : Object
+var $strPart : Object
+var $svgSource; $svgRef; $elemRef : Text
+var $shrinkStr; $defaultFontSize; $fontSize; $valueStr; $defaultGridLineColor : Text
+
+var $textWidth; $i; $index; $indexColWidth; $indexRowHeight; $rowCount; $colCount; $maxSvgWidth; $maxSvgHeight : Integer
+var $iterX; $iterY; $svgHeight; $svgWidth; $x1; $x2; $y1; $y2; $height; $width : Integer
+var $defaultColWidth; $defaultRowHeight; $initialColWidth; $initialRowHeight : Integer
+var $rightOverflow; $leftOverflow : Integer
+var $pos : Integer
+
+var $colWidth; $rowHeight : Real
+var $borderOffset : Real
+var $pictWidth; $pictHeight : Real
+var $pictX; $pictY : Real
+
+var $valCol; $namedStyleCol; $sheetCol; $namedStyleQuery; $bgImgCol : Collection
+var $visible; $condition; $cascadingStyleSheet; $borderOrientation; $drawLine; $displayValue : Boolean
+
 
 // MARK:- Initialize Objects and Constants 
 $bcObj:=New object:C1471("bcGrid"; New object:C1471; "bcCol"; New collection:C1472)
@@ -105,18 +85,12 @@ $valCol:=New collection:C1472
 
 $lineObj:=New object:C1471("H"; New object:C1471; "V"; New object:C1471; "lines"; New collection:C1472)
 
-$vpObject:=$1
-If (Count parameters:C259>=2)
-	$cells:=$2
-Else 
-	$cells:=Null:C1517
-End if 
-
 // MARK:- Workbook and Sheets Handling
 If (Value type:C1509($vpObject.spreadJS)=Is object:K8:27)
 	$workbook:=$vpObject.spreadJS
 	
 	$sheetCol:=New collection:C1472
+	var $s : Text
 	For each ($s; $workbook.sheets)
 		$sheetCol.push($workbook.sheets[$s])
 	End for each 
@@ -203,8 +177,8 @@ If ($defaultStyle#Null:C1517)
 	End if 
 End if 
 
-
 // MARK:- Cell Range and Dimensions
+var $range : Object
 $range:=vp_getCellRange($vpObject; $cells)
 
 If ($sheets.columnCount#Null:C1517)
@@ -224,9 +198,9 @@ If ($range.y2>=$rowCount)
 End if 
 
 // MARK:- Row and Column Positions
-C_LONGINT:C283($size)
+var $size : Integer
 
-C_LONGINT:C283($startY)
+var $startY : Integer
 $startY:=0
 For ($iterY; 0; $range.y1-1)
 	
@@ -313,7 +287,7 @@ Case of
 		$svgHeight:=$svgHeight-$size
 End case 
 
-C_LONGINT:C283($startX)
+var $startX : Integer
 $startX:=0
 For ($iterX; 0; $range.x1-1)
 	
@@ -427,9 +401,9 @@ Else
 End if 
 
 ///SPANS HANDLING///
-C_COLLECTION:C1488($mergeTab)
-C_OBJECT:C1216($span; $cellMergeStatus)
-C_LONGINT:C283($row; $col)
+var $mergeTab : Collection
+var $span; $cellMergeStatus : Object
+var $row; $col : Integer
 
 $mergeTab:=Null:C1517
 If ($sheets#Null:C1517)
@@ -1087,10 +1061,10 @@ End if
 							$parsedStyle.vAlign:=TOP_VERTICAL_ALIGN
 						End if 
 						
-						C_REAL:C285($spaceWidth)
+						var $spaceWidth : Real
 						
 						If ($parsedStyle.textOrientation#0) & ($parsedStyle.textOrientation#NONE_TEXT_ORIENTATION)
-							C_REAL:C285($lineHeight)
+							var $lineHeight : Real
 							
 							$lineHeight:=DEFAULT_LINE_HEIGHT
 							
@@ -1100,11 +1074,10 @@ End if
 								End if 
 							End if 
 							
-							C_REAL:C285($radOrientation)
-							
+							var $radOrientation : Real
 							$radOrientation:=Abs:C99($parsedStyle.textOrientation*Degree:K30:2)
 							
-							C_OBJECT:C1216($initialBox; $rotatedBox; $translatedBox)
+							var $initialBox; $rotatedBox; $translatedBox : Object
 							
 							$initialBox:=svg_getTextBox($x1; $y2; 10; $lineHeight)
 							$rotatedBox:=svg_getRotatedBox($initialBox; $initialBox.topLeft.x; $initialBox.topLeft.y; $radOrientation)
@@ -1119,16 +1092,13 @@ End if
 							: ($parsedStyle.formatInfo=Null:C1517)
 								Case of 
 									: (Value type:C1509($cell.value)=Is real:K8:4) & ($parsedStyle.isVerticalText#1)
-										C_REAL:C285($e)
-										C_REAL:C285($p)
-										C_LONGINT:C283($nbU; $epos; $pos)
-										C_TEXT:C284($cvStr)
-										C_TEXT:C284($intPart)
-										C_TEXT:C284($decPart)
-										C_COLLECTION:C1488($cvCol)
-										C_LONGINT:C283($intLen; $decLen)
-										C_REAL:C285($x; $v)
+										var $e; $p : Real
+										var $nbU; $epos : Integer
+										var $cvCol : Collection
+										var $intLen; $decLen : Integer
+										var $x; $v : Real
 										
+										var $cvStr; $intPart; $decPart : Text
 										$cvStr:=String:C10($cell.value)
 										If ($cell.value>=10000000000000)
 											$intPart:=$cvStr[[1]]
@@ -1194,7 +1164,6 @@ End if
 													End if 
 													
 												: ($nbC<=$intLen)
-													C_LONGINT:C283($i)
 													
 													For ($i; 1; $nbC)
 														
@@ -1304,23 +1273,23 @@ End if
 								End if 
 								
 							: (Value type:C1509($parsedStyle.formatInfo.content)=Is collection:K8:32)
-								C_REAL:C285($w)
-								C_REAL:C285($c)
-								C_OBJECT:C1216($valPart)
 								
-								C_TEXT:C284($str)
+								
+								var $str : Text
 								$str:=""
+								var $valPart : Object
 								For each ($valPart; $parsedStyle.formatInfo.content)
-									If ($valPart.type#"fillingChar") & ($valPart.type#"placeHolder")
+									If ($valPart.type#"fillingChar") && ($valPart.type#"placeHolder") && ($valPart.type#"numberPlaceholder")
 										$str:=$str+$valPart.value
 									End if 
 								End for each 
+								var $w : Real
 								$w:=svg_getTextWidth($str; $parsedStyle.fontObj)
 								
 								Case of 
 									: (($parsedStyle.shrinkToFit=1) & ($w>(Int:C8($spaceWidth)-3))) | ($parsedStyle.isVerticalText=1)
 										For each ($valPart; $parsedStyle.formatInfo.content)
-											If ($valPart.type#"fillingChar") & ($valPart.type#"placeHolder")
+											If ($valPart.type#"fillingChar") && ($valPart.type#"placeHolder") && ($valPart.type#"numberPlaceholder")
 												$valueStr:=$valueStr+$valPart.value
 											End if 
 										End for each 
@@ -1328,13 +1297,12 @@ End if
 									Else 
 										
 										If ($w>(Int:C8($spaceWidth)-3))
+											var $c : Real
 											$c:=svg_getTextWidth("#"; $parsedStyle.fontObj)
 											
 											$valueStr:="#"*Int:C8(((Int:C8($spaceWidth)-3)/$c))
 										Else 
-											C_LONGINT:C283($nbC)
-											C_TEXT:C284($fc)
-											
+											var $fc : Text
 											$fc:=$parsedStyle.formatInfo.content.query("type = fillingChar")[0].value
 											
 											If ($fc=" ")
@@ -1343,6 +1311,7 @@ End if
 											
 											$c:=svg_getTextWidth($fc; $parsedStyle.fontObj)
 											
+											var $nbC : Integer
 											If (($parsedStyle.textOrientation#0) & ($parsedStyle.textOrientation#NONE_TEXT_ORIENTATION))
 												$nbC:=Int:C8((Int:C8($rowHeight)-3-$w)/$c)
 											Else 
@@ -1355,11 +1324,14 @@ End if
 													$valueStr:=$valueStr+($fc*$nbC)
 													$strPart:=New object:C1471("part1"; $valueStr; "part2"; "")
 												Else 
-													If ($valPart.type#"placeHolder")
+													If (($valPart.type#"placeHolder") && ($valPart.type#"numberPlaceholder"))
 														$valueStr:=$valueStr+$valPart.value
 														If ($strPart#Null:C1517)
 															$strPart.part2:=$strPart.part2+$valPart.value
 														End if 
+													Else 
+														
+														
 													End if 
 												End if 
 											End for each 
@@ -1676,8 +1648,7 @@ If ($sheets.floatingObjects#Null:C1517)
 					$width:=$obj.width
 					$height:=$obj.height
 					
-					C_TEXT:C284($name)
-					
+					var $name : Text
 					$name:=Replace string:C233($obj.name; " "; "_")
 					
 					$elemRef:=DOM Create XML element:C865($svgRef; "/svg/clipPath"; "id"; $name)
@@ -1692,9 +1663,9 @@ If ($sheets.floatingObjects#Null:C1517)
 						$svgWidth:=$x1+$Width
 					End if 
 					
-					C_TEXT:C284($layout; $src)
-					//C_LONGINT($pictWidth;$pictHeight;$pictX;$pictY)
+					//var $pictWidth; $pictHeight; $pictX; $pictY: Integer
 					
+					var $src : Text
 					$src:=$obj.src
 					
 					svg_getPictSize(->$src; ->$pictWidth; ->$pictHeight)
@@ -1716,7 +1687,7 @@ If ($sheets.floatingObjects#Null:C1517)
 							
 					End case 
 					
-					
+					var $layout : Text
 					Case of 
 						: ($obj.pictureStretch=Null:C1517)
 							$layout:="none"
@@ -1763,12 +1734,11 @@ DOM SET XML ATTRIBUTE:C866($svgRef; "x"; "0"; "y"; "0"; "width"; String:C10(Choo
 //DOM EXPORT TO FILE($svgRef; saveImgFileName)
 //End if
 
-
 // MARK:- Export SVG to Picture
 var $svgImg : Picture
 
 SVG EXPORT TO PICTURE:C1017($svgRef; $svgImg; Own XML data source:K45:18)
-$0:=$svgImg
+$result:=$svgImg
 
 //Else
 
