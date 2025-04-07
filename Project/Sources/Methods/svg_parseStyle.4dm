@@ -1,8 +1,5 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($style;$1;$parsed;$2)
-
-$style:=$1
-$parsed:=$2
+#DECLARE($style : Object; $parsed : Object)
 
 If ($parsed.topBorderStyle=NONE_BORDER_STYLE)
 	Case of 
@@ -17,7 +14,7 @@ If ($parsed.topBorderStyle=NONE_BORDER_STYLE)
 			$parsed.topBorderStyle:=$style.borderTop.style
 			$parsed.topBorderColor:="black"
 			If (Value type:C1509($style.borderTop.color)=Is text:K8:3)
-				$parsed.topBorderColor:=svg_retrieveColor ($style.borderTop.color)
+				$parsed.topBorderColor:=svg_retrieveColor($style.borderTop.color)
 			End if 
 	End case 
 End if 
@@ -35,7 +32,7 @@ If ($parsed.bottomBorderStyle=NONE_BORDER_STYLE)
 			$parsed.bottomBorderStyle:=$style.borderBottom.style
 			$parsed.bottomBorderColor:="black"
 			If (Value type:C1509($style.borderBottom.color)=Is text:K8:3)
-				$parsed.bottomBorderColor:=svg_retrieveColor ($style.borderBottom.color)
+				$parsed.bottomBorderColor:=svg_retrieveColor($style.borderBottom.color)
 			End if 
 	End case 
 End if 
@@ -53,7 +50,7 @@ If ($parsed.leftBorderStyle=NONE_BORDER_STYLE)
 			$parsed.leftBorderStyle:=$style.borderLeft.style
 			$parsed.leftBorderColor:="black"
 			If (Value type:C1509($style.borderLeft.color)=Is text:K8:3)
-				$parsed.leftBorderColor:=svg_retrieveColor ($style.borderLeft.color)
+				$parsed.leftBorderColor:=svg_retrieveColor($style.borderLeft.color)
 			End if 
 	End case 
 End if 
@@ -71,7 +68,7 @@ If ($parsed.rightBorderStyle=NONE_BORDER_STYLE)
 			$parsed.rightBorderStyle:=$style.borderRight.style
 			$parsed.rightBorderColor:="black"
 			If (Value type:C1509($style.borderRight.color)=Is text:K8:3)
-				$parsed.rightBorderColor:=svg_retrieveColor ($style.borderRight.color)
+				$parsed.rightBorderColor:=svg_retrieveColor($style.borderRight.color)
 			End if 
 	End case 
 End if 
@@ -89,7 +86,7 @@ If ($parsed.diagonalUpStyle=NONE_BORDER_STYLE)
 			$parsed.diagonalUpStyle:=$style.diagonalUp.style
 			$parsed.diagonalUpColor:="black"
 			If (Value type:C1509($style.diagonalUp.color)=Is text:K8:3)
-				$parsed.diagonalUpColor:=svg_retrieveColor ($style.diagonalUp.color)
+				$parsed.diagonalUpColor:=svg_retrieveColor($style.diagonalUp.color)
 			End if 
 	End case 
 End if 
@@ -107,7 +104,7 @@ If ($parsed.diagonalDownStyle=NONE_BORDER_STYLE)
 			$parsed.diagonalDownStyle:=$style.diagonalDown.style
 			$parsed.diagonalDownColor:="black"
 			If (Value type:C1509($style.diagonalDown.color)=Is text:K8:3)
-				$parsed.diagonalDownColor:=svg_retrieveColor ($style.diagonalDown.color)
+				$parsed.diagonalDownColor:=svg_retrieveColor($style.diagonalDown.color)
 			End if 
 	End case 
 End if 
@@ -129,19 +126,17 @@ If ($parsed.hAlign=NONE_HORIZONTAL_ALIGN)
 End if 
 
 If ($parsed.backColor="")
-	If ($style.backColor#Null:C1517)
-		
-		If (Value type:C1509($style.backColor)=Is text:K8:3)
-			$parsed.backColor:=svg_retrieveColor ($style.backColor)
-		End if 
-		
-	End if 
-	
+	Case of 
+		: (Value type:C1509($style.backColor)=Is null:K8:31)
+			$parsed.backColor:=svg_retrieveColor("")  // NO COLOR
+		: (Value type:C1509($style.backColor)=Is text:K8:3)
+			$parsed.backColor:=svg_retrieveColor($style.backColor)
+	End case 
 End if 
 
 If ($parsed.fill="")
 	If (Value type:C1509($style.foreColor)=Is text:K8:3)
-		$parsed.fill:=svg_retrieveColor ($style.foreColor)
+		$parsed.fill:=svg_retrieveColor($style.foreColor)
 	End if 
 End if 
 
@@ -166,28 +161,28 @@ If ($parsed.font="")
 	If (Value type:C1509($style.font)=Is text:K8:3)
 		
 		$parsed.font:=$style.font
-		$parsed.fontObj:=VP Font to object ($parsed.font)
-		$parsed.font:=Replace string:C233($parsed.font;"\"";"'")
+		$parsed.fontObj:=VP Font to object($parsed.font)
+		$parsed.font:=Replace string:C233($parsed.font; "\""; "'")
 		If ($parsed.fontObj.size#Null:C1517)
 			C_COLLECTION:C1488($fontLineSizeCol)
 			
-			$fontLineSizeCol:=Split string:C1554($parsed.fontObj.size;"/")
+			$fontLineSizeCol:=Split string:C1554($parsed.fontObj.size; "/")
 			
-			If (Num:C11($fontLineSizeCol[0];".")=0)
+			If (Num:C11($fontLineSizeCol[0]; ".")=0)
 				$parsed.fontObj.size:=Null:C1517
 			Else 
-				$parsed.fontObj.size:=svg_convertUnitToPx ($fontLineSizeCol[0])
+				$parsed.fontObj.size:=svg_convertUnitToPx($fontLineSizeCol[0])
 			End if 
 			
 			Case of 
 				: ($fontLineSizeCol.length<2) & (Value type:C1509($parsed.fontObj.size)=Is text:K8:3)
-					$parsed.fontObj.lineHeight:=1.2*Num:C11($parsed.fontObj.size;".")
+					$parsed.fontObj.lineHeight:=1.2*Num:C11($parsed.fontObj.size; ".")
 				: ($fontLineSizeCol[1]="normal") & (Value type:C1509($parsed.fontObj.size)=Is text:K8:3)
-					$parsed.fontObj.lineHeight:=1.2*Num:C11($parsed.fontObj.size;".")
-				: (String:C10(Num:C11($fontLineSizeCol[1];".");"&xml;")=$fontLineSizeCol[1]) & (Value type:C1509($parsed.fontObj.size)=Is text:K8:3)
-					$parsed.fontObj.lineHeight:=Num:C11($fontLineSizeCol[1];".")*Num:C11($parsed.fontObj.size;".")
+					$parsed.fontObj.lineHeight:=1.2*Num:C11($parsed.fontObj.size; ".")
+				: (String:C10(Num:C11($fontLineSizeCol[1]; "."); "&xml;")=$fontLineSizeCol[1]) & (Value type:C1509($parsed.fontObj.size)=Is text:K8:3)
+					$parsed.fontObj.lineHeight:=Num:C11($fontLineSizeCol[1]; ".")*Num:C11($parsed.fontObj.size; ".")
 				Else 
-					$parsed.fontObj.lineHeight:=Num:C11(svg_convertUnitToPx ($fontLineSizeCol[1]);".")
+					$parsed.fontObj.lineHeight:=Num:C11(svg_convertUnitToPx($fontLineSizeCol[1]); ".")
 			End case 
 		End if 
 		
@@ -229,7 +224,7 @@ End if
 If ($parsed.isVerticalText=2)
 	If (Value type:C1509($style.isVerticalText)=Is boolean:K8:9)
 		
-		$parsed.isVerticalText:=Choose:C955($style.isVerticalText;1;0)
+		$parsed.isVerticalText:=Choose:C955($style.isVerticalText; 1; 0)
 		
 	End if 
 	
@@ -240,7 +235,7 @@ If ($parsed.formatInfo=Null:C1517)
 		$parsed.formatInfo:=$style.formatInfo
 		
 		If (Value type:C1509($parsed.formatInfo.color)=Is text:K8:3)
-			$parsed.fill:=svg_retrieveColor ($parsed.formatInfo.color)
+			$parsed.fill:=svg_retrieveColor($parsed.formatInfo.color)
 		End if 
 	End if 
 End if 
@@ -274,7 +269,7 @@ End if
 If ($parsed.wordWrap=2)
 	If (Value type:C1509($style.wordWrap)=Is boolean:K8:9)
 		
-		$parsed.wordWrap:=Choose:C955($style.wordWrap;1;0)
+		$parsed.wordWrap:=Choose:C955($style.wordWrap; 1; 0)
 		
 	End if 
 	
@@ -297,7 +292,7 @@ End if
 If ($parsed.cellPadding=Null:C1517)
 	If (Value type:C1509($style.cellPadding)=Is text:K8:3)
 		$parsed.cellPadding:=New object:C1471
-		svg_getCellPadding ($style.cellPadding;$parsed.cellPadding)
+		svg_getCellPadding($style.cellPadding; $parsed.cellPadding)
 	End if 
 	
 End if 
@@ -305,7 +300,7 @@ End if
 If ($parsed.shrinkToFit=2)
 	If (Value type:C1509($style.shrinkToFit)=Is boolean:K8:9)
 		
-		$parsed.shrinkToFit:=Choose:C955($style.shrinkToFit;1;0)
+		$parsed.shrinkToFit:=Choose:C955($style.shrinkToFit; 1; 0)
 		
 	End if 
 	
