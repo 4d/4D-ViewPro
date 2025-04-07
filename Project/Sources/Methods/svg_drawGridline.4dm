@@ -71,12 +71,16 @@ If ($drawHGrid)
 				If ($bcObj.bcGrid#Null:C1517)
 					If ($bcObj.bcGrid[String:C10($Y)]#Null:C1517)
 						If ($bcObj.bcGrid[String:C10($Y)][String:C10($X)]#Null:C1517)
-							$noBgH:=False:C215
+							If (String:C10($bcObj.bcGrid[String:C10($Y)][String:C10($X)].col)#"$4D_NOCOLOR")
+								$noBgH:=False:C215
+							End if 
 						End if 
 					End if 
 					If ($bcObj.bcGrid[String:C10($Y-1)]#Null:C1517)
 						If ($bcObj.bcGrid[String:C10($Y-1)][String:C10($X)]#Null:C1517)
-							$noBgH:=False:C215
+							If (String:C10($bcObj.bcGrid[String:C10($Y-1)][String:C10($X)].col)#"$4D_NOCOLOR")
+								$noBgH:=False:C215
+							End if 
 						End if 
 					End if 
 				End if 
