@@ -12,7 +12,7 @@ var $lineObj; $obj; $defaultStyle : Object
 var $namedStyle; $workbook; $parsedStyle; $bcObj : Object
 var $strPart : Object
 var $svgSource; $svgRef; $elemRef : Text
-var $shrinkStr; $defaultFontSize; $fontSize; $valueStr; $defaultGridLineColor : Text
+var $shrinkStr; $defaultFontSize; $fontSize; $valueStr : Text
 
 var $textWidth; $i; $index; $indexColWidth; $indexRowHeight; $rowCount; $colCount; $maxSvgWidth; $maxSvgHeight : Integer
 var $iterX; $iterY; $svgHeight; $svgWidth; $x1; $x2; $y1; $y2; $height; $width : Integer
@@ -31,8 +31,6 @@ var $visible; $condition; $cascadingStyleSheet; $borderOrientation; $drawLine; $
 
 // MARK:- Initialize Objects and Constants 
 $bcObj:=New object:C1471("bcGrid"; New object:C1471; "bcCol"; New collection:C1472)
-
-$defaultGridLineColor:="rgb(212,212,212)"
 
 svg_defineColorConstant
 
