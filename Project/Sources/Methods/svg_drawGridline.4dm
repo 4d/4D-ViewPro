@@ -1,21 +1,7 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($svgRef; $1)
-C_OBJECT:C1216($lineObj; $2; $bcObj; $3; $range; $4; $gridInfo; $7)
-C_POINTER:C301($colPos; $5; $rowPos; $6)
-C_COLLECTION:C1488($mergeTab; $8)
+#DECLARE($svgRef : Text; $lineObj : Object; $bcObj : Object; $range : Object; $colPos : Pointer; $rowPos : Pointer; $gridInfo : Object; $mergeTab : Collection)
 
-$svgRef:=$1
-$lineObj:=$2
-$bcObj:=$3
-$range:=$4
-$colPos:=$5
-$rowPos:=$6
-$gridInfo:=$7
-$mergeTab:=$8
-
-C_TEXT:C284($color)
-C_OBJECT:C1216($cellMergeStatus)
-
+var $color : Text
 $color:="rgb(212,212,212)"
 
 Case of 
@@ -27,8 +13,7 @@ Case of
 		ASSERT:C1129(Structure file:C489#Structure file:C489(*); "grid info.color is not a text value")
 End case 
 
-C_BOOLEAN:C305($drawVGrid)
-
+var $drawVGrid : Boolean
 $drawVGrid:=True:C214
 
 Case of 
@@ -38,8 +23,7 @@ Case of
 		$drawVGrid:=$gridInfo.showVerticalGridline
 End case 
 
-C_BOOLEAN:C305($drawHGrid)
-
+var $drawHGrid : Boolean
 $drawHGrid:=True:C214
 
 Case of 
@@ -49,13 +33,14 @@ Case of
 		$drawHGrid:=$gridInfo.showHorizontalGridline
 End case 
 
+var $cellMergeStatus : Object
+var $elemRef : Text
+var $X; $Y : Integer
+
 If ($drawHGrid)
 	
-	C_LONGINT:C283($X; $Y)
-	C_OBJECT:C1216($lineH)
-	C_BOOLEAN:C305($noBgH)
-	C_BOOLEAN:C305($noBrdH)
-	C_TEXT:C284($elemRef)
+	var $lineH : Object
+	var $noBgH; $noBrdH : Boolean
 	
 	For ($Y; $range.y1; $range.y2+1)
 		
@@ -151,9 +136,8 @@ End if
 
 If ($drawVGrid)
 	
-	C_OBJECT:C1216($lineV)
-	C_BOOLEAN:C305($noBgV)
-	C_BOOLEAN:C305($noBrdV)
+	var $lineV : Object
+	var $noBgV; $noBrdV : Boolean
 	
 	For ($X; $range.x1; $range.x2+1)
 		
@@ -169,10 +153,14 @@ If ($drawVGrid)
 				If ($bcObj.bcGrid#Null:C1517)
 					If ($bcObj.bcGrid[String:C10($Y)]#Null:C1517)
 						If ($bcObj.bcGrid[String:C10($Y)][String:C10($X)]#Null:C1517)
-							$noBgV:=False:C215
+							If (String:C10($bcObj.bcGrid[String:C10($Y)][String:C10($X)].col)#"$4D_NOCOLOR")
+								$noBgV:=False:C215
+							End if 
 						End if 
 						If ($bcObj.bcGrid[String:C10($Y)][String:C10($X-1)]#Null:C1517)
-							$noBgV:=False:C215
+							If (String:C10($bcObj.bcGrid[String:C10($Y)][String:C10($X-1)].col)#"$4D_NOCOLOR")
+								$noBgV:=False:C215
+							End if 
 						End if 
 					End if 
 				End if 
