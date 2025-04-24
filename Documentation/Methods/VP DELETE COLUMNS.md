@@ -1,5 +1,39 @@
-<!---->
 # VP DELETE COLUMNS
 
-Click [here](https://developer.4d.com/docs/ViewPro/commands/vp-delete-columns) to access the documentation for this method.
+<!-- REF #_method_.VP DELETE COLUMNS.Syntax -->
+**VP DELETE COLUMNS** ( *rangeObj* : Object )<!-- END REF -->
 
+<!-- REF #_method_.VP DELETE COLUMNS.Params -->
+
+|Parameter|Type| |Description|
+|---|---|---|---|
+|rangeObj| Object|->|Range object|<!-- END REF -->
+
+## Description
+
+The `VP DELETE COLUMNS` command <!-- REF #_method_.VP DELETE COLUMNS.Summary -->removes the columns in the *rangeObj*<!-- END REF -->.
+
+In *rangeObj*, pass an object containing a range of columns to remove. If the passed range contains:
+
+* both columns and rows, only the columns are removed.
+* only rows, the command does nothing.
+
+>Columns are deleted from right to left.
+
+## Example  
+
+To delete columns selected by the user (in the image below columns B, C, and D):
+
+![](../../assets/en/ViewPro/cmd_vpDeleteColumns.PNG)
+
+use the following code:
+
+```4d
+VP DELETE COLUMNS(VP Get selection("ViewProArea"))
+```
+
+## See also
+
+[VP DELETE ROWS](VP%20DELETE%20ROWS.md)<br/>
+[VP INSERT COLUMNS](VP%20INSERT%20COLUMNS.md)<br/>
+[VP INSERT ROWS](VP%20INSERT%20ROWS.md)

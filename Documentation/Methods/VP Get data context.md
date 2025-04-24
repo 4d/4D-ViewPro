@@ -1,5 +1,40 @@
-<!---->
 # VP Get data context
 
-Click [here](https://developer.4d.com/docs/ViewPro/commands/vp-get-data-context) to access the documentation for this method.
 
+
+<!-- REF #_method_.VP Get data context.Syntax -->
+**VP Get data context** ( *vpAreaName* : Text {; *sheet* : Integer } ) : any<!-- END REF -->
+
+<!-- REF #_method_.VP Get data context.Params -->
+
+|Parameter|Type||Description|
+|---|---|---|---|
+|vpAreaName |Text|->|4D View Pro area form object name|
+|sheet|Integer|->|Index of the sheet to get the data context from|
+|Result |Variant|<-|Data context. Object or Collection|<!-- END REF -->
+
+## Description
+
+The `VP Get data context` command <!-- REF #_method_.VP Get data context.Summary -->returns the current data context of a worksheet<!-- END REF -->. The returned context includes any modifications made to the contents of the data context.
+
+In *sheet*, pass the index of the sheet to get the data context from. If no index is passed, the command returns the data context of the current worksheet. If there is no context for the worksheet, the command returns `Null`.
+
+The function returns an object or a collection depending on the type of data context set with [VP SET DATA CONTEXT](VP%20SET%20DATA%20CONTEXT.md).
+
+## Example
+
+To get the data context bound to the following cells:
+
+![](../../assets/en/ViewPro/vp-set-data-context-bind.png)
+
+```4d
+var $dataContext : Object
+
+$dataContext:=VP Get data context("ViewProArea") // {firstName:Freehafer,lastName:Nancy}
+```
+
+## See also
+
+[VP SET DATA CONTEXT](VP%20SET%20DATA%20CONTEXT.md)<br/>
+[VP Get binding path](VP%20Get%20binding%20path.md)<br/>
+[VP SET BINDING PATH](VP%20SET%20BINDING%20PATH.md)
