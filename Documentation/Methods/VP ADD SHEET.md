@@ -27,7 +27,7 @@ In *name*, you can pass a name for the new sheet. The new name cannot contain th
 
 The document currently has 3 sheets:
 
-![vp-document-with-3-sheets](../../assets/en/ViewPro/vp-sheet-3.png)
+![vp-document-with-3-sheets](../images/vp-sheet-3.png)
 
 To insert a sheet at the third position (index 2) and name it "March":
 
@@ -35,7 +35,7 @@ To insert a sheet at the third position (index 2) and name it "March":
 VP ADD SHEET("ViewProArea";2;"March")
 ```
 
-![vp-add-sheet](../../assets/en/ViewPro/vp-add-sheet.png)
+![vp-add-sheet](../images/vp-add-sheet.png)
 
 ## See also
 

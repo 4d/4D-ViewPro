@@ -89,7 +89,7 @@ VP SET SHEET OPTIONS("ViewProArea";$options;2)
 
 Result:
 
-![](../../assets/en/ViewPro/cmd_vpSetSheetOptions1.PNG)
+![](../images/cmd_vpSetSheetOptions1.PNG)
 
 ## Example 4
 
@@ -110,7 +110,7 @@ VP SET SHEET OPTIONS("ViewProArea";$options)
 
 Result:
 
-![](../../assets/en/ViewPro/cmd_vpSetSheetOptions2.PNG)
+![](../images/cmd_vpSetSheetOptions2.PNG)
 
 ## See also
 

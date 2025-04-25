@@ -19,7 +19,7 @@ In *rangeObj*, pass a range object of the cell span. The spanned cells in the ra
 
 To remove all cell spans from this document:
 
-![](../../assets/en/ViewPro/cmd_vpRemoveSpan1.PNG)
+![](../images/cmd_vpRemoveSpan1.PNG)
 
 ```4d
  //find all cell spans
@@ -32,7 +32,7 @@ To remove all cell spans from this document:
 
 Result:
 
-![](../../assets/en/ViewPro/cmd_vpRemoveSpan2.PNG)
+![](../images/cmd_vpRemoveSpan2.PNG)
 
 ## See also
 

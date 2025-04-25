@@ -34,7 +34,7 @@ $style.backColor:="#E6E6FA" //light purple color
 VP SET DEFAULT STYLE("myDoc";$style)
 ```
 
-![](../../assets/en/ViewPro/cmd_vpSetDefaultStyle.PNG)
+![](../images/cmd_vpSetDefaultStyle.PNG)
 
 ## See also
 

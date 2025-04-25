@@ -19,7 +19,7 @@ In *rangeObj*, pass a range object containing a range of the rows whose size wil
 
 The following rows don't correctly display the text:
 
-![](../../assets/en/ViewPro/cmd_vpRowAutoFit1.PNG)
+![](../images/cmd_vpRowAutoFit1.PNG)
 
 ```4d
  VP ROW AUTOFIT(VP Row("ViewProArea";1;2))
@@ -27,7 +27,7 @@ The following rows don't correctly display the text:
 
 Result:
 
-![](../../assets/en/ViewPro/cmd_vpRowAutoFit2.PNG)
+![](../images/cmd_vpRowAutoFit2.PNG)
 
 ## See also
 

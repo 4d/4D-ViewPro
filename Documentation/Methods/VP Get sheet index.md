@@ -25,7 +25,7 @@ In *name*, pass the name of the sheet whose index will be returned. If no sheet 
 
 In the following document:
 
-![](../../assets/en/ViewPro/vp-sheet-index-name.png)
+![](../images/vp-sheet-index-name.png)
 
 Get the index of the sheet called "Total first quarter":
 

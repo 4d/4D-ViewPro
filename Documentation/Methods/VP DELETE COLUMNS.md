@@ -24,7 +24,7 @@ In *rangeObj*, pass an object containing a range of columns to remove. If the pa
 
 To delete columns selected by the user (in the image below columns B, C, and D):
 
-![](../../assets/en/ViewPro/cmd_vpDeleteColumns.PNG)
+![](../images/cmd_vpDeleteColumns.PNG)
 
 use the following code:
 

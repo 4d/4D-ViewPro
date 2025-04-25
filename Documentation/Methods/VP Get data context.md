@@ -25,7 +25,7 @@ The function returns an object or a collection depending on the type of data con
 
 To get the data context bound to the following cells:
 
-![](../../assets/en/ViewPro/vp-set-data-context-bind.png)
+![](../images/vp-set-data-context-bind.png)
 
 ```4d
 var $dataContext : Object

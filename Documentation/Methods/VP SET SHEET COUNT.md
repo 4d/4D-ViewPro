@@ -22,7 +22,7 @@ In `number`, pass a number corresponding to how many sheets the document will co
 
 The document currently has one sheet:
 
-![](../../assets/en/ViewPro/vp-sheet-1.png)
+![](../images/vp-sheet-1.png)
 
 To set the number of sheets to 3:
 
@@ -30,7 +30,7 @@ To set the number of sheets to 3:
 VP SET SHEET COUNT("ViewProArea";3)
 ```
 
-![](../../assets/en/ViewPro/vp-sheet-3.png)
+![](../images/vp-sheet-3.png)
 
 ## See also
 

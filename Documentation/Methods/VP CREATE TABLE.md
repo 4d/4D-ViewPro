@@ -18,7 +18,7 @@
 
 The `VP CREATE TABLE` command <!-- REF #_method_.VP CREATE TABLE.Summary -->creates a table in the specified range<!-- END REF -->. You can create a table in a range of cells to make managing and analyzing a group of related data easier. A table typically contains related data in rows and columns, and takes advantage of a [data context](vp-set-data-context).
 
-![](../../assets/en/ViewPro/vp-create-table.png)
+![](../images/vp-create-table.png)
 
 In *rangeObj*, pass the cell range where the table will be created.
 
@@ -89,7 +89,7 @@ VP CREATE TABLE(VP Cells("ViewProArea"; 1; 1; $options.tableColumns.length; 1); 
 
 Here's the result:
 
-![](../../assets/en/ViewPro/vp-create-table.png)
+![](../images/vp-create-table.png)
 
 ## See also
 

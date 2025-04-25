@@ -65,7 +65,7 @@ VP EXPORT DOCUMENT("ViewProArea";"Sales2018.pdf";New object("formula";Formula(AL
 
 The PDF:
 
-![](../../assets/en/ViewPro/cmd_vpSetPrintInfo.PNG)
+![](../images/cmd_vpSetPrintInfo.PNG)
 
 ## See also
 

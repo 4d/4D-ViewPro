@@ -29,7 +29,7 @@ In the optional *sheet* parameter, you can designate a specific spreadsheet wher
 
 You want to define a range object for the column shown below (on the current spreadsheet):
 
-![](../../assets/en/ViewPro/cmd_vpColumn.PNG)
+![](../images/cmd_vpColumn.PNG)
 
 The code would be:
 

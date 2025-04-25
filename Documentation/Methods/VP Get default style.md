@@ -23,7 +23,7 @@ You can define where to get the column count in the optional *sheet* parameter u
 
 To get the details about the default style for this document:
 
-![](../../assets/en/ViewPro/cmd_vpGetDefaultStyle.PNG)
+![](../images/cmd_vpGetDefaultStyle.PNG)
 
 This code:
 

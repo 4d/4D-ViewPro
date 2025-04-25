@@ -34,7 +34,7 @@ In the optional *sheet* parameter, you can indicate the index of the sheet where
 
 You want to define a range object for the cell shown below (on the current spreadsheet):
 
-![vp-cell](../../assets/en/ViewPro/cmd_vpCell.png)
+![vp-cell](../images/cmd_vpCell.png)
 
 The code would be:
 

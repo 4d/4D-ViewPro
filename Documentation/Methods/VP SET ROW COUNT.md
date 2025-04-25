@@ -31,7 +31,7 @@ The following code defines five rows in the 4D View Pro area:
 VP SET ROW COUNT("ViewProArea";5)
 ```
 
-![](../../assets/en/ViewPro/cmd_vpSetRowCount.PNG)
+![](../images/cmd_vpSetRowCount.PNG)
 
 ## See also
 

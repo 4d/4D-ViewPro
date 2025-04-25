@@ -112,7 +112,7 @@ End if
 
 You want to import a `.txt` file that uses a comma (",") as delimiter:
 
-![example-import-csv](../../assets/en/ViewPro/vp-import-document-csv.png)
+![example-import-csv](../images/vp-import-document-csv.png)
 
 ```4d
 var $params:={}
@@ -121,7 +121,7 @@ VP IMPORT DOCUMENT("ViewProArea";"c:\\import\\my-file.txt";New object("csvOption
 ```
 
 Here's the result:
-![example-import-csv](../../assets/en/ViewPro/vp-import-document-csv-result.png)
+![example-import-csv](../images/vp-import-document-csv-result.png)
 
 ## See also
 

@@ -25,7 +25,7 @@ The returned collection is two-dimensional:
 
 You want to retrieve the formulas in the Sum and Average columns from this document:
 
-![](../../assets/en/ViewPro/cmd_vpGetFormulas.PNG)
+![](../images/cmd_vpGetFormulas.PNG)
 
 You can use this code:
 
