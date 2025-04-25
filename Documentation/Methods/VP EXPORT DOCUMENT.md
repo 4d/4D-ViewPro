@@ -168,7 +168,7 @@ You want to export a 4D View Pro document in ".xlsx" format and call a method th
 
 You want to export the current sheet to a `.txt` file with pipe-separated values:
 
-![example-export-csv](../../assets/en/ViewPro/vp-export-document-csv.png)
+![example-export-csv](../images/vp-export-document-csv.png)
 
 ```4d
 var $params:={}
@@ -180,7 +180,7 @@ VP EXPORT DOCUMENT("ViewProArea";"c:\\tmp\\data.txt";New object("format";vk csv 
 
 Here's the result:
 
-![example-export-csv](../../assets/en/ViewPro/vp-export-document-csv-result.png)
+![example-export-csv](../images/vp-export-document-csv-result.png)
 
 ## See also
 

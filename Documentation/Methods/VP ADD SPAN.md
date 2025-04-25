@@ -22,7 +22,7 @@ In *rangeObj*, pass a range object of cells. The cells in the range are joined t
 
 To span the First quarter and Second quarter cells across the two cells beside them, and the South area cell across the two rows below it:
 
-![initial-document](../../assets/en/ViewPro/vp-add-span.png)
+![initial-document](../images/vp-add-span.png)
 
 ```4d
  // First quarter range
@@ -37,7 +37,7 @@ To span the First quarter and Second quarter cells across the two cells beside t
  VP ADD SPAN(VP Combine ranges($q1;$q2;$south))
 ```
 
-![vp-add-span-result](../../assets/en/ViewPro/vp-add-span-2.png)
+![vp-add-span-result](../images/vp-add-span-2.png)
 
 ## See also
 

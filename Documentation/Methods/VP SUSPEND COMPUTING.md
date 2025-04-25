@@ -23,7 +23,7 @@ In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that 
 
 You've added two buttons to the form so that the user can suspend/resume calculations:
 
-![](../../assets/en/ViewPro/cmd_vpStopCalculations.PNG)
+![](../images/cmd_vpStopCalculations.PNG)
 
 The Suspend Computing button code:
 

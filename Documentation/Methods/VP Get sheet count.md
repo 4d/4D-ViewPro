@@ -20,7 +20,7 @@ In *vpAreaName*, pass the name of the 4D View Pro area.
 
 In the following document:
 
-![](../../assets/en/ViewPro/vp-sheet-3.png)
+![](../images/vp-sheet-3.png)
 
 Get the sheet count and set the current sheet to the last sheet:
 
@@ -30,7 +30,7 @@ Get the sheet count and set the current sheet to the last sheet:
  VP SET CURRENT SHEET("ViewProArea";$count-1)
 ```
 
-![](../../assets/en/ViewPro/vp-sheet-3-select.png)
+![](../images/vp-sheet-3-select.png)
 
 ## See also
 

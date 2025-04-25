@@ -37,7 +37,7 @@ In the optional *sheet* parameter, you can designate a specific spreadsheet wher
 
 You want to define a range object for the following cells (on the current sheet):
 
-![](../../assets/en/ViewPro/vp-cells.png)
+![](../images/vp-cells.png)
 
 The code would be:
 

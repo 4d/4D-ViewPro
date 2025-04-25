@@ -43,7 +43,7 @@ $param.push(New collection(Null;New object("value";Current date;"time";42))) //f
 VP SET VALUES(VP Cell("ViewProArea";2;1);$param)
 ```
 
-![](../../assets/en/ViewPro/cmd_vpSetValues.PNG)
+![](../images/cmd_vpSetValues.PNG)
 
 ## See also
 

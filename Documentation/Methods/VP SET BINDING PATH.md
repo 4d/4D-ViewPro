@@ -42,7 +42,7 @@ VP SET BINDING PATH(VP Cell("ViewProArea"; 0; 0); "firstName")
 VP SET BINDING PATH(VP Cell("ViewProArea"; 1; 0); "lastName")
 ```
 
-![](../../assets/en/ViewPro/vp-set-data-context-bind.png)
+![](../images/vp-set-data-context-bind.png)
 
 ## See also
 

@@ -25,7 +25,7 @@ In *sheet*, pass the index of the sheet to be set as current sheet. If the index
 
 The document's current sheet is the first sheet:
 
-![first-sheet-selected](../../assets/en/ViewPro/vp-sheet-3-select.png)
+![first-sheet-selected](../images/vp-sheet-3-select.png)
 
 Set the current sheet to the third sheet:
 
@@ -33,7 +33,7 @@ Set the current sheet to the third sheet:
 VP SET CURRENT SHEET("ViewProArea";2)
 ```
 
-![](../../assets/en/ViewPro/vp-sheet-3-select.png)
+![](../images/vp-sheet-3-select.png)
 
 ## See also
 

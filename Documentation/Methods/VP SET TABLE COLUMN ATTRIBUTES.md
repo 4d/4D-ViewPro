@@ -63,7 +63,7 @@ $options.tableColumns.push(New object("name"; "Salary"; "dataField"; "salary"))
 VP CREATE TABLE(VP Cells("ViewProArea"; 1; 1; 2; 3); "PeopleTable"; "col"; $options)
 ```
 
-![](../../assets/en/ViewPro/table-inserta.png)
+![](../images/table-inserta.png)
 
 Then you want to insert a column with data from the data context and hide some filter buttons:
 
@@ -88,7 +88,7 @@ VP SET TABLE COLUMN ATTRIBUTES("ViewProArea"; "PeopleTable"; 0; \
 
 ```
 
-![](../../assets/en/ViewPro/table-insertb.png)
+![](../images/table-insertb.png)
 
 
 ## See also

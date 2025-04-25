@@ -37,7 +37,7 @@ The following code:
 
 ... will open a print dialog window:
 
-![](../../assets/en/ViewPro/cmd_vpPrint.PNG)
+![](../images/cmd_vpPrint.PNG)
 
 ## See also
 

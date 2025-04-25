@@ -24,7 +24,7 @@ In *rangeObj*, pass an object containing a range of rows  to remove. If the pass
 
 To delete rows selected by the user (in the image below rows 1, 2, and 3):
 
-![](../../assets/en/ViewPro/cmd_vpDeleteRows.PNG)
+![](../images/cmd_vpDeleteRows.PNG)
 
 use the following code:
 

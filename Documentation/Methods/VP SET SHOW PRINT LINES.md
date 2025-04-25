@@ -35,11 +35,11 @@ VP SET SHOW PRINT LINES("ViewProArea";True;1)
 
 ```
 
-![set-show-print-lines](../../assets/en/ViewPro/vp-set-show-print-lines.png)
+![set-show-print-lines](../images/vp-set-show-print-lines.png)
 
 With a page break:
 
-![set-show-print-lines-with-page-break](../../assets/en/ViewPro/vp-set-show-print-lines-page-break.png)
+![set-show-print-lines-with-page-break](../images/vp-set-show-print-lines-page-break.png)
 
 ## See also
 

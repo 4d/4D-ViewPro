@@ -24,7 +24,7 @@ In *index*, pass the index of the sheet to remove. If the passed *index* does no
 
 The document currently has three sheets:
 
-![](../../assets/en/ViewPro/vp-sheet-3.png)
+![](../images/vp-sheet-3.png)
 
 Remove the third sheet:
 
@@ -32,7 +32,7 @@ Remove the third sheet:
 VP REMOVE SHEET("ViewProArea";2)
 ```
 
-![](../../assets/en/ViewPro/vp-sheet-2.png)
+![](../images/vp-sheet-2.png)
 
 ## See also
 
