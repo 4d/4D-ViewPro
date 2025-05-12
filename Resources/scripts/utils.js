@@ -916,6 +916,9 @@ Utils._getLongOperationTimeout = function () {
     return (timeout) ? timeout : Utils.longOperationTimeout;
 };
 
+// Use default english culture (ACI0105529)
+Utils.useDefaultEnglishCulture = true;
+
 function vp_startLongOperation() {
     vp_counter++;
     vp_setOptimizer(Utils._getLongOperationTimeout());

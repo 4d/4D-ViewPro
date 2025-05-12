@@ -140,9 +140,10 @@ document.addEventListener('DOMContentLoaded', function () {
         /*********
          * Culture
          *********/
-        // in japanese, use builtin japanese culture
-        if ((vp_localizedFolder !== 'ja.lproj') && (vp_localizedFolder !== 'en.lproj')) {
-            // get a new culture based on 4D intl manager
+        if ((vp_localizedFolder !== 'ja.lproj') // in japanese, use builtin japanese culture
+            && (!Utils.useDefaultEnglishCulture || (vp_localizedFolder !== 'en.lproj'))) { // in english, use culture according to the configuration
+
+                // get a new culture based on 4D intl manager
             const culture = getCulture(obj);
 
             // get current culture name
