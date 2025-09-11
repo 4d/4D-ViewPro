@@ -93,17 +93,18 @@ Utils.diagnostics = {
     events: []
 };
 
-Utils.logEvent = function ({ type, data }) {
+Utils.logEvent = function (eventData) {
     if (Utils.diagnostics.events.length >= 500) {
         Utils.diagnostics.events = [];
     }
-
-    Utils.diagnostics.events.push({
+    const event = {
         time: new Date(),
-        type,
-        data
-    });
-}
+        ...eventData
+    };
+
+    Utils.diagnostics.events.push(event);
+    if (Utils.debug || (eventData.type && eventData.type.includes("error"))) console.log(event);
+};
 
 Utils.adjustFormat = function (format) {
     let propertyName = '';
