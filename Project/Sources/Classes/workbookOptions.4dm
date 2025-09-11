@@ -218,6 +218,17 @@ Function set allowExtendPasteRange($value : Boolean)
 	This:C1470[""].options.allowExtendPasteRange:=$value
 	VP SET WORKBOOK OPTIONS(This:C1470.area; {allowExtendPasteRange: $value})
 	
+		// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
+Function get allowInvalidFormula() : Boolean
+	
+	return This:C1470[""].options.allowInvalidFormula
+	
+	// ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==> ==>
+Function set allowInvalidFormula($value : Boolean)
+
+	This:C1470[""].options.allowInvalidFormula:=$value
+	VP SET WORKBOOK OPTIONS(This:C1470.area; {allowInvalidFormula: $value})
+	
 	// <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <== <==
 Function get allowSheetReorder() : Boolean
 	

@@ -187,6 +187,10 @@
       "type": "boolean",
       "default": true
     },
+    "allowInvalidFormula": {
+      "type": "boolean",
+      "default": true
+    },
     "referenceStyle": {
       "$ref": "#/definitions/ReferenceStyle",
       "default": 0

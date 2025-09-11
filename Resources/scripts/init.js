@@ -756,6 +756,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Allow users to enter mathematical formula.
         Utils.spread.options.allowUserEditFormula = true;
         Utils.spread.options.enableFormulaTextbox = true;
+        Utils.spread.options.allowInvalidFormula = true;
 
         if ((vp_localizedFolder !== 'ja.lproj') && (vp_localizedFolder !== 'en.lproj')) {
             let sheetName = vp_spreadJsResources.Sheets.SHEET_NAME;
