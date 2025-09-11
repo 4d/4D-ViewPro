@@ -398,11 +398,15 @@
 
                 instancesArray.forEach(i => {
                     const instance = i.sheet.getRange(i.row, i.column, i.rowCount, i.columnCount);
-
-                    instance.formula(params.formula);
-
-                    if (format != null) {
-                        instance.formatter(format);
+                    try {
+                        instance.formula(params.formula);
+                    }
+                    catch(e) {
+                        Utils.logEvent({ type: 'error-catched', data: e, formula: params.formula});
+                        if (Utils.spread.options.allowInvalidFormula == true) {
+                            instance.formula(null);
+                            instance.value("=" + params.formula);
+                        }
                     }
                 });
             });

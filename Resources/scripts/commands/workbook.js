@@ -23,6 +23,7 @@
         'allowCopyPasteExcelStyle',
         'allowDynamicArray',
         'allowExtendPasteRange',
+        'allowInvalidFormula',
         'allowSheetReorder',
         'allowUndo',
         'allowUserDeselect',
