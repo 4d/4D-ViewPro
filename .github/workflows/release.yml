@@ -2,6 +2,8 @@ name: Release
 on: 
   release:
     types: [published]
+env:
+  DEPENDENCIES_BRANCH: main
 jobs:
   create:
     name: "Create"
@@ -20,6 +22,17 @@ jobs:
           sparse-checkout: |
             ${{ secrets.POST_BUILD_PATH }}
           path: Components/${{ secrets.POST_BUILD_REPO }}
+
+      - name: ⬇️ Checkout SpreadJS
+        uses: actions/checkout@v5
+        with:
+          repository: 4d/SpreadJS
+          token: ${{secrets.PAT_TOKEN}}
+          ref: ${{ env.DEPENDENCIES_BRANCH }}
+          path: Components/SpreadJS
+
+      - name: Copy SpreadJS
+        run: ./Components/SpreadJS/bundler.py "$(pwd)"
 
       - name: BuildAndPackage
         id: build-package
