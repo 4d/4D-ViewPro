@@ -103,7 +103,7 @@ The command "{command}" cannot be applied.</source>
         </trans-unit>
         <trans-unit id="sGuo6GaCfXna9XNUh0sxGw" resname="ERR_4DVP_24">
           <source>The "{parameter}" parameter is mandatory</source>
-          <target state="new">The "{parameter}" parameter is mandatory</target>
+          <target>"{parameter}" 引数は必須の引数です</target>
         </trans-unit></group>
       <group resname="Convert">
         <trans-unit id="8" resname="Convert_sheet">
