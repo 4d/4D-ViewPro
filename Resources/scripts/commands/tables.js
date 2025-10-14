@@ -418,9 +418,9 @@
             if (table != null) {
                 let r = {};
                 if (params.onlyData) {
-                    r = table.range();
-                } else {
                     r = table.dataRange();
+                } else {
+                    r = table.range();
                 }
                 result.row = r.row;
                 result.column = r.col;
