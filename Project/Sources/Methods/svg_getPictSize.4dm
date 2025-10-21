@@ -1,11 +1,7 @@
-﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_POINTER:C301($1; $backgroundImage; $2; $width; $3; $height)
-C_PICTURE:C286($pict)
+//%attributes = {"invisible":true,"preemptive":"capable"}
+#DECLARE($backgroundImage : Pointer; $width : Pointer; $height : Pointer)
 
-$backgroundImage:=$1
-$width:=$2
-$height:=$3
-
+var $pict : Picture
 If (Position:C15("file://"; $backgroundImage->)>0)
 	READ PICTURE FILE:C678(Replace string:C233($backgroundImage->; "file://"; ""); $pict)
 Else 

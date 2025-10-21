@@ -27,22 +27,7 @@ ________________________________________________________
 // F: spread name.
 // A: sheet name.
 // ----------------------------------------------------
-// Declarations
-C_TEXT:C284($0)
-C_TEXT:C284($1)
-
-C_TEXT:C284($Txt_in; $Txt_out)
-
-If (False:C215)
-	C_TEXT:C284(convert_headerAndFooterTags; $0)
-	C_TEXT:C284(convert_headerAndFooterTags; $1)
-End if 
-
-// ----------------------------------------------------
-// Initialisations
-
-// Required parameters
-$Txt_in:=$1
+#DECLARE($Txt_in : Text) : Text
 
 // ----------------------------------------------------
 //
@@ -50,7 +35,7 @@ $Txt_in:=$1
 //#∂ (Macintosh)Current date in short form, 04/03/1996
 //#c (Windows)Forced special, 04/03/1996
 //#D Current date in long form, Wednesday, April 3, 1996
-$Txt_out:=Replace string:C233($Txt_in; "#d"; "&D"; *)
+var $Txt_out:=Replace string:C233($Txt_in; "#d"; "&D"; *)
 $Txt_out:=Replace string:C233($Txt_out; "#∂"; "&D"; *)
 $Txt_out:=Replace string:C233($Txt_out; "#c"; "&D"; *)
 $Txt_out:=Replace string:C233($Txt_out; "#D"; "&D"; *)
@@ -71,7 +56,4 @@ $Txt_out:=Replace string:C233($Txt_out; "#F"; "&F"; *)
 
 // ----------------------------------------------------
 // Return
-$0:=$Txt_out
-
-// ----------------------------------------------------
-// End
+return $Txt_out

@@ -25,8 +25,9 @@ Project/DerivedData/
 Preferences/
 !4DPop AppMaker.*
 
-Settings/
+Settings/*
 !buildApp.4DSettings
+!Settings/warnings.json
 
 userPreferences.*/
 

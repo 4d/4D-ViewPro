@@ -1,16 +1,16 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($1; $0)
+#DECLARE($in : Object) : Object
 
 ARRAY TEXT:C222($ar_names; 0)
 
-OB GET PROPERTY NAMES:C1232($1; $ar_names)
+OB GET PROPERTY NAMES:C1232($in; $ar_names)
 
-C_LONGINT:C283($i; $limit)
+var $out:=New object:C1471
+var $limit:=Size of array:C274($ar_names)
 
-$0:=New object:C1471
-
-$limit:=Size of array:C274($ar_names)
-
+var $i : Integer
 For ($i; 1; $limit)
-	$0[$ar_names{$i}]:=vp_parse_element_get($1[$ar_names{$i}])
+	$out[$ar_names{$i}]:=vp_parse_element_get($in[$ar_names{$i}])
 End for 
+
+return $out

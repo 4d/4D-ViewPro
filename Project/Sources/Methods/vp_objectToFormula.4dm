@@ -1,11 +1,6 @@
 //%attributes = {"invisible":true}
 #DECLARE($value : Object) : Text
 
-If (False:C215)
-	C_OBJECT:C1216(vp_objectToFormula; $1)
-	C_TEXT:C284(vp_objectToFormula; $0)
-End if 
-
 var $key : Text
 var $type : Integer
 var $c : Collection

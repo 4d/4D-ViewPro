@@ -1,12 +1,6 @@
 //%attributes = {}
 #DECLARE($current : Object; $previous : Object) : Object
 
-If (False:C215)
-	C_OBJECT:C1216(mergeResources; $1)
-	C_OBJECT:C1216(mergeResources; $2)
-	C_OBJECT:C1216(mergeResources; $0)
-End if 
-
 var $key : Text
 
 var $i : Integer

@@ -1,10 +1,8 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($0)
-C_OBJECT:C1216($1)
+#DECLARE($stylesheet : Object) : Object
 
-C_OBJECT:C1216($stylesheet)
-$stylesheet:=OB Copy:C1225($1)
+var $newStylesheet:=OB Copy:C1225($stylesheet)
 
-vp_get_picture ($stylesheet;"backgroundImage")
+vp_get_picture($newStylesheet; "backgroundImage")
 
-$0:=$stylesheet
+return $newStylesheet

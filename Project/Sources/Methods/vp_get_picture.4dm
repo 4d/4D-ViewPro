@@ -1,21 +1,14 @@
 //%attributes = {"invisible":true}
-  // creates a picture from an uri created with vp_make_picture
+// creates a picture from an uri created with vp_make_picture
+#DECLARE($obj : Object; $attributeName : Text)
 
-C_OBJECT:C1216($1)
-C_TEXT:C284($2)
-
-C_OBJECT:C1216($obj)
-C_TEXT:C284($attributeName)
-
-$obj:=$1
-$attributeName:=$2
 
 If (Value type:C1509($obj[$attributeName])=Is text:K8:3)
-	C_TEXT:C284($Txt_pict)
+	var $Txt_pict : Text
 	$Txt_pict:=$obj[$attributeName]
 	If (Length:C16($Txt_pict)>22)
-		C_TEXT:C284($mime;$codec)
-		$mime:=Substring:C12($Txt_pict;1;22)
+		var $mime; $codec : Text
+		$mime:=Substring:C12($Txt_pict; 1; 22)
 		
 		Case of 
 			: ($mime="data:image/png;base64,")
@@ -27,13 +20,13 @@ If (Value type:C1509($obj[$attributeName])=Is text:K8:3)
 		End case 
 		
 		If ($codec#"")
-			C_BLOB:C604($Blb_buffer)
-			C_PICTURE:C286($pict)
+			var $Blb_buffer : Blob
+			var $pict : Picture
 			
-			$Txt_pict:=Substring:C12($Txt_pict;23)
+			$Txt_pict:=Substring:C12($Txt_pict; 23)
 			
-			BASE64 DECODE:C896($Txt_pict;$Blb_buffer)
-			BLOB TO PICTURE:C682($Blb_buffer;$pict;$codec)
+			BASE64 DECODE:C896($Txt_pict; $Blb_buffer)
+			BLOB TO PICTURE:C682($Blb_buffer; $pict; $codec)
 			CLEAR VARIABLE:C89($Blb_buffer)
 			
 			$obj[$attributeName]:=$pict

@@ -25,10 +25,10 @@ If (vp_initStorage)
 			End if 
 			
 			If ($sheet<-1)
-				err_THROW({code: 17 /*Sheet must be greater or equal than -2*/})
+				err_THROW({code: 17/*Sheet must be greater or equal than -2*/})
 			Else 
 				If ($sheet>=VP Get sheet count($area))
-					err_THROW({code: 19 /*Sheet index should not be greater than or equal to the number of sheets*/})
+					err_THROW({code: 19/*Sheet index should not be greater than or equal to the number of sheets*/})
 				Else 
 					
 					var $params:=New object:C1471()
@@ -37,8 +37,7 @@ If (vp_initStorage)
 					$params.onlyData:=$isOnlyData
 					$params.sheet:=$sheet
 					
-					C_OBJECT:C1216($ret)
-					$ret:=vp_runFunction($area; "get-table-range"; $params)
+					var $ret : Object:=vp_runFunction($area; "get-table-range"; $params)
 					
 					If (($ret.rowCount=0) & ($ret.columnCount=0))
 						$result:=Null:C1517

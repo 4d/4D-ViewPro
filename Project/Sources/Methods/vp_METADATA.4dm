@@ -4,11 +4,7 @@
 -> document (Object)
 ________________________________________________________
 */
-C_OBJECT:C1216($1)
-
-
-C_TEXT:C284($date)
-C_OBJECT:C1216($documentObject)
+#DECLARE($documentObject : Object)
 
 // ----------------------------------------------------
 // Initialisations
@@ -18,16 +14,13 @@ err_TRY
 
 If (Check_parameters_count(1; $nbParameters))
 	
-	//Required parameters
-	$documentObject:=$1
-	
 	// ----------------------------------------------------
 	
 	//update version
 	$documentObject.version:=Storage:C1525.ViewPro.version
 	
 	//update dates {
-	$date:=String:C10(Current date:C33; ISO date GMT:K1:10; Current time:C178)
+	var $date:=String:C10(Current date:C33; ISO date GMT:K1:10; Current time:C178)
 	
 	If ($documentObject.dateCreation=Null:C1517)
 		

@@ -2,24 +2,17 @@
 // receives an attribute that can be either a pict or a path to a picture file
 // sets the attribute to a text with an uri with the picture embedded
 // if we receive already an uri does nothing
+#DECLARE($obj : Object; $attributeName : Text)
 
-C_OBJECT:C1216($1)
-C_TEXT:C284($2)
 
-C_OBJECT:C1216($obj)
-C_TEXT:C284($attributeName)
-
-$obj:=$1
-$attributeName:=$2
-
-C_PICTURE:C286($pict)
+var $pict : Picture
 ok:=0
 
 If (Value type:C1509($obj[$attributeName])=Is picture:K8:10)
 	$pict:=$obj[$attributeName]
 	ok:=1
 Else 
-	C_TEXT:C284($filePath)
+	var $filePath : Text
 	If (Value type:C1509($obj[$attributeName])=Is object:K8:27)
 		If ($obj[$attributeName].isFile)
 			$filePath:=$obj[$attributeName].platformPath
@@ -49,8 +42,8 @@ If (ok=1)
 	
 	GET PICTURE FORMATS:C1406($pict; $codecs)
 	
-	C_TEXT:C284($codec)
-	C_LONGINT:C283($wanted_codec; $Lon_i)
+	var $codec : Text
+	var $wanted_codec; $Lon_i : Integer
 	$Lon_i:=1
 	
 	While (($Lon_i<=Size of array:C274($prefered_codecs_order)) & ($codec=""))
@@ -65,8 +58,8 @@ If (ok=1)
 		$codec:=".png"
 	End if 
 	
-	C_BLOB:C604($Blb_buffer)
-	C_TEXT:C284($Txt_image)
+	var $Blb_buffer : Blob
+	var $Txt_image : Text
 	
 	PICTURE TO BLOB:C692($pict; $Blb_buffer; $codec)
 	BASE64 ENCODE:C895($Blb_buffer; $Txt_image)

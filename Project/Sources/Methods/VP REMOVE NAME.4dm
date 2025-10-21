@@ -10,15 +10,6 @@
 // ----- Declarations
 #DECLARE($area : Text; $name : Text; $scope : Integer)
 
-
-
-
-If (False:C215)
-	C_TEXT:C284(VP REMOVE NAME; $1)
-	C_TEXT:C284(VP REMOVE NAME; $2)
-	C_LONGINT:C283(VP REMOVE NAME; $3)
-End if 
-
 If (vp_initStorage)
 	
 	var $nbParameters:=Count parameters:C259

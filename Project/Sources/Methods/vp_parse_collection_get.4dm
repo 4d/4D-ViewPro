@@ -1,14 +1,14 @@
 //%attributes = {"invisible":true}
-C_COLLECTION:C1488($0)
-C_COLLECTION:C1488($1)
+#DECLARE($in : Collection) : Collection
+var $out:=New collection:C1472
 
-$0:=New collection:C1472
-
-C_LONGINT:C283($i; $limit)
+var $i; $limit : Integer
 
 $i:=0
-$limit:=$1.length-1
+$limit:=$in.length-1
 
 For ($i; 0; $limit)
-	$0.push(vp_parse_element_get($1[$i]))
+	$out.push(vp_parse_element_get($in[$i]))
 End for 
+
+return $out

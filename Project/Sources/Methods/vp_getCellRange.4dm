@@ -1,21 +1,15 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1; $vpObject; $2; $cells; $sheets; $workbook; $table)
-C_LONGINT:C283($biggestCol; $biggestRow)
-C_OBJECT:C1216($range; $0)
-C_TEXT:C284($s; $currentCol; $currentRow)
-C_COLLECTION:C1488($sheetCol)
+#DECLARE($vpObject : Object; $cells : Object) : Object
 
-$vpObject:=$1
-If (Count parameters:C259>=2)
-	$cells:=$2
-Else 
-	$cells:=Null:C1517
-End if 
+var $sheets; $workbook; $table : Object
+var $biggestCol; $biggestRow : Integer
+
+var $s; $currentCol; $currentRow : Text
 
 If (Value type:C1509($vpObject.spreadJS)=Is object:K8:27)
 	$workbook:=$vpObject.spreadJS
 	
-	$sheetCol:=New collection:C1472
+	var $sheetCol:=New collection:C1472
 	
 	For each ($s; $workbook.sheets)
 		$sheetCol.push($workbook.sheets[$s])
@@ -47,7 +41,7 @@ Else
 	$table:=Null:C1517
 End if 
 
-$range:=New object:C1471("isAll"; False:C215; "isAllRow"; False:C215; "isAllCol"; False:C215)
+var $range:=New object:C1471("isAll"; False:C215; "isAllRow"; False:C215; "isAllCol"; False:C215)
 
 Case of 
 	: ($cells=Null:C1517)
@@ -162,4 +156,4 @@ If ($cells=Null:C1517)
 	
 End if 
 
-$0:=$range
+return $range
