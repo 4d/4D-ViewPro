@@ -2,21 +2,21 @@
 
 
 
-<!-- REF #_method_.VP REMOVE TABLE.Syntax -->
-**VP REMOVE TABLE** ( *vpAreaName* : Object; *tableName* : Text {; *options* : Integer} {; *sheet* : Integer}} )<!-- END REF -->
 
-<!-- REF #_method_.VP REMOVE TABLE.Params -->
+**VP REMOVE TABLE** ( *vpAreaName* : Object; *tableName* : Text {; *options* : Integer} {; *sheet* : Integer}} )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName|Text|->|View Pro area name|
 |tableName|Text|->|Name of the table to remove|
 |options|Integer|->|Additional options|
-|sheet|Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet|Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP REMOVE TABLE` command <!-- REF #_method_.VP REMOVE TABLE.Summary -->removes a table<!-- END REF --> that you created with [VP CREATE TABLE](VP%20CREATE%20TABLE.md).
+The `VP REMOVE TABLE` command removes a table that you created with [VP CREATE TABLE](VP%20CREATE%20TABLE.md).
 
 In *vpAreaName*, pass the name of the area where the table to remove is located.
 

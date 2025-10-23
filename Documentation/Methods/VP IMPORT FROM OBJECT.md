@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP IMPORT FROM OBJECT.Syntax -->
-**VP IMPORT FROM OBJECT** ( *vpAreaName* : Text  { ; *viewPro* : Object { ; *paramObj* : Object} } ) <!-- END REF -->
 
-<!-- REF #_method_.VP IMPORT FROM OBJECT.Params -->
+**VP IMPORT FROM OBJECT** ( *vpAreaName* : Text  { ; *viewPro* : Object { ; *paramObj* : Object} } ) 
+
+
 
 | Parameter    | Type   |  | Description |
 |-------------|--------|---|-------------|
@@ -13,11 +13,11 @@
 | viewPro     | Object | -> | 4D View Pro object |
 | paramObj    | Object | -> | (Optional) import options |
 
-<!-- END REF -->
+
 
 ## Description
 
-The `VP IMPORT FROM OBJECT` command <!-- REF #_method_.VP IMPORT FROM OBJECT.Summary -->imports and displays the *viewPro* 4D View Pro object in the *vpAreaName* 4D View Pro area<!-- END REF -->. The imported object contents replaces any data already inserted in the area.
+The `VP IMPORT FROM OBJECT` command imports and displays the *viewPro* 4D View Pro object in the *vpAreaName* 4D View Pro area. The imported object contents replaces any data already inserted in the area.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

@@ -1,18 +1,18 @@
 # VP Convert from 4D View
 
-<!-- REF #_method_.VP Convert from 4D View.Syntax -->
-**VP Convert from 4D View** ( *4DViewDocument* : Blob ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Convert from 4D View.Params -->
+**VP Convert from 4D View** ( *4DViewDocument* : Blob ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |4DViewDocument| Blob|->|4D View document|
-|Result| Object|<-|4D View Pro object<!-- END REF -->
+|Result| Object|<-|4D View Pro object
 
 ## Description
 
-The `VP Convert from 4D View` command <!-- REF #_method_.VP Convert from 4D View.Summary -->allows you to convert a legacy 4D View document into a 4D View Pro object<!-- END REF -->.
+The `VP Convert from 4D View` command allows you to convert a legacy 4D View document into a 4D View Pro object.
 
 >This command does not require that the legacy 4D View plug-in be installed in your environment.
 

@@ -1,19 +1,19 @@
 # VP Get frozen panes
 
-<!-- REF #_method_.VP Get frozen panes.Syntax -->
-**VP Get frozen panes** ( vpAreaName : Text { ; sheet : Integer } ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get frozen panes.Params -->
+**VP Get frozen panes** ( vpAreaName : Text { ; sheet : Integer } ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName  |Text|->|4D View Pro area form object name|
 |sheet  |Integer|->|Sheet index (current sheet if omitted)|
-|Result  |Object|<-|Object containing frozen column and row information|<!-- END REF -->
+|Result  |Object|<-|Object containing frozen column and row information|
 
 ## Description
 
-The `VP Get frozen panes` command <!-- REF #_method_.VP Get frozen panes.Summary -->returns an object with information about the frozen columns and rows in *vpAreaName*<!-- END REF -->.
+The `VP Get frozen panes` command returns an object with information about the frozen columns and rows in *vpAreaName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

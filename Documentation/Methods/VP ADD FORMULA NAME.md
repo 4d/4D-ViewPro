@@ -1,21 +1,21 @@
 # VP ADD FORMULA NAME
 
-<!-- REF #_method_.VP ADD FORMULA NAME.Syntax -->
 
-**VP ADD FORMULA NAME** ( *vpAreaName* : Text ; *vpFormula* : Text ; *name* : Text { ; *options* : Object } )<!-- END REF -->
 
-<!-- REF #_method_.VP ADD FORMULA NAME.Params -->
+**VP ADD FORMULA NAME** ( *vpAreaName* : Text ; *vpFormula* : Text ; *name* : Text { ; *options* : Object } )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName| Text|->|4D View Pro area form object name|
 |vpFormula|Text|-> |4D View Pro formula
 |name|Text|->|Name for the formula|
-|options|Object|->|Options for the named formula|<!-- END REF -->
+|options|Object|->|Options for the named formula|
 
 ## Description
 
-The `VP ADD FORMULA NAME` command <!-- REF #_method_.VP ADD FORMULA NAME.Summary -->creates or modifies a named formula in the open document<!-- END REF -->.
+The `VP ADD FORMULA NAME` command creates or modifies a named formula in the open document.
 
 >Named formulas created by this command are saved with the document.
 

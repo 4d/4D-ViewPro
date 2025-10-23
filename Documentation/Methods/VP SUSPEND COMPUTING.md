@@ -1,17 +1,17 @@
 # VP SUSPEND COMPUTING
 
-<!-- REF #_method_.VP SUSPEND COMPUTING.Syntax -->
-**VP SUSPEND COMPUTING** ( *vpAreaName* : Text ) <!-- END REF -->
 
-<!-- REF #_method_.VP SUSPEND COMPUTING.Params -->
+**VP SUSPEND COMPUTING** ( *vpAreaName* : Text ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
-|vpAreaName |Text|->|4D View Pro area form object name|<!-- END REF -->
+|vpAreaName |Text|->|4D View Pro area form object name|
 
 ## Description
 
-The `VP SUSPEND COMPUTING` command <!-- REF #_method_.VP SUSPEND COMPUTING.Summary -->stops the calculation of all formulas in *vpAreaName*<!-- END REF -->. This command is useful when you want to suspend calculations in this 4D View Pro area so you can manually make modifications to formulas without encountering errors before you've finished making the changes.
+The `VP SUSPEND COMPUTING` command stops the calculation of all formulas in *vpAreaName*. This command is useful when you want to suspend calculations in this 4D View Pro area so you can manually make modifications to formulas without encountering errors before you've finished making the changes.
 
 The command pauses the calculation service in 4D View Pro. Formulas that have already been calculated remain unchanged, however any formulas added after `VP SUSPEND COMPUTING` command  is executed are not calculated.
 

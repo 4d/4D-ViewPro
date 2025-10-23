@@ -1,19 +1,19 @@
 # VP Get column count
 
-<!-- REF #_method_.VP Get column count.Syntax -->
-**VP Get column count** ( *vpAreaName* : Text { ; *sheet* :  Integer } ) : Integer<!-- END REF -->
 
-<!-- REF #_method_.VP Get column count.Params -->
+**VP Get column count** ( *vpAreaName* : Text { ; *sheet* :  Integer } ) : Integer
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName  |Text|->|4D View Pro area from object name|
 |sheet  |Integer|->|Sheet index (current sheet if omitted)|
-|Result  |Integer|<-|Total number of columns |<!-- END REF -->
+|Result  |Integer|<-|Total number of columns |
 
 ## Description
 
-The `VP Get column count` command <!-- REF #_method_.VP Get column count.Summary -->returns the total number of columns from the designated *sheet*<!-- END REF -->.
+The `VP Get column count` command returns the total number of columns from the designated *sheet*.
 
 In *vpAreaName*, pass the name property of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

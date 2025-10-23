@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP REMOVE TABLE COLUMNS.Syntax -->
-**VP REMOVE TABLE COLUMNS** ( *vpAreaName* : Text ; *tableName* : Text ; *column* : Integer {; *count* : Integer {; *sheet* : Integer }}} )<!-- END REF -->
 
-<!-- REF #_method_.VP REMOVE TABLE COLUMNS.Params -->
+**VP REMOVE TABLE COLUMNS** ( *vpAreaName* : Text ; *tableName* : Text ; *column* : Integer {; *count* : Integer {; *sheet* : Integer }}} )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
@@ -13,11 +13,11 @@
 |tableName|Text|->|Table name|
 |column|Integer|->|Index in the table of the starting column to remove|
 |count|Integer|->|Number of columns to remove (must be >0) |
-|sheet   |Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet   |Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP REMOVE TABLE COLUMNS` command <!-- REF #_method_.VP REMOVE TABLE COLUMNS.Summary -->removes one or *count* column(s) in the specified *tableName* at the specified *column* index<!-- END REF -->. The command removes values and styles.
+The `VP REMOVE TABLE COLUMNS` command removes one or *count* column(s) in the specified *tableName* at the specified *column* index. The command removes values and styles.
 
 The command removes columns from the *tableName* table, NOT from the sheet. The total number of columns of the sheet is not impacted by the command. Data present at the right of the table (if any) are automatically moved letf according to the number of removed columns.
 

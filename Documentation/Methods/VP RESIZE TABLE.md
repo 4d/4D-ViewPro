@@ -2,19 +2,19 @@
 
 
 
-<!-- REF #_method_.VP RESIZE TABLE.Syntax -->
-**VP RESIZE TABLE** ( *rangeObj* : Object; *tableName* : Text )<!-- END REF -->
 
-<!-- REF #_method_.VP RESIZE TABLE.Params -->
+**VP RESIZE TABLE** ( *rangeObj* : Object; *tableName* : Text )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj|Object|->|New range for the table|
-|tableName|Text|->|Name of the table|<!-- END REF -->
+|tableName|Text|->|Name of the table|
 
 ## Description
 
-The `VP RESIZE TABLE` command <!-- REF #_method_.VP RESIZE TABLE.Summary -->changes the *tableName* size with regards to the *rangeObj*<!-- END REF -->.
+The `VP RESIZE TABLE` command changes the *tableName* size with regards to the *rangeObj*.
 
 The following rules apply:
 

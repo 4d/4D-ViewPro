@@ -1,18 +1,18 @@
 # VP SET VALUES
 
-<!-- REF #_method_.VP SET VALUES.Syntax -->
-**VP SET VALUES** ( *rangeObj* : Object ; *valuesCol* : Collection ) <!-- END REF -->
 
-<!-- REF #_method_.VP SET VALUES.Params -->
+**VP SET VALUES** ( *rangeObj* : Object ; *valuesCol* : Collection ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj |Object|->|Range object|
-|valuesCol  |Collection|->|Collection of values|<!-- END REF -->
+|valuesCol  |Collection|->|Collection of values|
 
 ## Description
 
-The `VP SET VALUES` command <!-- REF #_method_.VP SET VALUES.Summary -->assigns a collection of values starting at the specified cell range<!-- END REF -->.
+The `VP SET VALUES` command assigns a collection of values starting at the specified cell range.
 
 In *rangeObj*, pass a range for the cell (created with [`VP Cell`](VP%20Cell.md)) whose value you want to specify. The cell defined in the *rangeObj* is used to determine the starting point.
 

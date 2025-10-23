@@ -1,17 +1,17 @@
 # VP INSERT ROWS
 
-<!-- REF #_method_.VP INSERT ROWS.Syntax -->
-**VP INSERT ROWS** ( *rangeObj* : Object ) <!-- END REF -->
 
-<!-- REF #_method_.VP INSERT ROWS.Params -->
+**VP INSERT ROWS** ( *rangeObj* : Object ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
-|rangeObj   |Object|->|Range object|<!-- END REF -->
+|rangeObj   |Object|->|Range object|
 
 ## Description
 
-The `VP INSERT ROWS` command <!-- REF #_method_.VP INSERT ROWS.Summary -->inserts rows defined by the *rangeObj*<!-- END REF -->.
+The `VP INSERT ROWS` command inserts rows defined by the *rangeObj*.
 
 In *rangeObj*, pass an object containing a range of the starting row (the row which designates where the new row will be inserted) and the number of rows to insert. If the number of rows to insert is omitted (not defined), a single row is inserted.
 

@@ -1,18 +1,18 @@
 # VP Get cell style
 
-<!-- REF #_method_.VP Get cell style.Syntax -->
-**VP Get cell style** (  *rangeObj* : Object ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get cell style.Params -->
+**VP Get cell style** (  *rangeObj* : Object ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |rangeObj  |Object|->|Range object|
-|Result  |Object|<-|Style object|<!-- END REF -->
+|Result  |Object|<-|Style object|
 
 ## Description
 
-The `VP Get cell style` command <!-- REF #_method_.VP Get cell style.Summary -->returns a [style object](../configuring.md#style-objects) for the first cell in the *rangeObj*<!-- END REF -->.
+The `VP Get cell style` command returns a [style object](../configuring.md#style-objects) for the first cell in the *rangeObj*.
 
 In *rangeObj*, pass a range containing the style to retrieve.
 

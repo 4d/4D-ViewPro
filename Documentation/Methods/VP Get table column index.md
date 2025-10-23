@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP Get table column index.Syntax -->
-**VP Get table column index** ( *vpAreaName* : Text ; *tableName* : Text ; *columnName* : Text {; *sheet* : Integer } ) : Integer<!-- END REF -->
 
-<!-- REF #_method_.VP Get table column index.Params -->
+**VP Get table column index** ( *vpAreaName* : Text ; *tableName* : Text ; *columnName* : Text {; *sheet* : Integer } ) : Integer
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
@@ -13,12 +13,12 @@
 |tableName|Text|->|Table name|
 |columnName|Text|->|Name of the table column|
 |sheet   |Integer|->|Sheet index (current sheet if omitted)|
-|Result |Integer|<-|Index of *columnName*|<!-- END REF -->
+|Result |Integer|<-|Index of *columnName*|
 
 
 ## Description
 
-The `VP Get table column index` command <!-- REF #_method_.VP Get table column index.Summary -->returns the index of the *columnName* in the *tableName*<!-- END REF -->.
+The `VP Get table column index` command returns the index of the *columnName* in the *tableName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

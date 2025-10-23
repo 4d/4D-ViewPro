@@ -2,21 +2,21 @@
 
 ### 
 
-<!-- REF #_method_.VP Get workbook options.Syntax -->
 
-**VP Get workbook options** ( *vpAreaName* : Text ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get workbook options.Params -->
+**VP Get workbook options** ( *vpAreaName* : Text ) : Object
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName  |Text|->|4D View Pro area form object name|
-|Result |Object|<-|Object containing the workbook options|<!-- END REF -->
+|Result |Object|<-|Object containing the workbook options|
 
 ## Description
 
-`VP Get workbook options` <!-- REF #_method_.Get workbook options.Summary -->
-returns an object containing all the workbook options in *vpAreaName*<!-- END REF -->
+`VP Get workbook options` 
+returns an object containing all the workbook options in *vpAreaName*
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

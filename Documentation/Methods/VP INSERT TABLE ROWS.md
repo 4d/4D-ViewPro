@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP INSERT TABLE ROWS.Syntax -->
-**VP INSERT TABLE ROWS** ( *vpAreaName* : Text ; *tableName* : Text ; *row* : Integer {; *count* : Integer {; *insertAfter* : Integer {; *sheet* : Integer }}} )<!-- END REF -->
 
-<!-- REF #_method_.VP INSERT TABLE ROWS.Params -->
+**VP INSERT TABLE ROWS** ( *vpAreaName* : Text ; *tableName* : Text ; *row* : Integer {; *count* : Integer {; *insertAfter* : Integer {; *sheet* : Integer }}} )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
@@ -14,11 +14,11 @@
 |row|Integer|->|Index in the table of the starting row to insert|
 |count|Integer|->|Number of rows to add (must be >0) |
 |insertAfter|Integer|->|`vk table insert before` or `vk table insert after` *row*|
-|sheet   |Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet   |Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP INSERT TABLE ROWS` command <!-- REF #_method_.VP INSERT TABLE ROWS.Summary -->inserts one or *count* empty row(s) in the specified *tableName* at the specified *row* index<!-- END REF -->. 
+The `VP INSERT TABLE ROWS` command inserts one or *count* empty row(s) in the specified *tableName* at the specified *row* index. 
 
 In the *insertAfter* parameter, you can pass one of the following constants to indicate if the row(s) must be inserted before or after the *row* index:
 

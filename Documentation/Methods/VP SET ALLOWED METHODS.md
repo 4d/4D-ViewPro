@@ -1,13 +1,13 @@
 # VP SET ALLOWED METHODS
 
-<!-- REF #_method_.VP SET ALLOWED METHODS.Syntax -->
-**VP SET ALLOWED METHODS** ( *methodObj* : Object) <!-- END REF -->
+
+**VP SET ALLOWED METHODS** ( *methodObj* : Object) 
 
 
-<!-- REF #_method_.VP SET ALLOWED METHODS.Params -->
+
 |Parameter|Type||Description|
 |---|---|---|---|
-|methodObj   |Object|->|Allowed methods in the 4D View Pro areas|<!-- END REF -->
+|methodObj   |Object|->|Allowed methods in the 4D View Pro areas|
 
 >**Compatibility**  
 
@@ -17,7 +17,7 @@
 
 ## Description
 
-The `VP SET ALLOWED METHODS` command <!-- REF #_method_.VP SET ALLOWED METHODS.Summary -->designates the project methods that can be called in 4D View Pro formulas<!-- END REF -->. This command applies to all 4D View Pro areas initialized after its call during the session. It can be called multiple times in the same session to initialize different configurations.
+The `VP SET ALLOWED METHODS` command designates the project methods that can be called in 4D View Pro formulas. This command applies to all 4D View Pro areas initialized after its call during the session. It can be called multiple times in the same session to initialize different configurations.
 
 By default for security reasons, if you do not execute the `VP SET ALLOWED METHODS` command, no method call is allowed in 4D View Pro areas -- except if 4D's generic `SET ALLOWED METHODS` command was used (see compatibility note). Using an unauthorized method in a formula prints a #NAME? error in the 4D View Pro area.
 

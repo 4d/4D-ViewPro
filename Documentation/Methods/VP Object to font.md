@@ -1,18 +1,18 @@
 # VP Object to font
 
-<!-- REF #_method_.VP Object to font.Syntax -->
-**VP Object to font** ( *fontObj* : Object ) : Text <!-- END REF -->
 
-<!-- REF #_method_.VP Object to font.Params -->
+**VP Object to font** ( *fontObj* : Object ) : Text 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |fontObj   |Object|->|Font object|
-|Result   |Text|<-|Font shorthand|<!-- END REF -->
+|Result   |Text|<-|Font shorthand|
 
 ## Description
 
-The `VP Object to font` command <!-- REF #_method_.VP Object to font.Summary -->returns a font shorthand string from *fontObj*<!-- END REF -->.
+The `VP Object to font` command returns a font shorthand string from *fontObj*.
 
 In *fontObj*, pass an object containing the font properties. The following properties are supported:
 

@@ -1,9 +1,9 @@
 # VP Column
 
-<!-- REF #_method_.VP Column.Syntax -->
-**VP Column** ( *vpAreaName* : Text ; *column*: Integer ; *columnCount* : Integer { ; *sheet* : Integer } ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Column.Params -->
+**VP Column** ( *vpAreaName* : Text ; *column*: Integer ; *columnCount* : Integer { ; *sheet* : Integer } ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
@@ -11,11 +11,11 @@
 |column| Integer|->|Column index|
 |columnCount| Integer|->|Number of columns|
 |sheet|Integer|->|Sheet index (current sheet if omitted)|
-|Result|Object|<-|Range object of cells|<!-- END REF -->
+|Result|Object|<-|Range object of cells|
 
 ## Description
 
-The `VP Column` command <!-- REF #_method_.VP Column.Summary -->returns a new range object referencing a specific column or columns<!-- END REF -->.
+The `VP Column` command returns a new range object referencing a specific column or columns.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

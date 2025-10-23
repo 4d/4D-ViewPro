@@ -1,20 +1,20 @@
 # VP ADD RANGE NAME
 
-<!-- REF #_method_.VP ADD RANGE NAME.Syntax -->
 
-**VP ADD RANGE NAME** ( *rangeObj* : Object ; *name* : Text { ; *options* : Object } )<!-- END REF -->
 
-<!-- REF #_method_.VP ADD RANGE NAME.Params -->
+**VP ADD RANGE NAME** ( *rangeObj* : Object ; *name* : Text { ; *options* : Object } )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |rangeObj| Object|->|Range object |
 |name|Text|->|Name for the fomula|
-|options|Object|->|Options for the named formula|<!-- END REF -->
+|options|Object|->|Options for the named formula|
 
 ## Description
 
-The `VP ADD RANGE NAME` command <!-- REF #_method_.VP ADD RANGE NAME.Summary -->creates or modifies a named range in the open document<!-- END REF -->.
+The `VP ADD RANGE NAME` command creates or modifies a named range in the open document.
 
 >Named ranges created by this command are saved with the document.
 

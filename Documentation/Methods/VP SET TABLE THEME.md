@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP SET TABLE THEME.Syntax -->
-**VP SET TABLE THEME** ( *vpAreaName* : Text ; *tableName* : Text ; *options* : cs.ViewPro.TableTheme {; *sheet* : Integer } )<!-- END REF -->
 
-<!-- REF #_method_.VP SET TABLE THEME.Params -->
+**VP SET TABLE THEME** ( *vpAreaName* : Text ; *tableName* : Text ; *options* : cs.ViewPro.TableTheme {; *sheet* : Integer } )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
@@ -13,12 +13,12 @@
 |tableName|Text|->|Table name|
 |options|[cs.ViewPro.TableTheme](../classes.md#tabletheme)|->|Table theme properties to modify|
 |sheet   |Integer|->|Sheet index (current sheet if omitted)|
-<!-- END REF -->
+
 
 
 ## Description
 
-The `VP SET TABLE THEME` command <!-- REF #_method_.VP SET TABLE THEME.Summary -->modifies the current theme of the *tableName*<!-- END REF -->.
+The `VP SET TABLE THEME` command modifies the current theme of the *tableName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area and in *tableName*, the name of the table to modify. 
 

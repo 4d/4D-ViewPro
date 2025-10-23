@@ -2,20 +2,20 @@
 
 
 
-<!-- REF #_method_.PASTE FROM OBJECT.Syntax -->
-**VP PASTE FROM OBJECT** ( *rangeObj* : Object ; *dataObject* : Object {; *options* : Longint} )<!-- END REF -->
 
-<!-- REF #_method_.PASTE FROM OBJECT.Params -->
+**VP PASTE FROM OBJECT** ( *rangeObj* : Object ; *dataObject* : Object {; *options* : Longint} )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj|Object|->|Cell range object|
 |dataObject|Object|->|Object containing the data to be pasted|
-|options|Integer|->|Specifies what is pasted|<!-- END REF -->
+|options|Integer|->|Specifies what is pasted|
 
 ## Description
 
-The `VP PASTE FROM OBJECT` command <!-- REF #_method_.PASTE FROM OBJECT.Summary -->pastes the contents, style and formulas stored in *dataObject* to the *rangeObj* object<!-- END REF -->.
+The `VP PASTE FROM OBJECT` command pastes the contents, style and formulas stored in *dataObject* to the *rangeObj* object.
 
 In *rangeObj*, pass the cell range object where the values, formatting, and/or formula cells will be pasted. If *rangeObj* refers to more than one cell, only the first one is used.
 

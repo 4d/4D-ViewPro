@@ -2,20 +2,20 @@
 
 
 
-<!-- REF #_method_.VP Get data context.Syntax -->
-**VP Get data context** ( *vpAreaName* : Text {; *sheet* : Integer } ) : any<!-- END REF -->
 
-<!-- REF #_method_.VP Get data context.Params -->
+**VP Get data context** ( *vpAreaName* : Text {; *sheet* : Integer } ) : any
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName |Text|->|4D View Pro area form object name|
 |sheet|Integer|->|Index of the sheet to get the data context from|
-|Result |Variant|<-|Data context. Object or Collection|<!-- END REF -->
+|Result |Variant|<-|Data context. Object or Collection|
 
 ## Description
 
-The `VP Get data context` command <!-- REF #_method_.VP Get data context.Summary -->returns the current data context of a worksheet<!-- END REF -->. The returned context includes any modifications made to the contents of the data context.
+The `VP Get data context` command returns the current data context of a worksheet. The returned context includes any modifications made to the contents of the data context.
 
 In *sheet*, pass the index of the sheet to get the data context from. If no index is passed, the command returns the data context of the current worksheet. If there is no context for the worksheet, the command returns `Null`.
 

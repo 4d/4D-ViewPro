@@ -1,20 +1,20 @@
 # VP Name
 
-<!-- REF #_method_.VP Name.Syntax -->
-**VP Name** ( *vpAreaName* : Text ; *rangeName* : Text { ; *sheet* : Integer }  ) : Object <!-- END REF -->
 
-<!-- REF #_method_.VP Name.Params -->
+**VP Name** ( *vpAreaName* : Text ; *rangeName* : Text { ; *sheet* : Integer }  ) : Object 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName|Text|->|4D View Pro area form object name|
 |rangeName|Text|->|Existing range name|
 |sheet|Integer|->|Range location (current sheet if omitted)|
-|Result|Object|<-|Range object of name|<!-- END REF -->
+|Result|Object|<-|Range object of name|
 
 ## Description
 
-The `VP Name` command <!-- REF #_method_.VP Name.Summary -->returns a new range object referencing a named range<!-- END REF -->.
+The `VP Name` command returns a new range object referencing a named range.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

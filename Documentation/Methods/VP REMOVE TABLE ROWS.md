@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP REMOVE TABLE ROWS.Syntax -->
-**VP REMOVE TABLE ROWS** ( *vpAreaName* : Text ; *tableName* : Text ; *row* : Integer {; *count* : Integer {; *sheet* : Integer }}} )<!-- END REF -->
 
-<!-- REF #_method_.VP REMOVE TABLE ROWS.Params -->
+**VP REMOVE TABLE ROWS** ( *vpAreaName* : Text ; *tableName* : Text ; *row* : Integer {; *count* : Integer {; *sheet* : Integer }}} )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
@@ -13,11 +13,11 @@
 |tableName|Text|->|Table name|
 |row|Integer|->|Index in the table of the starting row to remove|
 |count|Integer|->|Number of rows to remove (must be >0) |
-|sheet   |Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet   |Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP REMOVE TABLE ROWS` command <!-- REF #_method_.VP REMOVE TABLE ROWS.Summary -->removes one or *count* row(s) from the specified *tableName* at the specified *row* index<!-- END REF -->. The command removes values and styles.
+The `VP REMOVE TABLE ROWS` command removes one or *count* row(s) from the specified *tableName* at the specified *row* index. The command removes values and styles.
 
 This command removes rows from the *tableName* table, NOT from the sheet. The total number of rows of the sheet is not impacted by the command. Data present below the table (if any) are automatically moved up according to the number of removed rows.
 

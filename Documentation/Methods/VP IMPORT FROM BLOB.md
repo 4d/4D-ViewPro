@@ -1,19 +1,19 @@
 # VP IMPORT FROM BLOB
 
-<!-- REF #_method_.VP IMPORT FROM BLOB.Syntax -->
-**VP IMPORT FROM BLOB** ( *vpAreaName* : Text ; *vpBlob* : 4D.blob { ; *paramObj* : Object} ) <!-- END REF -->
 
-<!-- REF #_method_.VP IMPORT FROM BLOB.Params -->
+**VP IMPORT FROM BLOB** ( *vpAreaName* : Text ; *vpBlob* : 4D.blob { ; *paramObj* : Object} ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName   |Text|->|4D View Pro area form object name|
 |vpBlob   |4D.Blob|->|Blob containing a 4D View Pro document|
-|paramObj   |Object|->|Import options|<!-- END REF -->
+|paramObj   |Object|->|Import options|
 
 ## Description
 
-The `VP IMPORT FROM BLOB` command <!-- REF #_method_.VP IMPORT FROM BLOB.Summary -->imports the *vpBlob* in the 4D View Pro area *vpAreaName* and replaces its contents<!-- END REF -->. *vpBlob* must contain a 4D View Pro document previously saved as Blob either by using the [VP EXPORT TO BLOB](VP%20EXPORT%20TO%20BLOB.md) command or via the 4D View Pro interface. 
+The `VP IMPORT FROM BLOB` command imports the *vpBlob* in the 4D View Pro area *vpAreaName* and replaces its contents. *vpBlob* must contain a 4D View Pro document previously saved as Blob either by using the [VP EXPORT TO BLOB](VP%20EXPORT%20TO%20BLOB.md) command or via the 4D View Pro interface. 
 
 In *paramObj*, you can pass several properties:
 

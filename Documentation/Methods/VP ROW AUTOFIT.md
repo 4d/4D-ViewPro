@@ -1,17 +1,17 @@
 # VP ROW AUTOFIT
 
-<!-- REF #_method_.VP ROW AUTOFIT.Syntax -->
-**VP ROW AUTOFIT** ( *rangeObj* : Object) <!-- END REF -->
 
-<!-- REF #_method_.VP ROW AUTOFIT.Params -->
+**VP ROW AUTOFIT** ( *rangeObj* : Object) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
-|rangeObj  |Object|->|Range object|<!-- END REF -->
+|rangeObj  |Object|->|Range object|
 
 ## Description
 
-The `VP ROW AUTOFIT` command <!-- REF #_method_.VP ROW AUTOFIT.Summary -->automatically sizes the row(s) in *rangeObj* according to their contents<!-- END REF -->.
+The `VP ROW AUTOFIT` command automatically sizes the row(s) in *rangeObj* according to their contents.
 
 In *rangeObj*, pass a range object containing a range of the rows whose size will be automatically handled.
   

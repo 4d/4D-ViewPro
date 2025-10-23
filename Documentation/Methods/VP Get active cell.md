@@ -1,19 +1,19 @@
 # VP Get active cell
 
-<!-- REF #_method_.VP Get active cell.Syntax -->
-**VP Get active cell** (  *vpAreaName* : Text { ; *sheet* : Integer } ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get active cell.Params -->
+**VP Get active cell** (  *vpAreaName* : Text { ; *sheet* : Integer } ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName  |Text|->|4D View Pro area form object name|
 |sheet  |Integer|->|Sheet index (current sheet if omitted)|
-|Result  |Object|<-|Range object of single cell|<!-- END REF -->
+|Result  |Object|<-|Range object of single cell|
 
 ## Description
 
-The `VP Get active cell` command <!-- REF #_method_.VP Get active cell.Summary -->returns a new range object referencing the cell which has the focus and where new data will be entered (the active cell)<!-- END REF -->.
+The `VP Get active cell` command returns a new range object referencing the cell which has the focus and where new data will be entered (the active cell).
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

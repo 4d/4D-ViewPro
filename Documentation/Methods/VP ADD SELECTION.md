@@ -1,18 +1,18 @@
 # VP ADD SELECTION
 
-<!-- REF #_method_.VP ADD SELECTION.Syntax -->
 
-**VP ADD SELECTION** ( *rangeObj* : Object )<!-- END REF -->
 
-<!-- REF #_method_.VP ADD SELECTION.Params -->
+**VP ADD SELECTION** ( *rangeObj* : Object )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
-|rangeObj| Object|->|Range object |<!-- END REF -->
+|rangeObj| Object|->|Range object |
 
 ## Description
 
-The `VP ADD SELECTION` command <!-- REF #_method_.VP ADD SELECTION.Summary -->adds the specified cells to the currently selected cells<!-- END REF -->.
+The `VP ADD SELECTION` command adds the specified cells to the currently selected cells.
 
 In *rangeObj*, pass a range object of cells to add to the current selection.
 

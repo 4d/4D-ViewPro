@@ -2,19 +2,19 @@
 
 
 
-<!-- REF #_method_.VP Find table.Syntax -->
-**VP Find table** ( *rangeObj* : Object ) : Text<!-- END REF -->
 
-<!-- REF #_method_.VP Find table.Params -->
+**VP Find table** ( *rangeObj* : Object ) : Text
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |rangeObj |Object|->|Cell range|
-|Result  |Text|<-|Table name|<!-- END REF -->
+|Result  |Text|<-|Table name|
 
 ## Description
 
-The `VP Find table` command <!-- REF #_method_.VP Find table.Summary -->returns the name of the table to which to the *rangeObj* cell belongs<!-- END REF -->.
+The `VP Find table` command returns the name of the table to which to the *rangeObj* cell belongs.
 
 In *rangeObj*, pass a cell range object. If the designated cells do not belong to a table, the command returns an empty string.
 

@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP INSERT TABLE COLUMNS.Syntax -->
-**VP INSERT TABLE COLUMNS** ( *vpAreaName* : Text ; *tableName* : Text ; *column* : Integer {; *count* : Integer {; *insertAfter* : Integer {; *sheet* : Integer }}} )<!-- END REF -->
 
-<!-- REF #_method_.VP INSERT TABLE COLUMNS.Params -->
+**VP INSERT TABLE COLUMNS** ( *vpAreaName* : Text ; *tableName* : Text ; *column* : Integer {; *count* : Integer {; *insertAfter* : Integer {; *sheet* : Integer }}} )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
@@ -14,11 +14,11 @@
 |column|Integer|->|Index in the table of the starting column to insert|
 |count|Integer|->|Number of columns to add (must be >0) |
 |insertAfter|Integer|->|`vk table insert before` or `vk table insert after` *column*|
-|sheet   |Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet   |Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP INSERT TABLE COLUMNS` command <!-- REF #_method_.VP INSERT TABLE COLUMNS.Summary -->inserts one or *count* empty column(s) in the specified *tableName* at the specified *column* index<!-- END REF -->. 
+The `VP INSERT TABLE COLUMNS` command inserts one or *count* empty column(s) in the specified *tableName* at the specified *column* index. 
 
 When a column has been inserted with this command, you typically modify its contents using the [VP SET TABLE COLUMN ATTRIBUTES](VP%20SET%20TABLE%20COLUMN%20ATTRIBUTES.md) command. 
 

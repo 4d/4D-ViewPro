@@ -1,18 +1,18 @@
 # VP SET FORMULAS
 
-<!-- REF #_method_.VP SET FORMULAS.Syntax -->
-**VP SET FORMULAS** ( *rangeObj* : Object ; *formulasCol* : Collection ) <!-- END REF -->
 
-<!-- REF #_method_.VP SET FORMULAS.Params -->
+**VP SET FORMULAS** ( *rangeObj* : Object ; *formulasCol* : Collection ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj |Object|->|Cell range object|
-|formulasCol |Collection|->|Collection of formulas|<!-- END REF -->
+|formulasCol |Collection|->|Collection of formulas|
 
 ## Description
 
-The `VP SET FORMULAS` command <!-- REF #_method_.VP SET FORMULAS.Summary -->assigns a collection of formulas starting at the specified cell range<!-- END REF -->.
+The `VP SET FORMULAS` command assigns a collection of formulas starting at the specified cell range.
 
 In *rangeObj*, pass a range of the cell (created with [VP Cell](VP%20Cell.md)) whose formula you want to specify. If *rangeObj* includes multiple ranges, only the first range is used.
 

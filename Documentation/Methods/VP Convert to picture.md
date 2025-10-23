@@ -1,19 +1,19 @@
 # VP Convert to picture
 
-<!-- REF #_method_.VP Convert to picture.Syntax -->
-**VP Convert to picture** ( *vpObject* : Object {; *rangeObj* : Object} ) : Picture<!-- END REF -->
 
-<!-- REF #_method_.VP Convert to picture.Params -->
+**VP Convert to picture** ( *vpObject* : Object {; *rangeObj* : Object} ) : Picture
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpObject| Object|->|4D View Pro object containing the area to convert|
 |rangeObj| Object|->|Range object|
-|Result| Picture|<-|SVG picture of the area|<!-- END REF -->
+|Result| Picture|<-|SVG picture of the area|
 
 ## Description
 
-The `VP Convert to picture` command <!-- REF #_method_.VP Convert to picture.Summary -->converts the *vpObject* 4D View Pro object (or the *rangeObj* range within *vpObject*) to a SVG picture<!-- END REF -->.
+The `VP Convert to picture` command converts the *vpObject* 4D View Pro object (or the *rangeObj* range within *vpObject*) to a SVG picture.
 
 This command is useful, for example:
 

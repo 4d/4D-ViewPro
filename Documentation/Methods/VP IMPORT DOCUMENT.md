@@ -2,20 +2,20 @@
 
 
 
-<!-- REF #_method_.VP IMPORT DOCUMENT.Syntax -->
-**VP IMPORT DOCUMENT** ( *vpAreaName* : Text ; *filePath* : Text { ; *paramObj* : Object} ) <!-- END REF -->
 
-<!-- REF #_method_.VP IMPORT DOCUMENT.Params -->
+**VP IMPORT DOCUMENT** ( *vpAreaName* : Text ; *filePath* : Text { ; *paramObj* : Object} ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName   |Text|->|4D View Pro area form object name|
 |filePath   |Text|->|Pathname of the document|
-|paramObj   |Object|->|Import options|<!-- END REF -->
+|paramObj   |Object|->|Import options|
 
 ## Description
 
-The `VP IMPORT DOCUMENT` command <!-- REF #_method_.VP IMPORT DOCUMENT.Summary -->imports and displays the document designated by *filePath* in the 4D View Pro area *vpAreaName*<!-- END REF -->. The imported document replaces any data already inserted in the area.
+The `VP IMPORT DOCUMENT` command imports and displays the document designated by *filePath* in the 4D View Pro area *vpAreaName*. The imported document replaces any data already inserted in the area.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

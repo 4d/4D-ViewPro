@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP Get table dirty rows.Syntax -->
-**VP Get table dirty rows** ( *vpAreaName* : Text ; *tableName* : Text { ; *reset* : Boolean {; *sheet* : Integer }} ) : Collection<!-- END REF -->
 
-<!-- REF #_method_.VP Get table dirty rows.Params -->
+**VP Get table dirty rows** ( *vpAreaName* : Text ; *tableName* : Text { ; *reset* : Boolean {; *sheet* : Integer }} ) : Collection
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
@@ -13,12 +13,12 @@
 |tableName|Text|->|Table name|
 |reset|Boolean|->|True to clear the dirty status from the current table, False to keep it untouched. Default=True|
 |sheet   |Integer|->|Sheet index (current sheet if omitted)|
-|Result |Collection|<-|Collection of objects with all the items modified since the last reset|<!-- END REF -->
+|Result |Collection|<-|Collection of objects with all the items modified since the last reset|
 
 
 ## Description
 
-The `VP Get table dirty rows` command <!-- REF #_method_.VP Get table dirty rows.Summary -->returns a collection of *dirty row* objects, containing items that were modified since the last reset in the specified *tableName*<!-- END REF -->.
+The `VP Get table dirty rows` command returns a collection of *dirty row* objects, containing items that were modified since the last reset in the specified *tableName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

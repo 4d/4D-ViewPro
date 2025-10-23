@@ -1,18 +1,18 @@
 # VP SET VALUE
 
-<!-- REF #_method_.VP SET VALUE.Syntax -->
-**VP SET VALUE** ( *rangeObj* : Object ; *valueObj* : Object ) <!-- END REF -->
 
-<!-- REF #_method_.VP SET VALUE.Params -->
+**VP SET VALUE** ( *rangeObj* : Object ; *valueObj* : Object ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj |Object|->|Range object|
-|valueObj  |Object|->|Cell values and format options|<!-- END REF -->
+|valueObj  |Object|->|Cell values and format options|
 
 ## Description
 
-The `VP SET VALUE` command <!-- REF #_method_.VP SET VALUE.Summary -->assigns a specified value to a designated cell range<!-- END REF -->.
+The `VP SET VALUE` command assigns a specified value to a designated cell range.
 
 The command allows you to use a generic code to set and format the types of values in *rangeObj*, whereas other commands, such as [`VP SET TEXT VALUE`](VP%20SET%20TEXT%20VALUE.md) and [`VP SET NUM VALUE`](VP%20SET%20NUM%20VALUE.md), reduce the values to specific types.
 

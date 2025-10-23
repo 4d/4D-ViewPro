@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP Get table range.Syntax -->
-**VP Get table range** ( *vpAreaName* : Text ; *tableName* : Text {; *onlyData* : Integer {; *sheet* : Integer }} ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get table range.Params -->
+**VP Get table range** ( *vpAreaName* : Text ; *tableName* : Text {; *onlyData* : Integer {; *sheet* : Integer }} ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
@@ -13,11 +13,11 @@
 |tableName|Text|->|Table name|
 |onlyData|Integer|->|`vk table full range` (default) or `vk table data range`|
 |sheet   |Integer|->|Sheet index (current sheet if omitted)|
-|Result  |Object|<-|Range that contains the table|<!-- END REF -->
+|Result  |Object|<-|Range that contains the table|
 
 ## Description
 
-The `VP Get table range` command <!-- REF #_method_.VP Get table range.Summary -->returns the range of *tableName*<!-- END REF -->.
+The `VP Get table range` command returns the range of *tableName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

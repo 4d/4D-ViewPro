@@ -1,17 +1,17 @@
 # VP DELETE COLUMNS
 
-<!-- REF #_method_.VP DELETE COLUMNS.Syntax -->
-**VP DELETE COLUMNS** ( *rangeObj* : Object )<!-- END REF -->
 
-<!-- REF #_method_.VP DELETE COLUMNS.Params -->
+**VP DELETE COLUMNS** ( *rangeObj* : Object )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
-|rangeObj| Object|->|Range object|<!-- END REF -->
+|rangeObj| Object|->|Range object|
 
 ## Description
 
-The `VP DELETE COLUMNS` command <!-- REF #_method_.VP DELETE COLUMNS.Summary -->removes the columns in the *rangeObj*<!-- END REF -->.
+The `VP DELETE COLUMNS` command removes the columns in the *rangeObj*.
 
 In *rangeObj*, pass an object containing a range of columns to remove. If the passed range contains:
 
