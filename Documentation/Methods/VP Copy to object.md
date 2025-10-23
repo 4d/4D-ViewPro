@@ -2,21 +2,21 @@
 
 
 
-<!-- REF #_method_.VP Copy to object.Syntax -->
-**VP Copy to object** ( *rangeObj* : Object {; *options* : Object} ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Copy to object.Params -->
+**VP Copy to object** ( *rangeObj* : Object {; *options* : Object} ) : Object
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj|Object|->|Range object|
 |options|Object|->|Additional options|
-|Result|Object|<-|Object returned. Contains the copied data|<!-- END REF -->
+|Result|Object|<-|Object returned. Contains the copied data|
 
 
 ## Description
 
-The `VP Copy to object` command <!-- REF #_method_.VP Copy to object.Summary -->copies the contents, style and formulas from *rangeObj* to an object<!-- END REF -->.
+The `VP Copy to object` command copies the contents, style and formulas from *rangeObj* to an object.
 
 In *rangeObj*, pass the cell range with the values, formatting, and formulas to copy. If *rangeObj* is a combined range, only the first one is used.
 

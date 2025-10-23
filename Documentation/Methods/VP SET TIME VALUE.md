@@ -1,19 +1,19 @@
 # VP SET TIME VALUE
 
-<!-- REF #_method_.VP SET TIME VALUE.Syntax -->
-**VP SET TIME VALUE** ( *rangeObj* : Object ; *timeValue* : Text { ; *formatPattern* : Text }  ) <!-- END REF -->
 
-<!-- REF #_method_.VP SET TIME VALUE.Params -->
+**VP SET TIME VALUE** ( *rangeObj* : Object ; *timeValue* : Text { ; *formatPattern* : Text }  ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj |Object|->|Range object|
 |timeValue |Time|->|Time value to set|
-|formatPattern |Text|->|Format of value|<!-- END REF -->
+|formatPattern |Text|->|Format of value|
 
 ## Description
 
-The `VP SET TIME VALUE` command <!-- REF #_method_.VP SET TIME VALUE.Summary -->assigns a specified time value to a designated cell range<!-- END REF -->.
+The `VP SET TIME VALUE` command assigns a specified time value to a designated cell range.
 
 In *rangeObj*, pass a range of the cell(s) (created for example with [`VP Cell`](VP%20Cell.md) or [`VP Column`](VP%20Column.md)) whose value you want to specify. If *rangeObj* includes multiple cells, the value specified will be repeated in each cell.
 

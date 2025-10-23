@@ -1,18 +1,18 @@
 # VP RESET SELECTION
 
-<!-- REF #_method_.VP RESET SELECTION.Syntax -->
-**VP RESET SELECTION** ( *vpAreaName* : Text { ; *sheet* : Integer } ) <!-- END REF -->
 
-<!-- REF #_method_.VP RESET SELECTION.Params -->
+**VP RESET SELECTION** ( *vpAreaName* : Text { ; *sheet* : Integer } ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName   |Text|->|4D View Pro area form object name|
-|sheet    |Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet    |Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP RESET SELECTION` command <!-- REF #_method_.VP RESET SELECTION.Summary -->deselects all cells, resulting in no current selection or visible active cell<!-- END REF -->.
+The `VP RESET SELECTION` command deselects all cells, resulting in no current selection or visible active cell.
 
 > A default active cell (cell A1) remains defined for 4D View Pro commands.
 

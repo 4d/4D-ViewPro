@@ -1,18 +1,18 @@
 # VP Get formulas
 
-<!-- REF #_method_.VP Get formulas.Syntax -->
-**VP Get formulas** ( *rangeObj* : Object ) : Collection<!-- END REF -->
 
-<!-- REF #_method_.VP Get formulas.Params -->
+**VP Get formulas** ( *rangeObj* : Object ) : Collection
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |rangeObj  |Object|->|Range object|
-|Result  |Collection|<-|Collection of formula values|<!-- END REF -->
+|Result  |Collection|<-|Collection of formula values|
 
 ## Description
 
-The `VP Get formulas` command <!-- REF #_method_.VP Get formulas.Summary -->retrieves the formulas from a designated *rangeObj*<!-- END REF -->.
+The `VP Get formulas` command retrieves the formulas from a designated *rangeObj*.
 
 In *rangeObj*, pass a range whose formulas you want to retrieve. If *rangeObj* designates multiple ranges, the formula of the first range is returned. If *rangeObj* does not contain any formulas, the command returns an empty string.
 

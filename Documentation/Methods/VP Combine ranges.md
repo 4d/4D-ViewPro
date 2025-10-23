@@ -1,19 +1,19 @@
 # VP Combine ranges
 
-<!-- REF #_method_.VP Combine ranges.Syntax -->
-**VP Combine ranges** ( *rangeObj* : Object ; *otherRangeObj* : Object {;...*otherRangeObjN* : Object }  ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Combine ranges.Params -->
+**VP Combine ranges** ( *rangeObj* : Object ; *otherRangeObj* : Object {;...*otherRangeObjN* : Object }  ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |rangeObj| Object|->|Range object|
 |otherRangeObj| Object|->|Range object|
-|Result| Object|<-|Object containing a combined range|<!-- END REF -->
+|Result| Object|<-|Object containing a combined range|
 
 ## Description
 
-The `VP Combine Ranges` command <!-- REF #_method_.VP Combine ranges.Summary -->returns a new range object that incorporates two or more existing range objects<!-- END REF -->. All of the ranges must be from the same 4D View Pro area.
+The `VP Combine Ranges` command returns a new range object that incorporates two or more existing range objects. All of the ranges must be from the same 4D View Pro area.
 
 In *rangeObj*, pass the first range object.
 

@@ -1,19 +1,19 @@
 # VP Export to object
 
-<!-- REF #_method_.VP Export to object.Syntax -->
-**VP Export to object** ( *vpAreaName* : Text {; *options* : Object} ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Export to object.Params -->
+**VP Export to object** ( *vpAreaName* : Text {; *options* : Object} ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName| Text|->|4D View Pro area form object name|
 |options| Object|->|Export options|
-|Result| Object|<-|4D View Pro object|<!-- END REF -->
+|Result| Object|<-|4D View Pro object|
 
 ## Description
 
-The `VP Export to object` command <!-- REF #_method_.VP Export to object.Summary --> returns the 4D View Pro object attached to the 4D View Pro area *vpAreaName*<!-- END REF -->. You can use this command for example to store the 4D View Pro area in a 4D database object field.
+The `VP Export to object` command  returns the 4D View Pro object attached to the 4D View Pro area *vpAreaName*. You can use this command for example to store the 4D View Pro area in a 4D database object field.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

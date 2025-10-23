@@ -1,22 +1,22 @@
 # VP SHOW CELL
 
-<!-- REF #_method_.VP SHOW CELL.Syntax -->
-**VP SHOW CELL** ( *rangeObj* : Object { ; *vPos* : Integer; *hPos* : Integer } ) <!-- END REF -->
 
-<!-- REF #_method_.VP SHOW CELL.Params -->
+**VP SHOW CELL** ( *rangeObj* : Object { ; *vPos* : Integer; *hPos* : Integer } ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj |Object|->|Range object|
 |vPos  |Integer|->|Vertical view position of cell or row|
-|hPos  |Integer|->|Horizontal view position of cell or row|<!-- END REF -->
+|hPos  |Integer|->|Horizontal view position of cell or row|
 
 
 ## Description
 
 
 
-The `VP SHOW CELL` command <!-- REF #_method_.VP SHOW CELL.Summary -->vertically and horizontally repositions the view of the *rangeObj*<!-- END REF -->.
+The `VP SHOW CELL` command vertically and horizontally repositions the view of the *rangeObj*.
 
 In *rangeObj*, pass a range of cells as an object to designate the cells to be viewed. The view of the *rangeObj* will be positioned vertically or horizontally (i.e., where *rangeObj* appears) based on the *vPos* and *hPos* parameters. The *vPos* parameter defines the desired vertical position to display the *rangeObj*, and the *hPos* parameter defines the desired horizontal position to display the *rangeObj*.
 

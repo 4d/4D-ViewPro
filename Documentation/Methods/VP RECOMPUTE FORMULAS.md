@@ -1,17 +1,17 @@
 # VP RECOMPUTE FORMULAS
 
-<!-- REF #_method_.VP RECOMPUTE FORMULAS.Syntax -->
-**VP RECOMPUTE FORMULAS** ( *vpAreaName* : Text ) <!-- END REF -->
 
-<!-- REF #_method_.VP RECOMPUTE FORMULAS.Params -->
+**VP RECOMPUTE FORMULAS** ( *vpAreaName* : Text ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
-|vpAreaName   |Text|->|4D View Pro area form object name|<!-- END REF -->
+|vpAreaName   |Text|->|4D View Pro area form object name|
 
 ## Description
 
-The `VP RECOMPUTE FORMULAS` command <!-- REF #_method_.VP RECOMPUTE FORMULAS.Summary -->immediately evaluates all formulas in *vpAreaName*<!-- END REF -->. By default, 4D automatically computes formulas when they are inserted, imported, or exported. `VP RECOMPUTE FORMULAS` allows you to force the compute at any time (e.g, in case modifications are made to the formulas or if the formulas contain calls to the database). The command launches the execution of the [VP FLUSH COMMANDS](VP%20FLUSH%20COMMANDS.md) command to execute any stored commands and clear the command buffer, then calculates all formulas in the workbook.
+The `VP RECOMPUTE FORMULAS` command immediately evaluates all formulas in *vpAreaName*. By default, 4D automatically computes formulas when they are inserted, imported, or exported. `VP RECOMPUTE FORMULAS` allows you to force the compute at any time (e.g, in case modifications are made to the formulas or if the formulas contain calls to the database). The command launches the execution of the [VP FLUSH COMMANDS](VP%20FLUSH%20COMMANDS.md) command to execute any stored commands and clear the command buffer, then calculates all formulas in the workbook.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

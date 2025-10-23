@@ -2,20 +2,20 @@
 
 
 
-<!-- REF #_method_.VP MOVE CELLS.Syntax -->
-**VP MOVE CELLS** ( *originRange* : Object ; *targetRange* : Object ; *options* : Object )<!-- END REF -->
 
-<!-- REF #_method_.VP MOVE CELLS.Params -->
+**VP MOVE CELLS** ( *originRange* : Object ; *targetRange* : Object ; *options* : Object )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |originRange|Object|->|Cell range to copy from|
 |targetRange|Object|->|Target range for the values, formatting and formulas|
-|options|Object|->|Additional options|<!-- END REF -->
+|options|Object|->|Additional options|
 
 ## Description
 
-The `VP MOVE CELLS` command <!-- REF #_method_.VP MOVE CELLS.Summary -->moves or copies the values, style and formulas from *originRange* to *targetRange*<!-- END REF -->.
+The `VP MOVE CELLS` command moves or copies the values, style and formulas from *originRange* to *targetRange*.
 
 *originRange* and *targetRange* can refer to different View Pro areas.
 

@@ -2,20 +2,20 @@
 
 
 
-<!-- REF #_method_.VP Get tables.Syntax -->
-**VP Get tables** ( *vpAreaName* : Text { ; *sheet* : Integer } ) : Collection<!-- END REF -->
 
-<!-- REF #_method_.VP Get tables.Params -->
+**VP Get tables** ( *vpAreaName* : Text { ; *sheet* : Integer } ) : Collection
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName |Text|->|4D View Pro area form object name|
 |sheet   |Integer|->|Sheet index (current sheet if omitted)|
-|Result  |Collection|<-|Text collection with all table names|<!-- END REF -->
+|Result  |Collection|<-|Text collection with all table names|
 
 ## Description
 
-The `VP Get tables` command <!-- REF #_method_.VP Get tables.Summary -->returns a collection of all table names defined in the *sheet*<!-- END REF -->.
+The `VP Get tables` command returns a collection of all table names defined in the *sheet*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

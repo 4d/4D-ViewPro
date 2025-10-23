@@ -1,9 +1,9 @@
 # VP Find
 
-<!-- REF #_method_.VP Find.Syntax -->
-**VP Find** (  *rangeObj* : Object ; *searchValue* : Text ) : Object<br/>**VP Find** (  *rangeObj* : Object ; *searchValue* : Text ; *searchCondition* : Object } ) : Object<br/>**VP Find** (  *rangeObj* : Object ; *searchValue* : Text ; *searchCondition* : Object ; *replaceValue* : Text ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Find.Params -->
+**VP Find** (  *rangeObj* : Object ; *searchValue* : Text ) : Object<br/>**VP Find** (  *rangeObj* : Object ; *searchValue* : Text ; *searchCondition* : Object } ) : Object<br/>**VP Find** (  *rangeObj* : Object ; *searchValue* : Text ; *searchCondition* : Object ; *replaceValue* : Text ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
@@ -11,11 +11,11 @@
 |searchValue |Text|->|Search value|
 |searchCondition |Object|->|Object containing search condition(s)|
 |replaceValue  |Text|->|Replacement value|
-|Result|Object|<-|Range object|<!-- END REF -->
+|Result|Object|<-|Range object|
 
 ## Description
 
-The `VP Find` command <!-- REF #_method_.VP Find.Summary -->searches the *rangeObj* for the *searchValue*<!-- END REF -->. Optional parameters can be used to refine the search and/or replace any results found.  
+The `VP Find` command searches the *rangeObj* for the *searchValue*. Optional parameters can be used to refine the search and/or replace any results found.  
 
 In the *rangeObj* parameter, pass an object containing a range to search.  
 

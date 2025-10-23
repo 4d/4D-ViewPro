@@ -1,19 +1,19 @@
 # VP SET FIELD
 
-<!-- REF #_method_.VP SET FIELD.Syntax -->
-**VP SET FIELD** ( *rangeObj* : Object ; *field* : Pointer { ; *formatPattern* : Text } ) <!-- END REF -->
 
-<!-- REF #_method_.VP SET FIELD.Params -->
+**VP SET FIELD** ( *rangeObj* : Object ; *field* : Pointer { ; *formatPattern* : Text } ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj |Object|->|Range object|
 |field |Pointer|->|Reference to field in virtual structure|
-|formatPattern |Text|->|Format of field|<!-- END REF -->
+|formatPattern |Text|->|Format of field|
 
 ## Description
 
-The `VP SET FIELD` command <!-- REF #_method_.VP SET FIELD.Summary -->assigns a 4D database virtual field to a designated cell range<!-- END REF -->.
+The `VP SET FIELD` command assigns a 4D database virtual field to a designated cell range.
 
 In *rangeObj*, pass a range of the cell(s) whose value you want to specify. If *rangeObj* includes multiple cells, the specified field will be linked in each cell.
 

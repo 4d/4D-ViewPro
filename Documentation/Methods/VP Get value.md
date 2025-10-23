@@ -1,18 +1,18 @@
 # VP Get value
 
-<!-- REF #_method_.VP Get value.Syntax -->
-**VP Get value** ( *rangeObj* : Object ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get value.Params -->
+**VP Get value** ( *rangeObj* : Object ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |rangeObj   |Object|->|Range object|
-|Result  |Object|<-|Object containing a cell value|<!-- END REF -->
+|Result  |Object|<-|Object containing a cell value|
 
 ## Description
 
-The `VP Get value` command <!-- REF #_method_.VP Get value.Summary -->retrieves a cell value from a designated cell range<!-- END REF -->.
+The `VP Get value` command retrieves a cell value from a designated cell range.
 
 In *rangeObj*, pass a range whose value you want to retrieve.
 

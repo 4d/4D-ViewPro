@@ -1,18 +1,18 @@
 # VP SET SHEET COUNT
 
-<!-- REF #_method_.VP SET SHEET COUNT.Syntax -->
-**VP SET SHEET COUNT** ( *vpAreaName* : Text ; *number* : Integer  ) <!-- END REF -->
 
-<!-- REF #_method_.VP SET SHEET COUNT.Params -->
+**VP SET SHEET COUNT** ( *vpAreaName* : Text ; *number* : Integer  ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName |Text|->|4D View Pro area form object name|
-|number |Integer|->|Number of sheets|<!-- END REF -->
+|number |Integer|->|Number of sheets|
 
 ## Description
 
-The `VP SET SHEET COUNT` command <!-- REF #_method_.VP SET SHEET COUNT.Summary -->sets the number of sheets in *vpAreaName*<!-- END REF -->.
+The `VP SET SHEET COUNT` command sets the number of sheets in *vpAreaName*.
 
 In `number`, pass a number corresponding to how many sheets the document will contain after the command is executed.
 

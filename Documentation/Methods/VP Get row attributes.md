@@ -1,18 +1,18 @@
 # VP Get row attributes
 
-<!-- REF #_method_.VP Get row attributes.Syntax -->
-**VP Get row attributes** ( rangeObj : Object ) : Collection<!-- END REF -->
 
-<!-- REF #_method_.VP Get row attributes.Params -->
+**VP Get row attributes** ( rangeObj : Object ) : Collection
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |rangeObj  |Object|->|Range object|
-|Result  |Collection|<-|Collection of row properties|<!-- END REF -->
+|Result  |Collection|<-|Collection of row properties|
 
 ## Description
 
-The `VP Get row attributes` command <!-- REF #_method_.VP Get row attributes.Summary -->returns a collection of properties for any row in the *rangeObj*<!-- END REF -->.
+The `VP Get row attributes` command returns a collection of properties for any row in the *rangeObj*.
 
 In *rangeObj*, pass an object containing a range of the rows whose attributes will be retrieved.
 

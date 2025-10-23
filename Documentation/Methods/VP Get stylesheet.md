@@ -1,20 +1,20 @@
 # VP Get stylesheet
 
-<!-- REF #_method_.VP Get stylesheet.Syntax -->
-**VP Get stylesheet** ( *vpAreaName* : Text ; *styleName* : Text { ; *sheet* : Integer } ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get stylesheet.Params -->
+**VP Get stylesheet** ( *vpAreaName* : Text ; *styleName* : Text { ; *sheet* : Integer } ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName|Text|->|4D View Pro area form object name|
 |styleName|Text|->|Name of style|
 |sheet|Integer|->|Sheet index (current sheet if omitted)|
-|Result|Object|<-|Style sheet object|<!-- END REF -->
+|Result|Object|<-|Style sheet object|
 
 ## Description
 
-The `VP Get stylesheet` command <!-- REF #_method_.VP Get stylesheet.Summary -->returns the *styleName* style sheet object containing the property values which have been defined<!-- END REF -->.
+The `VP Get stylesheet` command returns the *styleName* style sheet object containing the property values which have been defined.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

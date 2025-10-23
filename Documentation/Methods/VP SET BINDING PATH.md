@@ -2,19 +2,19 @@
 
 
 
-<!-- REF #_method_.VP SET BINDING PATH.Syntax -->
-**VP SET BINDING PATH** ( *rangeObj* : Object  ; *dataContextAttribute*  : Text) <!-- END REF -->
 
-<!-- REF #_method_.VP SET BINDING PATH.Params -->
+**VP SET BINDING PATH** ( *rangeObj* : Object  ; *dataContextAttribute*  : Text) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 | rangeObj | Object | -> | Range object |
-| dataContextAttribute  | Text | -> | Name of the attribute to bind to *rangeObj* |<!-- END REF -->
+| dataContextAttribute  | Text | -> | Name of the attribute to bind to *rangeObj* |
 
 ## Description
 
-The `VP SET BINDING PATH` command <!-- REF #_method_.VP SET BINDING PATH.Summary -->binds an attribute from a sheet's data context to *rangeObj*<!-- END REF -->. After you set a data context using the [SET DATA CONTEXT](VP%20SET%20DATA%20CONTEXT.md) method. When loaded, if the data context contains the attribute, the value of *dataContextAttribute* is automatically displayed in the cells in *rangeObj*.
+The `VP SET BINDING PATH` command binds an attribute from a sheet's data context to *rangeObj*. After you set a data context using the [SET DATA CONTEXT](VP%20SET%20DATA%20CONTEXT.md) method. When loaded, if the data context contains the attribute, the value of *dataContextAttribute* is automatically displayed in the cells in *rangeObj*.
 
 In *rangeObj*, pass an object that is either a cell range or a combined range of cells.
 

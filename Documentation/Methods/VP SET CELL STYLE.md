@@ -1,19 +1,19 @@
 # VP SET CELL STYLE
 
-<!-- REF #_method_.VP SET CELL STYLE.Syntax -->
 
-**VP SET CELL STYLE** ( *rangeObj* : Object  ; *styleObj*  : Object) <!-- END REF -->
 
-<!-- REF #_method_.VP SET CELL STYLE.Params -->
+**VP SET CELL STYLE** ( *rangeObj* : Object  ; *styleObj*  : Object) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj   |Object|->|Range object|
-|styleObj    |Object|->|Style object|<!-- END REF -->
+|styleObj    |Object|->|Style object|
 
 ## Description
 
-The `VP SET CELL STYLE` command <!-- REF #_method_.VP SET CELL STYLE.Summary -->applies the style(s) defined in the *styleObj* to the cells defined in the *rangeObj*<!-- END REF -->.
+The `VP SET CELL STYLE` command applies the style(s) defined in the *styleObj* to the cells defined in the *rangeObj*.
 
 In *rangeObj*, pass a range of cells where the style will be applied. If the *rangeObj* contains multiple cells, the style is applied to each cell.
 

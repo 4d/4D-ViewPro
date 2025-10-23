@@ -3,21 +3,21 @@
 
 
 
-<!-- REF #_method_.VP EXPORT DOCUMENT.Syntax -->
-**VP EXPORT DOCUMENT** ( *vpAreaName* : Text ; *filePath* : Text {; *paramObj* : Object} )<!-- END REF -->
 
-<!-- REF #_method_.VP EXPORT DOCUMENT.Params -->
+**VP EXPORT DOCUMENT** ( *vpAreaName* : Text ; *filePath* : Text {; *paramObj* : Object} )
+
+
 
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName| Text|->|4D View Pro area form object name|
 |filePath| Text|->|Pathname of the document|
-|paramObj| Object|->|Export options|<!-- END REF -->
+|paramObj| Object|->|Export options|
 
 ## Description
 
-The `VP EXPORT DOCUMENT` command <!-- REF #_method_.VP EXPORT DOCUMENT.Summary -->exports the 4D View Pro object attached to the 4D View Pro area *vpAreaName* to a document on disk according to the *filePath* and *paramObj* parameters<!-- END REF -->.
+The `VP EXPORT DOCUMENT` command exports the 4D View Pro object attached to the 4D View Pro area *vpAreaName* to a document on disk according to the *filePath* and *paramObj* parameters.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

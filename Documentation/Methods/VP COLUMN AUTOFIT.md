@@ -1,17 +1,17 @@
 # VP COLUMN AUTOFIT
 
-<!-- REF #_method_.VP COLUMN AUTOFIT.Syntax -->
-**VP COLUMN AUTOFIT** ( *rangeObj* : Object )<!-- END REF -->
 
-<!-- REF #_method_.VP COLUMN AUTOFIT.Params -->
+**VP COLUMN AUTOFIT** ( *rangeObj* : Object )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
-|rangeObj| Object|->|Range object|<!-- END REF -->
+|rangeObj| Object|->|Range object|
 
 ## Description
 
-The `VP COLUMN AUTOFIT` command <!-- REF #_method_.VP COLUMN AUTOFIT.Summary -->automatically sizes the column(s) in *rangeObj* according to their contents<!-- END REF -->.
+The `VP COLUMN AUTOFIT` command automatically sizes the column(s) in *rangeObj* according to their contents.
 
 In *rangeObj*, pass a range object containing a range of the columns whose size will be automatically handled.
 

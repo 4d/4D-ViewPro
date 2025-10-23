@@ -1,19 +1,19 @@
 # VP SET CUSTOM FUNCTIONS
 
-<!-- REF #_method_.VP SET CUSTOM FUNCTIONS.Syntax -->
-**VP SET CUSTOM FUNCTIONS** ( *vpAreaName* : Text ; *formulaObj* : Object  ) <!-- END REF -->
+
+**VP SET CUSTOM FUNCTIONS** ( *vpAreaName* : Text ; *formulaObj* : Object  ) 
 
 
-<!-- REF #_method_.VP SET CUSTOM FUNCTIONS.Params -->
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName |Text|->|4D View Pro area form object name|
-|formulaObj |Object|->|Formula object|<!-- END REF -->
+|formulaObj |Object|->|Formula object|
 
 ## Description
 
-The `VP SET CUSTOM FUNCTIONS` command <!-- REF #_method_.VP SET CUSTOM FUNCTIONS.Summary -->designates the 4D formulas that can be called directly from 4D View Pro formulas<!-- END REF -->. Because custom functions are not stored in the document,`VP SET CUSTOM FUNCTIONS` must be executed in the `On Load` form event.
+The `VP SET CUSTOM FUNCTIONS` command designates the 4D formulas that can be called directly from 4D View Pro formulas. Because custom functions are not stored in the document,`VP SET CUSTOM FUNCTIONS` must be executed in the `On Load` form event.
 
 The formulas specified by `VP SET CUSTOM FUNCTIONS` appear in a pop-up menu when the first letter of their name is entered. See the [Formulas and Functions](../formulas.md) page.
 

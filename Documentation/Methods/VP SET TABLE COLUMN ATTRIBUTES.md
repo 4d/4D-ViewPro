@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP SET TABLE COLUMN ATTRIBUTES.Syntax -->
-**VP SET TABLE COLUMN ATTRIBUTES** ( *vpAreaName* : Text ; *tableName* : Text ; *column* : Integer ; *attributes* : Object {; *sheet* : Integer } )<!-- END REF -->
 
-<!-- REF #_method_.VP SET TABLE COLUMN ATTRIBUTES.Params -->
+**VP SET TABLE COLUMN ATTRIBUTES** ( *vpAreaName* : Text ; *tableName* : Text ; *column* : Integer ; *attributes* : Object {; *sheet* : Integer } )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
@@ -13,11 +13,11 @@
 |tableName|Text|->|Table name|
 |column|Integer|->|Index of the column in the table|
 |attributes |Object|->|Attribute(s) to apply to the *column*|
-|sheet   |Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet   |Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP SET TABLE COLUMN ATTRIBUTES` command <!-- REF #_method_.VP SET TABLE COLUMN ATTRIBUTES.Summary -->applies the defined *attributes* to the *column* in the *tableName*<!-- END REF -->.
+The `VP SET TABLE COLUMN ATTRIBUTES` command applies the defined *attributes* to the *column* in the *tableName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

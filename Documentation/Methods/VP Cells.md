@@ -1,11 +1,11 @@
 # VP Cells
 
-<!-- REF #_method_.VP Cells.Syntax -->
-**VP Cells** ( *vpAreaName* : Text ; *column*: Integer ; *row*: Integer ; *columnCount* : Integer ; *rowCount* : Integer { ; *sheet* : Integer } ) : Object<!-- END REF -->
+
+**VP Cells** ( *vpAreaName* : Text ; *column*: Integer ; *row*: Integer ; *columnCount* : Integer ; *rowCount* : Integer { ; *sheet* : Integer } ) : Object
 
 
 
-<!-- REF #_method_.VP Cells.Params -->
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
@@ -15,11 +15,11 @@
 |columnCount| Integer|->|Number of columns|
 |rowCount| Integer|->|Number of rows|
 |sheet|Integer|->|Sheet index (current sheet if omitted)|
-|Result|Object|<-|Range object of cells|<!-- END REF -->
+|Result|Object|<-|Range object of cells|
 
 ## Description
 
-The `VP Cells` command <!-- REF #_method_.VP Cells.Summary -->returns a new range object referencing specific cells<!-- END REF -->.
+The `VP Cells` command returns a new range object referencing specific cells.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

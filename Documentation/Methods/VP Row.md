@@ -1,9 +1,9 @@
 # VP Row
 
-<!-- REF #_method_.VP Row.Syntax -->
-**VP Row** ( *vpAreaName* : Text; *row* : Integer { ; *rowCount* : Integer { ; *sheet* : Integer } } ) : Object <!-- END REF -->
 
-<!-- REF #_method_.VP Row.Params -->
+**VP Row** ( *vpAreaName* : Text; *row* : Integer { ; *rowCount* : Integer { ; *sheet* : Integer } } ) : Object 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
@@ -11,11 +11,11 @@
 |row|Integer|->|Row index|
 |rowCount  |Integer|->|Number of rows|
 |sheet  |Integer|->|Sheet index (current sheet if omitted)|
-|Result |Object|<-|Range object of row(s)|<!-- END REF -->
+|Result |Object|<-|Range object of row(s)|
 
 ## Description
 
-The `VP Row` command <!-- REF #_method_.VP Row.Summary -->returns a new range object referencing a specific row or rows<!-- END REF -->.
+The `VP Row` command returns a new range object referencing a specific row or rows.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

@@ -1,19 +1,19 @@
 # VP Get names
 
-<!-- REF #_method_.VP Get names.Syntax -->
-**VP Get names** ( vpAreaName : Text { ; scope : Integer } ) : Collection<!-- END REF -->
 
-<!-- REF #_method_.VP Get names.Params -->
+**VP Get names** ( vpAreaName : Text { ; scope : Integer } ) : Collection
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName  |Text|->|4D View Pro area form object name|
 |scope  |Integer|->|Target scope (default= current sheet)|
-|Result  |Collection|<-|Existing names in the defined scope|<!-- END REF -->
+|Result  |Collection|<-|Existing names in the defined scope|
 
 ## Description
 
-The `VP Get names` command <!-- REF #_method_.VP Get names.Summary -->returns a collection of all defined "names" in the current sheet or in the scope designated by the *scope* parameter<!-- END REF -->.
+The `VP Get names` command returns a collection of all defined "names" in the current sheet or in the scope designated by the *scope* parameter.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

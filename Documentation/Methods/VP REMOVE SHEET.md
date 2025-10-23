@@ -1,18 +1,18 @@
 # VP REMOVE SHEET
 
-<!-- REF #_method_.VP REMOVE SHEET.Syntax -->
-**VP REMOVE SHEET** ( *vpAreaName* : Text ; *index*: Integer ) <!-- END REF -->
 
-<!-- REF #_method_.VP REMOVE SHEET.Params -->
+**VP REMOVE SHEET** ( *vpAreaName* : Text ; *index*: Integer ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName |Text|->|4D View Pro area form object name|
-|index  |Integer|->|Index of the sheet to remove|<!-- END REF -->
+|index  |Integer|->|Index of the sheet to remove|
 
 ## Description
 
-The `VP REMOVE SHEET` command <!-- REF #_method_.VP REMOVE SHEET.Summary -->removes the sheet with the specified *index* from the document loaded in *vpAreaName*<!-- END REF -->.
+The `VP REMOVE SHEET` command removes the sheet with the specified *index* from the document loaded in *vpAreaName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

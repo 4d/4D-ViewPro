@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP SET DATA CONTEXT.Syntax -->
-**VP SET DATA CONTEXT** ( *vpAreaName* : Text ; *dataObj* : Object {; *options* : Object } {; *sheet* : Integer} )<br/>**VP SET DATA CONTEXT** ( *vpAreaName* : Text ; *dataColl* : Collection ; {*options* : Object } {; *sheet* : Integer} )<!-- END REF -->
 
-<!-- REF #_method_.VP SET DATA CONTEXT.Params -->
+**VP SET DATA CONTEXT** ( *vpAreaName* : Text ; *dataObj* : Object {; *options* : Object } {; *sheet* : Integer} )<br/>**VP SET DATA CONTEXT** ( *vpAreaName* : Text ; *dataColl* : Collection ; {*options* : Object } {; *sheet* : Integer} )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
@@ -13,11 +13,11 @@
 |dataObj|Object|->|Data object to load in the data context|
 |dataColl|Collection|->|Data collection to load in the data context|
 |options |Object|->|Additional options|
-|sheet|Integer|->|Sheet index|<!-- END REF -->
+|sheet|Integer|->|Sheet index|
 
 ## Description
 
-The `VP SET DATA CONTEXT` command <!-- REF #_method_.VP SET DATA CONTEXT.Summary -->sets the data context of a sheet<!-- END REF -->. A data context is an object or a collection bound to a worksheet, and whose contents can be used to automatically fill the sheet cells, either by using an autogenerate option or the [VP SET BINDING PATH](VP%20SET%20BINDING%20PATH.md) method. On the other hand, the [VP Get data context](VP%20Get%20data%20context.md) command can return a context containing user modifications.
+The `VP SET DATA CONTEXT` command sets the data context of a sheet. A data context is an object or a collection bound to a worksheet, and whose contents can be used to automatically fill the sheet cells, either by using an autogenerate option or the [VP SET BINDING PATH](VP%20SET%20BINDING%20PATH.md) method. On the other hand, the [VP Get data context](VP%20Get%20data%20context.md) command can return a context containing user modifications.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

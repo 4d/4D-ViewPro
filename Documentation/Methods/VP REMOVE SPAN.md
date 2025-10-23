@@ -1,17 +1,17 @@
 # VP REMOVE SPAN
 
-<!-- REF #_method_.VP REMOVE SPAN.Syntax -->
-**VP REMOVE SPAN** ( *rangeObj* : Object ) <!-- END REF -->
 
-<!-- REF #_method_.VP REMOVE SPAN.Params -->
+**VP REMOVE SPAN** ( *rangeObj* : Object ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
-|rangeObj   |Object|->|Range object|<!-- END REF -->
+|rangeObj   |Object|->|Range object|
 
 ## Description
 
-The `VP REMOVE SPAN` command <!-- REF #_method_.VP REMOVE SPAN.Summary -->removes the span from the cells in *rangeObj*<!-- END REF -->.
+The `VP REMOVE SPAN` command removes the span from the cells in *rangeObj*.
 
 In *rangeObj*, pass a range object of the cell span. The spanned cells in the range are divided into individual cells.  
 

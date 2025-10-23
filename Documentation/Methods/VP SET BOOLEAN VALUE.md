@@ -1,18 +1,18 @@
 # VP SET BOOLEAN VALUE
 
-<!-- REF #_method_.VP SET BOOLEAN VALUE.Syntax -->
-**VP SET BOOLEAN VALUE** ( *rangeObj* : Object  ; *boolValue* : Boolean) <!-- END REF -->
 
-<!-- REF #_method_.VP SET BOOLEAN VALUE.Params -->
+**VP SET BOOLEAN VALUE** ( *rangeObj* : Object  ; *boolValue* : Boolean) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj   |Object|->|Range object|
-|boolValue    |Boolean|->|Boolean value to set|<!-- END REF -->
+|boolValue    |Boolean|->|Boolean value to set|
 
 ## Description
 
-The `VP SET BOOLEAN VALUE` command <!-- REF #_method_.VP SET BOOLEAN VALUE.Summary -->assigns a specified boolean value to a designated cell range<!-- END REF -->.
+The `VP SET BOOLEAN VALUE` command assigns a specified boolean value to a designated cell range.
 
 In *rangeObj*, pass a range of the cell(s) (created for example with [`VP Cell`](VP%20Cell.md) or [`VP Column`](VP%20Column.md)) whose value you want to specify. If *rangeObj* includes multiple cells, the value specified will be repeated in each cell.
 

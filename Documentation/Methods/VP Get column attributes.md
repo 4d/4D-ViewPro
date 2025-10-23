@@ -2,10 +2,10 @@
 
 
 
-<!-- REF #_method_.VP Get table column attributes.Syntax -->
-**VP Get table column attributes** ( *vpAreaName* : Text ; *tableName* : Text ; *column* : Integer {; *sheet* : Integer } ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get table column attributes.Params -->
+**VP Get table column attributes** ( *vpAreaName* : Text ; *tableName* : Text ; *column* : Integer {; *sheet* : Integer } ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
@@ -13,12 +13,12 @@
 |tableName|Text|->|Table name|
 |column|Integer|->|Index of the column in the table|
 |sheet   |Integer|->|Sheet index (current sheet if omitted)|
-|Result |Object|<-|Attributes of the *column*|<!-- END REF -->
+|Result |Object|<-|Attributes of the *column*|
 
 
 ## Description
 
-The `VP Get table column attributes` command <!-- REF #_method_.VP Get table column attributes.Summary -->returns the current attributes of the specified *column* in the *tableName*<!-- END REF -->.
+The `VP Get table column attributes` command returns the current attributes of the specified *column* in the *tableName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

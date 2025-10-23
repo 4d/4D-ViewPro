@@ -2,20 +2,20 @@
 
 
 
-<!-- REF #_method_.VP FLUSH COMMANDS.Syntax -->
-**VP FLUSH COMMANDS** ( *vpAreaName* : Text {; *callback* : 4D.Function} )<!-- END REF -->
 
-<!-- REF #_method_.VP FLUSH COMMANDS.Params -->
+**VP FLUSH COMMANDS** ( *vpAreaName* : Text {; *callback* : 4D.Function} )
+
+
 
 | Parameter    | Type         |  | Description |
 |-------------|-------------|---|-------------|
 | vpAreaName  | Text        | -> | 4D View Pro area form object name |
 | callback    | 4D.Function | -> | (Optional) A callback function executed after all VP commands and 4D custom functions have been executed |  
-<!-- END REF -->
+
 
 ## Description
 
-The `VP FLUSH COMMANDS` command <!-- REF #_method_.VP FLUSH COMMANDS.Summary -->immediately executes stored commands and clears the command buffer<!-- END REF -->.  
+The `VP FLUSH COMMANDS` command immediately executes stored commands and clears the command buffer.  
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

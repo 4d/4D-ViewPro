@@ -1,19 +1,19 @@
 # VP Get sheet index
 
-<!-- REF #_method_.VP Get sheet index.Syntax -->
-**VP Get sheet index** ( *vpAreaName* : Text ; *name* : Text ) : Integer<!-- END REF -->
 
-<!-- REF #_method_.VP Get sheet index.Params -->
+**VP Get sheet index** ( *vpAreaName* : Text ; *name* : Text ) : Integer
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName| Text|->|4D View Pro area form object name|
 |name| Text|->|Sheet name|
-|Function result|Integer|<-|Sheet index|<!-- END REF -->
+|Function result|Integer|<-|Sheet index|
 
 ## Description
 
-The `VP Get sheet index` command <!-- REF #_method_.VP Get sheet index.Summary -->returns the index of a sheet based on its name in *vpAreaName*.<!-- END REF -->
+The `VP Get sheet index` command returns the index of a sheet based on its name in *vpAreaName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

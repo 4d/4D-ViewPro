@@ -1,20 +1,20 @@
 # VP Get formula
 
-<!-- REF #_method_.VP Get formula.Syntax -->
-**VP Get formula** ( *rangeObj* : Object) : Text<!-- END REF -->
 
-<!-- REF #_method_.VP Get formula.Params -->
+**VP Get formula** ( *rangeObj* : Object) : Text
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |rangeObj  |Object|->|Range object|
-|Result  |Text|<-|Formula|<!-- END REF -->
+|Result  |Text|<-|Formula|
 
 
 
 ## Description
 
-The `VP Get formula` command <!-- REF #_method_.VP Get formula.Summary -->retrieves the formula from a designated cell range<!-- END REF -->.
+The `VP Get formula` command retrieves the formula from a designated cell range.
 
 In *rangeObj*, pass a range whose formula you want to retrieve. If *rangeObj* designates multiple cells or multiple ranges, the formula of the first cell is returned. If *rangeObj* is a cell that does not contain a formula, the method returns an empty string.
 

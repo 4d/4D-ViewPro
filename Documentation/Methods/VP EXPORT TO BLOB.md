@@ -1,18 +1,18 @@
 # VP EXPORT TO BLOB
 
-<!-- REF #_method_.VP EXPORT TO BLOB.Syntax -->
-**VP EXPORT TO BLOB** ( *vpAreaName* : Text ; *paramObj* : Object ) <!-- END REF -->
 
-<!-- REF #_method_.VP EXPORT TO BLOB.Params -->
+**VP EXPORT TO BLOB** ( *vpAreaName* : Text ; *paramObj* : Object ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName   |Text|->|4D View Pro area form object name|
-|paramObj   |Object|->|Export options|<!-- END REF -->
+|paramObj   |Object|->|Export options|
 
 ## Description
 
-The `VP EXPORT TO BLOB` command <!-- REF #_method_.VP EXPORT TO BLOB.Summary -->exports the *vpAreaName* 4D View Pro document in a 4D.Blob according to the *paramObj* options.<!-- END REF --> The exported blob is available through the export callback. Exporting and importing 4D View Pro areas as blobs is fast and memory-efficient.
+The `VP EXPORT TO BLOB` command exports the *vpAreaName* 4D View Pro document in a 4D.Blob according to the *paramObj* options. The exported blob is available through the export callback. Exporting and importing 4D View Pro areas as blobs is fast and memory-efficient.
 
 In *paramObj*, you can pass several properties:
 

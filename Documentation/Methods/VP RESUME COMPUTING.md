@@ -1,17 +1,17 @@
 # VP RESUME COMPUTING
 
-<!-- REF #_method_.VP RESUME COMPUTING.Syntax -->
-**VP RESUME COMPUTING** ( *vpAreaName* : Text ) <!-- END REF -->
 
-<!-- REF #_method_.VP RESUME COMPUTING.Params -->
+**VP RESUME COMPUTING** ( *vpAreaName* : Text ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
-|vpAreaName   |Text|->|4D View Pro area form object name|<!-- END REF -->
+|vpAreaName   |Text|->|4D View Pro area form object name|
 
 ## Description
 
-The `VP RESUME COMPUTING` command <!-- REF #_method_.VP RESUME COMPUTING.Summary --> restarts the calculation of formulas in *vpAreaName*<!-- END REF -->.
+The `VP RESUME COMPUTING` command  restarts the calculation of formulas in *vpAreaName*.
 
 The command reactivates the calculation service in 4D View Pro. Any formulas impacted by changes made while calculations were suspended are updated, and formulas added after `VP RESUME COMPUTING` is executed are calculated.
 

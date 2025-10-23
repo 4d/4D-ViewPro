@@ -1,9 +1,9 @@
 # VP Cell
 
-<!-- REF #_method_.VP Cell.Syntax -->
-**VP Cell** ( *vpAreaName* : Text ; *column* : Integer ; *row* : Integer { ; *sheet* : Integer } )  : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Cell.Params -->
+**VP Cell** ( *vpAreaName* : Text ; *column* : Integer ; *row* : Integer { ; *sheet* : Integer } )  : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
@@ -12,11 +12,11 @@
 |row|Integer|->|Row index|
 |sheet|Integer|->|Sheet index (current sheet if omitted)|
 |Result|Object|<-|Range object of a single cell|
-<!-- END REF -->
+
 
 ## Description
 
-The `VP Cell` command <!-- REF #_method_.VP Cell.Summary -->returns a new range object referencing a specific cell<!-- END REF -->.
+The `VP Cell` command returns a new range object referencing a specific cell.
 
 > This command is intended for ranges of a single cell. To create a range object for multiple cells, use the [VP Cells](VP%20Cells.md) command.
 

@@ -1,19 +1,19 @@
 # VP REMOVE STYLESHEET
 
-<!-- REF #_method_.VP REMOVE STYLESHEET.Syntax -->
-**VP REMOVE STYLESHEET** ( *vpAreaName* : Text ; *styleName* : Text { ; *sheet* : Integer } ) <!-- END REF -->
 
-<!-- REF #_method_.VP REMOVE STYLESHEET.Params -->
+**VP REMOVE STYLESHEET** ( *vpAreaName* : Text ; *styleName* : Text { ; *sheet* : Integer } ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName   |Text|->|4D View Pro area form object name|
 |styleName   |Text|->|Name of style to remove|
-|sheet|Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet|Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP REMOVE STYLESHEET` command <!-- REF #_method_.VP REMOVE STYLESHEET.Summary -->removes the style sheet passed in the *styleName* from the *vpAreaName*<!-- END REF -->.
+The `VP REMOVE STYLESHEET` command removes the style sheet passed in the *styleName* from the *vpAreaName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

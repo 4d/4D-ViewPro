@@ -1,19 +1,19 @@
 # VP SET SHOW PRINT LINES
 
-<!-- REF #_method_.VP SET SHOW PRINT LINES.Syntax -->
-**VP SET SHOW PRINT LINES** ( *vpAreaName* : Text {; visible : Boolean}{; *sheet* : Integer} )<!-- END REF -->
 
-<!-- REF #_method_.VP SET SHOW PRINT LINES.Params -->
+**VP SET SHOW PRINT LINES** ( *vpAreaName* : Text {; visible : Boolean}{; *sheet* : Integer} )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName |Text|->|4D View Pro area form object name|
 |visible|Boolean|->|Print lines displayed if True (default), hidden if False|
-|sheet|Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet|Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP SET SHOW PRINT LINES` command <!-- REF #_method_.VP SET SHOW PRINT LINES.Summary --> sets whether to display print preview lines in a spreadsheet.<!-- END REF -->.
+The `VP SET SHOW PRINT LINES` command  sets whether to display print preview lines in a spreadsheet..
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

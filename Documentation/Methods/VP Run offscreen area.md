@@ -1,18 +1,18 @@
 # VP Run offscreen area
 
-<!-- REF #_method_.VP Run offscreen area.Syntax -->
-**VP Run offscreen area** ( *parameters* : Object) : Mixed<!-- END REF -->
 
-<!-- REF #_method_.VP Run offscreen area.Params -->
+**VP Run offscreen area** ( *parameters* : Object) : Mixed
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |parameters   |Object|->|Object containing the offscreen area's attributes|
-|Result   |Mixed|<-|`.result` property of the `.onEvent` object, or Null if does not return a value|<!-- END REF -->
+|Result   |Mixed|<-|`.result` property of the `.onEvent` object, or Null if does not return a value|
 
 ## Description
 
-The `VP Run offscreen area` command <!-- REF #_method_.VP Run offscreen area.Summary -->creates an offscreen area in memory which can be used to process 4D View Pro area commands and functions<!-- END REF -->.
+The `VP Run offscreen area` command creates an offscreen area in memory which can be used to process 4D View Pro area commands and functions.
 
 In *parameters* object, pass any of the following optional properties. These properties will be available through the `This` command within the `onEvent` method and reference the instance:
 

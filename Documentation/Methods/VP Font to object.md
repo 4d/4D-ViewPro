@@ -1,21 +1,21 @@
 # VP Font to object
 
-<!-- REF #_method_.VP Font to object.Syntax -->
-**VP Font to object** (  *font* : Text ) : Object<!-- END REF -->
+
+**VP Font to object** (  *font* : Text ) : Object
 
 
-<!-- REF #_method_.VP Font to object.Params -->
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |font  |Text|->|Font shorthand string|  
 |Result  |Object|<-|Font object|
-<!-- END REF -->
+
 
 
 ## Description
 
-The `VP Font to object` utility command <!-- REF #_method_.VP Font to object.Summary -->returns an object from a font shorthand string<!-- END REF -->. This object can then be used to set or get font property settings via object notation.
+The `VP Font to object` utility command returns an object from a font shorthand string. This object can then be used to set or get font property settings via object notation.
 
 In the *font* parameter, pass a font shorthand string to specify the different properties of a font (e.g., "12 pt Arial"). You can learn more about font shorthand strings [in this page](https://www.w3schools.com/cssref/pr_font_font.asp) for example.
 

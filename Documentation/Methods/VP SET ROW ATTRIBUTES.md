@@ -1,19 +1,19 @@
 # VP SET ROW ATTRIBUTES
 
-<!-- REF #_method_.VP SET ROW ATTRIBUTES.Syntax -->
-**VP SET ROW ATTRIBUTES** ( *rangeObj* : Object ; *propertyObj* : Object  ) <!-- END REF -->
+
+**VP SET ROW ATTRIBUTES** ( *rangeObj* : Object ; *propertyObj* : Object  ) 
 
 
-<!-- REF #_method_.VP SET ROW ATTRIBUTES.Params -->
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj |Object|->|Range of rows|
-|propertyObj |Object|->|Object containing row properties|<!-- END REF -->
+|propertyObj |Object|->|Object containing row properties|
 
 ## Description
 
-The `VP SET ROW ATTRIBUTES` command <!-- REF #_method_.VP SET ROW ATTRIBUTES.Summary -->applies the attributes defined in the *propertyObj* to the rows in the *rangeObj*<!-- END REF -->.
+The `VP SET ROW ATTRIBUTES` command applies the attributes defined in the *propertyObj* to the rows in the *rangeObj*.
 
 In the *rangeObj*, pass an object containing a range. If the range contains both columns and rows, attributes are applied only to the rows.
 

@@ -1,19 +1,19 @@
 # VP Get print info
 
-<!-- REF #_method_.VP Get print info.Syntax -->
-**VP Get print info** ( vpAreaName : Text { ; sheet : Integer } ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get print info.Params -->
+**VP Get print info** ( vpAreaName : Text { ; sheet : Integer } ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName  |Text|->|4D View Pro area form object name|
 |sheet  |Integer|->|Sheet index (current sheet if omitted)|
-|Result  |Object|<-|Object of printing information|<!-- END REF -->
+|Result  |Object|<-|Object of printing information|
 
 ## Description
 
-The `VP Get print info` command <!-- REF #_method_.VP Get print info.Summary -->returns an object containing the print attributes of the *vpAreaName*<!-- END REF -->.
+The `VP Get print info` command returns an object containing the print attributes of the *vpAreaName*.
 
 Pass the the name of the 4D View Pro area in *vpAreaName*. If you pass a name that does not exist, an error is returned.
 

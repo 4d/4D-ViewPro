@@ -1,19 +1,19 @@
 # VP SET SHEET NAME
 
-<!-- REF #_method_.VP SET SHEET NAME.Syntax -->
-**VP SET SHEET NAME** ( *vpAreaName* : Text ; *name* : Text {; *sheet*: Integer} )<!-- END REF -->
 
-<!-- REF #_method_.VP SET SHEET NAME.Params -->
+**VP SET SHEET NAME** ( *vpAreaName* : Text ; *name* : Text {; *sheet*: Integer} )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName |Text|->|4D View Pro area form object name|
 |name|Text|->|New name for the sheet|
-|sheet|Integer|->|Index of the sheet to be renamed|<!-- END REF -->
+|sheet|Integer|->|Index of the sheet to be renamed|
 
 ## Description
 
-The `VP SET SHEET NAME` command <!-- REF #_method_.VP SET SHEET NAME.Summary -->renames a sheet in the document loaded in *vpAreaName*<!-- END REF -->.
+The `VP SET SHEET NAME` command renames a sheet in the document loaded in *vpAreaName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

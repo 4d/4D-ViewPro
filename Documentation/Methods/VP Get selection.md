@@ -1,19 +1,19 @@
 # VP Get selection
 
-<!-- REF #_method_.VP Get selection.Syntax -->
-**VP Get selection** ( *vpAreaName* : Text {; *sheet* : Integer } ) ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get selection.Params -->
+**VP Get selection** ( *vpAreaName* : Text {; *sheet* : Integer } ) ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName  |Text|->|4D View Pro area from object name|
 |sheet  |Integer|->|Sheet index (current sheet if omitted)|
-|Result  |Object|<-|Range object of cells|<!-- END REF -->
+|Result  |Object|<-|Range object of cells|
 
 ## Description
 
-The `VP Get selection` command <!-- REF #_method_.VP Get selection.Summary -->returns a new range object referencing the current selected cells<!-- END REF -->.
+The `VP Get selection` command returns a new range object referencing the current selected cells.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

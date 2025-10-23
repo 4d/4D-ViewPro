@@ -1,19 +1,19 @@
 # VP SET ROW COUNT
 
-<!-- REF #_method_.VP SET ROW COUNT.Syntax -->
-**VP SET ROW COUNT** ( *vpAreaName* : Text ; *rowCount* : Integer { ; *sheet* : Integer }  ) <!-- END REF -->
 
-<!-- REF #_method_.VP SET ROW COUNT.Params -->
+**VP SET ROW COUNT** ( *vpAreaName* : Text ; *rowCount* : Integer { ; *sheet* : Integer }  ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName |Text|->|4D View Pro area form object name|
 |rowCount |Integer|->|Number of rows|
-|sheet|Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet|Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP SET ROW COUNT` command <!-- REF #_method_.VP SET ROW COUNT.Summary -->defines the total number of rows in *vpAreaName*<!-- END REF -->.
+The `VP SET ROW COUNT` command defines the total number of rows in *vpAreaName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

@@ -1,19 +1,19 @@
 # VP Get sheet name
 
-<!-- REF #_method_.VP Get sheet name.Syntax -->
-**VP Get sheet name** ( *vpAreaName* : Text ; *sheet* : Integer ) : Text<!-- END REF -->
 
-<!-- REF #_method_.VP Get sheet name.Params -->
+**VP Get sheet name** ( *vpAreaName* : Text ; *sheet* : Integer ) : Text
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName| Text|->|4D View Pro area form object name|
 |sheet| Integer|->|Sheet index|
-|Function result|Text|<-|Sheet name|<!-- END REF -->
+|Function result|Text|<-|Sheet name|
 
 ## Description
 
-The `VP Get sheet name` command <!-- REF #_method_.VP Get sheet name.Summary -->returns the name of a sheet based on its index in *vpAreaName*.<!-- END REF -->
+The `VP Get sheet name` command returns the name of a sheet based on its index in *vpAreaName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

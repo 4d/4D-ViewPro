@@ -1,19 +1,19 @@
 # VP All
 
-<!-- REF #_method_.VP All.Syntax -->
-**VP All** ( *vpAreaName* : Text { ; *sheet* : Integer } )  : Object<!-- END REF -->
 
-<!-- REF #_method_.VP All.Params -->
+**VP All** ( *vpAreaName* : Text { ; *sheet* : Integer } )  : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName| Text|->|4D View Pro area form object name|
 |sheet|Integer|->|Sheet index (current sheet if omitted)|
-|Result|Object|<-|Range object of all cells|<!-- END REF -->
+|Result|Object|<-|Range object of all cells|
 
 ## Description
 
-The `VP ALL` command <!-- REF #_method_.VP All.Summary -->returns a new range object referencing all cells<!-- END REF -->.
+The `VP ALL` command returns a new range object referencing all cells.
 
 In *vpAreaName*, pass the name of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

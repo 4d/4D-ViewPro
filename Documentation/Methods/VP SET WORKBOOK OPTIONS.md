@@ -1,18 +1,18 @@
 # VP SET WORKBOOK OPTIONS
 
-<!-- REF #_method_.VP SET WORKBOOK OPTIONS.Syntax -->
-**VP SET WORKBOOK OPTIONS** ( *vpAreaName* : Text ; *optionObj* : Object)<!-- END REF -->
 
-<!-- REF #_method_.VP SET WORKBOOK OPTIONS.Params -->
+**VP SET WORKBOOK OPTIONS** ( *vpAreaName* : Text ; *optionObj* : Object)
+
+
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName  |Text|->|4D View Pro area form object name|
-|optionObj |Object|->|Object containing the workbook options to be set|<!-- END REF -->
+|optionObj |Object|->|Object containing the workbook options to be set|
 
 ## Description
 
-`VP SET WORKBOOK OPTIONS` <!-- REF #_method_.VP SET WORKBOOK OPTIONS.Summary -->
-sets the workbook options in *vpAreaName*<!-- END REF -->.
+`VP SET WORKBOOK OPTIONS` 
+sets the workbook options in *vpAreaName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

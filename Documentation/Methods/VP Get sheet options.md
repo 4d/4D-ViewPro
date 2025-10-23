@@ -1,19 +1,19 @@
 # VP Get sheet options
 
-<!-- REF #_method_.VP Get sheet options.Syntax -->
-**VP Get sheet options** ( *vpAreaName* : Text {; *sheet* : Integer } ) ) : Object<!-- END REF -->
 
-<!-- REF #_method_.VP Get sheet options.Params -->
+**VP Get sheet options** ( *vpAreaName* : Text {; *sheet* : Integer } ) ) : Object
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName  |Text|->|4D View Pro area from object name|
 |sheet  |Integer|->|Sheet index (current sheet if omitted)|
-|Result  |Object|<-|Sheet options object|<!-- END REF -->
+|Result  |Object|<-|Sheet options object|
 
 ## Description
 
-The `VP Get sheet options` command <!-- REF #_method_.VP Get sheet options.Summary -->returns an object containing the current sheet options of the *vpAreaName* area<!-- END REF -->.
+The `VP Get sheet options` command returns an object containing the current sheet options of the *vpAreaName* area.
 
 Pass the name of the 4D View Pro area in *vpAreaName*. If you pass a name that does not exist, an error is returned.
 

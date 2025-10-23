@@ -1,18 +1,18 @@
 # VP Get values
 
-<!-- REF #_method_.VP Get values.Syntax -->
-**VP Get values** ( *rangeObj* : Object ) : Collection<!-- END REF -->
 
-<!-- REF #_method_.VP Get values.Params -->
+**VP Get values** ( *rangeObj* : Object ) : Collection
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |rangeObj   |Object|->|Range object|
-|Result  |Collection|<-|Collection of values|<!-- END REF -->
+|Result  |Collection|<-|Collection of values|
 
 ## Description
 
-The `VP Get values` command <!-- REF #_method_.VP Get values.Summary --> retrieves the values from the designated *rangeObj*<!-- END REF -->.
+The `VP Get values` command  retrieves the values from the designated *rangeObj*.
 
 In *rangeObj*, pass a range whose values you want to retrieve. If *rangeObj* includes multiple ranges, only the first range is used.
 

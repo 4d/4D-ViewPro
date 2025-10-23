@@ -1,17 +1,17 @@
 # VP DELETE ROWS
 
-<!-- REF #_method_.VP DELETE ROWS.Syntax -->
-**VP DELETE ROWS** ( *rangeObj* : Object )<!-- END REF -->
 
-<!-- REF #_method_.VP DELETE ROWS.Params -->
+**VP DELETE ROWS** ( *rangeObj* : Object )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
-|rangeObj| Object|->|Range object|<!-- END REF -->
+|rangeObj| Object|->|Range object|
 
 ## Description
 
-The `VP DELETE ROWS` command <!-- REF #_method_.VP DELETE ROWS.Summary -->removes the rows  in the *rangeObj*<!-- END REF -->.
+The `VP DELETE ROWS` command removes the rows  in the *rangeObj*.
 
 In *rangeObj*, pass an object containing a range of rows  to remove. If the passed range contains:
 

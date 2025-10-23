@@ -1,19 +1,19 @@
 # VP SET SHEET OPTIONS
 
-<!-- REF #_method_.VP SET SHEET OPTIONS.Syntax -->
-**VP SET SHEET OPTIONS** ( *vpAreaName* : Text; *sheetOptions* : Object { ; *sheet* : Integer}  ) <!-- END REF -->
 
-<!-- REF #_method_.VP SET SHEET OPTIONS.Params -->
+**VP SET SHEET OPTIONS** ( *vpAreaName* : Text; *sheetOptions* : Object { ; *sheet* : Integer}  ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |vpAreaName |Text|->|4D View Pro area name|
 |sheetOptions |Object|->|Sheet option(s) to set|
-|sheet |Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet |Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP SET SHEET OPTIONS` command <!-- REF #_method_.VP SET SHEET OPTIONS.Summary -->allows defining various sheet options of the *vpAreaName* area<!-- END REF -->.
+The `VP SET SHEET OPTIONS` command allows defining various sheet options of the *vpAreaName* area.
 
 Pass the name of the 4D View Pro area in *vpAreaName*. If you pass a name that does not exist, an error is returned.
 

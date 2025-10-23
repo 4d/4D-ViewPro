@@ -1,19 +1,19 @@
 # VP SET TEXT VALUE
 
-<!-- REF #_method_.VP SET TEXT VALUE.Syntax -->
-**VP SET TEXT VALUE** ( *rangeObj* : Object ; *textValue* : Text { ; *formatPattern* : Text }  ) <!-- END REF -->
 
-<!-- REF #_method_.VP SET TEXT VALUE.Params -->
+**VP SET TEXT VALUE** ( *rangeObj* : Object ; *textValue* : Text { ; *formatPattern* : Text }  ) 
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj |Object|->|Range object|
 |textValue |Text|->|Text value to set|
-|formatPattern |Text|->|Format of value|<!-- END REF -->
+|formatPattern |Text|->|Format of value|
 
 ## Description
 
-The `VP SET TEXT VALUE` command <!-- REF #_method_.VP SET TEXT VALUE.Summary -->assigns a specified text value to a designated cell range<!-- END REF -->.
+The `VP SET TEXT VALUE` command assigns a specified text value to a designated cell range.
 
 In *rangeObj*, pass a range of the cell(s) (created for example with [`VP Cell`](VP%20Cell.md) or [`VP Column`](VP%20Column.md)) whose value you want to specify. If *rangeObj* includes multiple cells, the value specified will be repeated in each cell.
 

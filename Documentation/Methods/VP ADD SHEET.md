@@ -1,19 +1,19 @@
 # VP ADD SHEET
 
-<!-- REF #_method_.VP ADD SHEET.Syntax -->
-**VP ADD SHEET** ( *vpAreaName* : Text )<br/>**VP ADD SHEET** ( *vpAreaName* : Text ; *index* : Integer )<br/>**VP ADD SHEET** ( *vpAreaName* : Text ; *sheet* : Integer ; *name* : Text )<!-- END REF -->
 
-<!-- REF #_method_.VP ADD SHEET.Params -->
+**VP ADD SHEET** ( *vpAreaName* : Text )<br/>**VP ADD SHEET** ( *vpAreaName* : Text ; *index* : Integer )<br/>**VP ADD SHEET** ( *vpAreaName* : Text ; *sheet* : Integer ; *name* : Text )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName| Text|->|4D View Pro area form object name|
 |sheet|Integer|-> |Index of the new sheet|
-|name|Text|->|Sheet name|<!-- END REF -->
+|name|Text|->|Sheet name|
 
 ## Description
 
-The `VP ADD SHEET` command <!-- REF #_method_.VP ADD SHEET.Summary -->inserts a sheet in the document loaded in *vpAreaName*.<!-- END REF -->
+The `VP ADD SHEET` command inserts a sheet in the document loaded in *vpAreaName*.
 
 In *vpAreaName*, pass the name of the 4D View Pro area.
 

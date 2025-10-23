@@ -1,19 +1,19 @@
 # VP Get stylesheets
 
-<!-- REF #_method_.VP Get stylesheets.Syntax -->
-**VP Get stylesheets** ( *vpAreaName* : Text { ; *sheet* : Integer } ) : Collection<!-- END REF -->
 
-<!-- REF #_method_.VP Get stylesheets.Params -->
+**VP Get stylesheets** ( *vpAreaName* : Text { ; *sheet* : Integer } ) : Collection
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName  |Text|->|4D View Pro area form object name|
 |sheet|Integer|->|Target scope (default = current sheet)|
-|Result  |Collection|<-|Collection of style sheet objects|<!-- END REF -->
+|Result  |Collection|<-|Collection of style sheet objects|
 
 ## Description
 
-The `VP Get stylesheets` command <!-- REF #_method_.VP Get stylesheets.Summary -->returns the collection of defined style sheet objects from the designated *sheet*<!-- END REF -->.
+The `VP Get stylesheets` command returns the collection of defined style sheet objects from the designated *sheet*.
 
 In *vpAreaName*, pass the name property of the 4D View Pro area. If you pass a name that does not exist, an error is returned.
 

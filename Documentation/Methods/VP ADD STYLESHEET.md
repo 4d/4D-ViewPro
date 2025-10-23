@@ -1,20 +1,20 @@
 # VP ADD STYLESHEET
 
-<!-- REF #_method_.VP ADD STYLESHEET.Syntax -->
-**VP ADD STYLESHEET** ( *vpAreaName* : Text ; *styleName* : Text ; *styleObj* : Object { ; *sheet* : Integer } )<!-- END REF -->
 
-<!-- REF #_method_.VP ADD STYLESHEET.Params -->
+**VP ADD STYLESHEET** ( *vpAreaName* : Text ; *styleName* : Text ; *styleObj* : Object { ; *sheet* : Integer } )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
 |vpAreaName| Text|->|4D View Pro area form object name|
 |styleName|Text|-> |Name of style|
 |styleObj|Object|->|Object defining attribute settings|
-|sheet|Integer|->|Sheet index (current sheet if omitted)|<!-- END REF -->
+|sheet|Integer|->|Sheet index (current sheet if omitted)|
 
 ## Description
 
-The `VP ADD STYLESHEET` command <!-- REF #_method_.VP ADD STYLESHEET.Summary -->creates or modifies the *styleName* style sheet based upon the combination of the properties specified in *styleObj* in the open document<!-- END REF -->. If a style sheet with the same name and index already exists in the document, this command will overwrite it with the new values.
+The `VP ADD STYLESHEET` command creates or modifies the *styleName* style sheet based upon the combination of the properties specified in *styleObj* in the open document. If a style sheet with the same name and index already exists in the document, this command will overwrite it with the new values.
 
 > Style sheets created by this command are saved with the document.
 

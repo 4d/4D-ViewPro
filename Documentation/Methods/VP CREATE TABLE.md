@@ -2,21 +2,21 @@
 
 
 
-<!-- REF #_method_.VP CREATE TABLE.Syntax -->
-**VP CREATE TABLE** ( *rangeObj* : Object ; *tableName* : Text {; *source* : Text} {; *options* : cs.ViewPro.TableOptions} )<!-- END REF -->
 
-<!-- REF #_method_.VP CREATE TABLE.Params -->
+**VP CREATE TABLE** ( *rangeObj* : Object ; *tableName* : Text {; *source* : Text} {; *options* : cs.ViewPro.TableOptions} )
+
+
 
 |Parameter|Type||Description|
 |---|---|---|---|
 |rangeObj|Object|->|Range object|
 |tableName|Text|->|Name for the table|
 |source|Text|->|Data context property name to display in the table|
-|options|[cs.ViewPro.TableOptions](../classes.md#tableoptions)|->|Additional options|<!-- END REF -->
+|options|[cs.ViewPro.TableOptions](../classes.md#tableoptions)|->|Additional options|
 
 ## Description
 
-The `VP CREATE TABLE` command <!-- REF #_method_.VP CREATE TABLE.Summary -->creates a table in the specified range<!-- END REF -->. You can create a table in a range of cells to make managing and analyzing a group of related data easier. A table typically contains related data in rows and columns, and takes advantage of a [data context](vp-set-data-context).
+The `VP CREATE TABLE` command creates a table in the specified range. You can create a table in a range of cells to make managing and analyzing a group of related data easier. A table typically contains related data in rows and columns, and takes advantage of a [data context](vp-set-data-context).
 
 ![](../images/vp-create-table.png)
 

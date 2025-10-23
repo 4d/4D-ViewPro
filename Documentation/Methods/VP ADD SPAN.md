@@ -1,13 +1,13 @@
 # VP ADD SPAN
 
-<!-- REF #_method_.VP ADD SPAN.Syntax -->
-**VP ADD SPAN** ( *rangeObj* : Object )<!-- END REF -->
 
-<!-- REF #_method_.VP ADD SPAN.Params -->
+**VP ADD SPAN** ( *rangeObj* : Object )
+
+
 
 |Parameter|Type| |Description|
 |---|---|---|---|
-|rangeObj| Object|->|Range object|<!-- END REF -->
+|rangeObj| Object|->|Range object|
 
 ## Description
 
