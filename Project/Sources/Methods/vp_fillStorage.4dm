@@ -3,7 +3,7 @@
 
 $o.version:=1
 $o.extension:=".4vp"
-$o.spreadJSVersion:="17.1.0"
+$o.spreadJSVersion:="18.2.0"
 $o.options:=New shared object:C1526
 
 Use ($o.options)
