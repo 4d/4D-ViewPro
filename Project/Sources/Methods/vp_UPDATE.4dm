@@ -14,36 +14,7 @@ ________________________________________________________
 // Update according ViewPro version
 // ----------------------------------------------------
 // Declarations
-C_OBJECT:C1216($1)
-
-
-C_OBJECT:C1216($Obj_in)
-
-If (False:C215)
-	C_OBJECT:C1216(vp_UPDATE; $1)
-End if 
-
-// ----------------------------------------------------
-// Initialisations
-var $nbParameters:=Count parameters:C259
-
-If (Asserted:C1132($nbParameters>=1; "Missing parameter"))
-	
-	// Required parameters
-	$Obj_in:=$1  // 4DVP object
-	
-	// Optional parameters
-	If ($nbParameters>=2)
-		
-		// <NONE>
-		
-	End if 
-	
-Else 
-	
-	ABORT:C156
-	
-End if 
+#DECLARE($Obj_in : Object)
 
 // ----------------------------------------------------
 If (Storage:C1525.ViewPro.available)
@@ -69,9 +40,3 @@ If (Storage:C1525.ViewPro.available)
 	vp_UPDATE_SJS($Obj_in.spreadJS)
 	
 End if 
-
-// ----------------------------------------------------
-// Return
-// <NONE>
-// ----------------------------------------------------
-// End

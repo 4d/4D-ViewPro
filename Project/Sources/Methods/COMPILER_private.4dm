@@ -17,12 +17,6 @@ C_OBJECT:C1216(vp_METADATA; $1)
 C_TEXT:C284(vp_METADATA; $2)
 
 //___________________________________
-C_OBJECT:C1216(vp_UPDATE; $1)
-
-//___________________________________
-C_OBJECT:C1216(vp_UPDATE_SJS; $1)
-
-//___________________________________
 C_TEXT:C284(vp_endInit; $1)
 C_TEXT:C284(vp_endInit; $2)
 C_BOOLEAN:C305(vp_endInit; $3)
