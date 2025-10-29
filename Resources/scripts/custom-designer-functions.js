@@ -131,38 +131,112 @@ customDesignerFunctions.handlerExportCsvSetting = function (setting) {
 
 
 customDesignerFunctions.init = function () {
-  /*
-  let moduleSupportedFunctions = exported_modules.c["./src/commands/ribbon/formulas/functions/supportedFunctions/supportedFunctions.ts"].exports;
-  moduleSupportedFunctions.allFunctionItems = moduleSupportedFunctions.allFunctionItems.concat(customDesignerFunctions.getCustomFunctionsList());
-  moduleSupportedFunctions.allFunctionItems.sort(function (a, b) {
-    return a.text.localeCompare(b.text);
-  });
+    var TemplateNames = GC.Spread.Sheets.Designer.TemplateNames;
 
-  let moduleInsertFunctionDialog = exported_modules.c["./src/commands/ribbon/formulas/functionHandler/insertFunctionDialog.tpl.ts"].exports;
-   moduleInsertFunctionDialog.insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[13].items = customDesignerFunctions.getCustomFunctionsList();
-  moduleInsertFunctionDialog.insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[0].items = moduleSupportedFunctions.allFunctionItems;
-  */
+    console.log("Remove 'export JS file' button from interface")
+    var template = GC.Spread.Sheets.Designer.getTemplate(TemplateNames.FileMenuPanelTemplate);
+    // Try the known path first
+    let removed = false;
+    try {
+      const exportSSJsonPanel = template.content[0].children[0].children[1].children[2].children[1].children[1].children[0].children;
+      
+      if (exportSSJsonPanel && Array.isArray(exportSSJsonPanel)) {
+        const buttonIndex = exportSSJsonPanel.findIndex(child => 
+          child && child.bindingPath === "button_export_javascript"
+        );
+        
+        if (buttonIndex !== -1) {
+          console.log("Found 'export JS file' button at known path, index:", buttonIndex);
+          exportSSJsonPanel.splice(buttonIndex, 1);
+          console.log("Successfully removed 'export JS file' button!");
+          removed = true;
+        }
+      }
+    } catch (error) {
+      console.warn("Remove 'export JS file' button from interface: Known path not accessible:", error.message);
+    }
 
-   // add custom functions to the custom section of the insert function dialog
+    // If not found at known path, search recursively
+    if (!removed) {
+      console.warn("Button not found at known path, searching entire template...");
+      
+      function findAndRemoveButton(obj, path = "") {
+        if (!obj || typeof obj !== 'object') return null;
+        
+        if (Array.isArray(obj)) {
+          for (let i = 0; i < obj.length; i++) {
+            if (obj[i] && obj[i].bindingPath === "button_export_javascript") {
+              const foundPath = path + "[" + i + "]";
+              console.error("ALERT: Button found at NEW PATH:", foundPath);
+              console.error("Please update the code with this new path!");
+              console.log("Button object:", obj[i]);
+              obj.splice(i, 1);
+              console.log("Successfully removed 'export JS file' button!");
+              return foundPath;
+            }
+            const result = findAndRemoveButton(obj[i], path + "[" + i + "]");
+            if (result) return result;
+          }
+        } else {
+          for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              const result = findAndRemoveButton(obj[key], path + "." + key);
+              if (result) return result;
+            }
+          }
+        }
+        return null;
+      }
 
-    console.log("inject custom function in panel")
+      removed = findAndRemoveButton(template, "template");
+      if (!removed) {
+        console.error("ERROR: 'export JS file' button with bindingPath 'button_export_javascript' not found in entire template!");
+      }
+    }
+    if (removed) {
+      GC.Spread.Sheets.Designer.registerTemplate(TemplateNames.FileMenuPanelTemplate, template);
+    }
 
-    var InsertFunctionDialogTemplate = "insertFunctionDialogTemplate" // TemplateNames.InsertFunctionDialogTemplate
-    var template = GC.Spread.Sheets.Designer.getTemplate(InsertFunctionDialogTemplate);
+    console.log("Add custom functions to the custom section of the insert function dialog")
+    template = GC.Spread.Sheets.Designer.getTemplate(TemplateNames.InsertFunctionDialogTemplate);
+    try {
       const prop$8 = (o, o1) => `${o}.${o1}`;
-    // TODO BETTER: inject new ones
-    //template.content[0].children[0].children[1].children[1].children[12].items = customDesignerFunctions.getCustomFunctionsList();
-    template.content[0].children[0].children[1].children[1].children.push({
-      type: "List",
-      visibleWhen: prop$8("functionDesc", "functionCategory") + "=14",
-      bindingPath: prop$8("functionDesc", "customFunction"),
-      items: customDesignerFunctions.getCustomFunctionsList(),
-      keyboardSearch: true,
-      dblClickSubmit: true
-    });
+      template.content[0].children[0].children[1].children[1].children.unshift({
+        type: "List",
+        visibleWhen: prop$8("functionDesc", "functionCategory") + "=" + String(template.content[0].children[0].children[1].children[1].children.length),
+        bindingPath: prop$8("functionDesc", "customFunction"),
+        items: customDesignerFunctions.getCustomFunctionsList(),
+        keyboardSearch: true,
+        dblClickSubmit: true
+      });
+      template.content[0].children[0].children[0].children[1].items.sort(function (a, b) {
+        return a.text.localeCompare(b.text);
+      });
+      GC.Spread.Sheets.Designer.registerTemplate(TemplateNames.InsertFunctionDialogTemplate, template);
+    } catch (error) {
+      console.warn("Add custom functions to the custom section: ", error.message);
+    }
+    template = GC.Spread.Sheets.Designer.getTemplate(TemplateNames.InsertFunctionAllowDynamicArrayDialogTemplate);
+    try {
+      const prop$8 = (o, o1) => `${o}.${o1}`;
+      template.content[0].children[0].children[1].children[1].children.unshift({
+        type: "List",
+        visibleWhen: prop$8("functionDesc", "functionCategory") + "=" + String(template.content[0].children[0].children[1].children[1].children.length),
+        bindingPath: prop$8("functionDesc", "customFunction"),
+        items: customDesignerFunctions.getCustomFunctionsList(),
+        keyboardSearch: true,
+        dblClickSubmit: true
+      });
+      template.content[0].children[0].children[0].children[1].items.sort(function (a, b) {
+        return a.text.localeCompare(b.text);
+      });
+      GC.Spread.Sheets.Designer.registerTemplate(TemplateNames.InsertFunctionAllowDynamicArrayDialogTemplate, template);
+    } catch (error) {
+      console.warn("Add custom functions to the custom dynamic section: ", error.message);
+    }
+    
 
     // todo localize stuff here?
-    GC.Spread.Sheets.Designer.registerTemplate("insertFunctionDialogTemplate", template);
 };
 
  class ViewProAppBase {
