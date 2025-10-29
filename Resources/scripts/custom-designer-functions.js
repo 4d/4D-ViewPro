@@ -122,6 +122,13 @@ customDesignerFunctions.fillWithTruncatedArraySystemFonts = function () {
   });
 };
 
+customDesignerFunctions.handlerExportCsvSetting = function (setting) {
+      var rowDelimiter = (setting.rowDelimiter || "\r");
+      let columnDelimiter = setting.columnDelimiter || ",";
+      setting.rowDelimiter = rowDelimiter.replace(/\\r/g, "\r").replace(/\\n/g, "\n").replace(/\\t/g, "\t");
+      setting.columnDelimiter = columnDelimiter.replace(/\\r/g, '\r').replace(/\\n/g, '\n').replace(/\\t/g, '\t');
+};
+
 
 customDesignerFunctions.init = function () {
   /*
@@ -137,5 +144,139 @@ customDesignerFunctions.init = function () {
   */
 
    // add custom functions to the custom section of the insert function dialog
-   vp_insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[13].items = customDesignerFunctions.getCustomFunctionsList();
+
+    console.log("inject custom function in panel")
+
+    var InsertFunctionDialogTemplate = "insertFunctionDialogTemplate" // TemplateNames.InsertFunctionDialogTemplate
+    var template = GC.Spread.Sheets.Designer.getTemplate(InsertFunctionDialogTemplate);
+      const prop$8 = (o, o1) => `${o}.${o1}`;
+    // TODO BETTER: inject new ones
+    //template.content[0].children[0].children[1].children[1].children[12].items = customDesignerFunctions.getCustomFunctionsList();
+    template.content[0].children[0].children[1].children[1].children.push({
+      type: "List",
+      visibleWhen: prop$8("functionDesc", "functionCategory") + "=14",
+      bindingPath: prop$8("functionDesc", "customFunction"),
+      items: customDesignerFunctions.getCustomFunctionsList(),
+      keyboardSearch: true,
+      dblClickSubmit: true
+    });
+
+    // todo localize stuff here?
+    GC.Spread.Sheets.Designer.registerTemplate("insertFunctionDialogTemplate", template);
 };
+
+ class ViewProAppBase {
+    constructor() {
+        this._ms = [ null, null, () => { return 0 }, () => {} ];
+    }
+    notifyReady() {
+        customDesignerFunctions.notifyReady();  
+    }
+    showOpenDialog(options) {
+        return Promise.reject({
+            status: "",
+            fileName: ""
+        });
+    }
+    open(fileName) {
+        return {
+            status: "",
+            message: "",
+            data: "",
+            fileName: ""
+        };
+    }
+    save(fileName, data2, isJSFile) {
+        // customDesignerFunctions.saveAs
+        return failed;
+    }
+    exit() {}
+    importFile(fileName, options) {
+        return Promise.resolve(failed);
+    }
+    showSaveDialog(options) {
+        return cancelled;
+    }
+    exportFile(fileName, data2) {
+        return Promise.resolve(failed);
+    }
+    needActive() {
+        return true;
+    }
+    setClipboardData(data2) {}
+    getClipboardText() {
+        return "";
+    }
+    getBase64(fileName) {
+        return "";
+    }
+    getClipboardHTML() {
+        return "";
+    }
+    getSystemFonts() {
+        return customDesignerFunctions.fillWithTruncatedArraySystemFonts();
+    }
+    closeAllWindows() {}
+    setClipboardText(text) {}
+    setClipboardHTML(string) {}
+    getFileInfo(fullPath) {
+        // dir, fileName
+        return {};
+    }
+    joinPath(segments) {
+        return segments && segments.toString();
+    }
+    config(name, value) {
+        if (value === void 0) {
+            return this.getConfig(name);
+        } else {
+            this.setConfig(name, value);
+            return osEnv;
+        }
+    }
+    getConfig(name) {
+        this.initConfig(true);
+        let path = name.split(".");
+        let value = this._config;
+        if (value) {
+            for (let i = 0; i < path.length; i++) {
+                let sub = value[path[i]];
+                if (sub === void 0) {
+                    return void 0;
+                }
+                value = sub;
+            }
+            if (name === _createdDateKey) {
+                let n = parseInt(value, 36);
+                return isNaN(n) ? null : new Date(n);
+            }
+            return value;
+        } else {
+            return void 0;
+        }
+    }
+    initConfig(onget) {
+        if (this._config === void 0) {
+            this._config = {};
+        }
+    }
+    setConfig(name, value) {
+        this.initConfig(false);
+        let path = name.split(".");
+        let item = this._config;
+        if (item) {
+            for (let i = 0; i < path.length - 1; i++) {
+                let sub = item[path[i]];
+                if (sub === void 0) {
+                    item[path[i]] = sub = {};
+                }
+                item = sub;
+            }
+            item[path[path.length - 1]] = value;
+        }
+    }
+    restartApp() {}
+}
+
+window.osenv = new ViewProAppBase();
+window.gc_native_app = true;
