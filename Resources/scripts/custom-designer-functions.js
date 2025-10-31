@@ -111,6 +111,16 @@ customDesignerFunctions.getCustomFunctionsList = function () {
   });
 };
 
+customDesignerFunctions.getFirstCustomFunctionName = function () {
+  const list = Utils.customFunctionNames;
+  if (list.length == 0) {
+    console.log("not yey");
+    return "ABS" // just none
+  }
+  list.sort();
+  return list[0];
+};
+
 customDesignerFunctions.fillWithArraySystemFonts = function () {
   return vp_fonts.map(val => { return { text: val, value: val }; });
 };
