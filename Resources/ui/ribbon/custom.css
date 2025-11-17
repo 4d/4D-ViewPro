@@ -42,3 +42,8 @@ body {
 .hidden {
     display: none;
 }
+
+.gc-designer-new-sheet-temmplate-container[role="button"] {
+    pointer-events: auto !important;
+}
+
