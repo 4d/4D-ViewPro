@@ -253,8 +253,13 @@
                 if (i.rowCount < minHeight) {
                     i.rowCount = minHeight;
                 }
-
-                const table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
+                var table = null;
+                try {
+                    table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
+                } catch (e) {
+                    Utils.spread.resumeCalcService(true); // Case ID: CAS-59946-R8S4C1 (SJS-32502): resume not called if error occurs
+                    throw e;
+                }
                 const tryToGetAutoCreatedColumn = Utils._tryToGetAutoCreatedColumn;
                 if (table != null) {
                     if (columns.length > 0) {
