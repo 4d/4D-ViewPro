@@ -47,3 +47,6 @@ body {
     pointer-events: auto !important;
 }
 
+.gc-image-button[aria-label="Sauvegarder"] {
+    width: 90px !important;
+}
