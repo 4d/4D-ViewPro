@@ -243,7 +243,18 @@ customDesignerFunctions.init = function () {
     } catch (error) {
       console.warn("Add custom functions to the custom dynamic section: ", error.message);
     }
-    
+
+    template = GC.Spread.Sheets.Designer.getTemplate(TemplateNames.FormatDialogTemplate);
+    try {
+      if(template.content[0].width<720)
+      {
+        template.content[0].width = 720;
+      }
+      GC.Spread.Sheets.Designer.registerTemplate(TemplateNames.FormatDialogTemplate, template);
+    } catch (error) {
+      console.warn("Change format dialog width failed: ", error.message);
+    }
+
 
     // todo localize stuff here?
 };
