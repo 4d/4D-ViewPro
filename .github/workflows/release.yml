@@ -42,6 +42,7 @@ jobs:
           product-line: vcs
           version: vcs
           build: official
+          generate-syntax-file: "false"
           token: ${{ secrets.DLTK }}
           after-build: "./Components/${{ secrets.POST_BUILD_REPO }}/${{ secrets.POST_BUILD_SCRIPT }}"
           sign-certificate: "${{ secrets.SIGN_CERTIFICATE }}"
