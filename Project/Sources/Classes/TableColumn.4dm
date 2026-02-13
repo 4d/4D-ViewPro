@@ -1,4 +1,9 @@
-
+// The table column's property name in the data context.
+property dataField : Text
+// The table column's formatter.
+property formatter : Text
+// The table column's name (mandatory).
+property name : Text
 
 Class constructor( ...  : Variant)
 	var $nbParameters : Integer

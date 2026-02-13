@@ -1,12 +1,18 @@
 
+// Indicates whether to display an alternating column style.
 property bandColumns : Boolean
+// Indicates whether to display an alternating row style.
 property bandRows : Boolean
 
+// Indicates whether to highlight the first column.
 property highlightFirstColumn : Boolean
+// Indicates whether to highlight the last column.
 property highlightLastColumn : Boolean
 
+// Indicates whether to display a footer.
 property showFooter : Boolean
 
+// Defines a table theme. If Text: name of a native SpreadJS theme.
 property theme : cs:C1710.TableThemeOptions
 
 Function test()
