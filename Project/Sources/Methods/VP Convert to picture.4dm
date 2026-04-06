@@ -7,7 +7,7 @@ err_TRY
 ARRAY LONGINT:C221($colPos; 0)
 ARRAY LONGINT:C221($rowPos; 0)
 
-var $sheets; $table; $cell; $style : Object
+var $sheets; $table; $cell; $style; $compositeStyle; $conditionalFormat : Object
 var $lineObj; $obj; $defaultStyle : Object
 var $namedStyle; $workbook; $parsedStyle; $bcObj : Object
 var $strPart : Object
@@ -25,7 +25,7 @@ var $borderOffset : Real
 var $pictWidth; $pictHeight : Real
 var $pictX; $pictY : Real
 
-var $valCol; $namedStyleCol; $sheetCol; $namedStyleQuery; $bgImgCol : Collection
+var $valCol; $namedStyleCol; $sheetCol; $namedStyleQuery; $bgImgCol; $conditionalVectorCol : Collection
 var $visible; $condition; $cascadingStyleSheet; $borderOrientation; $drawLine; $displayValue : Boolean
 
 
@@ -633,6 +633,8 @@ For ($iterY; $range.y1; $range.y2)
 				$borderOffset:=0
 				
 				$cell:=Null:C1517
+				$compositeStyle:=Null:C1517
+				$conditionalFormat:=Null:C1517
 				
 				
 				If ($table#Null:C1517)
@@ -640,6 +642,12 @@ For ($iterY; $range.y1; $range.y2)
 						If ($table[String:C10($iterY)][String:C10($iterX)]#Null:C1517)
 							If (Value type:C1509($table[String:C10($iterY)][String:C10($iterX)])=Is object:K8:27)
 								$cell:=$table[String:C10($iterY)][String:C10($iterX)]
+								If (Value type:C1509($cell.compositeStyle)=Is object:K8:27)
+									$compositeStyle:=$cell.compositeStyle
+								End if 
+								If (Value type:C1509($cell.conditionalFormat)=Is object:K8:27)
+									$conditionalFormat:=$cell.conditionalFormat
+								End if 
 								
 								Case of 
 									: (Value type:C1509($cell.style)=Is object:K8:27)
@@ -660,6 +668,16 @@ For ($iterY; $range.y1; $range.y2)
 											End if 
 										End if 
 								End case 
+								
+								If ($conditionalFormat#Null:C1517)
+									If (Value type:C1509($conditionalFormat.style)=Is object:K8:27)
+										svg_parseStyle($conditionalFormat.style; $parsedStyle)
+									End if 
+								End if 
+								
+								If ($compositeStyle#Null:C1517)
+									svg_parseStyle($compositeStyle; $parsedStyle)
+								End if 
 								
 								If ($style#Null:C1517)
 									svg_parseStyle($style; $parsedStyle)
@@ -974,6 +992,36 @@ End if
 						$displayValue:=False:C215
 					End if 
 					
+				End if 
+				
+				If ($conditionalFormat#Null:C1517)
+					If (Value type:C1509($conditionalFormat.vector)=Is object:K8:27)
+						
+						$x1:=$colPos{Int:C8($iterX-$range.x1+1)}
+						$y1:=$rowPos{Int:C8($iterY-$range.y1+1)}
+						
+						Case of 
+							: ($cellMergeStatus.type=FREE)
+								$height:=$rowHeight
+								$width:=$colWidth
+								
+							: ($cellMergeStatus.type=EATER)
+								$height:=$rowPos{Int:C8($iterY+$cellMergeStatus.rowCount-$range.y1+1)}-$y1
+								$width:=$colPos{Int:C8($iterX+$cellMergeStatus.colCount-$range.x1+1)}-$x1
+								
+						End case 
+						
+						If ($conditionalVectorCol=Null:C1517)
+							$conditionalVectorCol:=New collection:C1472
+						End if 
+						
+						$conditionalVectorCol.push(New object:C1471("x"; $x1; "y"; $y1; "w"; $width; "h"; $height; "vector"; $conditionalFormat.vector))
+						
+					End if 
+					
+					If ($conditionalFormat.hideValue=True:C214)
+						$displayValue:=False:C215
+					End if 
 				End if 
 				
 				// MARK: Ajout de la value avec toutes les options
@@ -1604,6 +1652,7 @@ End for
 // MARK:- Drawing SVG Elements
 svg_drawBackColor($svgRef; $bcObj.bcCol)
 svg_drawBgImg($svgRef; $bgImgCol)
+svg_drawConditionalVector($svgRef; $conditionalVectorCol)
 svg_drawCellValue($svgRef; $valCol; Choose:C955(($svgHeight>$maxSvgHeight); $maxSvgHeight; $svgHeight); Choose:C955(($svgWidth>$maxSvgWidth); $maxSvgWidth; $svgWidth))
 
 svg_sortLineMap($lineObj; $range)

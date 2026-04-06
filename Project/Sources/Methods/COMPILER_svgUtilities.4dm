@@ -187,6 +187,14 @@ C_TEXT:C284(svg_drawBgImg; $1)
 C_COLLECTION:C1488(svg_drawBgImg; $2)
 
 //__________________________________
+C_TEXT:C284(svg_drawConditionalVector; $1)
+C_COLLECTION:C1488(svg_drawConditionalVector; $2)
+
+//__________________________________
+C_TEXT:C284(svg_appendConditionalVectorNode; $1)
+C_OBJECT:C1216(svg_appendConditionalVectorNode; $2)
+
+//__________________________________
 C_TEXT:C284(svg_drawGridline; $1)
 C_OBJECT:C1216(svg_drawGridline; $2)
 C_OBJECT:C1216(svg_drawGridline; $3)

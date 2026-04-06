@@ -175,6 +175,11 @@ Utils.addCommand('export-json', function (params) {
     Utils.addFormatedText(doc.spreadJS);
   }
 
+  if (!serializationOption.ignoreStyle) {
+    Utils.addCompositeStyles(doc.spreadJS);
+    Utils.addConditionalFormattingSnapshots(doc.spreadJS);
+  }
+
   return doc;
 });
 
@@ -1237,6 +1242,857 @@ Utils.addFormatedText = function (json) {
         }
       }
     }
+    sheetIndex++;
+  }
+};
+
+// Convert runtime SpreadJS objects into plain JSON-safe values for export.
+Utils._serializeJSONValue = function (value, depth = 0) {
+  if (depth > 8) {
+    return null;
+  }
+
+  if ((value == null) || (typeof value === 'string') || (typeof value === 'number') || (typeof value === 'boolean')) {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    const result = [];
+
+    value.forEach(element => {
+      const serializedElement = Utils._serializeJSONValue(element, depth + 1);
+      if (serializedElement !== undefined) {
+        result.push(serializedElement);
+      }
+    });
+
+    return result;
+  }
+
+  if (typeof value === 'object') {
+    if ((typeof value.toJSON === 'function') && !Array.isArray(value)) {
+      try {
+        const jsonValue = value.toJSON();
+        if (jsonValue !== value) {
+          return Utils._serializeJSONValue(jsonValue, depth + 1);
+        }
+      } catch (error) {
+      }
+    }
+
+    const result = {};
+
+    Object.keys(value).forEach(key => {
+      const serializedProperty = Utils._serializeJSONValue(value[key], depth + 1);
+      if (serializedProperty !== undefined) {
+        result[key] = serializedProperty;
+      }
+    });
+
+    return (Object.keys(result).length > 0) ? result : null;
+  }
+
+  return undefined;
+};
+
+// Ensure the workbook JSON contains a writable dataTable for cell-level additions.
+Utils._ensureSheetDataTable = function (sheet) {
+  if ((sheet.data == null) || (typeof sheet.data !== 'object')) {
+    sheet.data = {};
+  }
+
+  if ((sheet.data.dataTable == null) || (typeof sheet.data.dataTable !== 'object')) {
+    sheet.data.dataTable = {};
+  }
+
+  return sheet.data.dataTable;
+};
+
+// Return the exported cell object, creating row and column entries on demand.
+Utils._ensureCellObject = function (sheet, row, column) {
+  const dataTable = Utils._ensureSheetDataTable(sheet);
+  const rowKey = String(row);
+  const columnKey = String(column);
+
+  if ((dataTable[rowKey] == null) || (typeof dataTable[rowKey] !== 'object')) {
+    dataTable[rowKey] = {};
+  }
+
+  if ((dataTable[rowKey][columnKey] == null) || (typeof dataTable[rowKey][columnKey] !== 'object')) {
+    dataTable[rowKey][columnKey] = {};
+  }
+
+  return dataTable[rowKey][columnKey];
+};
+
+// Extract a numeric font size from a CSS-like font string.
+Utils._extractFontSize = function (font) {
+  if (typeof font !== 'string') {
+    return null;
+  }
+
+  const fontMatch = font.match(/(\d+(?:\.\d+)?)(px|pt)/i);
+
+  if (!fontMatch) {
+    return null;
+  }
+
+  let fontSize = Number(fontMatch[1]);
+  if (!Number.isFinite(fontSize)) {
+    return null;
+  }
+
+  if ((fontMatch[2] != null) && (fontMatch[2].toLowerCase() === 'pt')) {
+    fontSize = fontSize * (96 / 72);
+  }
+
+  return fontSize;
+};
+
+// Estimate the line height SpreadJS uses when positioning conditional icons.
+Utils._getConditionalOverlayLineHeight = function (style, cellHeight) {
+  if ((style != null) && (typeof style._lineHeight === 'number') && Number.isFinite(style._lineHeight) && (style._lineHeight > 0)) {
+    return style._lineHeight;
+  }
+
+  if ((GC != null) && (GC.Spread != null) && (GC.Spread.Sheets != null) && (GC.Spread.Sheets._StyleHelper != null) && (typeof GC.Spread.Sheets._StyleHelper._scaleSplitFont === 'function')) {
+    try {
+      const fontInfo = GC.Spread.Sheets._StyleHelper._scaleSplitFont(style || {}, 1);
+
+      if ((fontInfo != null) && (typeof fontInfo.lineHeight === 'number') && Number.isFinite(fontInfo.lineHeight) && (fontInfo.lineHeight > 0)) {
+        return fontInfo.lineHeight;
+      }
+
+      if ((fontInfo != null) && (typeof fontInfo.fontSize === 'number') && Number.isFinite(fontInfo.fontSize) && (fontInfo.fontSize > 0)) {
+        return fontInfo.fontSize * 1.2;
+      }
+    } catch (error) {
+    }
+  }
+
+  const fontSize = Utils._extractFontSize(style && style.font);
+  if ((fontSize != null) && (fontSize > 0)) {
+    return fontSize * 1.2;
+  }
+
+  return Math.max(12, Math.min(Math.max(cellHeight - 4, 0), 16));
+};
+
+// Expand and clamp SpreadJS conditional-format ranges to concrete sheet bounds.
+Utils._normalizeConditionalRange = function (sheet, range) {
+  if ((sheet == null) || (range == null) || (typeof range !== 'object')) {
+    return null;
+  }
+
+  const maxRow = sheet.getRowCount();
+  const maxColumn = sheet.getColumnCount();
+  let row = (typeof range.row === 'number') ? range.row : 0;
+  let column = (typeof range.col === 'number') ? range.col : 0;
+  let rowCount = (typeof range.rowCount === 'number') ? range.rowCount : 1;
+  let columnCount = (typeof range.colCount === 'number') ? range.colCount : 1;
+
+  if (row < 0) {
+    row = 0;
+    rowCount = maxRow;
+  }
+
+  if (column < 0) {
+    column = 0;
+    columnCount = maxColumn;
+  }
+
+  if (rowCount < 0) {
+    rowCount = maxRow - row;
+  }
+
+  if (columnCount < 0) {
+    columnCount = maxColumn - column;
+  }
+
+  rowCount = Math.max(0, Math.min(rowCount, maxRow - row));
+  columnCount = Math.max(0, Math.min(columnCount, maxColumn - column));
+
+  if ((rowCount === 0) || (columnCount === 0)) {
+    return null;
+  }
+
+  return { row, col: column, rowCount, colCount: columnCount };
+};
+
+// Intersect two normalized ranges to reduce oversized rule scans.
+Utils._intersectConditionalRanges = function (rangeA, rangeB) {
+  if ((rangeA == null) || (rangeB == null)) {
+    return rangeA;
+  }
+
+  const row = Math.max(rangeA.row, rangeB.row);
+  const col = Math.max(rangeA.col, rangeB.col);
+  const rowEnd = Math.min(rangeA.row + rangeA.rowCount, rangeB.row + rangeB.rowCount);
+  const colEnd = Math.min(rangeA.col + rangeA.colCount, rangeB.col + rangeB.colCount);
+
+  if ((rowEnd <= row) || (colEnd <= col)) {
+    return null;
+  }
+
+  return { row, col, rowCount: rowEnd - row, colCount: colEnd - col };
+};
+
+// Keep exported SVG coordinates compact and stable.
+Utils._roundConditionalVectorNumber = function (value) {
+  if ((typeof value !== 'number') || !Number.isFinite(value)) {
+    return 0;
+  }
+
+  return Math.round(value * 1000) / 1000;
+};
+
+// Multiply two 2D affine matrices used by the SVG recorder.
+Utils._multiplyConditionalVectorMatrix = function (matrixA, matrixB) {
+  return [
+    (matrixA[0] * matrixB[0]) + (matrixA[2] * matrixB[1]),
+    (matrixA[1] * matrixB[0]) + (matrixA[3] * matrixB[1]),
+    (matrixA[0] * matrixB[2]) + (matrixA[2] * matrixB[3]),
+    (matrixA[1] * matrixB[2]) + (matrixA[3] * matrixB[3]),
+    (matrixA[0] * matrixB[4]) + (matrixA[2] * matrixB[5]) + matrixA[4],
+    (matrixA[1] * matrixB[4]) + (matrixA[3] * matrixB[5]) + matrixA[5]
+  ];
+};
+
+// Apply the current recorder transform to one point.
+Utils._transformConditionalVectorPoint = function (matrix, x, y) {
+  return {
+    x: Utils._roundConditionalVectorNumber((matrix[0] * x) + (matrix[2] * y) + matrix[4]),
+    y: Utils._roundConditionalVectorNumber((matrix[1] * x) + (matrix[3] * y) + matrix[5])
+  };
+};
+
+// Snapshot the recorder drawing state for save/restore.
+Utils._cloneConditionalVectorState = function (state) {
+  return {
+    transform: state.transform.slice(),
+    fillStyle: state.fillStyle,
+    strokeStyle: state.strokeStyle,
+    lineWidth: state.lineWidth,
+    clipPath: state.clipPath
+  };
+};
+
+// Convert a plain attribute object into the exported SVG node format.
+Utils._createConditionalVectorAttributes = function (attributes) {
+  const result = [];
+
+  Object.keys(attributes || {}).forEach(name => {
+    const value = attributes[name];
+
+    if ((value == null) || (value === '')) {
+      return;
+    }
+
+    result.push({
+      name,
+      value: (typeof value === 'number') ? Utils._roundConditionalVectorNumber(value) : value
+    });
+  });
+
+  return result;
+};
+
+// Build one exported SVG node with normalized attributes and children.
+Utils._createConditionalVectorNode = function (tag, attributes, children) {
+  return {
+    tag,
+    attrs: Utils._createConditionalVectorAttributes(attributes),
+    children: Array.isArray(children) ? children : []
+  };
+};
+
+// Convert a rectangle into a transformed SVG path.
+Utils._createConditionalVectorPathFromRect = function (matrix, x, y, width, height) {
+  const p1 = Utils._transformConditionalVectorPoint(matrix, x, y);
+  const p2 = Utils._transformConditionalVectorPoint(matrix, x + width, y);
+  const p3 = Utils._transformConditionalVectorPoint(matrix, x + width, y + height);
+  const p4 = Utils._transformConditionalVectorPoint(matrix, x, y + height);
+
+  return `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y} L ${p3.x} ${p3.y} L ${p4.x} ${p4.y} Z`;
+};
+
+// Detect the common case where a transformed rect can stay a native SVG rect.
+Utils._isConditionalVectorAxisAlignedMatrix = function (matrix) {
+  return (matrix != null) &&
+    (Math.abs(matrix[1]) < 0.0001) &&
+    (Math.abs(matrix[2]) < 0.0001) &&
+    (Math.abs(matrix[0] - 1) < 0.0001) &&
+    (Math.abs(matrix[3] - 1) < 0.0001);
+};
+
+// Record the SpreadJS canvas conditional-format paint calls as SVG nodes.
+Utils._createConditionalVectorRecorder = function (prefix) {
+  const definitions = [];
+  const elements = [];
+  const gradients = [];
+  const stack = [];
+  let gradientId = 0;
+  let clipId = 0;
+  let state = {
+    transform: [1, 0, 0, 1, 0, 0],
+    fillStyle: '#000000',
+    strokeStyle: '#000000',
+    lineWidth: 1,
+    clipPath: null
+  };
+  let path = [];
+  let currentPoint = null;
+  let subPathStart = null;
+
+  const pointsEqual = function (pointA, pointB) {
+    return (pointA != null) && (pointB != null) && (Math.abs(pointA.x - pointB.x) < 0.001) && (Math.abs(pointA.y - pointB.y) < 0.001);
+  };
+
+  const getPaintValue = function (paintStyle) {
+    if ((paintStyle != null) && (typeof paintStyle === 'object') && (paintStyle.__kind === 'linearGradient')) {
+      return `url(#${paintStyle.id})`;
+    }
+
+    if (typeof paintStyle === 'string') {
+      return paintStyle;
+    }
+
+    return 'none';
+  };
+
+  const addShapeElement = function (tag, attributes) {
+    const svgAttributes = { ...attributes };
+
+    if (state.clipPath != null) {
+      svgAttributes['clip-path'] = state.clipPath;
+    }
+
+    elements.push(Utils._createConditionalVectorNode(tag, svgAttributes, []));
+  };
+
+  const beginPath = function () {
+    path = [];
+    currentPoint = null;
+    subPathStart = null;
+  };
+
+  const moveTo = function (x, y) {
+    const point = Utils._transformConditionalVectorPoint(state.transform, x, y);
+
+    path.push(`M ${point.x} ${point.y}`);
+    currentPoint = point;
+    subPathStart = point;
+  };
+
+  const lineTo = function (x, y) {
+    const point = Utils._transformConditionalVectorPoint(state.transform, x, y);
+
+    if (currentPoint == null) {
+      moveTo(x, y);
+      return;
+    }
+
+    path.push(`L ${point.x} ${point.y}`);
+    currentPoint = point;
+  };
+
+  const closePath = function () {
+    if (path.length === 0) {
+      return;
+    }
+
+    path.push('Z');
+    currentPoint = subPathStart;
+  };
+
+  const appendCurrentPath = function (attributes) {
+    if (path.length === 0) {
+      return;
+    }
+
+    addShapeElement('path', {
+      ...attributes,
+      d: path.join(' ')
+    });
+  };
+
+  const recorder = {
+    save() {
+      stack.push(Utils._cloneConditionalVectorState(state));
+    },
+
+    restore() {
+      if (stack.length > 0) {
+        state = stack.pop();
+      }
+    },
+
+    translate(x, y) {
+      state.transform = Utils._multiplyConditionalVectorMatrix(state.transform, [1, 0, 0, 1, x, y]);
+    },
+
+    rotate(angle) {
+      const cosAngle = Math.cos(angle);
+      const sinAngle = Math.sin(angle);
+
+      state.transform = Utils._multiplyConditionalVectorMatrix(state.transform, [cosAngle, sinAngle, -sinAngle, cosAngle, 0, 0]);
+    },
+
+    beginPath() {
+      beginPath();
+    },
+
+    moveTo(x, y) {
+      moveTo(x, y);
+    },
+
+    lineTo(x, y) {
+      lineTo(x, y);
+    },
+
+    rect(x, y, width, height) {
+      const rectPath = Utils._createConditionalVectorPathFromRect(state.transform, x, y, width, height);
+
+      if (rectPath !== '') {
+        path.push(rectPath);
+        currentPoint = null;
+        subPathStart = null;
+      }
+    },
+
+    arc(x, y, radius, startAngle, endAngle, anticlockwise) {
+      const normalizedRadius = Math.abs(radius);
+
+      if (!(normalizedRadius > 0)) {
+        return;
+      }
+
+      const startPoint = Utils._transformConditionalVectorPoint(state.transform, x + (normalizedRadius * Math.cos(startAngle)), y + (normalizedRadius * Math.sin(startAngle)));
+      const endPoint = Utils._transformConditionalVectorPoint(state.transform, x + (normalizedRadius * Math.cos(endAngle)), y + (normalizedRadius * Math.sin(endAngle)));
+      let deltaAngle;
+
+      if (anticlockwise) {
+        deltaAngle = startAngle - endAngle;
+        while (deltaAngle < 0) {
+          deltaAngle += Math.PI * 2;
+        }
+        deltaAngle = -deltaAngle;
+      } else {
+        deltaAngle = endAngle - startAngle;
+        while (deltaAngle < 0) {
+          deltaAngle += Math.PI * 2;
+        }
+      }
+
+      const absoluteDeltaAngle = Math.abs(deltaAngle);
+
+      if (currentPoint == null) {
+        path.push(`M ${startPoint.x} ${startPoint.y}`);
+        subPathStart = startPoint;
+      } else if (!pointsEqual(currentPoint, startPoint)) {
+        path.push(`L ${startPoint.x} ${startPoint.y}`);
+      }
+
+      if (absoluteDeltaAngle >= ((Math.PI * 2) - 0.0001)) {
+        const midAngle = startAngle + (deltaAngle / 2);
+        const midPoint = Utils._transformConditionalVectorPoint(state.transform, x + (normalizedRadius * Math.cos(midAngle)), y + (normalizedRadius * Math.sin(midAngle)));
+
+        path.push(`A ${Utils._roundConditionalVectorNumber(normalizedRadius)} ${Utils._roundConditionalVectorNumber(normalizedRadius)} 0 1 ${deltaAngle >= 0 ? 1 : 0} ${midPoint.x} ${midPoint.y}`);
+        path.push(`A ${Utils._roundConditionalVectorNumber(normalizedRadius)} ${Utils._roundConditionalVectorNumber(normalizedRadius)} 0 1 ${deltaAngle >= 0 ? 1 : 0} ${endPoint.x} ${endPoint.y}`);
+      } else {
+        path.push(`A ${Utils._roundConditionalVectorNumber(normalizedRadius)} ${Utils._roundConditionalVectorNumber(normalizedRadius)} 0 ${absoluteDeltaAngle > Math.PI ? 1 : 0} ${deltaAngle >= 0 ? 1 : 0} ${endPoint.x} ${endPoint.y}`);
+      }
+
+      currentPoint = endPoint;
+    },
+
+    closePath() {
+      closePath();
+    },
+
+    clip() {
+      if (path.length === 0) {
+        return;
+      }
+
+      const clipPathName = `${prefix}_clip_${clipId++}`;
+      definitions.push(Utils._createConditionalVectorNode('clipPath', { id: clipPathName }, [
+        Utils._createConditionalVectorNode('path', { d: path.join(' ') }, [])
+      ]));
+      state.clipPath = `url(#${clipPathName})`;
+    },
+
+    fill() {
+      appendCurrentPath({
+        fill: getPaintValue(state.fillStyle),
+        stroke: 'none'
+      });
+    },
+
+    stroke() {
+      appendCurrentPath({
+        fill: 'none',
+        stroke: getPaintValue(state.strokeStyle),
+        'stroke-width': state.lineWidth
+      });
+    },
+
+    fillRect(x, y, width, height) {
+      if (!(width > 0) || !(height > 0)) {
+        return;
+      }
+
+      if (Utils._isConditionalVectorAxisAlignedMatrix(state.transform)) {
+        addShapeElement('rect', {
+          x: x + state.transform[4],
+          y: y + state.transform[5],
+          width,
+          height,
+          fill: getPaintValue(state.fillStyle),
+          stroke: 'none'
+        });
+      } else {
+        addShapeElement('path', {
+          d: Utils._createConditionalVectorPathFromRect(state.transform, x, y, width, height),
+          fill: getPaintValue(state.fillStyle),
+          stroke: 'none'
+        });
+      }
+    },
+
+    strokeRect(x, y, width, height) {
+      if (!(width > 0) || !(height > 0)) {
+        return;
+      }
+
+      if (Utils._isConditionalVectorAxisAlignedMatrix(state.transform)) {
+        addShapeElement('rect', {
+          x: x + state.transform[4],
+          y: y + state.transform[5],
+          width,
+          height,
+          fill: 'none',
+          stroke: getPaintValue(state.strokeStyle),
+          'stroke-width': state.lineWidth
+        });
+      } else {
+        addShapeElement('path', {
+          d: Utils._createConditionalVectorPathFromRect(state.transform, x, y, width, height),
+          fill: 'none',
+          stroke: getPaintValue(state.strokeStyle),
+          'stroke-width': state.lineWidth
+        });
+      }
+    },
+
+    createLinearGradient(x0, y0, x1, y1) {
+      const startPoint = Utils._transformConditionalVectorPoint(state.transform, x0, y0);
+      const endPoint = Utils._transformConditionalVectorPoint(state.transform, x1, y1);
+      const gradient = {
+        __kind: 'linearGradient',
+        id: `${prefix}_grad_${gradientId++}`,
+        x1: startPoint.x,
+        y1: startPoint.y,
+        x2: endPoint.x,
+        y2: endPoint.y,
+        stops: []
+      };
+
+      gradient.addColorStop = function (offset, color) {
+        gradient.stops.push({
+          offset: Utils._roundConditionalVectorNumber(offset),
+          color
+        });
+      };
+
+      gradients.push(gradient);
+
+      return gradient;
+    },
+
+    drawImage(imageObject, x, y, width, height) {
+      const href = imageObject && imageObject.src;
+
+      if ((typeof href !== 'string') || (href === '')) {
+        return;
+      }
+
+      addShapeElement('image', {
+        x: Utils._roundConditionalVectorNumber(x),
+        y: Utils._roundConditionalVectorNumber(y),
+        width: Utils._roundConditionalVectorNumber(width),
+        height: Utils._roundConditionalVectorNumber(height),
+        preserveAspectRatio: 'none',
+        'xlink:href': href
+      });
+    },
+
+    toVector() {
+      const gradientDefinitions = gradients.map(gradient => Utils._createConditionalVectorNode('linearGradient', {
+        id: gradient.id,
+        gradientUnits: 'userSpaceOnUse',
+        x1: gradient.x1,
+        y1: gradient.y1,
+        x2: gradient.x2,
+        y2: gradient.y2
+      }, gradient.stops.slice().sort((stopA, stopB) => {
+        const offsetA = (stopA != null) && (typeof stopA.offset === 'number') ? stopA.offset : 0;
+        const offsetB = (stopB != null) && (typeof stopB.offset === 'number') ? stopB.offset : 0;
+
+        return offsetA - offsetB;
+      }).map(stop => Utils._createConditionalVectorNode('stop', {
+        offset: stop.offset,
+        'stop-color': stop.color
+      }, []))));
+
+      return {
+        defs: definitions.concat(gradientDefinitions),
+        elements
+      };
+    }
+  };
+
+  Object.defineProperties(recorder, {
+    fillStyle: {
+      get() {
+        return state.fillStyle;
+      },
+      set(value) {
+        state.fillStyle = value;
+      }
+    },
+    strokeStyle: {
+      get() {
+        return state.strokeStyle;
+      },
+      set(value) {
+        state.strokeStyle = value;
+      }
+    },
+    lineWidth: {
+      get() {
+        return state.lineWidth;
+      },
+      set(value) {
+        state.lineWidth = value;
+      }
+    }
+  });
+
+  beginPath();
+
+  return recorder;
+};
+
+// Collect the concrete cells touched by conditional-format rules on a sheet.
+Utils._collectConditionalFormattingCells = function (sheet, conditionalFormats) {
+  const cells = [];
+  const visited = new Set();
+  const rules = (conditionalFormats != null) && (typeof conditionalFormats.getRules === 'function') ? conditionalFormats.getRules() : null;
+
+  if ((rules == null) || (rules.length === 0)) {
+    return cells;
+  }
+
+  const UsedRangeType = GC.Spread.Sheets.UsedRangeType;
+  const contentRange = sheet.getUsedRange(
+    UsedRangeType.data |
+    UsedRangeType.formula |
+    UsedRangeType.style |
+    UsedRangeType.rowStyle |
+    UsedRangeType.colStyle |
+    UsedRangeType.span |
+    UsedRangeType.table |
+    UsedRangeType.picture |
+    UsedRangeType.sparkLine |
+    UsedRangeType.dataValidation
+  );
+  const normalizedContentRange = Utils._normalizeConditionalRange(sheet, contentRange);
+
+  rules.forEach(rule => {
+    const ranges = (rule != null) && (typeof rule.ranges === 'function') ? rule.ranges() : null;
+
+    if (!Array.isArray(ranges)) {
+      return;
+    }
+
+    ranges.forEach(range => {
+      let normalizedRange = Utils._normalizeConditionalRange(sheet, range);
+
+      if (normalizedRange == null) {
+        return;
+      }
+
+      if ((normalizedContentRange != null) && ((normalizedRange.rowCount * normalizedRange.colCount) > 50000)) {
+        normalizedRange = Utils._intersectConditionalRanges(normalizedRange, normalizedContentRange);
+      }
+
+      if (normalizedRange == null) {
+        return;
+      }
+
+      const rowEnd = normalizedRange.row + normalizedRange.rowCount;
+      const colEnd = normalizedRange.col + normalizedRange.colCount;
+
+      for (let row = normalizedRange.row; row < rowEnd; row++) {
+        for (let column = normalizedRange.col; column < colEnd; column++) {
+          const key = `${row}:${column}`;
+
+          if (!visited.has(key)) {
+            visited.add(key);
+            cells.push({ row, column });
+          }
+        }
+      }
+    });
+  });
+
+  return cells;
+};
+
+// Render one cell's conditional graphics into an SVG-ready vector snapshot.
+Utils._renderConditionalVector = function (sheet, row, column, value, style, conditionalFormats, sheetIndex) {
+  const viewport = GC.Spread.Sheets.SheetArea.viewport;
+  const width = Math.ceil(sheet.getColumnWidth(column, viewport));
+  const height = Math.ceil(sheet.getRowHeight(row, viewport));
+
+  if (!(width > 0) || !(height > 0)) {
+    return null;
+  }
+
+  const recorder = Utils._createConditionalVectorRecorder(`vp_cf_${sheetIndex}_${row}_${column}`);
+  const hideValue = conditionalFormats._paint(recorder, value, 0, 0, width, height, style || {}, {
+    sheet,
+    row,
+    col: column,
+    sheetArea: viewport,
+    lineHeight: Utils._getConditionalOverlayLineHeight(style, height),
+    imageLoader: sheet._getImageLoader()
+  }) === true;
+  const vector = recorder.toVector();
+
+  if ((!Array.isArray(vector.elements) || (vector.elements.length === 0)) && (!Array.isArray(vector.defs) || (vector.defs.length === 0)) && !hideValue) {
+    return null;
+  }
+
+  return {
+    vector,
+    hideValue
+  };
+};
+
+// Add every cell from a normalized range into a deduplicated work list.
+Utils._addCellsFromRange = function (cells, visited, sheet, range) {
+  const normalizedRange = Utils._normalizeConditionalRange(sheet, range);
+
+  if (normalizedRange == null) {
+    return;
+  }
+
+  const rowEnd = normalizedRange.row + normalizedRange.rowCount;
+  const colEnd = normalizedRange.col + normalizedRange.colCount;
+
+  for (let row = normalizedRange.row; row < rowEnd; row++) {
+    for (let column = normalizedRange.col; column < colEnd; column++) {
+      const key = `${row}:${column}`;
+
+      if (!visited.has(key)) {
+        visited.add(key);
+        cells.push({ row, column });
+      }
+    }
+  }
+};
+
+// Collect cells whose effective style depends on table/theme composition.
+Utils._collectCompositeStyleCells = function (sheet) {
+  const cells = [];
+  const visited = new Set();
+  const tables = sheet && sheet.tables && (typeof sheet.tables.all === 'function') ? sheet.tables.all() : [];
+
+  tables.forEach(table => {
+    if ((table != null) && (typeof table.range === 'function')) {
+      Utils._addCellsFromRange(cells, visited, sheet, table.range());
+    }
+  });
+
+  return cells;
+};
+
+// store non-conditional composed styles explicitly for cases such as table themes that are not expanded in workbook JSON
+// Export composed non-conditional styles that are not expanded in workbook JSON.
+Utils.addCompositeStyles = function (json) {
+  const viewport = GC.Spread.Sheets.SheetArea.viewport;
+  let sheetIndex = 0;
+
+  for (const sheetName in json.sheets) {
+    const sheet = json.sheets[sheetName];
+    const spreadSheet = Utils.spread.getSheet(sheetIndex);
+
+    if ((spreadSheet != null) && (sheet != null) && (typeof sheet === 'object')) {
+      const cells = Utils._collectCompositeStyleCells(spreadSheet);
+
+      cells.forEach(({ row, column }) => {
+        const compositeStyle = Utils._serializeJSONValue(spreadSheet.getCompositeStyle(row, column, viewport), 0);
+
+        if ((compositeStyle != null) && (typeof compositeStyle === 'object')) {
+          const cell = Utils._ensureCellObject(sheet, row, column);
+          cell.compositeStyle = compositeStyle;
+        }
+      });
+    }
+
+    sheetIndex++;
+  }
+};
+
+// Export per-cell conditional-format style and vector graphics snapshots.
+Utils.addConditionalFormattingSnapshots = function (json) {
+  const viewport = GC.Spread.Sheets.SheetArea.viewport;
+  let sheetIndex = 0;
+
+  for (const sheetName in json.sheets) {
+    const sheet = json.sheets[sheetName];
+    const spreadSheet = Utils.spread.getSheet(sheetIndex);
+    const conditionalFormats = spreadSheet && spreadSheet.conditionalFormats;
+
+    if ((spreadSheet != null) && (sheet != null) && (typeof sheet === 'object') && (conditionalFormats != null) && (typeof conditionalFormats.count === 'function') && (conditionalFormats.count() > 0)) {
+      const cells = Utils._collectConditionalFormattingCells(spreadSheet, conditionalFormats);
+
+      cells.forEach(({ row, column }) => {
+        const conditionalStyle = conditionalFormats._applyFormats(null, row, column, viewport);
+        const serializedConditionalStyle = Utils._serializeJSONValue(conditionalStyle, 0);
+        const value = spreadSheet.getValue(row, column, viewport);
+        const iconSetAndDataBar = conditionalFormats._getIconSetAndDataBar(spreadSheet, row, column, value, viewport);
+        const hasVector = (iconSetAndDataBar != null) && ((iconSetAndDataBar.dataBar != null) || (iconSetAndDataBar.iconSet != null));
+        const vectorSnapshot = hasVector ? Utils._renderConditionalVector(spreadSheet, row, column, value, spreadSheet.getActualStyle(row, column, viewport), conditionalFormats, sheetIndex) : null;
+        const hasStyle = (serializedConditionalStyle != null) && (typeof serializedConditionalStyle === 'object');
+        const hasConditionalVector = (vectorSnapshot != null) && (vectorSnapshot.vector != null) && (typeof vectorSnapshot.vector === 'object');
+        const hideValue = (vectorSnapshot != null) && (vectorSnapshot.hideValue === true);
+
+        if (!hasStyle && !hasConditionalVector && !hideValue) {
+          return;
+        }
+
+        const cell = Utils._ensureCellObject(sheet, row, column);
+        const conditionalFormat = {};
+
+        if (hasStyle) {
+          conditionalFormat.style = serializedConditionalStyle;
+        }
+
+        if (hasConditionalVector) {
+          conditionalFormat.vector = vectorSnapshot.vector;
+        }
+
+        if (hideValue) {
+          conditionalFormat.hideValue = true;
+        }
+
+        cell.conditionalFormat = conditionalFormat;
+      });
+    }
+
     sheetIndex++;
   }
 };
