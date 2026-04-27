@@ -189,7 +189,7 @@ ___COMMAND_JS_INCLUDES___
 				} else if (ctrl && key === "o") {
 					e.preventDefault();
 					_vpOpenFilePanel("OpenSJS");
-				} else if (ctrl && key === "i") {
+				} else if (ctrl && e.shiftKey && key === "i") {
 					e.preventDefault();
 					_vpOpenFilePanel("Info");
 
