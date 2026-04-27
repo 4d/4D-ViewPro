@@ -171,7 +171,7 @@ ___COMMAND_JS_INCLUDES___
 				const key = e.key.toLowerCase();
 
 				// Prevent browser UI shortcuts that would close/reload/leave the page
-				if (ctrl && (key === "w" || key === "t" || key === "n" || key === "r" || key === "j")) {
+				if (ctrl && (key === "w" || key === "t" || key === "r" || key === "j")) {
 					e.preventDefault();
 				} else if (key === "f5") {
 					e.preventDefault();
@@ -183,6 +183,9 @@ ___COMMAND_JS_INCLUDES___
 				} else if (ctrl && key === "p") {
 					e.preventDefault();
 					_vpOpenFilePanel("Print");
+				} else if (ctrl && key === "n") {
+					e.preventDefault();
+					_vpOpenFilePanel("New");
 				} else if (ctrl && key === "o") {
 					e.preventDefault();
 					_vpOpenFilePanel("OpenSJS");
