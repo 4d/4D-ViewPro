@@ -6237,6 +6237,18 @@
     <!-- View Pro Commands -->
 ___COMMAND_JS_INCLUDES___
 
+	<script type="text/javascript">
+		document.addEventListener("keydown", (e) => {
+			const ctrl = e.ctrlKey || e.metaKey;
+			const key = e.key.toLowerCase();
+			if (ctrl && (key === "w" || key === "t" || key === "n" || key === "r" || key === "j")) {
+				e.preventDefault();
+			} else if (key === "f5") {
+				e.preventDefault();
+			}
+		});
+	</script>
+
 </body>
 
 </html>

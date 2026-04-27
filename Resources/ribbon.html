@@ -158,6 +158,51 @@ ___COMMAND_JS_INCLUDES___
 
 			designer = new GC.Spread.Sheets.Designer.Designer(document.getElementById("gc-designer-container"), config);
 			spread = designer.Spread; // declared in init.js
+			function _vpOpenFilePanel(category) {
+				const setting = designer.getData("fileMenuSetting") || {};
+				setting.activeCategory_main = category;
+				designer.setData("fileMenuSetting", setting);
+				designer.setData("FileMenu_show", true);
+			}
+
+			document.addEventListener("keydown", (e) => {
+				if (e._vp_synthetic) return;
+				const ctrl = e.ctrlKey || e.metaKey;
+				const key = e.key.toLowerCase();
+
+				// Prevent browser UI shortcuts that would close/reload/leave the page
+				if (ctrl && (key === "w" || key === "t" || key === "n" || key === "r" || key === "j")) {
+					e.preventDefault();
+				} else if (key === "f5") {
+					e.preventDefault();
+
+				// File menu panels
+				} else if (ctrl && key === "s") {
+					e.preventDefault();
+					_vpOpenFilePanel("SaveSJS");
+				} else if (ctrl && key === "p") {
+					e.preventDefault();
+					_vpOpenFilePanel("Print");
+				} else if (ctrl && key === "o") {
+					e.preventDefault();
+					_vpOpenFilePanel("OpenSJS");
+				} else if (ctrl && key === "i") {
+					e.preventDefault();
+					_vpOpenFilePanel("Info");
+
+				// Find (Ctrl+G → triggers SpreadJS native Ctrl+F)
+				} else if (ctrl && key === "g") {
+					e.preventDefault();
+					const fakeEvent = new KeyboardEvent("keydown", {
+						key: "f", code: "KeyF",
+						ctrlKey: e.ctrlKey, metaKey: e.metaKey,
+						bubbles: true, cancelable: true
+					});
+					fakeEvent._vp_synthetic = true;
+					spread.getHost().dispatchEvent(fakeEvent);
+				}
+			});
+			
 		}
 		//# sourceURL=designerInit.js
 	</script>
