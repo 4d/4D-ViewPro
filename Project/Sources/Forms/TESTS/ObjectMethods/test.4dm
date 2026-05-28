@@ -16,8 +16,154 @@ $workbook:=cs:C1710._workbook.new($vp.area)
 
 Case of 
 		
-		//mark:-ACI0105390
+		//mark:-Data Sources
 	: (True:C214)
+		
+		If (Shift down:C543)
+			
+			// ── CLEANUP: remove table sheets, then data sources ──
+
+			VP REMOVE TABLE($vp.area; "PeopleTable")
+
+			VP REMOVE TABLE SHEET($vp.area; "Departments (ORDA)")
+			VP REMOVE TABLE SHEET($vp.area; "Employees")
+			VP REMOVE TABLE SHEET($vp.area; "People")
+			VP REMOVE TABLE SHEET($vp.area; "Products")
+			VP REMOVE TABLE SHEET($vp.area; "Books")
+			VP REMOVE TABLE SHEET($vp.area; "Scores")
+			VP REMOVE TABLE SHEET($vp.area; "Departments")
+			VP REMOVE TABLE SHEET($vp.area; "Staff")
+
+			VP REMOVE DATA SOURCE($vp.area; "Department")
+			VP REMOVE DATA SOURCE($vp.area; "Employees")
+			VP REMOVE DATA SOURCE($vp.area; "People")
+			VP REMOVE DATA SOURCE($vp.area; "Products")
+			VP REMOVE DATA SOURCE($vp.area; "Books")
+			VP REMOVE DATA SOURCE($vp.area; "Scores")
+			VP REMOVE DATA SOURCE($vp.area; "Departments")
+			VP REMOVE DATA SOURCE($vp.area; "Staff")
+			
+		Else 
+			
+			// ── 1. DataClass mode with auto-relationship ──
+			// Department registered first; Employee has relatedEntity "department" → Department
+			// Relationship is deferred until Employee is registered
+			VP ADD DATA SOURCE($vp.area; ds:C1482.Department)
+
+			VP ADD DATA SOURCE($vp.area; ds:C1482.Employee; {\
+				name: "Employees"; \
+				fields: ["lastName"; "firstName"; "salary"; "departmentID"]; \
+				readOnly: True:C214\
+				})
+
+			VP ADD TABLE SHEET($vp.area; "Departments (ORDA)"; "Department")
+			VP ADD TABLE SHEET($vp.area; "Employees"; "Employees"; {\
+				columns: [\
+					{value: "lastName"; caption: "Last Name"; width: 200}; \
+					{value: "firstName"; caption: "First Name"; width: 150}; \
+					{value: "salary"; width: 120; style: {hAlign: "right"}}; \
+					{value: "department.name"; caption: "Department"; width: 200}\
+				]\
+				})
+			
+			// ── 2. Collection mode (in-memory) with schema ──
+			var $people:=[{id: 1; firstName: "Alice"; lastName: "Martin"; age: 30; birthday: "1994-03-15"; city: "Paris"}; \
+				{id: 2; firstName: "Bob"; lastName: "Dupont"; age: 25; birthday: "1999-07-22"; city: "London"}; \
+				{id: 3; firstName: "Charlie"; lastName: "Smith"; age: 35; birthday: "1989-11-08"; city: "Berlin"}; \
+				{id: 4; firstName: "Diana"; lastName: "Jones"; age: 28; birthday: "1996-01-30"; city: "Madrid"}; \
+				{id: 5; firstName: "Eve"; lastName: "Garcia"; age: 42; birthday: "1982-09-05"; city: "Rome"}]
+			
+			VP ADD DATA SOURCE($vp.area; $people; {\
+				name: "People"; \
+				schema: {\
+					columns: {\
+						id: {dataType: "number"; isPrimaryKey: True:C214}; \
+						firstName: {dataType: "string"}; \
+						lastName: {dataType: "string"}; \
+						age: {dataType: "number"}; \
+						birthday: {dataType: "date"}; \
+						city: {dataType: "string"}\
+					}\
+				}\
+				})
+			
+			// ── 3. CSV mode (in-memory) ──
+			var $csv:="name,price,quantity,inStock\nWidget,9.99,100,true\nGadget,24.99,50,true\nDoohickey,4.99,200,false\nThingamajig,14.99,75,true\nWhatchamacallit,7.49,150,false"
+			
+			VP ADD DATA SOURCE($vp.area; $csv; {\
+				name: "Products"; \
+				schema: {type: "csv"}\
+				})
+			
+			// ── 4. XML mode (in-memory) ──
+			var $xml:="<library><book><title>4D Programming</title><author>John</author><price>49.99</price></book><book><title>SpreadJS Guide</title><author>Jane</author><price>39.99</price></book><book><title>ORDA Deep Dive</title><author>Paul</author><price>29.99</price>"+"</book></library>"
+			
+			VP ADD DATA SOURCE($vp.area; $xml; {\
+				name: "Books"; \
+				schema: {type: "xml"; dataPath: "library.book"}\
+				})
+			
+			// ── 5. ColumnJson mode (in-memory) ──
+			var $scores:={\
+				name: ["Alice"; "Bob"; "Charlie"; "Diana"]; \
+				score: [95; 87; 92; 78]; \
+				grade: ["A"; "B+"; "A-"; "C+"]\
+				}
+
+			VP ADD DATA SOURCE($vp.area; $scores; {name: "Scores"})
+
+			// ── Create TableSheet views for in-memory data sources ──
+
+			VP ADD TABLE SHEET($vp.area; "People"; "People")
+			VP ADD TABLE SHEET($vp.area; "Products"; "Products")
+			VP ADD TABLE SHEET($vp.area; "Books"; "Books")
+			VP ADD TABLE SHEET($vp.area; "Scores"; "Scores")
+
+			// ── VP CREATE TABLE: regular table on Sheet 1 bound to DataManager source ──
+			VP SET CURRENT SHEET($vp.area; 0)
+			VP CREATE TABLE(VP Cells($vp.area; 0; 0; 1; 1); "PeopleTable"; "People")
+
+			// ── 6. Relationships: two collections with manual relationship ──
+			var $departments:=[{ID: 1; name: "Engineering"}; \
+				{ID: 2; name: "Marketing"}; \
+				{ID: 3; name: "Sales"}]
+
+			VP ADD DATA SOURCE($vp.area; $departments; {\
+				name: "Departments"; \
+				schema: {\
+					columns: {\
+						ID: {dataType: "number"; isPrimaryKey: True:C214}; \
+						name: {dataType: "string"}\
+					}\
+				}\
+				})
+
+			var $staff:=[{ID: 1; firstName: "Alice"; departmentID: 1}; \
+				{ID: 2; firstName: "Bob"; departmentID: 2}; \
+				{ID: 3; firstName: "Charlie"; departmentID: 1}; \
+				{ID: 4; firstName: "Diana"; departmentID: 3}]
+
+			VP ADD DATA SOURCE($vp.area; $staff; {\
+				name: "Staff"; \
+				schema: {\
+					columns: {\
+						ID: {dataType: "number"; isPrimaryKey: True:C214}; \
+						firstName: {dataType: "string"}; \
+						departmentID: {dataType: "number"}\
+					}\
+				}; \
+				relationships: {\
+					department: {on: "Staff.departmentID = Departments.ID"}\
+				}\
+				})
+
+			VP ADD TABLE SHEET($vp.area; "Departments"; "Departments")
+			VP ADD TABLE SHEET($vp.area; "Staff"; "Staff")
+		End if 
+		
+		//______________________________________________________
+		//mark:-ACI0105390
+	: (False:C215)
 		
 		VP EXPORT TO BLOB($vp.area; {Formula: Null:C1517})
 		

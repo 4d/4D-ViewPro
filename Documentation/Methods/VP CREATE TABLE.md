@@ -28,7 +28,12 @@ In *tableName*, pass a name for the table. The name must:
 * include at least 5 characters
 * not include spaces or start with a number
 
-In *source*, you can pass a property name of a [data context](VP%20SET%20DATA%20CONTEXT.md) to display its data in the table. This binds the table to the data context. When the data context is updated, the data displayed in the table is updated accordingly. The *source* property must contain a collection of objects and each element represents a row. 
+In *source*, you can pass either:
+
+- A **data context property name** (see [VP SET DATA CONTEXT](VP%20SET%20DATA%20CONTEXT.md)): the table is bound to that property of the current data context. The *source* property must contain a collection of objects and each element represents a row.
+- A **data source name** previously registered with [VP ADD DATA SOURCE](VP%20ADD%20DATA%20SOURCE.md): the table is bound directly to the DataManager table using the SpreadJS `addFromDataSource` API. No `VP SET DATA CONTEXT` call is needed.
+
+When *source* matches a registered data source name, the DataManager binding takes priority. If both a data context property and a data source share the same name, the data source wins.
 
   * If you don't specify a *source*, the command creates an empty table with the size defined in *rangeObj*. 
   * If the specified *source* cannot be fully displayed in the document, no table is created.
@@ -58,7 +63,7 @@ Here the titles of the columns would be `LastName` and `FirstName`.
 > This only works when generating columns automatically. You cannot use a collection of scalar data with the *tableColumns* option.
 
 
-## Example
+## Example 1 - Using a data context
 
 To create a table using a data context:
 
@@ -91,6 +96,24 @@ Here's the result:
 
 ![](../images/vp-create-table.png)
 
+## Example 2 - Using a data source
+
+To create a table directly from a data source registered with `VP ADD DATA SOURCE` (no data context required):
+
+```4d
+// Register an in-memory collection as a data source
+var $people:=[{id: 1; firstName: "Alice"; lastName: "Martin"; city: "Paris"}; \
+    {id: 2; firstName: "Bob"; lastName: "Dupont"; city: "London"}]
+
+VP ADD DATA SOURCE("ViewProArea"; $people; {name: "People"})
+
+// Create a regular worksheet table bound to the "People" DataManager table
+// The source name matches the registered data source — addFromDataSource is used automatically
+VP CREATE TABLE(VP Cells("ViewProArea"; 0; 0; 1; 1); "PeopleTable"; "People")
+```
+
+The command detects that `"People"` is a registered data source and uses the SpreadJS `addFromDataSource` API. If a data context property and a data source happen to share the same name, the data source takes priority.
+
 ## See also
 
 [VP Find table](VP%20Find%20table.md)<br/>
@@ -98,6 +121,7 @@ Here's the result:
 [VP Get table column index](VP%20Get%20table%20column%20index.md)<br/>
 [VP INSERT TABLE COLUMNS](VP%20INSERT%20TABLE%20COLUMNS.md)<br/>
 [VP INSERT TABLE ROWS](VP%20INSERT%20TABLE%20ROWS.md)<br/>
+[VP ADD DATA SOURCE](VP%20ADD%20DATA%20SOURCE.md)<br/>
 [VP REMOVE TABLE](VP%20REMOVE%20TABLE.md)<br/>
 [VP RESIZE TABLE](VP%20RESIZE%20TABLE.md)<br/>
 [VP SET DATA CONTEXT](VP%20SET%20DATA%20CONTEXT.md)<br/>

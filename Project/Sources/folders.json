@@ -1,5 +1,9 @@
 {
 	"# 🚧 DEV": {
+		"tables": [
+			"Department",
+			"Employee"
+		],
 		"methods": [
 			"_dev_allowedMethod",
 			"_dev_myObject",
@@ -25,6 +29,7 @@
 		"groups": [
 			"clipboard",
 			"data context",
+			"datasource",
 			"document",
 			"events",
 			"names",
@@ -36,6 +41,7 @@
 			"spans",
 			"stylesheet",
 			"tables",
+			"tablesheet",
 			"utilities",
 			"values",
 			"workbook"
@@ -127,6 +133,12 @@
 			"VP Get data context",
 			"VP SET BINDING PATH",
 			"VP SET DATA CONTEXT"
+		]
+	},
+	"datasource": {
+		"methods": [
+			"VP ADD DATA SOURCE",
+			"VP REMOVE DATA SOURCE"
 		]
 	},
 	"document": {
@@ -402,6 +414,12 @@
 			"VP RESIZE TABLE",
 			"VP SET TABLE COLUMN ATTRIBUTES",
 			"VP SET TABLE THEME"
+		]
+	},
+	"tablesheet": {
+		"methods": [
+			"VP ADD TABLE SHEET",
+			"VP REMOVE TABLE SHEET"
 		]
 	},
 	"utilities": {

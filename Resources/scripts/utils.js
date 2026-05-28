@@ -171,9 +171,12 @@ Utils.b64ToBlob = function (b64string) {
 // return the sheet corresponding to the sheet index,
 // check boundaries and return current sheet if sheet index = -1 or is undefined
 Utils.resolveSheet = function (sheetIndex) {
-    if (((sheetIndex == undefined) || (sheetIndex == -1)) && (Utils.spread.getSheetCount() > 0))
-        return Utils.currentSheet;
-    else if ((sheetIndex >= 0) && (sheetIndex < Utils.spread.getSheetCount()))
+    if (((sheetIndex == undefined) || (sheetIndex == -1)) && (Utils.spread.getSheetCount() > 0)) {
+        // getActiveSheet() may return null for non-Worksheet sheet types (e.g. TableSheet).
+        // Fall back to getSheet(getActiveSheetIndex()) which is always reliable.
+        const active = Utils.spread.getActiveSheet();
+        return active !== null ? active : Utils.spread.getSheet(Utils.spread.getActiveSheetIndex());
+    } else if ((sheetIndex >= 0) && (sheetIndex < Utils.spread.getSheetCount()))
         return Utils.spread.getSheet(sheetIndex);
     else
         return null;

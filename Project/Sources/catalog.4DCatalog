@@ -2,6 +2,87 @@
 <!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
 <base name="4D ViewPro" uuid="5267C42CFE004AA197BFDAB1499F25F3" collation_locale="en">
 	<schema name="DEFAULT_SCHEMA"/>
+	<table name="Employee" uuid="FB018A0810014EDC841EF6E66799F7B5" id="1">
+		<field name="ID" uuid="F266C1AD065141AFAA952DFC6E4DE984" type="4" unique="true" autosequence="true" not_null="true" id="1">
+			<field_extra position="1"/>
+		</field>
+		<field name="firstName" uuid="CC430A49E14D4DCF835230FB5CDD0EE0" type="10" limiting_length="255" never_null="true" id="2">
+			<field_extra position="2"/>
+		</field>
+		<field name="lastName" uuid="D7F2812FD4EE454D9A8A63478412D299" type="10" limiting_length="255" never_null="true" id="3">
+			<field_extra position="3"/>
+		</field>
+		<field name="age" uuid="9B76DAD09D3346F5B47E5983CA165497" type="3" never_null="true" id="4">
+			<field_extra position="4"/>
+		</field>
+		<field name="city" uuid="DABEFEED9E954071A48085A76E54888E" type="10" limiting_length="255" never_null="true" id="5">
+			<field_extra position="5"/>
+		</field>
+		<field name="salary" uuid="C8BAB91C13E44C49BC1E87E73AF8D1E5" type="6" id="6">
+			<field_extra position="6"/>
+		</field>
+		<field name="departmentID" uuid="498CEC962C6745AABB9A500D54041AA5" type="4" id="7">
+			<field_extra position="7">
+				<editor_field_info>
+					<color red="255" green="255" blue="255" alpha="0"/>
+				</editor_field_info>
+			</field_extra>
+		</field>
+		<primary_key field_name="ID" field_uuid="F266C1AD065141AFAA952DFC6E4DE984"/>
+		<table_extra>
+			<editor_table_info fields_ordering="2" displayable_fields_count="10">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="40" top="40" width="160.078125" height="253.83984375"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<table name="Department" uuid="05C8846FED8847499BCCE60FCEB713AE" id="2">
+		<field name="ID" uuid="D307D8A1A7E243D08ADAAFAB957E019E" type="4" unique="true" autosequence="true" not_null="true" id="1">
+			<field_extra position="1"/>
+		</field>
+		<field name="name" uuid="BC1B209167D24950992105A889BEC1CA" type="10" limiting_length="255" not_null="true" id="2">
+			<field_extra position="2"/>
+		</field>
+		<primary_key field_name="ID" field_uuid="D307D8A1A7E243D08ADAAFAB957E019E"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="6">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="363.296875" top="43.109375" width="120" height="167.33203125"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<relation uuid="B8F3957FAA874425AEF0D31FD8E173AB" name_Nto1="department" name_1toN="employees" state="1">
+		<related_field kind="source">
+			<field_ref uuid="498CEC962C6745AABB9A500D54041AA5" name="departmentID">
+				<table_ref uuid="FB018A0810014EDC841EF6E66799F7B5" name="Employee"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="D307D8A1A7E243D08ADAAFAB957E019E" name="ID">
+				<table_ref uuid="05C8846FED8847499BCCE60FCEB713AE" name="Department"/>
+			</field_ref>
+		</related_field>
+		<relation_extra entry_wildchar="false" entry_create="false" choice_field="0" entry_autofill="false">
+			<editor_relation_info via_point_x="-1" via_point_y="-1" prefers_left="false" smartlink="true">
+				<color red="255" green="147" blue="0" alpha="255"/>
+			</editor_relation_info>
+		</relation_extra>
+	</relation>
+	<index kind="regular" unique_keys="true" uuid="1AA0F5E8686F4072BB6C24B04F7D3322" type="7">
+		<field_ref uuid="D307D8A1A7E243D08ADAAFAB957E019E" name="ID">
+			<table_ref uuid="05C8846FED8847499BCCE60FCEB713AE" name="Department"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="B1CD77194F7140B9941A62EA55FC846B" type="7">
+		<field_ref uuid="F266C1AD065141AFAA952DFC6E4DE984" name="ID">
+			<table_ref uuid="FB018A0810014EDC841EF6E66799F7B5" name="Employee"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="CF171756531D4F0E84394E3895C049F2" type="7">
+		<field_ref uuid="498CEC962C6745AABB9A500D54041AA5" name="departmentID">
+			<table_ref uuid="FB018A0810014EDC841EF6E66799F7B5" name="Employee"/>
+		</field_ref>
+	</index>
 	<base_extra package_name="4D ViewPro" structure_file_name="4D ViewPro" data_file_path="\4D ViewPro.4DD">
 		<temp_folder folder_selector="system"/>
 		<journal_file journal_file_enabled="false"/>

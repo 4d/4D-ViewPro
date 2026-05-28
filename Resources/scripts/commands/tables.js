@@ -183,6 +183,10 @@
 
             const i = Utils.getFirstRange(params.ranges);
 
+            if (i == null) {
+                throw new Error('VP CREATE TABLE: could not resolve the range — the sheet index may be invalid or the active sheet is not a regular worksheet.');
+            }
+
             const options = {};
             let columns = [];
             let setAllowAutoExpand = false;
@@ -253,13 +257,31 @@
                 if (i.rowCount < minHeight) {
                     i.rowCount = minHeight;
                 }
+
+                // When source names a registered DataManager table, bind via addFromDataSource
+                // rather than through the data context (bindingPath). DataManager takes priority
+                // when both a DataManager table and a data context property share the same name.
+                var dmTable = params.source
+                    ? Utils.spread.dataManager().tables[params.source]
+                    : null;
+
                 var table = null;
-                try {
-                    table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
-                } catch (e) {
-                    Utils.spread.resumeCalcService(true); // Case ID: CAS-59946-R8S4C1 (SJS-32502): resume not called if error occurs
-                    throw e;
+                if (dmTable) {
+                    try {
+                        table = i.sheet.tables.addFromDataSource(params.name, i.row, i.column, params.source, tableTheme);
+                    } catch (e) {
+                        Utils.spread.resumeCalcService(true);
+                        throw e;
+                    }
+                } else {
+                    try {
+                        table = i.sheet.tables.add(params.name, i.row, i.column, i.rowCount, i.columnCount, tableTheme, options);
+                    } catch (e) {
+                        Utils.spread.resumeCalcService(true); // Case ID: CAS-59946-R8S4C1 (SJS-32502): resume not called if error occurs
+                        throw e;
+                    }
                 }
+
                 const tryToGetAutoCreatedColumn = Utils._tryToGetAutoCreatedColumn;
                 if (table != null) {
                     if (columns.length > 0) {
@@ -296,7 +318,8 @@
                             index += 1;
                         });
                     }
-                    if ((params.source == null) || (typeof params.source === 'string')) {
+                    if (!dmTable) {
+                        // Data context binding — only for non-DataManager sources
                         table.bindingPath(params.source);
                     }
                     if (setAllowAutoExpand) {
