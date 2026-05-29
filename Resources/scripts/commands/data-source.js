@@ -19,112 +19,71 @@
 (function () {
 
     // ═══════════════════════════════════════════════════════════════
-    // 4D REST Adapter — isolated for future $4d._vp_xxx replacement
-    // Only used in DataClass mode
+    // 4D Bridge Adapter — routes REST operations through the C++
+    // bridge ($4d._vp_dataSource) to avoid CORS issues.
+    // Only used in DataClass mode.
     // ═══════════════════════════════════════════════════════════════
 
-    const _4DRestAdapter = {
+    const _4DBridgeAdapter = {
 
         read: function (dataClassName, params) {
-            let url = 'http://localhost:8080/rest/' + dataClassName + '?$asArray=true';
-
-            if (params.top != null) {
-                url += '&$top=' + params.top;
-            }
-            if (params.skip != null) {
-                url += '&$skip=' + params.skip;
-            }
-            if (params.orderby) {
-                url += '&$orderby=' + params.orderby;
-            }
-            if (params.filter) {
-                url += '&$filter=' + params.filter;
-            }
-
-            return fetch(url, {
-                credentials: 'include',
-                headers: { 'Accept': 'application/json' }
-            }).then(function (response) {
-                return response.json();
-            }).then(function (json) {
-                var data = Array.isArray(json)
-                    ? json
-                    : json.__ENTITIES || json.rows || json.data || json.result || [];
-                return {
-                    data: data,
-                    totalCount: json.__COUNT != null ? json.__COUNT : data.length
-                };
+            return new Promise(function (resolve, reject) {
+                $4d._vp_dataSource('read', {
+                    dataClassName: dataClassName,
+                    params: params
+                }, function (result, err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        var data = Array.isArray(result)
+                            ? result
+                            : result.__ENTITIES || result.rows || result.data || result.result || [];
+                        resolve({
+                            data: data,
+                            totalCount: result.__COUNT != null ? result.__COUNT : data.length
+                        });
+                    }
+                });
             });
         },
 
         create: function (dataClassName, entity) {
-            return fetch('/rest/' + dataClassName, {
-                method: 'POST',
-                credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(entity)
-            }).then(function (response) {
-                return response.json();
+            return new Promise(function (resolve, reject) {
+                $4d._vp_dataSource('create', {
+                    dataClassName: dataClassName,
+                    entity: entity
+                }, function (result, err) {
+                    if (err) reject(err);
+                    else resolve(result);
+                });
             });
         },
 
         update: function (dataClassName, entity) {
-            var key = entity.__KEY || entity.ID;
-            return fetch('/rest/' + dataClassName + '(' + key + ')', {
-                method: 'PATCH',
-                credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(entity)
-            }).then(function (response) {
-                return response.json();
+            return new Promise(function (resolve, reject) {
+                $4d._vp_dataSource('update', {
+                    dataClassName: dataClassName,
+                    key: entity.__KEY || entity.ID,
+                    entity: entity
+                }, function (result, err) {
+                    if (err) reject(err);
+                    else resolve(result);
+                });
             });
         },
 
         destroy: function (dataClassName, entity) {
-            var key = entity.__KEY || entity.ID;
-            return fetch('/rest/' + dataClassName + '(' + key + ')', {
-                method: 'DELETE',
-                credentials: 'include'
+            return new Promise(function (resolve, reject) {
+                $4d._vp_dataSource('delete', {
+                    dataClassName: dataClassName,
+                    key: entity.__KEY || entity.ID
+                }, function (result, err) {
+                    if (err) reject(err);
+                    else resolve(result);
+                });
             });
         }
     };
-
-    // ── Future bridge adapter prototype (uncomment when $4d._vp_xxx are available) ──
-    //
-    // const _4DBridgeAdapter = {
-    //     read: function (dataClassName, params) {
-    //         return new Promise(function (resolve, reject) {
-    //             $4d._vp_dataSourceRead(dataClassName, params, function (result, err) {
-    //                 if (err) reject(err);
-    //                 else resolve({ data: result.__ENTITIES, totalCount: result.__COUNT });
-    //             });
-    //         });
-    //     },
-    //     create: function (dataClassName, entity) {
-    //         return new Promise(function (resolve, reject) {
-    //             $4d._vp_dataSourceCreate(dataClassName, entity, function (result, err) {
-    //                 if (err) reject(err);
-    //                 else resolve(result);
-    //             });
-    //         });
-    //     },
-    //     update: function (dataClassName, entity) {
-    //         return new Promise(function (resolve, reject) {
-    //             $4d._vp_dataSourceUpdate(dataClassName, entity.__KEY || entity.ID, entity, function (result, err) {
-    //                 if (err) reject(err);
-    //                 else resolve(result);
-    //             });
-    //         });
-    //     },
-    //     destroy: function (dataClassName, entity) {
-    //         return new Promise(function (resolve, reject) {
-    //             $4d._vp_dataSourceDelete(dataClassName, entity.__KEY || entity.ID, function (result, err) {
-    //                 if (err) reject(err);
-    //                 else resolve(result);
-    //             });
-    //         });
-    //     }
-    // };
 
     // ═══════════════════════════════════════════════════════════════
     // Type mapping: 4D ORDA attribute types → SpreadJS column types
@@ -316,23 +275,23 @@
                     if (args.filter) {
                         readParams.filter = args.filter;
                     }
-                    return _4DRestAdapter.read(dataClassName, readParams);
+                    return _4DBridgeAdapter.read(dataClassName, readParams);
                 }
             };
 
             if (permissions.allowCreate) {
                 tableOptions.remote.create = function (args) {
-                    return _4DRestAdapter.create(dataClassName, args.item);
+                    return _4DBridgeAdapter.create(dataClassName, args.item);
                 };
             }
             if (permissions.allowUpdate) {
                 tableOptions.remote.update = function (args) {
-                    return _4DRestAdapter.update(dataClassName, args.item);
+                    return _4DBridgeAdapter.update(dataClassName, args.item);
                 };
             }
             if (permissions.allowDelete) {
                 tableOptions.remote.destroy = function (args) {
-                    return _4DRestAdapter.destroy(dataClassName, args.item);
+                    return _4DBridgeAdapter.destroy(dataClassName, args.item);
                 };
             }
 
