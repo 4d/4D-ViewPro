@@ -6,6 +6,7 @@
 		],
 		"methods": [
 			"_dev_allowedMethod",
+			"_dev_fillData",
 			"_dev_myObject",
 			"FEATURES",
 			"vp_objectToFormula"

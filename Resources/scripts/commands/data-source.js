@@ -38,10 +38,10 @@
                         var data = Array.isArray(result)
                             ? result
                             : result.__ENTITIES || result.rows || result.data || result.result || [];
-                        resolve({
+                        resolve(data); /*{
                             data: data,
                             totalCount: result.__COUNT != null ? result.__COUNT : data.length
-                        });
+                        });*/
                     }
                 });
             });
