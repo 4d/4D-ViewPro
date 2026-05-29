@@ -56,7 +56,12 @@ Case of
 				readOnly: True:C214\
 				})
 
-			VP ADD TABLE SHEET($vp.area; "Departments (ORDA)"; "Department")
+			VP ADD TABLE SHEET($vp.area; "Departments (ORDA)"; "Department"; {\
+				columns: [\
+					{value: "ID"; width: 60}; \
+					{value: "name"; caption: "Name"; width: 250}\
+				]\
+				})
 			VP ADD TABLE SHEET($vp.area; "Employees"; "Employees"; {\
 				columns: [\
 					{value: "lastName"; caption: "Last Name"; width: 200}; \
@@ -114,10 +119,38 @@ Case of
 
 			// ── Create TableSheet views for in-memory data sources ──
 
-			VP ADD TABLE SHEET($vp.area; "People"; "People")
-			VP ADD TABLE SHEET($vp.area; "Products"; "Products")
-			VP ADD TABLE SHEET($vp.area; "Books"; "Books")
-			VP ADD TABLE SHEET($vp.area; "Scores"; "Scores")
+			VP ADD TABLE SHEET($vp.area; "People"; "People"; {\
+				columns: [\
+					{value: "id"; caption: "ID"; width: 60}; \
+					{value: "firstName"; caption: "First Name"; width: 150}; \
+					{value: "lastName"; caption: "Last Name"; width: 150}; \
+					{value: "age"; width: 80; style: {hAlign: "right"}}; \
+					{value: "birthday"; caption: "Birthday"; width: 180}; \
+					{value: "city"; width: 120}\
+				]\
+				})
+			VP ADD TABLE SHEET($vp.area; "Products"; "Products"; {\
+				columns: [\
+					{value: "name"; caption: "Product"; width: 180}; \
+					{value: "price"; width: 100; style: {hAlign: "right"}}; \
+					{value: "quantity"; caption: "Qty"; width: 80; style: {hAlign: "right"}}; \
+					{value: "inStock"; caption: "In Stock"; width: 100}\
+				]\
+				})
+			VP ADD TABLE SHEET($vp.area; "Books"; "Books"; {\
+				columns: [\
+					{value: "title"; width: 200}; \
+					{value: "author"; width: 150}; \
+					{value: "price"; width: 100; style: {hAlign: "right"}}\
+				]\
+				})
+			VP ADD TABLE SHEET($vp.area; "Scores"; "Scores"; {\
+				columns: [\
+					{value: "name"; width: 150}; \
+					{value: "score"; width: 100; style: {hAlign: "right"}}; \
+					{value: "grade"; width: 80}\
+				]\
+				})
 
 			// ── VP CREATE TABLE: regular table on Sheet 1 bound to DataManager source ──
 			VP SET CURRENT SHEET($vp.area; 0)
@@ -157,8 +190,19 @@ Case of
 				}\
 				})
 
-			VP ADD TABLE SHEET($vp.area; "Departments"; "Departments")
-			VP ADD TABLE SHEET($vp.area; "Staff"; "Staff")
+			VP ADD TABLE SHEET($vp.area; "Departments"; "Departments"; {\
+				columns: [\
+					{value: "ID"; width: 60}; \
+					{value: "name"; caption: "Department"; width: 200}\
+				]\
+				})
+			VP ADD TABLE SHEET($vp.area; "Staff"; "Staff"; {\
+				columns: [\
+					{value: "ID"; width: 60}; \
+					{value: "firstName"; caption: "First Name"; width: 150}; \
+					{value: "departmentID"; caption: "Dept ID"; width: 80}\
+				]\
+				})
 		End if 
 		
 		//______________________________________________________
