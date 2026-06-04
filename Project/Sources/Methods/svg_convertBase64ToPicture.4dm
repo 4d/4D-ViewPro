@@ -1,13 +1,11 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_POINTER:C301($1)
-C_PICTURE:C286($0)
-C_TEXT:C284($Txt_pict)
-
+var $1 : Pointer
+var $0 : Picture
+var $Txt_pict : Text
 $Txt_pict:=$1->
 
 If (Length:C16($Txt_pict)>22)
-	C_TEXT:C284($codec)
-	
+	var $codec : Text
 	Case of 
 		: (Position:C15("data:image/png;base64,"; $Txt_pict)=1)
 			$codec:=".png"
@@ -20,9 +18,8 @@ If (Length:C16($Txt_pict)>22)
 	End case 
 	
 	If ($codec#"")
-		C_BLOB:C604($Blb_buffer)
-		C_PICTURE:C286($pict)
-		
+		var $Blb_buffer : Blob
+		var $pict : Picture
 		$Txt_pict:=Substring:C12($Txt_pict; 23)
 		
 		BASE64 DECODE:C896($Txt_pict; $Blb_buffer)

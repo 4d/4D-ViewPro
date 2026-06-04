@@ -39,7 +39,7 @@ If (vp_initStorage)
 					ARRAY LONGINT:C221($arWidth; 0)
 					ARRAY LONGINT:C221($arHeight; 0)
 					PRINT OPTION VALUES:C785(Paper option:K47:1; $arPapers; $arWidth; $arHeight)
-					C_LONGINT:C283($i)
+					var $i : Integer
 					$i:=Find in array:C230($arPapers; $printInfo.paperSize.kind)
 					If ($i>0)
 						If (Position:C15($printInfo.paperSize.kind; $arPapers{$i}; *)=1)
@@ -53,7 +53,7 @@ If (vp_initStorage)
 			
 			If (Value type:C1509($printInfo.watermark)=Is collection:K8:32)
 				
-				C_OBJECT:C1216($waterMark)
+				var $waterMark : Object
 				For each ($waterMark; $printInfo.watermark)
 					If ($waterMark.imageSrc#Null:C1517)
 						vp_make_picture($waterMark; "imageSrc")

@@ -1,8 +1,10 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($0)
-C_TEXT:C284($1)
-C_LONGINT:C283($i;$nbSheets)
-C_TEXT:C284($name;$area)
+var $0 : Object
+var $1 : Text
+var $i : Integer
+var $nbSheets : Integer
+var $name : Text
+var $area : Text
 $area:=This:C1470.ViewPro.area
 $nbSheets:=VP get sheet count ($area)
 For ($i;0;$nbSheets-1)

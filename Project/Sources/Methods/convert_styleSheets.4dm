@@ -18,15 +18,20 @@ ________________________________________________________
 // Convert all styleSheets as a collection
 // ----------------------------------------------------
 // Declarations
-C_COLLECTION:C1488($0)
-C_OBJECT:C1216($1)
-C_POINTER:C301($2)
-C_POINTER:C301($3)
+var $0 : Collection
+var $1 : Object
+var $2 : Pointer
+var $3 : Pointer
+var $Lon_i : Integer
 
-C_LONGINT:C283($Lon_i; $Lon_key; $Lon_styleSheet)
-C_OBJECT:C1216($Obj_d4; $Obj_key; $Obj_style; $Obj_styleSheet)
-C_COLLECTION:C1488($Coll_styleSheets)
+var $Lon_key : Integer
 
+var $Lon_styleSheet : Integer
+var $Obj_d4 : Object
+var $Obj_key : Object
+var $Obj_style : Object
+var $Obj_styleSheet : Object
+var $Coll_styleSheets : Collection
 ARRAY TEXT:C222($tTxt_ignoredProperties; 15)
 ARRAY TEXT:C222($tTxt_keys; 0)
 

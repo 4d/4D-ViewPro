@@ -1,8 +1,14 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1;$table)
-C_LONGINT:C283($2;$cellPosY;$3;$cellPosX;$4;$rangeX)
-C_LONGINT:C283($0;$i)
-
+var $1 : Object
+var $table : Object
+var $2 : Integer
+var $cellPosY : Integer
+var $3 : Integer
+var $cellPosX : Integer
+var $4 : Integer
+var $rangeX : Integer
+var $0 : Integer
+var $i : Integer
 $table:=$1
 $cellPosY:=$2
 $cellPosX:=$3

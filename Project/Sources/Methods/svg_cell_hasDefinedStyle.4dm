@@ -1,8 +1,12 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_LONGINT:C283($1; $iterY; $2; $iterX)
-C_TEXT:C284($3; $styleLabel)
-C_OBJECT:C1216($4; $table)
-
+var $1 : Integer
+var $iterY : Integer
+var $2 : Integer
+var $iterX : Integer
+var $3 : Text
+var $styleLabel : Text
+var $4 : Object
+var $table : Object
 $iterY:=$1
 $iterX:=$2
 $styleLabel:=$3

@@ -1,12 +1,13 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($1; $0)
-
+var $1 : Object
+var $0 : Object
 ARRAY TEXT:C222($ar_names; 0)
 
 OB GET PROPERTY NAMES:C1232($1; $ar_names)
 
-C_LONGINT:C283($i; $limit)
+var $i : Integer
 
+var $limit : Integer
 $0:=New object:C1471
 
 $limit:=Size of array:C274($ar_names)

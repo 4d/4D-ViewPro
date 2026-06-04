@@ -118,21 +118,35 @@ ________________________________________________________
 //    }
 // ----------------------------------------------------
 // Declarations
-C_COLLECTION:C1488($0)
-C_COLLECTION:C1488($1)
-C_OBJECT:C1216($2)
-
-C_BLOB:C604($Blb_buffer)
-C_LONGINT:C283($kLon_centered; $kLon_none; $kLon_stretch; $kLon_zoom; $Lon_height)
-C_LONGINT:C283($Lon_i; $Lon_picture; $Lon_width; $Lon_x; $Lon_y)
-C_LONGINT:C283($wanted_codec)
-C_PICTURE:C286($Pic_buffer)
-C_TEXT:C284($Dom_pattern; $Dom_rect; $Dom_svg; $Txt_image; $Txt_pictureName; $codec)
-C_OBJECT:C1216($Obj_default; $Obj_picture; $Obj_viewPro)
-C_COLLECTION:C1488($Col_floatingObjects; $Col_pictures)
-C_REAL:C285($kNum_sizeConversionFactor)
-C_LONGINT:C283($convert_unique_id)
-
+var $0 : Collection
+var $1 : Collection
+var $2 : Object
+var $Blb_buffer : Blob
+var $kLon_centered : Integer
+var $kLon_none : Integer
+var $kLon_stretch : Integer
+var $kLon_zoom : Integer
+var $Lon_height : Integer
+var $Lon_i : Integer
+var $Lon_picture : Integer
+var $Lon_width : Integer
+var $Lon_x : Integer
+var $Lon_y : Integer
+var $wanted_codec : Integer
+var $Pic_buffer : Picture
+var $Dom_pattern : Text
+var $Dom_rect : Text
+var $Dom_svg : Text
+var $Txt_image : Text
+var $Txt_pictureName : Text
+var $codec : Text
+var $Obj_default : Object
+var $Obj_picture : Object
+var $Obj_viewPro : Object
+var $Col_floatingObjects : Collection
+var $Col_pictures : Collection
+var $kNum_sizeConversionFactor : Real
+var $convert_unique_id : Integer
 ARRAY LONGINT:C221($tLon_columnWidth; 0)
 ARRAY LONGINT:C221($tLon_rowHeight; 0)
 ARRAY TEXT:C222($ktTxt_codecs; 3)

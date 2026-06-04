@@ -54,15 +54,16 @@ ________________________________________________________
 //}
 // ----------------------------------------------------
 // Declarations
-C_OBJECT:C1216($0)
-C_OBJECT:C1216($1)
-C_OBJECT:C1216($2)
+var $0 : Object
+var $1 : Object
+var $2 : Object
 var $3; $4 : Pointer
 
-C_LONGINT:C283($Lon_i)
-C_TEXT:C284($Txt_key)
-C_OBJECT:C1216($Obj_d4; $Obj_in; $Obj_out)
-
+var $Lon_i : Integer
+var $Txt_key : Text
+var $Obj_d4 : Object
+var $Obj_in : Object
+var $Obj_out : Object
 If (False:C215)
 	C_OBJECT:C1216(convert_styleKey; $0)
 	C_OBJECT:C1216(convert_styleKey; $1)

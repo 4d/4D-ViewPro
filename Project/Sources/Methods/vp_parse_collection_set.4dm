@@ -1,11 +1,11 @@
 //%attributes = {"invisible":true}
-C_COLLECTION:C1488($0)
-C_COLLECTION:C1488($1)
-
+var $0 : Collection
+var $1 : Collection
 $0:=New collection:C1472
 
-C_LONGINT:C283($i; $limit)
+var $i : Integer
 
+var $limit : Integer
 $i:=0
 $limit:=$1.length-1
 

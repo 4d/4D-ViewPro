@@ -4,13 +4,9 @@
 -> document (Object)
 ________________________________________________________
 */
-C_OBJECT:C1216($1)
-
-
-C_TEXT:C284($date)
-C_OBJECT:C1216($documentObject)
-
-// ----------------------------------------------------
+var $1 : Object
+var $date : Text
+var $documentObject : Object  // ----------------------------------------------------
 // Initialisations
 var $nbParameters:=Count parameters:C259
 

@@ -28,11 +28,11 @@ ________________________________________________________
 // A: sheet name.
 // ----------------------------------------------------
 // Declarations
-C_TEXT:C284($0)
-C_TEXT:C284($1)
+var $0 : Text
+var $1 : Text
+var $Txt_in : Text
 
-C_TEXT:C284($Txt_in; $Txt_out)
-
+var $Txt_out : Text
 If (False:C215)
 	C_TEXT:C284(convert_headerAndFooterTags; $0)
 	C_TEXT:C284(convert_headerAndFooterTags; $1)

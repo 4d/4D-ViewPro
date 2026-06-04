@@ -33,8 +33,7 @@ If (vp_initStorage)
 						If ($sheetIndex>=VP Get sheet count($area))
 							err_THROW({code: 19 /*Sheet index should not be greater than or equal to the number of sheets*/})
 						Else 
-							C_TEXT:C284($target)
-							
+							var $target : Text
 							If ($sheetIndex=-2)
 								$target:="allSheets"
 							Else 

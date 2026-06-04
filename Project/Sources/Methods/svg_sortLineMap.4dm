@@ -1,9 +1,13 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($lineObj;$1;$range;$2)
+var $lineObj : Object
+var $1 : Object
+var $range : Object
+var $2 : Object
+var $iterY : Integer
 
-C_LONGINT:C283($iterY;$iterX)
-C_OBJECT:C1216($mapCell;$sortedMapCell)
-
+var $iterX : Integer
+var $mapCell : Object
+var $sortedMapCell : Object
 $lineObj:=$1
 $range:=$2
 

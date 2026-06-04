@@ -62,12 +62,11 @@ ________________________________________________________
 //    },
 // ----------------------------------------------------
 // Declarations
-C_OBJECT:C1216($0)
-C_OBJECT:C1216($1)
-
-C_LONGINT:C283($Lon_i)
-C_OBJECT:C1216($Obj_d4; $Obj_selection)
-
+var $0 : Object
+var $1 : Object
+var $Lon_i : Integer
+var $Obj_d4 : Object
+var $Obj_selection : Object
 If (False:C215)
 	C_OBJECT:C1216(convert_selectedRanges; $0)
 	C_OBJECT:C1216(convert_selectedRanges; $1)

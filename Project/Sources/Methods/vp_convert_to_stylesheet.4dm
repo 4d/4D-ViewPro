@@ -1,9 +1,7 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($0)
-C_OBJECT:C1216($1)
-
-C_OBJECT:C1216($stylesheet)
-
+var $0 : Object
+var $1 : Object
+var $stylesheet : Object
 If ($1=Null:C1517)
 	$stylesheet:=New object:C1471(\
 		"name";Null:C1517;\

@@ -8,20 +8,32 @@ namedStyles := ***convert_styleRanges*** ( d4 ; viewPro ; Param_3 )
 ________________________________________________________
 */
 
-C_COLLECTION:C1488($0)
-C_OBJECT:C1216($1)
-C_OBJECT:C1216($2)
-C_POINTER:C301($3)
-C_POINTER:C301($4)
+var $0 : Collection
+var $1 : Object
+var $2 : Object
+var $3 : Pointer
+var $4 : Pointer
+var $column : Integer
 
-C_LONGINT:C283($column; $Lon_ii; $Lon_key; $Lon_range; $row)
-C_TEXT:C284($Txt_column; $Txt_row)
-C_OBJECT:C1216($Obj_d4; $Obj_data; $Obj_dataTable; $Obj_key; $Obj_style; $Obj_styleRange)
-C_OBJECT:C1216($Obj_viewPro)
-C_COLLECTION:C1488($Coll_namedStyles)
-C_OBJECT:C1216($cell)
-C_TEXT:C284($color)
+var $Lon_ii : Integer
 
+var $Lon_key : Integer
+
+var $Lon_range : Integer
+
+var $row : Integer
+var $Txt_column : Text
+var $Txt_row : Text
+var $Obj_d4 : Object
+var $Obj_data : Object
+var $Obj_dataTable : Object
+var $Obj_key : Object
+var $Obj_style : Object
+var $Obj_styleRange : Object
+var $Obj_viewPro : Object
+var $Coll_namedStyles : Collection
+var $cell : Object
+var $color : Text
 ARRAY TEXT:C222($tTxt_ignoredProperties; 12)
 ARRAY TEXT:C222($tTxt_keys; 0)
 
@@ -388,7 +400,7 @@ For each ($Obj_styleRange; $Obj_d4.styleRanges)
 									
 									If ($Obj_dataTable[$Txt_row][$Txt_column].style.font#Null:C1517)
 										
-										C_TEXT:C284($cellFont)
+										var $cellFont : Text
 										$cellFont:=convert_mergeFontStyle($Obj_dataTable[$Txt_row][$Txt_column].style.font; $Obj_style.font)
 										
 										If ($cellFont#$Obj_style.font)

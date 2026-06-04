@@ -1,19 +1,24 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($1; $elemRef)
-C_TEXT:C284($2; $valueStr; $3; $fontSize)
-C_OBJECT:C1216($4; $valObj)
-C_BOOLEAN:C305($5; $isHtml)
-C_POINTER:C301($6; $svgSrc)
-
-C_REAL:C285($posX)
-C_REAL:C285($posY)
-C_LONGINT:C283($i; $j; $k)
-//C_LONGINT($nbColumn; $nbChar;  $n)
+var $1 : Text
+var $elemRef : Text
+var $2 : Text
+var $valueStr : Text
+var $3 : Text
+var $fontSize : Text
+var $4 : Object
+var $valObj : Object
+var $5 : Boolean
+var $isHtml : Boolean
+var $6 : Pointer
+var $svgSrc : Pointer
+var $posX : Real
+var $posY : Real
+var $i : Integer
+var $j : Integer
+var $k : Integer
 //ARRAY LONGINT($columnArray; 0)
-C_REAL:C285(char_space)
-//C_BOOLEAN($word)
-C_TEXT:C284($lf)
-
+var char_space : Real
+var $lf : Text
 $lf:="\n"
 
 $elemRef:=$1
@@ -117,9 +122,8 @@ Case of
 End case 
 
 If ($valObj.wordWrapInfo#Null:C1517)
-	C_COLLECTION:C1488($lines)
-	C_TEXT:C284($word)
-	
+	var $lines : Collection
+	var $word : Text
 	$lines:=$valObj.wordWrapInfo.lines
 	
 	$i:=1

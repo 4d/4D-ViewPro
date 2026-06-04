@@ -15,15 +15,29 @@ ________________________________________________________
 //
 // ----------------------------------------------------
 // Declarations
-C_OBJECT:C1216($1)
-C_OBJECT:C1216($2)
+var $1 : Object
+var $2 : Object
+var $column : Integer
 
-C_LONGINT:C283($column; $Lon_i; $Lon_j; $Lon_left; $row)
-C_LONGINT:C283($Lon_top; $tmp_row; $tmp_col)
-C_TEXT:C284($Txt_border; $Txt_col; $Txt_row)
-C_OBJECT:C1216($Obj_border; $Obj_d4; $Obj_data; $Obj_dataTable; $Obj_edge)
-C_COLLECTION:C1488($Col_edges)
+var $Lon_i : Integer
 
+var $Lon_j : Integer
+
+var $Lon_left : Integer
+
+var $row : Integer
+var $Lon_top : Integer
+var $tmp_row : Integer
+var $tmp_col : Integer
+var $Txt_border : Text
+var $Txt_col : Text
+var $Txt_row : Text
+var $Obj_border : Object
+var $Obj_d4 : Object
+var $Obj_data : Object
+var $Obj_dataTable : Object
+var $Obj_edge : Object
+var $Col_edges : Collection
 If (False:C215)
 	C_OBJECT:C1216(convert_BORDERS; $1)
 	C_OBJECT:C1216(convert_BORDERS; $2)

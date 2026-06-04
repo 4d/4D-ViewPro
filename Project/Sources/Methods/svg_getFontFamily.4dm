@@ -1,10 +1,13 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_COLLECTION:C1488($1;$colFont)
-C_LONGINT:C283($2;$indexFont)
-C_TEXT:C284($0;$strFont)
-C_LONGINT:C283($i;$pos)
-C_BOOLEAN:C305($replace)
-
+var $1 : Collection
+var $colFont : Collection
+var $2 : Integer
+var $indexFont : Integer
+var $0 : Text
+var $strFont : Text
+var $i : Integer
+var $pos : Integer
+var $replace : Boolean
 $colFont:=$1
 $indexFont:=$2
 

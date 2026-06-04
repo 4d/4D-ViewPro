@@ -15,14 +15,13 @@ ________________________________________________________
   //
   // ----------------------------------------------------
   // Declarations
-C_BOOLEAN:C305($0)
-C_OBJECT:C1216($1)
-
-C_BOOLEAN:C305($Boo_valid)
-C_LONGINT:C283($nbParameters)
-C_TEXT:C284($Dir_root)
-C_OBJECT:C1216($Obj_schema;$Obj_viewObject)
-
+var $0 : Boolean
+var $1 : Object
+var $Boo_valid : Boolean
+var $nbParameters : Integer
+var $Dir_root : Text
+var $Obj_schema : Object
+var $Obj_viewObject : Object
 If (False:C215)
 	C_BOOLEAN:C305(vp_isObjectValid ;$0)
 	C_OBJECT:C1216(vp_isObjectValid ;$1)

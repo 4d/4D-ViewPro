@@ -1,11 +1,21 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1;$lineObj;$line)
-C_LONGINT:C283($2;$3;$iterX;$iterY)
-C_LONGINT:C283($4;$diagonalUpStyle)
-C_TEXT:C284($5;$diagonalUpColor)
-C_POINTER:C301($6;$7;$colPos;$rowPos)
-C_OBJECT:C1216($8;$range)
-
+var $1 : Object
+var $lineObj : Object
+var $line : Object
+var $2 : Integer
+var $3 : Integer
+var $iterX : Integer
+var $iterY : Integer
+var $4 : Integer
+var $diagonalUpStyle : Integer
+var $5 : Text
+var $diagonalUpColor : Text
+var $6 : Pointer
+var $7 : Pointer
+var $colPos : Pointer
+var $rowPos : Pointer
+var $8 : Object
+var $range : Object
 $lineObj:=$1
 $iterX:=$2
 $iterY:=$3
@@ -22,8 +32,9 @@ If ($diagonalUpStyle=6)
 		$lineObj.double:=New object:C1471
 	End if 
 	
-	C_TEXT:C284($strIterY;$strIterX)
+	var $strIterY : Text
 	
+	var $strIterX : Text
 	$strIterY:=String:C10($iterY)
 	$strIterX:=String:C10($iterX)
 	

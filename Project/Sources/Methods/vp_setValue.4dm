@@ -1,8 +1,8 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($1)
-C_VARIANT:C1683($2)
-C_TEXT:C284($3)
-C_OBJECT:C1216($value)
+var $1 : Object
+var $2 : Variant
+var $3 : Text
+var $value : Object
 $value:=New object:C1471
 
 Case of 

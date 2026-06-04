@@ -16,13 +16,14 @@ ________________________________________________________
 //
 // ----------------------------------------------------
 // Declarations
-C_TEXT:C284($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-
-C_LONGINT:C283($Lon_i)
-C_TEXT:C284($Txt_gatherFont; $Txt_pattern; $Txt_srcFont; $Txt_targetFont)
-
+var $0 : Text
+var $1 : Text
+var $2 : Text
+var $Lon_i : Integer
+var $Txt_gatherFont : Text
+var $Txt_pattern : Text
+var $Txt_srcFont : Text
+var $Txt_targetFont : Text
 If (False:C215)
 	C_TEXT:C284(convert_gatherFontStyle; $0)
 	C_TEXT:C284(convert_gatherFontStyle; $1)

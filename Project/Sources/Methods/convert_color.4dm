@@ -16,14 +16,12 @@ ________________________________________________________
 // The default value is black.
 // ----------------------------------------------------
 // Declarations
-C_TEXT:C284($0)
-C_LONGINT:C283($1)
-C_BOOLEAN:C305($2)
-
-C_LONGINT:C283($Lon_color)
-C_TEXT:C284($Txt_color)
-C_BOOLEAN:C305($withName)
-
+var $0 : Text
+var $1 : Integer
+var $2 : Boolean
+var $Lon_color : Integer
+var $Txt_color : Text
+var $withName : Boolean
 If (False:C215)
 	C_TEXT:C284(convert_color; $0)
 	C_LONGINT:C283(convert_color; $1)

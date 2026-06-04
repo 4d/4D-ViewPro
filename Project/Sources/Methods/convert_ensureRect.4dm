@@ -1,10 +1,11 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($1)
-C_LONGINT:C283($2;$3)
+var $1 : Object
+var $2 : Integer
+var $3 : Integer
+var $maxHeight : Integer
 
-C_LONGINT:C283($maxHeight;$maxWidth)
-C_OBJECT:C1216($rect)
-
+var $maxWidth : Integer
+var $rect : Object
 $rect:=$1
 $maxWidth:=$2
 $maxHeight:=$3

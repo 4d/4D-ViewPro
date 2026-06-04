@@ -1,5 +1,4 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1)
-C_TEXT:C284($2)
-
+var $1 : Object
+var $2 : Text
 $1.result:=($1.value=$2)

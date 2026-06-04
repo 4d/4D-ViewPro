@@ -1,7 +1,7 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($0)
-C_TEXT:C284($1)
-C_LONGINT:C283($2)
+var $0 : Object
+var $1 : Text
+var $2 : Integer
 $0:=New object:C1471("area";$1;"sheet";$2)
 $0.cell:=Formula:C1597(VP Cell (This:C1470.area;$1;$2;This:C1470.sheet))
 $0.cells:=Formula:C1597(VP Cells (This:C1470.area;$1;$2;$3;$4;This:C1470.sheet))

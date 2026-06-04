@@ -1,8 +1,12 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($0;$status)
-C_LONGINT:C283($1;$row;$2;$column)
-C_COLLECTION:C1488($3;$mergeTable)
-
+var $0 : Object
+var $status : Object
+var $1 : Integer
+var $row : Integer
+var $2 : Integer
+var $column : Integer
+var $3 : Collection
+var $mergeTable : Collection
 $row:=$1
 $column:=$2
 $mergeTable:=$3

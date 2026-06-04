@@ -1,10 +1,13 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1;$valObj)
-C_TEXT:C284($2;$fontSize)
-C_TEXT:C284($3;$valueStr)
-C_BOOLEAN:C305($4;$isHtml)
-C_REAL:C285($0)
-
+var $1 : Object
+var $valObj : Object
+var $2 : Text
+var $fontSize : Text
+var $3 : Text
+var $valueStr : Text
+var $4 : Boolean
+var $isHtml : Boolean
+var $0 : Real
 $valObj:=$1
 $fontSize:=$2
 $valueStr:=$3

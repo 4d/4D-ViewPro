@@ -1,7 +1,7 @@
 //%attributes = {"invisible":true}
-C_TEXT:C284($1; $2)
-C_BOOLEAN:C305($3)
-
+var $1 : Text
+var $2 : Text
+var $3 : Boolean
 If (False:C215)
 	C_TEXT:C284(vp_endInit; $1)  // area name
 	C_TEXT:C284(vp_endInit; $2)  // interface
@@ -10,8 +10,7 @@ End if
 
 If (vp_initStorage)
 	
-	C_OBJECT:C1216($obj)
-	
+	var $obj : Object
 	$obj:=OBJECT Get value:C1743($1)
 	
 	If ($obj=Null:C1517)

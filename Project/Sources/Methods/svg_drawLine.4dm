@@ -1,6 +1,5 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($priorityTable)
-
+var $priorityTable : Object
 $priorityTable:=New object:C1471
 $priorityTable["0"]:=0
 $priorityTable["9"]:=1
@@ -18,25 +17,33 @@ $priorityTable["5"]:=3
 $priorityTable["6"]:=3
 
 
-C_TEXT:C284($1;$svgRef)
-C_OBJECT:C1216($2;$lineObj)
-C_OBJECT:C1216($3;$range)
-C_POINTER:C301($4;$colPos;$5;$rowPos)
-C_OBJECT:C1216($line)
-C_TEXT:C284($dash_array)
-C_LONGINT:C283($iterX;$iterY)
-C_TEXT:C284($sIterX;$sIterY)
-C_BOOLEAN:C305($else)
+var $1 : Text
 
+
+var $svgRef : Text
+var $2 : Object
+var $lineObj : Object
+var $3 : Object
+var $range : Object
+var $4 : Pointer
+var $colPos : Pointer
+var $5 : Pointer
+var $rowPos : Pointer
+var $line : Object
+var $dash_array : Text
+var $iterX : Integer
+var $iterY : Integer
+var $sIterX : Text
+var $sIterY : Text
+var $else : Boolean
 $svgRef:=$1
 $lineObj:=$2
 $range:=$3
 $colPos:=$4
 $rowPos:=$5
 
-C_TEXT:C284($elemRef)
-C_TEXT:C284($xPath)
-
+var $elemRef : Text
+var $xPath : Text
 $xPath:="/svg/line"
 /*
 For ($iterY;$range.y1;$range.y2+1)

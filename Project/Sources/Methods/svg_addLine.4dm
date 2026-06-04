@@ -1,9 +1,22 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($lineObj;$1)
-C_LONGINT:C283($x;$2;$y;$3;$style;$4;$orientation;$6;$offset;$8;$position;$9)
-C_BOOLEAN:C305($isOriented;$7)
-C_TEXT:C284($color;$5)
-
+var $lineObj : Object
+var $1 : Object
+var $x : Integer
+var $2 : Integer
+var $y : Integer
+var $3 : Integer
+var $style : Integer
+var $4 : Integer
+var $orientation : Integer
+var $6 : Integer
+var $offset : Integer
+var $8 : Integer
+var $position : Integer
+var $9 : Integer
+var $isOriented : Boolean
+var $7 : Boolean
+var $color : Text
+var $5 : Text
 $lineObj:=$1
 $x:=$2
 $y:=$3

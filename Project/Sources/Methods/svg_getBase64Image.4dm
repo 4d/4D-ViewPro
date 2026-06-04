@@ -1,10 +1,10 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($1;$URI)
-C_TEXT:C284($0)
-C_PICTURE:C286($pict)
-C_BLOB:C604($blobImage)
-C_LONGINT:C283($statut)
-
+var $1 : Text
+var $URI : Text
+var $0 : Text
+var $pict : Picture
+var $blobImage : Blob
+var $statut : Integer
 $URI:=$1
 
 $statut:=0

@@ -1,7 +1,14 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($0;$box)
-C_LONGINT:C283($1;$2;$3;$4;$x;$y;$textWidth;$lineHeight)
-
+var $0 : Object
+var $box : Object
+var $1 : Integer
+var $2 : Integer
+var $3 : Integer
+var $4 : Integer
+var $x : Integer
+var $y : Integer
+var $textWidth : Integer
+var $lineHeight : Integer
 $x:=$1
 $y:=$2
 $textWidth:=$3

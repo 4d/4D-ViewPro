@@ -1,8 +1,27 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1;$colorObj)
+var $1 : Object
+var $colorObj : Object
+var $maxUnit : Real
 
-C_REAL:C285($maxUnit;$minUnit;$sum;$diff;$partR;$partB;$partG;$tint;$lumDiff;$n1;$n2)
+var $minUnit : Real
 
+var $sum : Real
+
+var $diff : Real
+
+var $partR : Real
+
+var $partB : Real
+
+var $partG : Real
+
+var $tint : Real
+
+var $lumDiff : Real
+
+var $n1 : Real
+
+var $n2 : Real
 $colorObj:=$1
 
 $maxUnit:=Choose:C955($colorObj.r>$colorObj.g;$colorObj.r;$colorObj.g)

@@ -1,11 +1,22 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($1;$svgRef)
-C_COLLECTION:C1488($2;$bgImgCol)
+var $1 : Text
+var $svgRef : Text
+var $2 : Collection
+var $bgImgCol : Collection
+var $backgroundImage : Text
 
-C_TEXT:C284($backgroundImage;$backgroundImageLayout;$elemRef)
-C_LONGINT:C283($x1;$y1;$width;$height;$pictX;$pictY;$pictWidth;$pictHeight)
-C_OBJECT:C1216($bgObj)
+var $backgroundImageLayout : Text
 
+var $elemRef : Text
+var $x1 : Integer
+var $y1 : Integer
+var $width : Integer
+var $height : Integer
+var $pictX : Integer
+var $pictY : Integer
+var $pictWidth : Integer
+var $pictHeight : Integer
+var $bgObj : Object
 $svgRef:=$1
 $bgImgCol:=$2
 

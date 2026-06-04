@@ -1,12 +1,12 @@
 //%attributes = {"invisible":true}
-C_VARIANT:C1683($0; $1)
-
+var $0 : Variant
+var $1 : Variant
 Case of 
 	: (Value type:C1509($1)=Is collection:K8:32)
 		$0:=vp_parse_collection_get($1)
 		
 	: (Value type:C1509($1)=Is object:K8:27)
-		C_BOOLEAN:C305($handled)
+		var $handled : Boolean
 		$handled:=False:C215
 		
 		If (OB Get type:C1230($1; "type")=Is text:K8:3)
@@ -20,7 +20,7 @@ Case of
 					$handled:=True:C214
 					
 				: ($1.type="__picture__")
-					C_OBJECT:C1216($ob)
+					var $ob : Object
 					$ob:=New object:C1471("value"; $1.value)
 					vp_get_picture($ob; "value")
 					$0:=$ob.value

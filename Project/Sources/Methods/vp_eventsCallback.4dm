@@ -1,14 +1,19 @@
 //%attributes = {"invisible":true}
-C_OBJECT:C1216($1;$2)
-
+var $1 : Object
+var $2 : Object
 If (False:C215)
 	C_OBJECT:C1216(vp_eventsCallback ;$1)
 	C_OBJECT:C1216(vp_eventsCallback ;$2)
 End if 
 
-C_OBJECT:C1216($Obj_callback;$Obj_data;$Obj_areaVariable;$Obj_formula)
-C_TEXT:C284($Txt_event)
+var $Obj_callback : Object
 
+var $Obj_data : Object
+
+var $Obj_areaVariable : Object
+
+var $Obj_formula : Object
+var $Txt_event : Text
 $obj_callback:=$1
 $Obj_data:=$2
 
@@ -20,8 +25,7 @@ If (OB Is defined:C1231($Obj_callback;"event"))
 		If (Value type:C1509($Obj_areaVariable.events)=Is object:K8:27)
 			If (Value type:C1509($Obj_areaVariable.events[$Txt_event])=Is object:K8:27)
 				
-				C_TEXT:C284($sheet)
-				
+				var $sheet : Text
 				If ($Obj_callback.sheetIndex=-2)
 					$sheet:="allSheets"
 				Else 

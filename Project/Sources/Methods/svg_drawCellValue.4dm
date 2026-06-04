@@ -1,18 +1,23 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_COLLECTION:C1488($2; $valCol)
-C_TEXT:C284($1; $svgRef)
-C_OBJECT:C1216($valObj)
-C_LONGINT:C283($3; $svgHeight; $4; $svgWidth)
-C_TEXT:C284($valueStr)
-
-// C_TEXT($htmlHAlign; $htmlVAlign)
+var $2 : Collection
+var $valCol : Collection
+var $1 : Text
+var $svgRef : Text
+var $valObj : Object
+var $3 : Integer
+var $svgHeight : Integer
+var $4 : Integer
+var $svgWidth : Integer
+var $valueStr : Text
 // C_TEXT($switchRef; $foRef; $bodyRef; $divRef)
 
-C_TEXT:C284($styleStr; $gRef; $elemRef)
+var $styleStr : Text
 
-C_TEXT:C284($fontSize)
-C_REAL:C285($lineHeight)
+var $gRef : Text
 
+var $elemRef : Text
+var $fontSize : Text
+var $lineHeight : Real
 $fontSize:="14.6664px"
 $lineHeight:=17.5997
 
@@ -221,8 +226,9 @@ If ($valObj.wordWrapInfo#Null)
 	
 If ($valObj.textOrientation=0) | ($valObj.textOrientation=NONE_TEXT_ORIENTATION)
 	
-C_LONGINT($anchorX; $anchorY)
+var $anchorX : Integer
 	
+var $anchorY : Integer
 $lineHeight:=$valObj.wordWrapInfo.lineHeight
 	
 $anchorX:=$valObj.x
@@ -242,9 +248,12 @@ $i:=0
 	
 End case 
 	
-C_REAL($lastX; $posX; $posY)
-C_OBJECT($line)
+var $lastX : Real
 	
+var $posX : Real
+	
+var $posY : Real
+var $line : Object
 $lastX:=-1
 While ($i>=0) & ($i<$valObj.wordWrapInfo.lines.length)
 	
@@ -268,11 +277,22 @@ End if
 End while 
 	
 Else 
-C_LONGINT($step)
-C_REAL($offset; $stickX; $stickY; $lastX; $textTranslationX; $textTranslationY)
-C_TEXT($HStickCorner; $VStickCorner)
-C_OBJECT($rotatedTextBox; $translatedTextBox; $initialTextBox; $rotatedBigBox; $translatedBigBox; $initialBigBox; $line)
-	
+var $step : Integer
+var $offset : Real
+var $stickX : Real
+var $stickY : Real
+var $lastX : Real
+var $textTranslationX : Real
+var $textTranslationY : Real
+var $HStickCorner : Text
+var $VStickCorner : Text
+var $rotatedTextBox : Object
+var $translatedTextBox : Object
+var $initialTextBox : Object
+var $rotatedBigBox : Object
+var $translatedBigBox : Object
+var $initialBigBox : Object
+var $line : Object
 $lineHeight:=$valObj.wordWrapInfo.lineHeight
 $boxWidth:=$valObj.wordWrapInfo.boxWidth
 $radOrientation:=$valObj.textOrientation*Degree
@@ -386,7 +406,7 @@ $translatedTextBox:=svg_getTranslatedBox($rotatedTextBox; $translationX; $transl
 	
 $translationX2:=0
 If ($lastX=-1) & ($valObj.borderOrientation) & ($valObj.textOrientation#90) & ($valObj.textOrientation#-90)
-C_OBJECT($P)
+var $P : Object
 Case of 
 : ($valObj.hAlign=LEFT_HORIZONTAL_ALIGN)
 $P:=svg_findIntersection($translatedBigBox[$HStickCorner].x; $translatedBigBox[$HStickCorner].y; $valObj.x; $valObj.y+$valObj.height; $valObj.x+$valObj.borderOffset; $valObj.y)
@@ -451,13 +471,11 @@ If ($valObj.shrinkToFit#"")
 $lineHeight:=1.2*Num($valObj.shrinkToFit; ".")
 End if 
 	
-C_OBJECT($initialBox)
-	
+var $initialBox : Object
 $initialBox:=svg_getHTMLTextBox($valObj.x; $valObj.y+(0.8*$lineHeight); $valObj.textWidth; $lineHeight)
 //svg_displayBox ($initialBox;$svgRef;"red")
 	
-C_OBJECT($rotatedBox)
-	
+var $rotatedBox : Object
 $rotatedBox:=svg_getRotatedBox($initialBox; $valObj.x; $valObj.y; $valObj.textOrientation*Degree)
 	
 If ($valObj.textOrientation>0)
@@ -485,8 +503,7 @@ $translationY:=($valObj.y+$valObj.height-1.75)-$rotatedBox.bottomLeft.y
 	
 End case 
 	
-C_OBJECT($translatedBox)
-	
+var $translatedBox : Object
 $translatedBox:=svg_getTranslatedBox($rotatedBox; $translationX; $translationY)
 //svg_displayBox ($translatedBox;$svgRef;"purple")
 	
@@ -525,8 +542,7 @@ $translationY:=($valObj.y+$valObj.height-1.75)-$rotatedBox.bottomRight.y
 	
 End case 
 	
-C_OBJECT($translatedBox)
-	
+var $translatedBox : Object
 $translatedBox:=svg_getTranslatedBox($rotatedBox; $translationX; $translationY)
 //svg_displayBox ($translatedBox;$svgRef;"purple")
 	
@@ -538,12 +554,10 @@ End if
 End if 
 	
 /// OFFSET WHEN ROTATED BORDER ////
-C_REAL($translationX2)
-	
+var $translationX2 : Real
 $translationX2:=0
 If ($valObj.borderOrientation) & ($valObj.textOrientation#90) & ($valObj.textOrientation#-90)
-C_OBJECT($P)
-	
+var $P : Object
 Case of 
 : ($valObj.hAlign=LEFT_HORIZONTAL_ALIGN) & ($valObj.textOrientation>0)
 $P:=svg_findIntersection($translatedBox.topLeft.x; $translatedBox.topLeft.y; $valObj.x; $valObj.y+$valObj.height; $valObj.x+$valObj.borderOffset; $valObj.y)
@@ -596,8 +610,7 @@ Else
 	
 Case of 
 : ($htmlVAlign="top")
-C_TEXT($top)
-	
+var $top : Text
 $top:="0"
 	
 If ($valObj.cellPadding#Null) & ($valObj.textWidth>$valObj.width) & ($valObj.wordWrap=False)
@@ -623,8 +636,7 @@ $styleStr:=$styleStr+"top:"+String(Num($valObj.cellPadding.top)-($lineHeight/2);
 End if 
 	
 : ($htmlVAlign="bottom")
-C_TEXT($bottom)
-	
+var $bottom : Text
 $bottom:="-4"
 	
 If ($valObj.cellPadding#Null)
@@ -694,8 +706,9 @@ $elemRef:=DOM Create XML element($bodyRef; "div"; "style"; $styleStr)
 svg_printVerticalText($elemRef; $valueStr; Choose($valObj.shrinkToFit#""; $valObj.shrinkToFit; $fontSize); $valObj; True)
 	
 : ($valObj.strPart#Null)
-C_TEXT($part1Ref; $elemStyle; $part1Style)
-	
+var $part1Ref : Text
+var $elemStyle : Text
+var $part1Style : Text
 $part1Ref:=DOM Create XML element(DOM Get parent XML element($elemRef); "textarea")
 dom_xml_copy_element($elemRef; $part1Ref)
 	
@@ -811,8 +824,7 @@ End for each
 		
 		//// CLIPPING ////
 		
-		C_TEXT:C284($clipRef)
-		
+		var $clipRef : Text
 		$clipRef:=DOM Create XML element:C865($gRef; "clipPath"; "id"; String:C10($valObj.x)+"a"+String:C10($valObj.y))
 		
 		If ($valObj.textOrientation=0) | ($valObj.textOrientation=NONE_TEXT_ORIENTATION)
@@ -970,9 +982,9 @@ End for each
 		If ($valObj.wordWrapInfo#Null:C1517) & ($valObj.isVerticalText=False:C215)
 			
 			If ($valObj.textOrientation=0) | ($valObj.textOrientation=NONE_TEXT_ORIENTATION)
-				C_LONGINT:C283($anchorX; $anchorY)
-				C_TEXT:C284($textRef)
-				
+				var $anchorX : Integer
+				var $anchorY : Integer
+				var $textRef : Text
 				$lineHeight:=$valObj.wordWrapInfo.lineHeight
 				
 				Case of 
@@ -1002,9 +1014,12 @@ End for each
 						
 				End case 
 				
-				C_REAL:C285($lastX; $posX; $posY)
-				C_OBJECT:C1216($line)
+				var $lastX : Real
 				
+				var $posX : Real
+				
+				var $posY : Real
+				var $line : Object
 				$lastX:=-1
 				While ($i>=0) & ($i<$valObj.wordWrapInfo.lines.length)
 					
@@ -1040,11 +1055,18 @@ End for each
 				End while 
 				
 			Else 
-				C_LONGINT:C283($step)
-				C_REAL:C285($offset; $stickX; $stickY)
-				C_TEXT:C284($HStickCorner; $VStickCorner)
-				C_OBJECT:C1216($rotatedTextBox; $translatedTextBox; $initialTextBox; $rotatedBigBox; $translatedBigBox; $initialBigBox)
-				
+				var $step : Integer
+				var $offset : Real
+				var $stickX : Real
+				var $stickY : Real
+				var $HStickCorner : Text
+				var $VStickCorner : Text
+				var $rotatedTextBox : Object
+				var $translatedTextBox : Object
+				var $initialTextBox : Object
+				var $rotatedBigBox : Object
+				var $translatedBigBox : Object
+				var $initialBigBox : Object
 				$lineHeight:=$valObj.wordWrapInfo.lineHeight
 				$boxWidth:=$valObj.wordWrapInfo.boxWidth
 				$radOrientation:=$valObj.textOrientation*Degree:K30:2
@@ -1208,22 +1230,19 @@ End for each
 		Else 
 			If ($valObj.textOrientation#0) & ($valObj.textOrientation#NONE_TEXT_ORIENTATION) & (Not:C34($valObj.isVerticalText))
 				
-				C_REAL:C285($radOrientation)
-				
+				var $radOrientation : Real
 				$radOrientation:=$valObj.textOrientation*Degree:K30:2
 				
-				C_REAL:C285($xPos; $yPos)
+				var $xPos : Real
 				
-				//DOM GET XML ATTRIBUTE BY NAME($elemRef;"y";$yPos)
+				var $yPos : Real
 				//DOM GET XML ATTRIBUTE BY NAME($elemRef;"x";$xPos)
 				
 				$xPos:=0
 				$yPos:=0
 				
-				C_OBJECT:C1216($initialBox)
-				
-				C_REAL:C285($boxWidth)
-				
+				var $initialBox : Object
+				var $boxWidth : Real
 				$boxWidth:=$valObj.textWidth
 				
 				If ($valObj.shrinkToFit#"")
@@ -1233,13 +1252,13 @@ End for each
 				$initialBox:=svg_getTextBox($xPos; $yPos; $boxWidth; $lineHeight)
 				//svg_displayBox ($initialBox;$svgRef;"red")
 				
-				C_OBJECT:C1216($rotatedBox)
-				
+				var $rotatedBox : Object
 				$rotatedBox:=svg_getRotatedBox($initialBox; $initialBox.topLeft.x; $initialBox.topLeft.y; $radOrientation)
 				//svg_displayBox ($rotatedBox;$svgRef;"green")
 				
-				C_REAL:C285($translationX; $translationY)
+				var $translationX : Real
 				
+				var $translationY : Real
 				If ($valObj.textOrientation>0)
 					
 					/// HORIZONTAL CELL POSITION
@@ -1269,8 +1288,7 @@ End for each
 							
 					End case 
 					
-					C_OBJECT:C1216($translatedBox)
-					
+					var $translatedBox : Object
 					$translatedBox:=svg_getTranslatedBox($rotatedBox; $translationX; $translationY)
 					
 					
@@ -1321,7 +1339,7 @@ End for each
 				
 				/// OFFSET WHEN ROTATED BORDER ////
 				If ($valObj.borderOrientation) & ($valObj.textOrientation#90) & ($valObj.textOrientation#-90)
-					C_OBJECT:C1216($P)
+					var $P : Object
 					Case of 
 						: ($valObj.hAlign=LEFT_HORIZONTAL_ALIGN) & ($valObj.textOrientation>0)
 							$P:=svg_findIntersection($translatedBox.topLeft.x; $translatedBox.topLeft.y; $valObj.x; $valObj.y+$valObj.height; $valObj.x+$valObj.borderOffset; $valObj.y)
@@ -1364,8 +1382,7 @@ End for each
 				
 				//  svg_displayBox ($translatedBox;$svgRef;"green")
 				
-				C_OBJECT:C1216($clipBox)
-				
+				var $clipBox : Object
 				$clipBox:=New object:C1471
 				
 				If ($valObj.isMerged=FREE)
@@ -1404,8 +1421,7 @@ End for each
 				
 				$clipBox:=svg_getRotatedBox($clipBox; $translatedBox.topLeft.x; $translatedBox.topLeft.y; -$radOrientation)
 				
-				C_TEXT:C284($polygonRef)
-				
+				var $polygonRef : Text
 				$polygonRef:=DOM Create XML element:C865($clipRef; "polygon"; "points"; String:C10($clipBox.topLeft.x; "&xml;")+" "+String:C10($clipBox.topLeft.y; "&xml;")+","\
 					+String:C10($clipBox.topRight.x; "&xml;")+" "+String:C10($clipBox.topRight.y; "&xml;")+","\
 					+String:C10($clipBox.bottomRight.x; "&xml;")+" "+String:C10($clipBox.bottomRight.y; "&xml;")+","\
@@ -1427,9 +1443,8 @@ End for each
 					svg_printVerticalText($elemRef; $valueStr; Choose:C955((($valObj.shrinkToFit#"") & (Num:C11($valObj.shrinkToFit; ".")<Num:C11($fontSize; "."))); $valObj.shrinkToFit; $fontSize); $valObj; False:C215)
 					
 				: ($valObj.strPart#Null:C1517)
-					C_TEXT:C284($part1Ref)
-					C_TEXT:C284($part2Ref)
-					
+					var $part1Ref : Text
+					var $part2Ref : Text
 					DOM GET XML ATTRIBUTE BY NAME:C728($elemRef; "y"; $yPos)
 					$part1Ref:=DOM Create XML element:C865($elemRef; "text"; "style"; $styleStr)
 					$part2Ref:=DOM Create XML element:C865($elemRef; "text"; "style"; $styleStr)
@@ -1450,9 +1465,10 @@ End for each
 					//End if 
 					
 					If (Match regex:C1019(" {2,}"; $valueStr; 1; $pos; $len))
-						C_LONGINT:C283($pos; $len; $i)
-						C_BOOLEAN:C305($sp)
-						
+						var $pos : Integer
+						var $len : Integer
+						var $i : Integer
+						var $sp : Boolean
 						If ($valObj.wordWrap) & ($valObj.shrinkToFit="")
 							$sp:=False:C215
 							For ($i; 1; Length:C16($valueStr))

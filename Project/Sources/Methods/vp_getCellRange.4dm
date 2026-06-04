@@ -1,10 +1,19 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1; $vpObject; $2; $cells; $sheets; $workbook; $table)
-C_LONGINT:C283($biggestCol; $biggestRow)
-C_OBJECT:C1216($range; $0)
-C_TEXT:C284($s; $currentCol; $currentRow)
-C_COLLECTION:C1488($sheetCol)
-
+var $1 : Object
+var $vpObject : Object
+var $2 : Object
+var $cells : Object
+var $sheets : Object
+var $workbook : Object
+var $table : Object
+var $biggestCol : Integer
+var $biggestRow : Integer
+var $range : Object
+var $0 : Object
+var $s : Text
+var $currentCol : Text
+var $currentRow : Text
+var $sheetCol : Collection
 $vpObject:=$1
 If (Count parameters:C259>=2)
 	$cells:=$2

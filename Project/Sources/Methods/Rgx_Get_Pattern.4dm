@@ -8,14 +8,20 @@ Buffer := ***Rgx_Get_Pattern*** ( Pattern_Name ; Path ; Param_3 )
 -
 */
 
-C_TEXT:C284($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_POINTER:C301($3)
+var $0 : Text
+var $1 : Text
+var $2 : Text
+var $3 : Pointer
+var $Lon_Error : Integer
 
-C_LONGINT:C283($Lon_Error; $nbParameters)
-C_TEXT:C284($Txt_Buffer; $Txt_Element_Name; $Txt_Path; $Txt_Pattern_Name; $a16_Pattern; $a16_Patterns; $a16_Root)
-
+var $nbParameters : Integer
+var $Txt_Buffer : Text
+var $Txt_Element_Name : Text
+var $Txt_Path : Text
+var $Txt_Pattern_Name : Text
+var $a16_Pattern : Text
+var $a16_Patterns : Text
+var $a16_Root : Text
 $nbParameters:=Count parameters:C259
 
 If ($nbParameters>0)

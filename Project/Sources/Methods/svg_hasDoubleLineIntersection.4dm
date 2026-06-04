@@ -1,9 +1,12 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1;$doubleLineObj)
-C_LONGINT:C283($2;$3)
-C_POINTER:C301($4;$dliDirectionPtr)
-C_TEXT:C284($strIterY;$strIterX)
-
+var $1 : Object
+var $doubleLineObj : Object
+var $2 : Integer
+var $3 : Integer
+var $4 : Pointer
+var $dliDirectionPtr : Pointer
+var $strIterY : Text
+var $strIterX : Text
 $doubleLineObj:=$1
 $strIterY:=String:C10($2)
 $strIterX:=String:C10($3)

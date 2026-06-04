@@ -15,13 +15,14 @@ ________________________________________________________
 //
 // ----------------------------------------------------
 // Declarations
-C_OBJECT:C1216($0)
-C_OBJECT:C1216($1)
+var $0 : Object
+var $1 : Object
 var $2; $3 : Pointer
 
-C_LONGINT:C283($Lon_key)
-C_OBJECT:C1216($Obj_d4; $Obj_key; $Obj_style)
-
+var $Lon_key : Integer
+var $Obj_d4 : Object
+var $Obj_key : Object
+var $Obj_style : Object
 ARRAY TEXT:C222($tTxt_ignoredProperties; 13)
 ARRAY TEXT:C222($tTxt_keys; 0)
 

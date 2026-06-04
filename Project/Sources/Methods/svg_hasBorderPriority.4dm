@@ -1,6 +1,5 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($priorityTable)
-
+var $priorityTable : Object
 $priorityTable:=New object:C1471
 $priorityTable["0"]:=0
 $priorityTable["9"]:=1
@@ -17,13 +16,19 @@ $priorityTable["13"]:=2
 $priorityTable["5"]:=3
 $priorityTable["6"]:=3
 
-C_LONGINT:C283($1;$2;$firstCell;$secondCell)
+var $1 : Integer
 
+var $2 : Integer
+
+var $firstCell : Integer
+
+var $secondCell : Integer
 $firstCell:=$1
 $secondCell:=$2
 
-C_TEXT:C284($strFirstCell;$strSecondCell)
+var $strFirstCell : Text
 
+var $strSecondCell : Text
 $strFirstCell:=String:C10($firstCell)
 $strSecondCell:=String:C10($secondCell)
 

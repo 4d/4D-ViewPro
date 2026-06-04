@@ -1,7 +1,11 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_POINTER:C301($1; $backgroundImage; $2; $width; $3; $height)
-C_PICTURE:C286($pict)
-
+var $1 : Pointer
+var $backgroundImage : Pointer
+var $2 : Pointer
+var $width : Pointer
+var $3 : Pointer
+var $height : Pointer
+var $pict : Picture
 $backgroundImage:=$1
 $width:=$2
 $height:=$3

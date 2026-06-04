@@ -1,6 +1,8 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_REAL:C285($n1;$n2;$hue;$hueToRGB)
-
+var $n1 : Real
+var $n2 : Real
+var $hue : Real
+var $hueToRGB : Real
 $n1:=$1
 $n2:=$2
 $hue:=$3

@@ -1,7 +1,12 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($0;$translatedBox;$1;$initialBox)
-C_REAL:C285($2;$translationX;$3;$translationY)
-
+var $0 : Object
+var $translatedBox : Object
+var $1 : Object
+var $initialBox : Object
+var $2 : Real
+var $translationX : Real
+var $3 : Real
+var $translationY : Real
 $initialBox:=$1
 $translationX:=$2
 $translationY:=$3

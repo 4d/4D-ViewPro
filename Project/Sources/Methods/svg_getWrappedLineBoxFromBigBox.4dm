@@ -1,11 +1,14 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1;$bigBox;$2;$line;$0;$lineBox)
-
+var $1 : Object
+var $bigBox : Object
+var $2 : Object
+var $line : Object
+var $0 : Object
+var $lineBox : Object
 $bigBox:=$1
 $line:=$2
 
-C_REAL:C285($middleBigBoxX)
-
+var $middleBigBoxX : Real
 $middleBigBoxX:=($bigBox.topRight.x-$bigBOx.topLeft.x)/2
 
 $lineBox:=New object:C1471

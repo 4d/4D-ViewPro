@@ -1,7 +1,10 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($1; $padStr)
-C_OBJECT:C1216($2; $cellPadding)
-C_LONGINT:C283($i; $j)
+var $1 : Text
+var $padStr : Text
+var $2 : Object
+var $cellPadding : Object
+var $i : Integer
+var $j : Integer
 var $count : Integer
 
 $padStr:=$1

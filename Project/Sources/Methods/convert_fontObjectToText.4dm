@@ -16,9 +16,8 @@ ________________________________________________________
 // To a font string: "{bold }{italic }{fontSize }{fontName}"
 // ----------------------------------------------------
 // Declarations
-C_TEXT:C284($0)
-C_OBJECT:C1216($1)
-
+var $0 : Text
+var $1 : Object
 var $Txt_buffer; $Txt_font : Text
 var $Obj_in : Object
 var $hasSpace : Boolean

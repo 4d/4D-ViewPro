@@ -1,6 +1,6 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($themeName;$1)
-
+var $themeName : Text
+var $1 : Text
 $themeName:=$1
 
 Case of 

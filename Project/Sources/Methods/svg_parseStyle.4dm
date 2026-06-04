@@ -164,8 +164,7 @@ If ($parsed.font="")
 		$parsed.fontObj:=VP Font to object($parsed.font)
 		$parsed.font:=Replace string:C233($parsed.font; "\""; "'")
 		If ($parsed.fontObj.size#Null:C1517)
-			C_COLLECTION:C1488($fontLineSizeCol)
-			
+			var $fontLineSizeCol : Collection
 			$fontLineSizeCol:=Split string:C1554($parsed.fontObj.size; "/")
 			
 			If (Num:C11($fontLineSizeCol[0]; ".")=0)

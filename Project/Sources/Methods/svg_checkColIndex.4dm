@@ -1,8 +1,7 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_COLLECTION:C1488($1)
-C_LONGINT:C283($2)
-C_BOOLEAN:C305($0)
-
+var $1 : Collection
+var $2 : Integer
+var $0 : Boolean
 Case of 
 	: ($1.length<=$2)
 		$0:=False:C215

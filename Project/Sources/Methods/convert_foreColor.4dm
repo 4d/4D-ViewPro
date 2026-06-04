@@ -17,13 +17,17 @@ ________________________________________________________
 // into account  the row's value or if it's odd or even row
 // ----------------------------------------------------
 // Declarations
-C_TEXT:C284($0)
-C_OBJECT:C1216($1)
-C_OBJECT:C1216($2)
+var $0 : Text
+var $1 : Object
+var $2 : Object
+var $Txt_color : Text
 
-C_TEXT:C284($Txt_color; $Zero_color; $Negative_color)
-C_OBJECT:C1216($Obj_cell; $Obj_style; $Obj_foreColor)
+var $Zero_color : Text
 
+var $Negative_color : Text
+var $Obj_cell : Object
+var $Obj_style : Object
+var $Obj_foreColor : Object
 If (False:C215)
 	C_TEXT:C284(convert_foreColor; $0)
 	C_OBJECT:C1216(convert_foreColor; $1)
@@ -99,13 +103,14 @@ Case of
 		//______________________________________________________
 End case 
 
-C_TEXT:C284($format; $newFormat)
+var $format : Text
+
+var $newFormat : Text
 $format:=$Obj_style.formatter
 
 If (Not:C34((Length:C16($format)=1) & (Character code:C91($format)=64)))
 	
-	C_BOOLEAN:C305($isHour)
-	
+	var $isHour : Boolean
 	$isHour:=(String:C10($Obj_cell.valueType)="hour") | (($Obj_cell.valueType=Null:C1517) & (Position:C15("[h"; $format)=1))
 	
 	If ($format="")
@@ -116,7 +121,9 @@ If (Not:C34((Length:C16($format)=1) & (Character code:C91($format)=64)))
 		End if 
 	End if 
 	
-	C_LONGINT:C283($pos_semicolon; $pos_semicolon2)
+	var $pos_semicolon : Integer
+	
+	var $pos_semicolon2 : Integer
 	$pos_semicolon:=Position:C15(";"; $format)
 	
 	If ($pos_semicolon=0)
@@ -138,8 +145,11 @@ If (Not:C34((Length:C16($format)=1) & (Character code:C91($format)=64)))
 		End if 
 	Else 
 		
-		C_TEXT:C284($positiveFormat; $negativeFormat; $zeroFormat)
+		var $positiveFormat : Text
 		
+		var $negativeFormat : Text
+		
+		var $zeroFormat : Text
 		$positiveFormat:=Substring:C12($Format; 1; $pos_semicolon-1)
 		
 		$pos_semicolon2:=Position:C15(";"; $format; $pos_semicolon+1)

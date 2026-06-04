@@ -42,12 +42,13 @@ ________________________________________________________
 // 18 - ##_##_##_##
 // ----------------------------------------------------
 // Declarations
-C_TEXT:C284($0)
-C_LONGINT:C283($1)
-C_COLLECTION:C1488($2)
-C_OBJECT:C1216($3)
+var $0 : Text
+var $1 : Integer
+var $2 : Collection
+var $3 : Object
+var $Lon_formatID : Integer
 
-C_LONGINT:C283($Lon_formatID; $Lon_i)
+var $Lon_i : Integer
 var $Txt_char; $Txt_currency; $Txt_decimal; $Txt_format; $Txt_thousand : Text
 var $Col_customFormats : Collection
 var $cache : Object
@@ -150,8 +151,10 @@ Case of
 							return $cache[$Txt_format]
 						End if 
 						
-						C_BOOLEAN:C305($found)
-						C_LONGINT:C283($len; $pos; $start)
+						var $found : Boolean
+						var $len : Integer
+						var $pos : Integer
+						var $start : Integer
 						$start:=1
 						
 						$Txt_format:=Replace string:C233($Txt_format; "#"+$Txt_thousand+"#"; "%_TS#_%")

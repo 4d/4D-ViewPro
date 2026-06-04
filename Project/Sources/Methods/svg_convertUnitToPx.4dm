@@ -1,7 +1,8 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($1;$val)
-C_TEXT:C284($0;$converted)
-
+var $1 : Text
+var $val : Text
+var $0 : Text
+var $converted : Text
 $val:=$1
 
 Case of 

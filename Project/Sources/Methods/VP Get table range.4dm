@@ -37,7 +37,7 @@ If (vp_initStorage)
 					$params.onlyData:=$isOnlyData
 					$params.sheet:=$sheet
 					
-					C_OBJECT:C1216($ret)
+					var $ret : Object
 					$ret:=vp_runFunction($area; "get-table-range"; $params)
 					
 					If (($ret.rowCount=0) & ($ret.columnCount=0))

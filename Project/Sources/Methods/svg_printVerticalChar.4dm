@@ -1,11 +1,19 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($1; $elemRef; $childRef)
-C_TEXT:C284($2; $c)
-C_REAL:C285($3; $posX; $4; $posY)
-C_BOOLEAN:C305($5; $isHtml)
-C_OBJECT:C1216($6; $valObj)
-C_POINTER:C301($7; $svgSource)
-
+var $1 : Text
+var $elemRef : Text
+var $childRef : Text
+var $2 : Text
+var $c : Text
+var $3 : Real
+var $posX : Real
+var $4 : Real
+var $posY : Real
+var $5 : Boolean
+var $isHtml : Boolean
+var $6 : Object
+var $valObj : Object
+var $7 : Pointer
+var $svgSource : Pointer
 $elemRef:=$1
 $c:=$2
 $posX:=$3
@@ -28,8 +36,7 @@ If ($isHtml=False:C215)
 Else 
 	//$svgSource->:=$svgSource->+"<p style=\"left:"+String($posX;"&xml;")+"px;top:"+String($posY-char_space;"&xml;")+"px;"
 	
-	C_TEXT:C284($styleStr)
-	
+	var $styleStr : Text
 	$styleStr:="left:"+String:C10($posX; "&xml;")+"px;top:"+String:C10($posY-char_space; "&xml;")+"px;"
 	
 	Case of 

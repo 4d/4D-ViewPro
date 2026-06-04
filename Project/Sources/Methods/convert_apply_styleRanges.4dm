@@ -1,15 +1,15 @@
 //%attributes = {"invisible":true}
   // create cells for all the styleRanges
-C_OBJECT:C1216($1)
-C_COLLECTION:C1488($styleRanges;$cells)
+var $1 : Object
+var $styleRanges : Collection
+var $cells : Collection
 $styleRanges:=$1.styleRanges
 $cells:=$1.cells
 
-C_COLLECTION:C1488($cellsArray)
+var $cellsArray : Collection
 $cellsArray:=New collection:C1472()
 
-C_OBJECT:C1216($cell)
-
+var $cell : Object
 For each ($cell;$cells)
 	
 	If ($cell.column>=$cellsArray.length)
@@ -20,8 +20,16 @@ For each ($cell;$cells)
 	
 End for each 
 
-C_OBJECT:C1216($styleRange;$style;$cellStyle)
-C_LONGINT:C283($col;$row;$right;$bottom;$prop)
+var $styleRange : Object
+
+var $style : Object
+
+var $cellStyle : Object
+var $col : Integer
+var $row : Integer
+var $right : Integer
+var $bottom : Integer
+var $prop : Integer
 ARRAY TEXT:C222($ar;0)
 
 For each ($styleRange;$styleRanges)

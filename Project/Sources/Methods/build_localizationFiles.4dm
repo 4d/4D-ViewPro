@@ -1,7 +1,18 @@
 //%attributes = {}
-C_TEXT:C284($respath;$fileName;$cmd;$cmdName;$countryCode;$dom;$group;$transunit_cmd;$transunit_desc;$target;$val)
-C_LONGINT:C283($i;$j;$nb)
-
+var $respath : Text
+var $fileName : Text
+var $cmd : Text
+var $cmdName : Text
+var $countryCode : Text
+var $dom : Text
+var $group : Text
+var $transunit_cmd : Text
+var $transunit_desc : Text
+var $target : Text
+var $val : Text
+var $i : Integer
+var $j : Integer
+var $nb : Integer
 $respath:=Get 4D folder:C485(Current resources folder:K5:16)
 
 ARRAY TEXT:C222($folders;0)

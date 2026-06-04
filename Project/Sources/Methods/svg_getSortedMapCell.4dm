@@ -1,8 +1,11 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_COLLECTION:C1488($sortedMap;$1)
-C_LONGINT:C283($y;$2;$x;$3)
-C_OBJECT:C1216($0)
-
+var $sortedMap : Collection
+var $1 : Collection
+var $y : Integer
+var $2 : Integer
+var $x : Integer
+var $3 : Integer
+var $0 : Object
 $sortedMap:=$1
 $y:=$2
 $x:=$3

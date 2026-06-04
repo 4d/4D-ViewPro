@@ -35,13 +35,11 @@ ________________________________________________________
 //    },
 // ----------------------------------------------------
 // Declarations
-C_COLLECTION:C1488($0)
-C_OBJECT:C1216($1)
-
-C_LONGINT:C283($Lon_i)
-C_OBJECT:C1216($Obj_d4)
-C_COLLECTION:C1488($Col_celNames)
-
+var $0 : Collection
+var $1 : Object
+var $Lon_i : Integer
+var $Obj_d4 : Object
+var $Col_celNames : Collection
 If (False:C215)
 	C_COLLECTION:C1488(convert_cellNames; $0)
 	C_OBJECT:C1216(convert_cellNames; $1)

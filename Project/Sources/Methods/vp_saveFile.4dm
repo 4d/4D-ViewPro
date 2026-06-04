@@ -1,10 +1,11 @@
 //%attributes = {"invisible":true}
-C_TEXT:C284($1; $2)
-C_BOOLEAN:C305($3)
-C_TEXT:C284($content; $fileName)
-C_OBJECT:C1216($0)
-C_BOOLEAN:C305($allowAllFiles)
-
+var $1 : Text
+var $2 : Text
+var $3 : Boolean
+var $content : Text
+var $fileName : Text
+var $0 : Object
+var $allowAllFiles : Boolean
 $0:=New object:C1471("status"; "failed")
 
 $content:=$1
@@ -12,18 +13,16 @@ $fileName:=$2
 $allowAllFiles:=$3
 
 If (Length:C16($content)>0)
-	C_BLOB:C604($blob)
-	
+	var $blob : Blob
 	BASE64 DECODE:C896($content; $blob)
 	
 	If (BLOB size:C605($blob)>0)
 		
-		C_TEXT:C284($selectedName)
-		C_OBJECT:C1216($object_path)
-		
+		var $selectedName : Text
+		var $object_path : Object
 		$object_path:=Path to object:C1547($fileName)
 		
-		C_TEXT:C284($ext)
+		var $ext : Text
 		$ext:=$object_path.extension
 		
 		If ($allowAllFiles)

@@ -8,18 +8,17 @@
 
 // ----------------------------------------------------
 // Declarations
-C_OBJECT:C1216($1)
-
+var $1 : Object
 If (False:C215)
 	C_OBJECT:C1216(convert_smartResize; $1)
 End if 
 
-C_OBJECT:C1216($Obj_d4)
+var $Obj_d4 : Object
 $Obj_d4:=$1
 
-C_LONGINT:C283($maxHeight; $maxWidth)
+var $maxHeight : Integer  // ----- if 4D View document is bigger than default 4D View Pro document,
 
-// ----- if 4D View document is bigger than default 4D View Pro document, 
+var $maxWidth : Integer
 // ----- then use default 4D View Pro document size
 
 If ($Obj_d4.columnCount>20)
@@ -37,8 +36,7 @@ End if
 // ----- ensure that all cells are enclosed in default 4D View Pro document
 // ----- enlarge document if needed
 
-C_OBJECT:C1216($cell)
-
+var $cell : Object
 For each ($cell; $Obj_d4.cells)
 	
 	If (($cell.value#Null:C1517) | ($cell.formula#Null:C1517))
@@ -57,8 +55,7 @@ End for each
 
 // ----- ensure that all style ranges are enclosed in those new boundaries
 
-C_OBJECT:C1216($styleRange)
-
+var $styleRange : Object
 If ($Obj_d4.styleRanges#Null:C1517)
 	If (Value type:C1509($Obj_d4.styleRanges)=Is collection:K8:32)
 		For each ($styleRange; $Obj_d4.styleRanges)
@@ -69,8 +66,7 @@ End if
 
 // ----- ensure that all edges are enclosed in those new boundaries
 
-C_OBJECT:C1216($rowEdge)
-
+var $rowEdge : Object
 If ($Obj_d4.rowEdges#Null:C1517)
 	If (Value type:C1509($Obj_d4.rowEdges)=Is collection:K8:32)
 		For each ($rowEdge; $Obj_d4.rowEdges)
@@ -79,8 +75,7 @@ If ($Obj_d4.rowEdges#Null:C1517)
 	End if 
 End if 
 
-C_OBJECT:C1216($columnEdge)
-
+var $columnEdge : Object
 If ($Obj_d4.columnEdges#Null:C1517)
 	If (Value type:C1509($Obj_d4.columnEdges)=Is collection:K8:32)
 		For each ($columnEdge; $Obj_d4.columnEdges)
@@ -89,8 +84,7 @@ If ($Obj_d4.columnEdges#Null:C1517)
 	End if 
 End if 
 
-C_OBJECT:C1216($selectedRange)
-
+var $selectedRange : Object
 If ($Obj_d4.selectedRanges#Null:C1517)
 	If (Value type:C1509($Obj_d4.selectedRanges)=Is collection:K8:32)
 		For each ($selectedRange; $Obj_d4.selectedRanges)

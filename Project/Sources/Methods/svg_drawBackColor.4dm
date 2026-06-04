@@ -1,14 +1,14 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($1;$svgRef)
-C_COLLECTION:C1488($2;$bcCol)
-
+var $1 : Text
+var $svgRef : Text
+var $2 : Collection
+var $bcCol : Collection
 $svgRef:=$1
 $bcCol:=$2
 
-C_OBJECT:C1216($rect)
-C_TEXT:C284($elemRef)
-C_TEXT:C284($pointStr)
-
+var $rect : Object
+var $elemRef : Text
+var $pointStr : Text
 For each ($rect;$bcCol)
 	If ($rect.isOriented)
 		$pointStr:=String:C10($rect.x+$rect.offset;"&xml;")+","+String:C10($rect.y;"&xml;")+" "+String:C10($rect.x+$rect.w+$rect.offset;"&xml;")+","+String:C10($rect.y;"&xml")\

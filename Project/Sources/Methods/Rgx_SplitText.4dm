@@ -28,16 +28,21 @@ Use the regex options constants by combining them with bitwise "or".
   // $4 = Regular expression flags
   // $0 = Error result
   // ----------------------------------------------------
-C_LONGINT:C283($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_POINTER:C301($3)
-C_LONGINT:C283($4)
-
-C_BOOLEAN:C305($Boo_OK)
-C_LONGINT:C283($Lon_Error;$Lon_i;$Lon_Options;$nbParameters;$Lon_Start)
-C_TEXT:C284($Txt_Buffer;$Txt_Error_Method;$Txt_Pattern;$Txt_Target)
-
+var $0 : Integer
+var $1 : Text
+var $2 : Text
+var $3 : Pointer
+var $4 : Integer
+var $Boo_OK : Boolean
+var $Lon_Error : Integer
+var $Lon_i : Integer
+var $Lon_Options : Integer
+var $nbParameters : Integer
+var $Lon_Start : Integer
+var $Txt_Buffer : Text
+var $Txt_Error_Method : Text
+var $Txt_Pattern : Text
+var $Txt_Target : Text
 ARRAY LONGINT:C221($tLon_Lengths;0)
 ARRAY LONGINT:C221($tLon_Positions;0)
 
@@ -49,8 +54,7 @@ If (False:C215)
 	C_LONGINT:C283(Rgx_SplitText ;$4)
 End if 
 
-C_LONGINT:C283(rgx_Lon_Error)
-
+var rgx_Lon_Error : Integer
 $nbParameters:=Count parameters:C259
 
 If ($nbParameters<3)

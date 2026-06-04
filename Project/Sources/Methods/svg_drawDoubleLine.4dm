@@ -1,8 +1,15 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_POINTER:C301($4; $colPos; $5; $rowPos)
-C_OBJECT:C1216($2; $lineObj; $3; $range; $doubleLineObj)
-C_TEXT:C284($1; $svgRef)
-
+var $4 : Pointer
+var $colPos : Pointer
+var $5 : Pointer
+var $rowPos : Pointer
+var $2 : Object
+var $lineObj : Object
+var $3 : Object
+var $range : Object
+var $doubleLineObj : Object
+var $1 : Text
+var $svgRef : Text
 $svgRef:=$1
 $lineObj:=$2
 $range:=$3
@@ -11,13 +18,26 @@ $rowPos:=$5
 
 $doubleLineObj:=$lineObj.double
 
-C_LONGINT:C283($iterY; $iterX; $iterY2; $iterX2)
-C_OBJECT:C1216($intersec)
-C_REAL:C285($startX; $startY; $endX; $endY)
-C_REAL:C285($l; $h; $L; $H)
-C_BOOLEAN:C305($continue)
+var $iterY : Integer
 
-C_TEXT:C284($xPath; $elemRef)
+var $iterX : Integer
+
+var $iterY2 : Integer
+
+var $iterX2 : Integer
+var $intersec : Object
+var $startX : Real
+var $startY : Real
+var $endX : Real
+var $endY : Real
+var $l : Real
+var $h : Real
+var $L : Real
+var $H : Real
+var $continue : Boolean
+var $xPath : Text
+
+var $elemRef : Text
 $xPath:="/svg/line"
 
 For ($iterY; $range.y1; $range.y2+1)

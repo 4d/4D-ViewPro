@@ -161,13 +161,12 @@ ________________________________________________________
 //    },
 // ----------------------------------------------------
 // Declarations
-C_OBJECT:C1216($0)
-C_OBJECT:C1216($1)
-
-C_LONGINT:C283($Lon_i)
-C_TEXT:C284($Txt_style)
-C_OBJECT:C1216($Obj_d4; $Obj_printInfo)
-
+var $0 : Object
+var $1 : Object
+var $Lon_i : Integer
+var $Txt_style : Text
+var $Obj_d4 : Object
+var $Obj_printInfo : Object
 If (False:C215)
 	C_OBJECT:C1216(convert_printSettings; $0)
 	C_OBJECT:C1216(convert_printSettings; $1)

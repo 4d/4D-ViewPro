@@ -21,17 +21,24 @@ ________________________________________________________
   //$4 = Regular expression flags
   //$0 = Error result
   // ----------------------------------------------------
-C_LONGINT:C283($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_POINTER:C301($3)
-C_LONGINT:C283($4)
-
-C_BOOLEAN:C305($Boo_OK)
-C_LONGINT:C283($Lon_i;$Lon_Index;$Lon_options;$nbParameters;$Lon_Size;$Lon_Start)
-C_POINTER:C301($Ptr_target)
-C_TEXT:C284($Txt_Buffer;$Txt_Error_Method;$Txt_pattern;$Txt_replacement;$Txt_Target)
-
+var $0 : Integer
+var $1 : Text
+var $2 : Text
+var $3 : Pointer
+var $4 : Integer
+var $Boo_OK : Boolean
+var $Lon_i : Integer
+var $Lon_Index : Integer
+var $Lon_options : Integer
+var $nbParameters : Integer
+var $Lon_Size : Integer
+var $Lon_Start : Integer
+var $Ptr_target : Pointer
+var $Txt_Buffer : Text
+var $Txt_Error_Method : Text
+var $Txt_pattern : Text
+var $Txt_replacement : Text
+var $Txt_Target : Text
 ARRAY LONGINT:C221($tLon_Lengths;0)
 ARRAY LONGINT:C221($tLon_Positions;0)
 ARRAY LONGINT:C221($tLon_Tempo_Index;0)

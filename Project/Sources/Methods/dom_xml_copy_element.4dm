@@ -1,7 +1,12 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($1;$srcRef;$2;$destRef;$name;$value)
-C_LONGINT:C283($nbAttr;$i)
-
+var $1 : Text
+var $srcRef : Text
+var $2 : Text
+var $destRef : Text
+var $name : Text
+var $value : Text
+var $nbAttr : Integer
+var $i : Integer
 $srcRef:=$1
 $destRef:=$2
 

@@ -1,7 +1,14 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($0;$rotatedBox;$1;$initialBox)
-C_REAL:C285($2;$centerX;$3;$centerY;$4;$radOrientation)
-
+var $0 : Object
+var $rotatedBox : Object
+var $1 : Object
+var $initialBox : Object
+var $2 : Real
+var $centerX : Real
+var $3 : Real
+var $centerY : Real
+var $4 : Real
+var $radOrientation : Real
 $initialBox:=$1
 $centerX:=$2
 $centerY:=$3

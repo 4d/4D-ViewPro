@@ -23,17 +23,27 @@ Long Integer := ***Rgx_ExtractText*** ( Param_1 ; Target ; Param_3 ; Param_4 ; O
   // $5 = Regular expression flags
   // $0 = Error result
   // ----------------------------------------------------
-C_LONGINT:C283($0)
-C_TEXT:C284($1)
-C_TEXT:C284($2)
-C_TEXT:C284($3)
-C_POINTER:C301($4)
-C_LONGINT:C283($5)
+var $0 : Integer
+var $1 : Text
+var $2 : Text
+var $3 : Text
+var $4 : Pointer
+var $5 : Integer
+var $Boo_Array2D : Boolean
 
-C_BOOLEAN:C305($Boo_Array2D;$Boo_OK)
-C_LONGINT:C283($Lon_Current_Group;$Lon_Groups;$Lon_i;$Lon_Index;$Lon_Index_Group;$Lon_Options;$nbParameters;$Lon_Start)
-C_TEXT:C284($Txt_Error_Method;$Txt_Extracted;$Txt_Pattern;$Txt_Target)
-
+var $Boo_OK : Boolean
+var $Lon_Current_Group : Integer
+var $Lon_Groups : Integer
+var $Lon_i : Integer
+var $Lon_Index : Integer
+var $Lon_Index_Group : Integer
+var $Lon_Options : Integer
+var $nbParameters : Integer
+var $Lon_Start : Integer
+var $Txt_Error_Method : Text
+var $Txt_Extracted : Text
+var $Txt_Pattern : Text
+var $Txt_Target : Text
 ARRAY LONGINT:C221($tLon_Lengths;0)
 ARRAY LONGINT:C221($tLon_Positions;0)
 ARRAY TEXT:C222($tTxt_Groups;0)

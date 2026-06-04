@@ -1,8 +1,10 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($1; $text)
-C_OBJECT:C1216($2; $fontObj)
-C_REAL:C285($0)
-C_TEXT:C284($style)
+var $1 : Text
+var $text : Text
+var $2 : Object
+var $fontObj : Object
+var $0 : Real
+var $style : Text
 $text:=$1
 $fontObj:=$2
 
@@ -33,9 +35,8 @@ End if
 
 
 If (svgPicture=Null:C1517)
-	C_TEXT:C284($svgSrc)
-	C_TEXT:C284($svgRef)
-	
+	var $svgSrc : Text
+	var $svgRef : Text
 	$text:=Replace string:C233($text; "&"; "&amp;")
 	$text:=Replace string:C233($text; ">"; "&gt;")
 	$text:=Replace string:C233($text; "<"; "&lt;")
@@ -65,7 +66,9 @@ Else
 	
 End if 
 
-C_REAL:C285($width; $height)
+var $width : Real
+
+var $height : Real
 PICTURE PROPERTIES:C457(svgPicture; $width; $height)
 
 $0:=$width

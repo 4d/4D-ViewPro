@@ -1,20 +1,19 @@
 ﻿//%attributes = {"invisible":true,"preemptive":"capable"}
-C_TEXT:C284($1;$text)
-C_OBJECT:C1216($2;$fontObj)
-C_LONGINT:C283($0)
-
+var $1 : Text
+var $text : Text
+var $2 : Object
+var $fontObj : Object
+var $0 : Integer
 $text:=$1
 $fontObj:=$2
 
-C_TEXT:C284($svgSrc)
-C_TEXT:C284($svgRef)
-C_PICTURE:C286($svgImg)
-C_LONGINT:C283($height)
-C_LONGINT:C283($width)
-C_OBJECT:C1216($valObj)
-C_TEXT:C284($fontSize)
-
-
+var $svgSrc : Text
+var $svgRef : Text
+var $svgImg : Picture
+var $height : Integer
+var $width : Integer
+var $valObj : Object
+var $fontSize : Text
 $svgSrc:="<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"no\" ?><svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
 $svgSrc:=$svgSrc+"<text style=\""
 

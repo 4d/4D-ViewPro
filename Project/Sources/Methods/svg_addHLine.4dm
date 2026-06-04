@@ -1,17 +1,23 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1; $lineObj)
-C_LONGINT:C283($2; $3; $iterX; $iterY)
-C_LONGINT:C283($4; $topBorderStyle)
-C_TEXT:C284($5; $topBorderColor)
-
+var $1 : Object
+var $lineObj : Object
+var $2 : Integer
+var $3 : Integer
+var $iterX : Integer
+var $iterY : Integer
+var $4 : Integer
+var $topBorderStyle : Integer
+var $5 : Text
+var $topBorderColor : Text
 $lineObj:=$1
 $iterX:=$2
 $iterY:=$3
 $topBorderStyle:=$4
 $topBorderColor:=$5
 
-C_TEXT:C284($sIterY; $sIterX)
+var $sIterY : Text
 
+var $sIterX : Text
 $sIterY:=String:C10($iterY)
 $sIterX:=String:C10($iterX)
 

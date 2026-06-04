@@ -19,15 +19,19 @@ ________________________________________________________
 // Convert dateTimeFormat to SpreadJS formatter
 // ----------------------------------------------------
 // Declarations
-C_TEXT:C284($0)
-C_LONGINT:C283($1)
-C_COLLECTION:C1488($2)
+var $0 : Text
+var $1 : Integer
+var $2 : Collection
+var $Lon_format : Integer
 
-C_LONGINT:C283($Lon_format; $Lon_i)
-C_TEXT:C284($Txt_dateSeparator; $Txt_dayPosition; $Txt_format; $Txt_monthPosition)
-C_TEXT:C284($Txt_timeSeparator; $Txt_yearPosition)
-C_COLLECTION:C1488($Col_customFormats)
-
+var $Lon_i : Integer
+var $Txt_dateSeparator : Text
+var $Txt_dayPosition : Text
+var $Txt_format : Text
+var $Txt_monthPosition : Text
+var $Txt_timeSeparator : Text
+var $Txt_yearPosition : Text
+var $Col_customFormats : Collection
 If (False:C215)
 	C_TEXT:C284(convert_dateTimeFormat; $0)
 	C_LONGINT:C283(convert_dateTimeFormat; $1)
@@ -51,8 +55,16 @@ End if
 GET SYSTEM FORMAT:C994(System date short pattern:K60:7; $Txt_format)
 
 
-C_TEXT:C284($hours; $minutes; $seconds; $and)
+var $hours : Text
 
+
+var $minutes : Text
+
+
+var $seconds : Text
+
+
+var $and : Text
 $hours:=Localized string:C991("hours")
 $minutes:=Localized string:C991("minutes")
 $seconds:=Localized string:C991("seconds")

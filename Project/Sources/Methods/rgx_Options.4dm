@@ -12,12 +12,10 @@ Pattern := ***rgx_Options*** ( Options )
   // Description
   //
   // ----------------------------------------------------
-C_TEXT:C284($0)
-C_LONGINT:C283($1)
-
-C_LONGINT:C283($Lon_Options)
-C_TEXT:C284($Txt_Pattern)
-
+var $0 : Text
+var $1 : Integer
+var $Lon_Options : Integer
+var $Txt_Pattern : Text
 If (False:C215)
 	C_TEXT:C284(rgx_Options ;$0)
 	C_LONGINT:C283(rgx_Options ;$1)
