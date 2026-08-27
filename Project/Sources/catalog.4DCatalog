@@ -2,6 +2,23 @@
 <!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
 <base name="4D ViewPro" uuid="5267C42CFE004AA197BFDAB1499F25F3" collation_locale="en">
 	<schema name="DEFAULT_SCHEMA"/>
+	<table name="(Table_1)" uuid="EA2229C018984E1381D0651C36B19356" id="1" hide_in_REST="true">
+		<field name="ID" uuid="A6AC0C20106A4E88BE27B2C66451D0A2" type="4" unique="true" autosequence="true" not_null="true" id="1"/>
+		<field name="Field_2" uuid="9E1631CB092F40C8A8AD54DA327F5163" type="3" never_null="true" id="2"/>
+		<field name="Field_3" uuid="0430AAC5881040B8809BC98BCF1783BF" type="6" never_null="true" id="3"/>
+		<primary_key field_name="ID" field_uuid="A6AC0C20106A4E88BE27B2C66451D0A2"/>
+		<table_extra trashed="true">
+			<editor_table_info displayable_fields_count="6">
+				<color red="255" green="255" blue="255" alpha="0"/>
+				<coordinates left="41.171875" top="38.09375" width="120" height="167.33203125"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+	<index kind="regular" unique_keys="true" uuid="A807FBC09CB64E5182F79FABC8BF0FA1" type="7">
+		<field_ref uuid="A6AC0C20106A4E88BE27B2C66451D0A2" name="ID">
+			<table_ref uuid="EA2229C018984E1381D0651C36B19356" name="(Table_1)"/>
+		</field_ref>
+	</index>
 	<base_extra package_name="4D ViewPro" structure_file_name="4D ViewPro" data_file_path="\4D ViewPro.4DD">
 		<temp_folder folder_selector="system"/>
 		<journal_file journal_file_enabled="false"/>

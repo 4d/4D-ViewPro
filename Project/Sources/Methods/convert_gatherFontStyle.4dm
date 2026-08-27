@@ -16,19 +16,10 @@ ________________________________________________________
 //
 // ----------------------------------------------------
 // Declarations
-var $0 : Text
-var $1 : Text
-var $2 : Text
+#DECLARE($Txt_targetFont : Text; $Txt_srcFont : Text) : Text
 var $Lon_i : Integer
 var $Txt_gatherFont : Text
 var $Txt_pattern : Text
-var $Txt_srcFont : Text
-var $Txt_targetFont : Text
-If (False:C215)
-	C_TEXT:C284(convert_gatherFontStyle; $0)
-	C_TEXT:C284(convert_gatherFontStyle; $1)
-	C_TEXT:C284(convert_gatherFontStyle; $2)
-End if 
 
 ARRAY TEXT:C222($tTxt_default; 0x0000; 0x0000)
 ARRAY TEXT:C222($tTxt_current; 0x0000; 0x0000)
@@ -37,8 +28,6 @@ ARRAY TEXT:C222($tTxt_current; 0x0000; 0x0000)
 // Initialisations
 
 // Required parameters
-$Txt_targetFont:=$1
-$Txt_srcFont:=$2
 
 //$Txt_pattern:="(?-msi)^(bold)*\\s?(italic)*\\s?(\\d+pt)*\\s?([^$]*)$"
 $Txt_pattern:="(?m-si)^(italic)*\\s?(bold)*\\s?(\\d+pt)*\\s?([^$]*)$"

@@ -32,9 +32,6 @@ If ($nbParameters>0)
 		$Txt_Path:=$2
 	End if 
 	
-	If (Length:C16($Txt_Path)=0)
-		$Txt_Path:=Get 4D folder:C485(_o_Extras folder:K5:12)+"regex.xml"
-	End if 
 	
 	OK:=Num:C11(Test path name:C476($Txt_Path)=Is a document:K24:1)
 	

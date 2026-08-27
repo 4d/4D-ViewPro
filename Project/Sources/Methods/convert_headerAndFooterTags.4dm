@@ -28,21 +28,14 @@ ________________________________________________________
 // A: sheet name.
 // ----------------------------------------------------
 // Declarations
-var $0 : Text
-var $1 : Text
-var $Txt_in : Text
+#DECLARE($Txt_in : Text) : Text
 
 var $Txt_out : Text
-If (False:C215)
-	C_TEXT:C284(convert_headerAndFooterTags; $0)
-	C_TEXT:C284(convert_headerAndFooterTags; $1)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Txt_in:=$1
 
 // ----------------------------------------------------
 //

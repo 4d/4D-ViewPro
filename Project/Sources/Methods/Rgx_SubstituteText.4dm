@@ -21,23 +21,15 @@ ________________________________________________________
   //$4 = Regular expression flags
   //$0 = Error result
   // ----------------------------------------------------
-var $0 : Integer
-var $1 : Text
-var $2 : Text
-var $3 : Pointer
-var $4 : Integer
+#DECLARE($Txt_pattern : Text; $Txt_replacement : Text; $Ptr_target : Pointer; $Lon_options : Integer) : Integer
 var $Boo_OK : Boolean
 var $Lon_i : Integer
 var $Lon_Index : Integer
-var $Lon_options : Integer
 var $nbParameters : Integer
 var $Lon_Size : Integer
 var $Lon_Start : Integer
-var $Ptr_target : Pointer
 var $Txt_Buffer : Text
 var $Txt_Error_Method : Text
-var $Txt_pattern : Text
-var $Txt_replacement : Text
 var $Txt_Target : Text
 ARRAY LONGINT:C221($tLon_Lengths;0)
 ARRAY LONGINT:C221($tLon_Positions;0)
@@ -46,13 +38,6 @@ ARRAY LONGINT:C221($tLon_Tempo_Lengths;0)
 ARRAY LONGINT:C221($tLon_Tempo_Positions;0)
 ARRAY TEXT:C222($tTxt_Tempo;0)
 
-If (False:C215)
-	C_LONGINT:C283(Rgx_SubstituteText ;$0)
-	C_TEXT:C284(Rgx_SubstituteText ;$1)
-	C_TEXT:C284(Rgx_SubstituteText ;$2)
-	C_POINTER:C301(Rgx_SubstituteText ;$3)
-	C_LONGINT:C283(Rgx_SubstituteText ;$4)
-End if 
 
 $nbParameters:=Count parameters:C259
 
@@ -62,18 +47,14 @@ If ($nbParameters<3)
 	
 Else 
 	
-	$Txt_pattern:=$1
 	
 	If ($nbParameters>3)
 		
-		$Lon_options:=$4
 		
 		$Txt_pattern:=rgx_Options ($Lon_options)+$Txt_pattern
 		
 	End if 
 	
-	$Txt_replacement:=$2
-	$Ptr_target:=$3
 	
 	$Txt_Target:=$Ptr_target->
 	
@@ -159,7 +140,6 @@ Else
 					
 					$Ptr_target->:=Delete string:C232($Ptr_target->;$tLon_Tempo_Positions{$Lon_Index};$tLon_Tempo_Lengths{$Lon_Index})
 					$Ptr_target->:=Insert string:C231($Ptr_target->;$Txt_replacement;$tLon_Tempo_Positions{$Lon_Index})
-					$Txt_replacement:=$2
 					
 				End if 
 				

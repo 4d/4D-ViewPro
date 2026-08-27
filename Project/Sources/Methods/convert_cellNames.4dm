@@ -35,20 +35,13 @@ ________________________________________________________
 //    },
 // ----------------------------------------------------
 // Declarations
-var $0 : Collection
-var $1 : Object
+#DECLARE($Obj_d4 : Object) : Collection
 var $Lon_i : Integer
-var $Obj_d4 : Object
 var $Col_celNames : Collection
-If (False:C215)
-	C_COLLECTION:C1488(convert_cellNames; $0)
-	C_OBJECT:C1216(convert_cellNames; $1)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
-$Obj_d4:=$1
 $Col_celNames:=New collection:C1472
 
 // ----------------------------------------------------

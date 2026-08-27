@@ -19,10 +19,7 @@ ________________________________________________________
 // Convert dateTimeFormat to SpreadJS formatter
 // ----------------------------------------------------
 // Declarations
-var $0 : Text
-var $1 : Integer
-var $2 : Collection
-var $Lon_format : Integer
+#DECLARE($Lon_format : Integer; $Col_customFormats : Collection) : Text
 
 var $Lon_i : Integer
 var $Txt_dateSeparator : Text
@@ -31,23 +28,15 @@ var $Txt_format : Text
 var $Txt_monthPosition : Text
 var $Txt_timeSeparator : Text
 var $Txt_yearPosition : Text
-var $Col_customFormats : Collection
-If (False:C215)
-	C_TEXT:C284(convert_dateTimeFormat; $0)
-	C_LONGINT:C283(convert_dateTimeFormat; $1)
-	C_COLLECTION:C1488(convert_dateTimeFormat; $2)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Lon_format:=$1
 
 // Optional parameters
 If (Count parameters:C259>=2)
 	
-	$Col_customFormats:=$2
 	
 End if 
 
@@ -302,7 +291,6 @@ End case
 
 If ($Lon_format<255)
 	
-	$Txt_format:=$Txt_format
 	
 End if 
 

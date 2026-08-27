@@ -18,16 +18,12 @@ ________________________________________________________
 // Convert all styleSheets as a collection
 // ----------------------------------------------------
 // Declarations
-var $0 : Collection
-var $1 : Object
-var $2 : Pointer
-var $3 : Pointer
+#DECLARE($Obj_d4 : Object; $param2 : Pointer; $param3 : Pointer) : Collection
 var $Lon_i : Integer
 
 var $Lon_key : Integer
 
 var $Lon_styleSheet : Integer
-var $Obj_d4 : Object
 var $Obj_key : Object
 var $Obj_style : Object
 var $Obj_styleSheet : Object
@@ -35,18 +31,11 @@ var $Coll_styleSheets : Collection
 ARRAY TEXT:C222($tTxt_ignoredProperties; 15)
 ARRAY TEXT:C222($tTxt_keys; 0)
 
-If (False:C215)
-	C_COLLECTION:C1488(convert_styleSheets; $0)
-	C_OBJECT:C1216(convert_styleSheets; $1)
-	C_POINTER:C301(convert_styleSheets; $2)
-	C_POINTER:C301(convert_styleSheets; $3)
-End if 
 
 // ----------------------------------------------------
 // Initialisations 
 
 // Required parameters
-$Obj_d4:=$1
 
 // Ignored keys [
 $tTxt_ignoredProperties{1}:="showGrid"
@@ -99,7 +88,7 @@ For ($Lon_styleSheet; 0; $Obj_d4.styleSheets.length-1; 1)
 				"key"; $tTxt_keys{$Lon_key}; \
 				"value"; $Obj_styleSheet.style[$tTxt_keys{$Lon_key}]; \
 				"source"; "style_sheet"); \
-				$Obj_d4; $2; $3)
+				$Obj_d4; $param2; $param3)
 			
 			Case of 
 					

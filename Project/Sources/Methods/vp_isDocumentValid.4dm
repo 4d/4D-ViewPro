@@ -15,17 +15,11 @@ ________________________________________________________
   //
   // ----------------------------------------------------
   // Declarations
-var $0 : Boolean
-var $1 : Object
+#DECLARE($Obj_document : Object) : Boolean
 var $Boo_valid : Boolean
 var $nbParameters : Integer
 var $Dir_root : Text
-var $Obj_document : Object
 var $Obj_shema : Object
-If (False:C215)
-	C_BOOLEAN:C305(vp_isDocumentValid ;$0)
-	C_OBJECT:C1216(vp_isDocumentValid ;$1)
-End if 
 
   // ----------------------------------------------------
   // Initialisations
@@ -34,7 +28,6 @@ $nbParameters:=Count parameters:C259
 If (Asserted:C1132($nbParameters>=1;"Missing parameter"))
 	
 	  // Required parameters
-	$Obj_document:=$1
 	
 	  // Optional parameters
 	If ($nbParameters>=2)

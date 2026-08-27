@@ -16,22 +16,15 @@ ________________________________________________________
 // To a font string: "{bold }{italic }{fontSize }{fontName}"
 // ----------------------------------------------------
 // Declarations
-var $0 : Text
-var $1 : Object
+#DECLARE($Obj_in : Object) : Text
 var $Txt_buffer; $Txt_font : Text
-var $Obj_in : Object
 var $hasSpace : Boolean
 
-If (False:C215)
-	C_TEXT:C284(convert_fontObjectToText; $0)
-	C_OBJECT:C1216(convert_fontObjectToText; $1)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Obj_in:=$1
 $hasSpace:=False:C215
 
 // ----------------------------------------------------

@@ -54,34 +54,20 @@ ________________________________________________________
 //}
 // ----------------------------------------------------
 // Declarations
-var $0 : Object
-var $1 : Object
-var $2 : Object
-var $3; $4 : Pointer
+#DECLARE($Obj_in : Object; $Obj_d4 : Object; $param3 : Pointer; $param4 : Pointer) : Object
 
 var $Lon_i : Integer
 var $Txt_key : Text
-var $Obj_d4 : Object
-var $Obj_in : Object
 var $Obj_out : Object
-If (False:C215)
-	C_OBJECT:C1216(convert_styleKey; $0)
-	C_OBJECT:C1216(convert_styleKey; $1)
-	C_OBJECT:C1216(convert_styleKey; $2)
-	C_POINTER:C301(convert_styleKey; $3)
-	C_POINTER:C301(convert_styleKey; $4)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Obj_in:=$1
 
 // Optional parameters
 If (Asserted:C1132(Count parameters:C259>=4))
 	
-	$Obj_d4:=$2
 	
 End if 
 
@@ -94,7 +80,7 @@ $Obj_out:=New object:C1471(\
 // ----------------------------------------------------
 Case of 
 		
-	: (Find in array:C230($3->; $Txt_key)>0)
+	: (Find in array:C230($param3->; $Txt_key)>0)
 		// Ignored
 		
 		//________________________________________
@@ -224,7 +210,7 @@ Case of
 		End if 
 		
 		//________________________________________
-	: (Find in array:C230($4->; $Txt_key)>0)
+	: (Find in array:C230($param4->; $Txt_key)>0)
 		
 		// For the cells must be compared to default style or the associated stylesheet
 		If ($Obj_in.source="cell")\

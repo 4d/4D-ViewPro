@@ -21,32 +21,18 @@ Long Integer := ***Rgx_MatchText*** ( Param_1 ; Target ; Array ; Options )
   // $4 = {Regular expression flags}
   // $0 = Error result
   // ----------------------------------------------------
-var $0 : Integer
-var $1 : Text
-var $2 : Text
-var $3 : Pointer
-var $4 : Integer
+#DECLARE($param1 : Text; $Txt_Target : Text; $Ptr_Array : Pointer; $Lon_Options : Integer) : Integer
 var $Boo_OK : Boolean
 var $Lon_i : Integer
-var $Lon_Options : Integer
 var $nbParameters : Integer
 var $Lon_Size : Integer
 var $Lon_Start : Integer
-var $Ptr_Array : Pointer
 var $Txt_Buffer : Text
 var $Txt_Error_Method : Text
 var $Txt_Pattern : Text
-var $Txt_Target : Text
 ARRAY LONGINT:C221($tLon_Lengths;0)
 ARRAY LONGINT:C221($tLon_Positions;0)
 
-If (False:C215)
-	C_LONGINT:C283(Rgx_MatchText ;$0)
-	C_TEXT:C284(Rgx_MatchText ;$1)
-	C_TEXT:C284(Rgx_MatchText ;$2)
-	C_POINTER:C301(Rgx_MatchText ;$3)
-	C_LONGINT:C283(Rgx_MatchText ;$4)
-End if 
 
 $nbParameters:=Count parameters:C259
 
@@ -59,14 +45,11 @@ Else
 	rgx_Lon_Error:=-1
 	
 	If ($nbParameters>=3)
-		$Ptr_Array:=$3
 		If ($nbParameters>=4)
-			$Lon_Options:=$4
 		End if 
 	End if 
 	
-	$Txt_Pattern:=rgx_Options ($Lon_Options)+$1
-	$Txt_Target:=$2
+	$Txt_Pattern:=rgx_Options ($Lon_Options)+$param1
 	
 	If (Not:C34(Is nil pointer:C315($Ptr_Array)))
 		

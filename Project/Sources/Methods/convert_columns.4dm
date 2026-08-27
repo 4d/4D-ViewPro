@@ -18,25 +18,18 @@ ________________________________________________________
 // Convert 4D View columns properties into SpreadJS columns properties
 // ----------------------------------------------------
 // Declarations
-var $0 : Object
-var $1 : Collection
+#DECLARE($Coll_d4 : Collection) : Object
 var $column : Integer
 var $kNum_sizeConversionFactor : Real
 var $Obj_dataTable : Object
 var $Obj_new : Object
 var $Obj_result : Object
 var $Coll_columns : Collection
-var $Coll_d4 : Collection
-If (False:C215)
-	C_OBJECT:C1216(convert_columns; $0)
-	C_COLLECTION:C1488(convert_columns; $1)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Coll_d4:=$1
 
 
 $kNum_sizeConversionFactor:=0.06666666666667

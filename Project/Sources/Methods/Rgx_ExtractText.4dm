@@ -23,12 +23,7 @@ Long Integer := ***Rgx_ExtractText*** ( Param_1 ; Target ; Param_3 ; Param_4 ; O
   // $5 = Regular expression flags
   // $0 = Error result
   // ----------------------------------------------------
-var $0 : Integer
-var $1 : Text
-var $2 : Text
-var $3 : Text
-var $4 : Pointer
-var $5 : Integer
+#DECLARE($param1 : Text; $Txt_Target : Text; $param3 : Text; $param4 : Pointer; $Lon_Options : Integer) : Integer
 var $Boo_Array2D : Boolean
 
 var $Boo_OK : Boolean
@@ -37,25 +32,15 @@ var $Lon_Groups : Integer
 var $Lon_i : Integer
 var $Lon_Index : Integer
 var $Lon_Index_Group : Integer
-var $Lon_Options : Integer
 var $nbParameters : Integer
 var $Lon_Start : Integer
 var $Txt_Error_Method : Text
 var $Txt_Extracted : Text
 var $Txt_Pattern : Text
-var $Txt_Target : Text
 ARRAY LONGINT:C221($tLon_Lengths;0)
 ARRAY LONGINT:C221($tLon_Positions;0)
 ARRAY TEXT:C222($tTxt_Groups;0)
 
-If (False:C215)
-	C_LONGINT:C283(Rgx_ExtractText ;$0)
-	C_TEXT:C284(Rgx_ExtractText ;$1)
-	C_TEXT:C284(Rgx_ExtractText ;$2)
-	C_TEXT:C284(Rgx_ExtractText ;$3)
-	C_POINTER:C301(Rgx_ExtractText ;$4)
-	C_LONGINT:C283(Rgx_ExtractText ;$5)
-End if 
 
 $nbParameters:=Count parameters:C259
 
@@ -67,22 +52,21 @@ Else
 	
 	If ($nbParameters>=5)
 		
-		$Lon_Options:=$5
 		
 	End if 
 	
-	$Txt_Pattern:=rgx_Options ($Lon_Options)+$1
+	$Txt_Pattern:=rgx_Options ($Lon_Options)+$param1
 	
-	If (Length:C16($3)>0)
+	If (Length:C16($param3)>0)
 		
-		Rgx_SplitText ("\\s";$3;->$tTxt_Groups;(0 ?+ 1) ?+ 11)
+		Rgx_SplitText ("\\s";$param3;->$tTxt_Groups;(0 ?+ 1) ?+ 11)
 		
 	End if 
 	
 	$Lon_Groups:=Size of array:C274($tTxt_Groups)
 	
-	$Boo_Array2D:=(Type:C295($4->)=Array 2D:K8:24)
-	CLEAR VARIABLE:C89($4->)
+	$Boo_Array2D:=(Type:C295($param4->)=Array 2D:K8:24)
+	CLEAR VARIABLE:C89($param4->)
 	
 	rgx_Lon_Error:=-50*Num:C11(($Lon_Groups>1) & Not:C34($Boo_Array2D))  // Parameter error
 	
@@ -93,7 +77,6 @@ Else
 	
 	If (rgx_Lon_Error=0)
 		
-		$Txt_Target:=$2
 		
 		Repeat 
 			
@@ -108,11 +91,11 @@ Else
 					
 					If ($Lon_Groups=0)
 						
-						ARRAY TEXT:C222($4->;$Lon_Index;Size of array:C274($tLon_Positions))
+						ARRAY TEXT:C222($param4->;$Lon_Index;Size of array:C274($tLon_Positions))
 						
 					Else 
 						
-						ARRAY TEXT:C222($4->;$Lon_Index;$Lon_Groups)
+						ARRAY TEXT:C222($param4->;$Lon_Index;$Lon_Groups)
 						
 					End if 
 				End if 
@@ -131,7 +114,7 @@ Else
 							
 							If ($Boo_Array2D)
 								
-								$4->{$Lon_Index}{$Lon_Index_Group}:=$Txt_Extracted
+								$param4->{$Lon_Index}{$Lon_Index_Group}:=$Txt_Extracted
 								
 							Else 
 								
@@ -139,7 +122,7 @@ Else
 									 & ($Lon_Index=1))\
 									 | ($Lon_i>0)
 									
-									APPEND TO ARRAY:C911($4->;$Txt_Extracted)
+									APPEND TO ARRAY:C911($param4->;$Txt_Extracted)
 									
 								End if 
 							End if 
@@ -165,7 +148,7 @@ Else
 		
 		If (rgx_Lon_Error=0)
 			
-			rgx_Lon_Error:=-Num:C11(Size of array:C274($4->)=0)
+			rgx_Lon_Error:=-Num:C11(Size of array:C274($param4->)=0)
 			
 		End if 
 	End if 

@@ -1,21 +1,12 @@
 //%attributes = {"invisible":true}
-var $1 : Object
-var $2 : Object
-If (False:C215)
-	C_OBJECT:C1216(vp_eventsCallback ;$1)
-	C_OBJECT:C1216(vp_eventsCallback ;$2)
-End if 
+#DECLARE($obj_callback : Object; $Obj_data : Object)
 
-var $Obj_callback : Object
 
-var $Obj_data : Object
 
 var $Obj_areaVariable : Object
 
 var $Obj_formula : Object
 var $Txt_event : Text
-$obj_callback:=$1
-$Obj_data:=$2
 
 If (OB Is defined:C1231($Obj_callback;"event"))
 	$Txt_event:=$Obj_callback.event

@@ -15,8 +15,7 @@ ________________________________________________________
 //
 // ----------------------------------------------------
 // Declarations
-var $1 : Object
-var $2 : Object
+#DECLARE($Obj_d4 : Object; $Obj_data : Object)
 var $column : Integer
 
 var $Lon_i : Integer
@@ -33,22 +32,14 @@ var $Txt_border : Text
 var $Txt_col : Text
 var $Txt_row : Text
 var $Obj_border : Object
-var $Obj_d4 : Object
-var $Obj_data : Object
 var $Obj_dataTable : Object
 var $Obj_edge : Object
 var $Col_edges : Collection
-If (False:C215)
-	C_OBJECT:C1216(convert_BORDERS; $1)
-	C_OBJECT:C1216(convert_BORDERS; $2)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Obj_d4:=$1
-$Obj_data:=$2
 
 $Obj_dataTable:=$Obj_data.dataTable
 

@@ -62,21 +62,14 @@ ________________________________________________________
 //    },
 // ----------------------------------------------------
 // Declarations
-var $0 : Object
-var $1 : Object
+#DECLARE($Obj_d4 : Object) : Object
 var $Lon_i : Integer
-var $Obj_d4 : Object
 var $Obj_selection : Object
-If (False:C215)
-	C_OBJECT:C1216(convert_selectedRanges; $0)
-	C_OBJECT:C1216(convert_selectedRanges; $1)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Obj_d4:=$1
 
 
 // ----------------------------------------------------

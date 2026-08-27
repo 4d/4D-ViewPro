@@ -12,16 +12,9 @@ Pattern := ***rgx_Options*** ( Options )
   // Description
   //
   // ----------------------------------------------------
-var $0 : Text
-var $1 : Integer
-var $Lon_Options : Integer
+#DECLARE($Lon_Options : Integer) : Text
 var $Txt_Pattern : Text
-If (False:C215)
-	C_TEXT:C284(rgx_Options ;$0)
-	C_LONGINT:C283(rgx_Options ;$1)
-End if 
 
-$Lon_Options:=$1
 
 If ($Lon_Options ?? 0)\
  | ($Lon_Options ?? 1)\

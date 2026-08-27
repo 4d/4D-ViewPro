@@ -15,29 +15,19 @@ ________________________________________________________
 //
 // ----------------------------------------------------
 // Declarations
-var $0 : Object
-var $1 : Object
-var $2; $3 : Pointer
+#DECLARE($Obj_d4 : Object; $param2 : Pointer; $param3 : Pointer) : Object
 
 var $Lon_key : Integer
-var $Obj_d4 : Object
 var $Obj_key : Object
 var $Obj_style : Object
 ARRAY TEXT:C222($tTxt_ignoredProperties; 13)
 ARRAY TEXT:C222($tTxt_keys; 0)
 
-If (False:C215)
-	C_OBJECT:C1216(convert_defaultStyle; $0)
-	C_OBJECT:C1216(convert_defaultStyle; $1)
-	C_POINTER:C301(convert_defaultStyle; $2)
-	C_POINTER:C301(convert_defaultStyle; $3)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Obj_d4:=$1
 
 // Ignored keys [
 $tTxt_ignoredProperties{1}:="showGrid"
@@ -89,7 +79,7 @@ For ($Lon_key; 1; Size of array:C274($tTxt_keys); 1)
 		$Obj_key:=convert_styleKey(New object:C1471(\
 			"key"; $tTxt_keys{$Lon_key}; \
 			"value"; $Obj_d4.defaultStyle[$tTxt_keys{$Lon_key}]; \
-			"source"; "cell"); $Obj_d4; $2; $3)
+			"source"; "cell"); $Obj_d4; $param2; $param3)
 		
 		Case of 
 				

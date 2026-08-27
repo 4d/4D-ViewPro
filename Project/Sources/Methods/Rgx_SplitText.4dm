@@ -28,31 +28,18 @@ Use the regex options constants by combining them with bitwise "or".
   // $4 = Regular expression flags
   // $0 = Error result
   // ----------------------------------------------------
-var $0 : Integer
-var $1 : Text
-var $2 : Text
-var $3 : Pointer
-var $4 : Integer
+#DECLARE($param1 : Text; $Txt_Target : Text; $param3 : Pointer; $Lon_Options : Integer) : Integer
 var $Boo_OK : Boolean
 var $Lon_Error : Integer
 var $Lon_i : Integer
-var $Lon_Options : Integer
 var $nbParameters : Integer
 var $Lon_Start : Integer
 var $Txt_Buffer : Text
 var $Txt_Error_Method : Text
 var $Txt_Pattern : Text
-var $Txt_Target : Text
 ARRAY LONGINT:C221($tLon_Lengths;0)
 ARRAY LONGINT:C221($tLon_Positions;0)
 
-If (False:C215)
-	C_LONGINT:C283(Rgx_SplitText ;$0)
-	C_TEXT:C284(Rgx_SplitText ;$1)
-	C_TEXT:C284(Rgx_SplitText ;$2)
-	C_POINTER:C301(Rgx_SplitText ;$3)
-	C_LONGINT:C283(Rgx_SplitText ;$4)
-End if 
 
 var rgx_Lon_Error : Integer
 $nbParameters:=Count parameters:C259
@@ -65,14 +52,12 @@ Else
 	
 	If ($nbParameters>=4)
 		
-		$Lon_Options:=$4
 		
 	End if 
 	
-	$Txt_Pattern:=rgx_Options ($Lon_Options)+$1
-	$Txt_Target:=$2
+	$Txt_Pattern:=rgx_Options ($Lon_Options)+$param1
 	
-	CLEAR VARIABLE:C89($3->)
+	CLEAR VARIABLE:C89($param3->)
 	
 	$Txt_Error_Method:=Method called on error:C704
 	ON ERR CALL:C155("rgx_NO_ERROR")
@@ -119,7 +104,7 @@ Else
 							  //______________________________________________________
 						Else 
 							
-							APPEND TO ARRAY:C911($3->;$Txt_Buffer)
+							APPEND TO ARRAY:C911($param3->;$Txt_Buffer)
 							
 							  //______________________________________________________
 					End case 
@@ -156,7 +141,7 @@ Else
 					  //______________________________________________________
 				Else 
 					
-					APPEND TO ARRAY:C911($3->;$Txt_Buffer)
+					APPEND TO ARRAY:C911($param3->;$Txt_Buffer)
 					
 					  //______________________________________________________
 			End case 

@@ -42,35 +42,20 @@ ________________________________________________________
 // 18 - ##_##_##_##
 // ----------------------------------------------------
 // Declarations
-var $0 : Text
-var $1 : Integer
-var $2 : Collection
-var $3 : Object
-var $Lon_formatID : Integer
+#DECLARE($Lon_formatID : Integer; $Col_customFormats : Collection; $cache : Object) : Text
 
 var $Lon_i : Integer
 var $Txt_char; $Txt_currency; $Txt_decimal; $Txt_format; $Txt_thousand : Text
-var $Col_customFormats : Collection
-var $cache : Object
 
-If (False:C215)
-	C_TEXT:C284(convert_numericFormat; $0)
-	C_LONGINT:C283(convert_numericFormat; $1)
-	C_COLLECTION:C1488(convert_numericFormat; $2)
-	C_OBJECT:C1216(convert_numericFormat; $3)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Lon_formatID:=$1
 
 // Optional parameters
 If (Count parameters:C259>=2)
 	
-	$Col_customFormats:=$2
-	$cache:=$3
 	
 End if 
 

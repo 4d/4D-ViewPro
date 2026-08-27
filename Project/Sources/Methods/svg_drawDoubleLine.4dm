@@ -32,8 +32,7 @@ var $endX : Real
 var $endY : Real
 var $l : Real
 var $h : Real
-var $L : Real
-var $H : Real
+
 var $continue : Boolean
 var $xPath : Text
 
@@ -202,7 +201,7 @@ For ($iterY; $range.y1; $range.y2+1)
 					"stroke"; $intersec.hr; "stroke-width"; 1)
 				
 				//$svgSource->:=$svgSource->+"<line vector-effect=\"non-scaling-stroke\" shape-rendering=\"crispEdges\" x1=\""+String($startX;"&xml")+"\" y1=\""+String($startY;"&xml")+"\" x2=\""+String($endX;"&xml")+"\" y2=\""\
-																									+String($endY;"&xml")+"\" stroke=\""+$intersec.hr+"\" stroke-width=\"1\"/>"
+					+String($endY;"&xml")+"\" stroke=\""+$intersec.hr+"\" stroke-width=\"1\"/>"
 				
 			End if 
 			
@@ -294,7 +293,7 @@ For ($iterY; $range.y1; $range.y2+1)
 					"stroke"; $intersec.vb; "stroke-width"; 1)
 				
 				//$svgSource->:=$svgSource->+"<line vector-effect=\"non-scaling-stroke\" shape-rendering=\"crispEdges\" x1=\""+String($startX;"&xml")+"\" y1=\""+String($startY;"&xml")+"\" x2=\""+String($endX;"&xml")+"\" y2=\""\
-																									+String($endY;"&xml")+"\" stroke=\""+$intersec.vb+"\" stroke-width=\"1\"/>"
+					+String($endY;"&xml")+"\" stroke=\""+$intersec.vb+"\" stroke-width=\"1\"/>"
 				
 			End if 
 			
@@ -381,7 +380,7 @@ For ($iterY; $range.y1; $range.y2+1)
 					"stroke"; $intersec.vb; "stroke-width"; 1)
 				
 				//$svgSource->:=$svgSource->+"<line vector-effect=\"non-scaling-stroke\" shape-rendering=\"crispEdges\" x1=\""+String($startX;"&xml")+"\" y1=\""+String($startY;"&xml")+"\" x2=\""+String($endX;"&xml")+"\" y2=\""\
-																									+String($endY;"&xml")+"\" stroke=\""+$intersec.vb+"\" stroke-width=\"1\"/>"
+					+String($endY;"&xml")+"\" stroke=\""+$intersec.vb+"\" stroke-width=\"1\"/>"
 				
 			End if 
 			

@@ -8,13 +8,8 @@
 
 // ----------------------------------------------------
 // Declarations
-var $1 : Object
-If (False:C215)
-	C_OBJECT:C1216(convert_smartResize; $1)
-End if 
+#DECLARE($Obj_d4 : Object)
 
-var $Obj_d4 : Object
-$Obj_d4:=$1
 
 var $maxHeight : Integer  // ----- if 4D View document is bigger than default 4D View Pro document,
 

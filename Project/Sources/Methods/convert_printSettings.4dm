@@ -161,22 +161,15 @@ ________________________________________________________
 //    },
 // ----------------------------------------------------
 // Declarations
-var $0 : Object
-var $1 : Object
+#DECLARE($Obj_d4 : Object) : Object
 var $Lon_i : Integer
 var $Txt_style : Text
-var $Obj_d4 : Object
 var $Obj_printInfo : Object
-If (False:C215)
-	C_OBJECT:C1216(convert_printSettings; $0)
-	C_OBJECT:C1216(convert_printSettings; $1)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Obj_d4:=$1
 
 $Obj_printInfo:=New object:C1471
 

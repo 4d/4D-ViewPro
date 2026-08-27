@@ -118,9 +118,7 @@ ________________________________________________________
 //    }
 // ----------------------------------------------------
 // Declarations
-var $0 : Collection
-var $1 : Collection
-var $2 : Object
+#DECLARE($Col_pictures : Collection; $Obj_viewPro : Object) : Collection
 var $Blb_buffer : Blob
 var $kLon_centered : Integer
 var $kLon_none : Integer
@@ -142,9 +140,7 @@ var $Txt_pictureName : Text
 var $codec : Text
 var $Obj_default : Object
 var $Obj_picture : Object
-var $Obj_viewPro : Object
 var $Col_floatingObjects : Collection
-var $Col_pictures : Collection
 var $kNum_sizeConversionFactor : Real
 var $convert_unique_id : Integer
 ARRAY LONGINT:C221($tLon_columnWidth; 0)
@@ -152,22 +148,15 @@ ARRAY LONGINT:C221($tLon_rowHeight; 0)
 ARRAY TEXT:C222($ktTxt_codecs; 3)
 ARRAY TEXT:C222($tTxt_codecs; 0)
 
-If (False:C215)
-	C_COLLECTION:C1488(convert_pictures; $0)
-	C_COLLECTION:C1488(convert_pictures; $1)
-	C_OBJECT:C1216(convert_pictures; $2)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
 // Required parameters
-$Col_pictures:=$1
 
 // Optional parameters
 If (Count parameters:C259>=2)
 	
-	$Obj_viewPro:=$2
 	
 	$Obj_default:=$Obj_viewPro.spreadJS.sheets.Sheet1.defaults
 	

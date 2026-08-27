@@ -16,24 +16,11 @@ ________________________________________________________
 // The default value is black.
 // ----------------------------------------------------
 // Declarations
-var $0 : Text
-var $1 : Integer
-var $2 : Boolean
-var $Lon_color : Integer
+#DECLARE($Lon_color : Integer; $withName : Boolean) : Text
 var $Txt_color : Text
-var $withName : Boolean
-If (False:C215)
-	C_TEXT:C284(convert_color; $0)
-	C_LONGINT:C283(convert_color; $1)
-	C_BOOLEAN:C305(convert_color; $2)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
-
-// Required parameters
-$Lon_color:=$1
-$withName:=$2
 
 // ----------------------------------------------------
 If ($withName)

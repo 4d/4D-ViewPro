@@ -17,30 +17,16 @@ ________________________________________________________
 // into account  the row's value or if it's odd or even row
 // ----------------------------------------------------
 // Declarations
-var $0 : Text
-var $1 : Object
-var $2 : Object
+#DECLARE($Obj_style : Object; $Obj_foreColor : Object; $Obj_cell : Object) : Text
 var $Txt_color : Text
 
 var $Zero_color : Text
 
 var $Negative_color : Text
-var $Obj_cell : Object
-var $Obj_style : Object
-var $Obj_foreColor : Object
-If (False:C215)
-	C_TEXT:C284(convert_foreColor; $0)
-	C_OBJECT:C1216(convert_foreColor; $1)
-	C_OBJECT:C1216(convert_foreColor; $2)
-	C_OBJECT:C1216(convert_foreColor; $3)
-End if 
 
 // ----------------------------------------------------
 // Initialisations
 
-$Obj_style:=$1
-$Obj_foreColor:=$2
-$Obj_cell:=$3
 // ----------------------------------------------------
 Case of 
 		
