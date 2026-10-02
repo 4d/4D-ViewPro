@@ -23,6 +23,19 @@ Interfaces allow for basic modifications and data manipulation. User-defined mod
 
 ![](./images/vpRibbon.png)
 
+##### Theme
+
+With the Ribbon interface, you can select a preset theme in the **Property List**, under **Appearance** > **Theme** (JSON property `theme`):
+
+|Value|Description|
+|---|---|
+|`classic` (default)|Legacy SpreadJS Designer look. Used when the property is not defined, so existing forms keep their appearance.|
+|`light`|SpreadJS Designer built-in Light theme.|
+|`dark`|SpreadJS Designer built-in Dark theme.|
+|`inherited`|Light or Dark, according to the form color scheme if defined, otherwise the application/system color scheme. The theme is updated when the color scheme changes.|
+
+> The theme applies to the Designer user interface (ribbon, dialogs, sheet tabs...). You can still customize it with JavaScript, for example with `GC.Spread.Sheets.Designer.setTheme()` or by overriding the `--sjs-*` CSS variables.
+
 #### Toolbar
 
 Enabling the Toolbar interface displays the [**Show Formula Bar**](FormObjects/properties_Appearance.md#show-formula-bar) option. When selected, the formula bar is visible below the Toolbar interface.

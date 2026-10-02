@@ -6,7 +6,17 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>SpreadJS Designer</title>
 	<link href="./SpreadJS/css/gc.spread.sheets.excel2013white.css" rel="stylesheet" type="text/css" />
-	<link href="./ui/ribbon/lib/css/gc.spread.sheets.designer.min.css" rel="stylesheet" type="text/css">
+	<!-- Designer preset theme (classic, light or dark), chosen by 4D from the "theme" form object property -->
+	<link id="vp-designer-theme" href="./ui/ribbon/lib/css/___DESIGNER_THEME_CSS___" rel="stylesheet" type="text/css">
+	<script>
+		(function () {
+			// fallback on classic theme if the placeholder has not been replaced
+			const link = document.getElementById("vp-designer-theme");
+			if (link.getAttribute("href").indexOf("___") >= 0) {
+				link.setAttribute("href", "./ui/ribbon/lib/css/gc.spread.sheets.designer.min.css");
+			}
+		})();
+	</script>
 	<link href="./ui/ribbon/custom.css" rel="stylesheet" type="text/css">
 </head>
 
