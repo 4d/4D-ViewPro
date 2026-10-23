@@ -50,10 +50,24 @@ function runCommand(action, params = undefined) {
     console.log(err.stack);
     return { result: null, error: (typeof err === 'string') ? err: err.message };
   } finally {
-    Utils.spread.resumeCalcService(false);
+    if (_vp_isReadOnlyCommand(action)) {
+      // like SpreadJS when exporting from UI, do not recompute volatile functions (ex: NOW()) (ACI0105147)
+      Utils.spread.getCalcService().resume(false, true /* skipDirtyVolatile */);
+    } else {
+      Utils.spread.resumeCalcService(false);
+    }
     //Utils.spread.resumePaint();
     vp_endLongOperation();
   }
+}
+
+/**
+ * Commands that only read the document (getters and exports) must not modify it
+ *
+ * @param {string} action
+ */
+function _vp_isReadOnlyCommand(action) {
+  return action.startsWith('get-') || action.startsWith('export-');
 }
 
 
