@@ -915,8 +915,8 @@ Utils._getLongOperationTimeout = function () {
     return (timeout) ? timeout : Utils.longOperationTimeout;
 };
 
-// Use default english culture (ACI0105529)
-Utils.useDefaultEnglishCulture = true;
+// In english, if true use SpreadJS builtin english culture instead of the system one from 4D intl (ACI0105529)
+Utils.useDefaultEnglishCulture = false;
 
 function vp_startLongOperation() {
     vp_counter++;
