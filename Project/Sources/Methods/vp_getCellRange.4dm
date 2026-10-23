@@ -1,5 +1,5 @@
 //%attributes = {"invisible":true,"preemptive":"capable"}
-C_OBJECT:C1216($1; $vpObject; $2; $cells; $sheets; $workbook; $table)
+C_OBJECT:C1216($1; $vpObject; $2; $cells; $sheets; $workbook; $table; $sheetTable)
 C_LONGINT:C283($biggestCol; $biggestRow)
 C_OBJECT:C1216($range; $0)
 C_TEXT:C284($s; $currentCol; $currentRow)
@@ -152,6 +152,22 @@ If ($cells=Null:C1517)
 				End if 
 				
 			End for each 
+		End for each 
+	End if 
+	
+	// the empty cells of the tables are drawn too (banded rows, borders...)
+	If (Value type:C1509($sheets.tables)=Is collection:K8:32)
+		For each ($sheetTable; $sheets.tables)
+			If (Value type:C1509($sheetTable.row)=Is real:K8:4) & (Value type:C1509($sheetTable.rowCount)=Is real:K8:4)
+				If (($sheetTable.row+$sheetTable.rowCount-1)>$biggestCol)
+					$biggestCol:=$sheetTable.row+$sheetTable.rowCount-1
+				End if 
+			End if 
+			If (Value type:C1509($sheetTable.col)=Is real:K8:4) & (Value type:C1509($sheetTable.colCount)=Is real:K8:4)
+				If (($sheetTable.col+$sheetTable.colCount-1)>$biggestRow)
+					$biggestRow:=$sheetTable.col+$sheetTable.colCount-1
+				End if 
+			End if 
 		End for each 
 	End if 
 	

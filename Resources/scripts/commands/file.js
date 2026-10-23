@@ -647,11 +647,63 @@ Utils.addFormatedText = function (json) {
         result.content = formatInfo.content;
       } else {
         result.text = formated;
+        _addPlaceholderInfo(result, formatInfo.content);
       }
     } else {
       result.text = formated;
     }
     return result;
+  }
+
+  function _isPlaceholder(element) {
+    return (element != null) && ((element.type === 'placeholder') || (element.type === 'numberPlaceholder'));
+  }
+
+  function _getPlaceholderChar(element) {
+    if (element.type === 'numberPlaceholder') {
+      return '0';
+    }
+    return (typeof (element.value) === 'string') ? element.value : '';
+  }
+
+  // "_x" and "?" of number formats are invisible gaps of the width of "x" (or of "0" for "?"),
+  // but the formatted text contains a single space for each of them:
+  // remove the leading and trailing ones from the text and give their chars to measure the gaps
+  function _addPlaceholderInfo(result, content) {
+    if ((!Array.isArray(content)) || (typeof (result.text) !== 'string')) {
+      return;
+    }
+
+    let first = 0;
+    let placeholderLeft = '';
+    while ((first < content.length) && _isPlaceholder(content[first])) {
+      placeholderLeft += _getPlaceholderChar(content[first]);
+      first++;
+    }
+
+    let last = content.length - 1;
+    let placeholderRight = '';
+    while ((last >= first) && _isPlaceholder(content[last])) {
+      placeholderRight = _getPlaceholderChar(content[last]) + placeholderRight;
+      last--;
+    }
+
+    let text = result.text;
+    const leftCount = first;
+    const rightCount = content.length - 1 - last;
+    if ((leftCount > 0) && text.startsWith(' '.repeat(leftCount))) {
+      text = text.substring(leftCount);
+      if (placeholderLeft.length > 0) {
+        result.placeholderLeft = placeholderLeft;
+      }
+    }
+    if ((rightCount > 0) && (text.length >= rightCount) && text.endsWith(' '.repeat(rightCount))) {
+      text = text.substring(0, text.length - rightCount);
+      if (placeholderRight.length > 0) {
+        result.placeholderRight = placeholderRight;
+      }
+    }
+    result.text = text;
   }
 
   function _getWordWrapInfo() {
@@ -1039,6 +1091,165 @@ Utils.addFormatedText = function (json) {
     return converted;
   }
 
+  function _getBorderInfo(border) {
+    if (border == null) {
+      return null;
+    }
+    return { color: border.color, style: border.style };
+  }
+
+  function _getBackColorInfo(backColor) {
+    if (backColor == null) {
+      return null;
+    }
+    if (typeof (backColor) === 'string') {
+      return backColor;
+    }
+    // pattern fill: keep its background color (gradient fills are not handled)
+    if (typeof (backColor.backgroundColor) === 'string') {
+      return backColor.backgroundColor;
+    }
+    return undefined;
+  }
+
+  function _getFormatString(formatter) {
+    if (typeof (formatter) === 'string') {
+      return formatter;
+    }
+    if ((formatter != null) && (typeof (formatter.formatString) === 'function')) {
+      return formatter.formatString();
+    }
+    return null;
+  }
+
+  // returns the visual properties that tables and conditional formats change in the style of the cell
+  function _getActualStyleInfo(liveSheet, r, c) {
+    const viewport = GC.Spread.Sheets.SheetArea.viewport;
+    const actualStyle = liveSheet.getActualStyle(r, c, viewport, false, { ignoreCellStatesStyle: true });
+    // style without tables, pivot tables and conditional formats, as 4D computes it from the json
+    const baseStyle = liveSheet.getActualStyle(r, c, viewport, true, { isForFilter: true, doNotAddCache: true });
+    const info = {};
+    let changed = false;
+
+    function setIfChanged(key, actualValue, baseValue) {
+      if ((actualValue !== undefined) && (JSON.stringify(actualValue) !== JSON.stringify(baseValue))) {
+        info[key] = actualValue;
+        changed = true;
+      }
+    }
+
+    setIfChanged('backColor', _getBackColorInfo(actualStyle.backColor), _getBackColorInfo(baseStyle.backColor));
+    ['foreColor', 'font', 'textDecoration', 'hAlign', 'vAlign'].forEach(key => {
+      setIfChanged(key, actualStyle[key], baseStyle[key]);
+    });
+    ['borderLeft', 'borderTop', 'borderRight', 'borderBottom'].forEach(key => {
+      setIfChanged(key, _getBorderInfo(actualStyle[key]), _getBorderInfo(baseStyle[key]));
+    });
+
+    // number format set by a conditional format
+    const actualFormat = _getFormatString(actualStyle.formatter);
+    if ((actualFormat != null) && (actualFormat !== _getFormatString(baseStyle.formatter))) {
+      const dataTable = (sheet.data != null) ? sheet.data.dataTable : null;
+      if ((dataTable != null) && (dataTable[r] != null) && (dataTable[r][c] != null) && ('value' in dataTable[r][c])) {
+        cell = dataTable[r][c];
+        row = r;
+        column = c;
+        info.formatInfo = _getFormatInfo(actualFormat);
+        changed = true;
+      }
+    }
+
+    return changed ? info : null;
+  }
+
+  // styles of tables and conditional formats are not in the cell styles of the json:
+  // store the style computed by SpreadJS for the cells they cover in a sheet key ignored by SpreadJS fromJSON,
+  // so that a reimported document doesn't get new cell styles
+  function _addActualStyleInfo(sheetName) {
+    const liveSheet = Utils.spread.getSheetFromName(sheetName);
+    if (liveSheet == null) {
+      return;
+    }
+
+    const lastSheetRow = liveSheet.getRowCount() - 1;
+    const lastSheetColumn = liveSheet.getColumnCount() - 1;
+    const ranges = [];
+    let lastRow = -1;
+    let lastColumn = -1;
+
+    function addRange(range, maxRow, maxColumn) {
+      const rowStart = Math.max(range.row, 0);
+      const columnStart = Math.max(range.col, 0);
+      const rowEnd = Math.min((range.row < 0) ? maxRow : range.row + range.rowCount - 1, maxRow);
+      const columnEnd = Math.min((range.col < 0) ? maxColumn : range.col + range.colCount - 1, maxColumn);
+      if ((rowStart <= rowEnd) && (columnStart <= columnEnd)) {
+        ranges.push({ rowStart, rowEnd, columnStart, columnEnd });
+      }
+    }
+
+    if (liveSheet.tables != null) {
+      liveSheet.tables.all().forEach(table => {
+        const range = table.range();
+        addRange(range, lastSheetRow, lastSheetColumn);
+        lastRow = Math.max(lastRow, range.row + range.rowCount - 1);
+        lastColumn = Math.max(lastColumn, range.col + range.colCount - 1);
+      });
+    }
+
+    if (liveSheet.conditionalFormats != null) {
+      const rules = liveSheet.conditionalFormats.getRules();
+      if ((rules != null) && (rules.length > 0)) {
+        // rules can cover whole rows or columns: stop at the last cell with a value or in a table
+        if ((sheet.data != null) && (sheet.data.dataTable != null)) {
+          const dataTable = sheet.data.dataTable;
+          for (const r in dataTable) {
+            for (const c in dataTable[r]) {
+              if ((dataTable[r][c] != null) && ('value' in dataTable[r][c])) {
+                lastRow = Math.max(lastRow, Number(r));
+                lastColumn = Math.max(lastColumn, Number(c));
+              }
+            }
+          }
+        }
+        const ruleType = GC.Spread.Sheets.ConditionalFormatting.RuleType;
+        rules.forEach(rule => {
+          // data bars and icon sets are painted in the cell, they don't change its style
+          if ((rule.ruleType() !== ruleType.dataBarRule) && (rule.ruleType() !== ruleType.iconSetRule)) {
+            (rule.ranges() || []).forEach(range => {
+              addRange(range, Math.min(lastRow, lastSheetRow), Math.min(lastColumn, lastSheetColumn));
+            });
+          }
+        });
+      }
+    }
+
+    const actualStyleInfo = {};
+    const done = new Set();
+    let found = false;
+    ranges.forEach(range => {
+      for (let r = range.rowStart; r <= range.rowEnd; r++) {
+        for (let c = range.columnStart; c <= range.columnEnd; c++) {
+          const key = r + ':' + c;
+          if (!done.has(key)) {
+            done.add(key);
+            const info = _getActualStyleInfo(liveSheet, r, c);
+            if (info != null) {
+              if (actualStyleInfo[r] == null) {
+                actualStyleInfo[r] = {};
+              }
+              actualStyleInfo[r][c] = info;
+              found = true;
+            }
+          }
+        }
+      }
+    });
+
+    if (found) {
+      sheet.actualStyleInfo = actualStyleInfo;
+    }
+  }
+
   for (const sheetName in json.sheets) {
     sheet = json.sheets[sheetName];
     styleSheetPoolFormat = {};
@@ -1236,6 +1447,11 @@ Utils.addFormatedText = function (json) {
           }
         }
       }
+    }
+    try {
+      _addActualStyleInfo(sheetName);
+    } catch (e) {
+      // only used by VP Convert to picture: must never prevent the export
     }
     sheetIndex++;
   }

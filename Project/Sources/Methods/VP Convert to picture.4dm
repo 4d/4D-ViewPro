@@ -7,12 +7,13 @@ err_TRY
 ARRAY LONGINT:C221($colPos; 0)
 ARRAY LONGINT:C221($rowPos; 0)
 
-var $sheets; $table; $cell; $style : Object
+var $sheets; $table; $cell; $style; $actualStyles; $actualStyle : Object
 var $lineObj; $obj; $defaultStyle : Object
 var $namedStyle; $workbook; $parsedStyle; $bcObj : Object
 var $strPart : Object
 var $svgSource; $svgRef; $elemRef : Text
 var $shrinkStr; $defaultFontSize; $fontSize; $valueStr : Text
+var $placeholderLeft; $placeholderRight : Text
 
 var $textWidth; $i; $index; $indexColWidth; $indexRowHeight; $rowCount; $colCount; $maxSvgWidth; $maxSvgHeight : Integer
 var $iterX; $iterY; $svgHeight; $svgWidth; $x1; $x2; $y1; $y2; $height; $width : Integer
@@ -22,6 +23,7 @@ var $pos : Integer
 
 var $colWidth; $rowHeight : Real
 var $borderOffset : Real
+var $paddingLeft; $paddingRight : Real
 var $pictWidth; $pictHeight : Real
 var $pictX; $pictY : Real
 
@@ -116,6 +118,12 @@ End if
 // MARK:- Default Styles and Theme
 If ($sheets#Null:C1517)
 	$table:=$sheets.data.dataTable
+	
+	// styles of tables and conditional formats computed by SpreadJS (see Utils.addFormatedText)
+	If (Value type:C1509($sheets.actualStyleInfo)=Is object:K8:27)
+		$actualStyles:=$sheets.actualStyleInfo
+	End if 
+	
 	If ($sheets.data.defaultDataNode.style#Null:C1517)
 		
 		Case of 
@@ -631,9 +639,21 @@ For ($iterY; $range.y1; $range.y2)
 				$parsedStyle.wordWrapInfo:=Null:C1517
 				$borderOrientation:=False:C215
 				$borderOffset:=0
+				$paddingLeft:=0
+				$paddingRight:=0
 				
 				$cell:=Null:C1517
 				
+				// MARK: Table and conditional format style (has priority over the other styles)
+				$actualStyle:=Null:C1517
+				If ($actualStyles#Null:C1517)
+					If (Value type:C1509($actualStyles[String:C10($iterY)])=Is object:K8:27)
+						If (Value type:C1509($actualStyles[String:C10($iterY)][String:C10($iterX)])=Is object:K8:27)
+							$actualStyle:=$actualStyles[String:C10($iterY)][String:C10($iterX)]
+							svg_parseStyle($actualStyle; $parsedStyle)
+						End if 
+					End if 
+				End if 
 				
 				If ($table#Null:C1517)
 					If ($table[String:C10($iterY)]#Null:C1517)
@@ -945,6 +965,13 @@ End if
 					End while 
 				End if 
 				
+				// the font color computed by SpreadJS already takes into account the color of the number format
+				If ($actualStyle#Null:C1517)
+					If (Value type:C1509($actualStyle.foreColor)=Is text:K8:3)
+						$parsedStyle.fill:=svg_retrieveColor($actualStyle.foreColor)
+					End if 
+				End if 
+				
 				// MARK: Ajout de la backgroundImage
 				If ($parsedStyle.backgroundImage#"") | ($parsedStyle.cellTypeName="1")
 					
@@ -1253,18 +1280,32 @@ End if
 							: (Value type:C1509($parsedStyle.formatInfo.text)=Is text:K8:3)
 								$valueStr:=$parsedStyle.formatInfo.text
 								
+								// "_x" and "?" of the number format at the start and at the end: invisible gaps of the width of their chars
+								If ($parsedStyle.wordWrap#1) & ($parsedStyle.isVerticalText#1) & (($parsedStyle.textOrientation=0) | ($parsedStyle.textOrientation=NONE_TEXT_ORIENTATION))
+									If (Value type:C1509($parsedStyle.formatInfo.placeholderLeft)=Is text:K8:3)
+										$paddingLeft:=svg_getTextWidth($parsedStyle.formatInfo.placeholderLeft; $parsedStyle.fontObj)
+									End if 
+									If (Value type:C1509($parsedStyle.formatInfo.placeholderRight)=Is text:K8:3)
+										$paddingRight:=svg_getTextWidth($parsedStyle.formatInfo.placeholderRight; $parsedStyle.fontObj)
+									End if 
+								End if 
+								
 								If (Value type:C1509($cell.value)#Is text:K8:3)
-									$w:=svg_getTextWidth($valueStr; $parsedStyle.fontObj)
+									$w:=svg_getTextWidth($valueStr; $parsedStyle.fontObj)+$paddingLeft+$paddingRight
 									
 									If ($w>(Int:C8($spaceWidth)-3)) & ($parsedStyle.isVerticalText#1)
 										$valueStr:="#"*Int:C8(((Int:C8($spaceWidth)-3)/svg_getTextWidth("#"; $parsedStyle.fontObj)))
+										$paddingLeft:=0
+										$paddingRight:=0
 									End if 
 								Else 
 									If ($cell.value="/OADate(@)/")
-										$w:=svg_getTextWidth($valueStr; $parsedStyle.fontObj)
+										$w:=svg_getTextWidth($valueStr; $parsedStyle.fontObj)+$paddingLeft+$paddingRight
 										
 										If ($w>(Int:C8($spaceWidth)-3)) & ($parsedStyle.isVerticalText#1)
 											$valueStr:="#"*Int:C8(((Int:C8($spaceWidth)-3)/svg_getTextWidth("#"; $parsedStyle.fontObj)))
+											$paddingLeft:=0
+											$paddingRight:=0
 										End if 
 									End if 
 								End if 
@@ -1276,9 +1317,16 @@ End if
 								$str:=""
 								var $valPart : Object
 								For each ($valPart; $parsedStyle.formatInfo.content)
-									If ($valPart.type#"fillingChar") && ($valPart.type#"placeHolder") && ($valPart.type#"numberPlaceholder")
-										$str:=$str+$valPart.value
-									End if 
+									Case of 
+										: ($valPart.type="fillingChar")
+										: ($valPart.type="numberPlaceholder")
+											$str:=$str+"0"
+										: ($valPart.type="placeholder")
+											// "_x": invisible gap of the width of x, which reduces the filling
+											$str:=$str+String:C10($valPart.value)
+										Else 
+											$str:=$str+$valPart.value
+									End case 
 								End for each 
 								var $w : Real
 								$w:=svg_getTextWidth($str; $parsedStyle.fontObj)
@@ -1316,22 +1364,40 @@ End if
 											End if 
 											
 											$valueStr:=""
+											$placeholderLeft:=""
+											$placeholderRight:=""
 											For each ($valPart; $parsedStyle.formatInfo.content)
-												If ($valPart.type="fillingChar")
-													$valueStr:=$valueStr+($fc*$nbC)
-													$strPart:=New object:C1471("part1"; $valueStr; "part2"; "")
-												Else 
-													If (($valPart.type#"placeHolder") && ($valPart.type#"numberPlaceholder"))
+												Case of 
+													: ($valPart.type="fillingChar")
+														$valueStr:=$valueStr+($fc*$nbC)
+														$strPart:=New object:C1471("part1"; $valueStr; "part2"; "")
+														
+													: ($valPart.type="placeholder") | ($valPart.type="numberPlaceholder")
+														// only the gaps before the text of part1 and after the text of part2 are handled
+														Case of 
+															: ($strPart#Null:C1517)
+																$placeholderRight:=$placeholderRight+Choose:C955($valPart.type="numberPlaceholder"; "0"; String:C10($valPart.value))
+															: ($valueStr="")
+																$placeholderLeft:=$placeholderLeft+Choose:C955($valPart.type="numberPlaceholder"; "0"; String:C10($valPart.value))
+														End case 
+														
+													Else 
 														$valueStr:=$valueStr+$valPart.value
 														If ($strPart#Null:C1517)
 															$strPart.part2:=$strPart.part2+$valPart.value
+															$placeholderRight:=""
 														End if 
-													Else 
-														
-														
-													End if 
-												End if 
+												End case 
 											End for each 
+											
+											If (($parsedStyle.textOrientation=0) | ($parsedStyle.textOrientation=NONE_TEXT_ORIENTATION))
+												If ($placeholderLeft#"")
+													$paddingLeft:=svg_getTextWidth($placeholderLeft; $parsedStyle.fontObj)
+												End if 
+												If ($placeholderRight#"") & ($parsedStyle.wordWrap#1)
+													$paddingRight:=svg_getTextWidth($placeholderRight; $parsedStyle.fontObj)
+												End if 
+											End if 
 											
 										End if 
 										
@@ -1342,9 +1408,9 @@ End if
 						End case 
 						
 						If ($strPart#Null:C1517)
-							$textWidth:=svg_getTextWidth($strPart.part1+$strPart.part2; $parsedStyle.fontObj)
+							$textWidth:=svg_getTextWidth($strPart.part1+$strPart.part2; $parsedStyle.fontObj)+$paddingLeft+$paddingRight
 						Else 
-							$textWidth:=svg_getTextWidth($valueStr; $parsedStyle.fontObj)
+							$textWidth:=svg_getTextWidth($valueStr; $parsedStyle.fontObj)+$paddingLeft+$paddingRight
 						End if 
 						
 						If ($parsedStyle.shrinkToFit=1) & ($parsedStyle.wordWrap#1) & (Not:C34(($parsedStyle.isVerticalText=1) & (($parsedStyle.vAlign#TOP_VERTICAL_ALIGN) & ($parsedStyle.vAlign#NONE_VERTICAL_ALIGN))))
@@ -1374,6 +1440,11 @@ End if
 									$textWidth:=$height-4
 								Else 
 									$shrinkStr:=String:C10(Num:C11($fontSize; ".")/$textWidth*($width-4); "&xml;")+"px"
+									// the gaps of the number format are reduced like the font
+									If ($textWidth>($width-4))
+										$paddingLeft:=$paddingLeft*($width-4)/$textWidth
+										$paddingRight:=$paddingRight*($width-4)/$textWidth
+									End if 
 									$textWidth:=$width-4
 							End case 
 						End if 
@@ -1521,6 +1592,7 @@ End if
 							"shrinkToFit"; $shrinkStr; \
 							"textWidth"; $textWidth; \
 							"strPart"; $strPart; \
+							"paddingLeft"; $paddingLeft; "paddingRight"; $paddingRight; \
 							"textOrientation"; $parsedStyle.textOrientation; \
 							"borderOrientation"; $borderOrientation; \
 							"borderOffset"; $borderOffset; \
