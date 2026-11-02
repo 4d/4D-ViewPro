@@ -139,23 +139,24 @@ customDesignerFunctions.init = function () {
    // add custom functions to the custom section of the insert function dialog
    vp_insertFunctionDialogTemplate.content[0].children[0].children[1].children[1].children[13].items = customDesignerFunctions.getCustomFunctionsList();
 
+  try {
     const TemplateNames = GC.Spread.Sheets.Designer.TemplateNames;
-    let template = GC.Spread.Sheets.Designer.getTemplate(TemplateNames.FindDialogTemplate);
-    try {
-      if (customDesignerFunctions.fitFindDialogTemplate(template)) {
-        GC.Spread.Sheets.Designer.registerTemplate(TemplateNames.FindDialogTemplate, template);
-      }
-    } catch (error) {
-      console.warn("Change find dialog width failed: ", error.message);
+    const template = GC.Spread.Sheets.Designer.getTemplate(TemplateNames.FindDialogTemplate);
+    if (template && customDesignerFunctions.fitFindDialogTemplate(template)) {
+      GC.Spread.Sheets.Designer.registerTemplate(TemplateNames.FindDialogTemplate, template);
     }
-
-    customDesignerFunctions.localizeCommandPalettePlaceholder();
+  } catch (error) {
+    console.warn("Change find dialog width failed: ", error.message);
+  }
 };
 
-// The columns of the find dialog have fixed widths made for the english texts:
-// widen them when the localized texts are longer, so they do not overlap
+// The columns of the find dialog (SpreadJS 17.1) have fixed widths made for the english texts:
+// widen them when the localized texts are longer, so they do not overlap.
+// Layout of each tab:
+//   rows "Find what" / "Replace with": [label 80px][text editor 380px]
+//   option row: [380px column > Container (option=true) > 3 rows [label 80px][combo 120px][check box, auto]][option button]
 customDesignerFunctions.fitFindDialogTemplate = function (template) {
-  // a direct child of the designer container has the font of the designer dialogs (.gc-designer-container.en>div)
+  // a direct child of the designer container has the font of the designer dialogs
   const measure = document.createElement("div");
   measure.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap;width:auto";
   (document.querySelector(".gc-designer-container") || document.body).appendChild(measure);
@@ -163,79 +164,65 @@ customDesignerFunctions.fitFindDialogTemplate = function (template) {
     measure.textContent = text;
     return Math.ceil(measure.getBoundingClientRect().width);
   };
+  const widthOf = function (column) {
+    return parseInt(column.width, 10);
+  };
 
-  const columns = { label: [], combo: [], check: [[], []], input: [], spacerWithOption: [], spacerWithoutOption: [] };
+  const columns = { label: [], combo: [], check: [], input: [], option: [] };
   const collect = function (node) {
     if (!node || typeof node !== "object") return;
-    if (node.type === "ColumnSet") {
-      let checkIndex = 0;
-      for (const column of node.children) {
-        const child = column.children && column.children[0];
-        if (!child) {
-          (/=true$/.test(column.visibleWhen) ? columns.spacerWithOption : columns.spacerWithoutOption).push(column);
-        } else if (child.type === "TextBlock") {
-          columns.label.push(column);
-        } else if (child.type === "ListComboEditor") {
-          columns.combo.push(column);
-        } else if (child.type === "CheckBox") {
-          columns.check[checkIndex++].push(column);
-        } else if (child.type === "TextEditor") {
-          columns.input.push(column);
-        }
+    if (node.type === "Column" && Array.isArray(node.children) && node.children.length > 0) {
+      const child = node.children[0];
+      if (child.type === "TextBlock" && !isNaN(widthOf(node))) {
+        columns.label.push(node);
+      } else if (child.type === "ListComboEditor" && !isNaN(widthOf(node))) {
+        columns.combo.push(node);
+      } else if (child.type === "CheckBox") {
+        columns.check.push(node);
+      } else if (child.type === "TextEditor" && !isNaN(widthOf(node))) {
+        columns.input.push(node);
+      } else if (child.type === "Container" && /=true$/.test(child.visibleWhen || "") && !isNaN(widthOf(node))) {
+        columns.option.push(node);
       }
-      return;
     }
     Object.values(node).forEach(collect);
   };
   collect(template.content);
 
-  // extra width needed by a kind of column: text + what the column shows around it (check box, combo arrow)
-  const extraWidth = function (list, texts, around) {
-    let extra = 0;
-    for (const column of list) {
-      const needed = Math.max(...texts(column.children[0]).map(textWidth)) + around;
-      extra = Math.max(extra, needed - parseInt(column.width, 10));
+  let label = 0, combo = 0, check = 0;
+  try {
+    // extra width needed by a kind of column: text + what the column shows around it (combo arrow, check box)
+    const extraWidth = function (list, texts, around, available) {
+      let extra = 0;
+      for (const column of list) {
+        const needed = Math.max(0, ...texts(column.children[0]).map(textWidth)) + around;
+        extra = Math.max(extra, needed - available(column));
+      }
+      return extra;
+    };
+    label = extraWidth(columns.label, (child) => [child.text || ""], 8, widthOf);
+    combo = extraWidth(columns.combo, (child) => (child.items || []).map((item) => item.text || ""), 32, widthOf);
+    // check boxes take what the option column leaves after the label and the combo
+    const optionWidth = columns.option.length > 0 ? Math.min(...columns.option.map(widthOf)) : NaN;
+    const labelWidth = columns.label.length > 0 ? Math.max(...columns.label.map(widthOf)) : 0;
+    const comboWidth = columns.combo.length > 0 ? Math.max(...columns.combo.map(widthOf)) : 0;
+    if (!isNaN(optionWidth)) {
+      check = extraWidth(columns.check, (child) => [child.text || ""], 24, () => optionWidth - labelWidth - comboWidth);
     }
-    return extra;
-  };
-  const label = extraWidth(columns.label, (child) => [child.text], 8);
-  const combo = extraWidth(columns.combo, (child) => child.items.map((item) => item.text), 32);
-  const check0 = extraWidth(columns.check[0], (child) => [child.text], 36);
-  const check1 = extraWidth(columns.check[1], (child) => [child.text], 36);
-  measure.remove();
+  } finally {
+    measure.remove();
+  }
 
-  if (label + combo + check0 + check1 === 0) {
+  if (label + combo + check === 0) {
     return false;
   }
-  // keep the rows aligned on the right: the input and the spacers before the option button absorb the other columns
   const widen = function (list, delta) {
-    list.forEach((column) => { column.width = (parseInt(column.width, 10) + delta) + "px"; });
+    list.forEach((column) => { column.width = (widthOf(column) + delta) + "px"; });
   };
+  // keep the rows aligned on the right: the text editors grow with the option rows
   widen(columns.label, label);
   widen(columns.combo, combo);
-  widen(columns.check[0], check0);
-  widen(columns.check[1], check1);
-  widen(columns.input, combo + check0 + check1);
-  widen(columns.spacerWithOption, check0 + check1);
-  widen(columns.spacerWithoutOption, label + combo + check0 + check1);
+  widen(columns.option, label + combo + check);
+  widen(columns.input, combo + check);
   return true;
-};
-
-// The designer reads the command palette placeholder before our localized resources are set:
-// set it when the command palette is opened
-customDesignerFunctions.localizeCommandPalettePlaceholder = function () {
-  const placeholder = GC.Spread.Sheets.Designer.getResources().commandPalette.placeholder;
-  const selector = ".gc-command-palette-search-container input";
-  const observer = new MutationObserver(function (mutations) {
-    for (const mutation of mutations) {
-      for (const node of mutation.addedNodes) {
-        if (node.nodeType !== Node.ELEMENT_NODE) continue;
-        const input = node.matches(selector) ? node : node.querySelector(selector);
-        if (input && input.placeholder !== placeholder) {
-          input.placeholder = placeholder;
-        }
-      }
-    }
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
 };

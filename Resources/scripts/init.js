@@ -198,7 +198,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (useRibbon) {
-            customDesignerFunctions.init();
+            // a failure here must not prevent onVPReady (the area would never be usable)
+            try {
+                customDesignerFunctions.init();
+            } catch (error) {
+                console.error("customDesignerFunctions.init failed: ", error);
+            }
         } else {
             // install context menu
             Utils.initContextMenu();
