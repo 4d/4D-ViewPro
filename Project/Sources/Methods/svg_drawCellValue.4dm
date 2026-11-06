@@ -938,14 +938,18 @@ End for each
 		
 		If ($valObj.wordWrapInfo=Null:C1517) & (($valObj.textOrientation=0) | ($valObj.textOrientation=NONE_TEXT_ORIENTATION))
 			Case of 
-				: ($valObj.hAlign=LEFT_HORIZONTAL_ALIGN) | ($valObj.strPart#Null:C1517)
+				: ($valObj.strPart#Null:C1517)
 					DOM SET XML ATTRIBUTE:C866($elemRef; "x"; $valObj.x+2)
 					
+					// paddingLeft and paddingRight: invisible gaps of the "_x" and "?" of the number format
+				: ($valObj.hAlign=LEFT_HORIZONTAL_ALIGN)
+					DOM SET XML ATTRIBUTE:C866($elemRef; "x"; $valObj.x+2+Num:C11($valObj.paddingLeft))
+					
 				: ($valObj.hAlign=CENTER_HORIZONTAL_ALIGN)
-					DOM SET XML ATTRIBUTE:C866($elemRef; "x"; $valObj.x+($valObj.width/2); "text-anchor"; "middle")
+					DOM SET XML ATTRIBUTE:C866($elemRef; "x"; $valObj.x+($valObj.width/2)+((Num:C11($valObj.paddingLeft)-Num:C11($valObj.paddingRight))/2); "text-anchor"; "middle")
 					
 				: ($valObj.hAlign=RIGHT_HORIZONTAL_ALIGN)
-					DOM SET XML ATTRIBUTE:C866($elemRef; "x"; $valObj.x+$valObj.width-2; "text-anchor"; "end")
+					DOM SET XML ATTRIBUTE:C866($elemRef; "x"; $valObj.x+$valObj.width-2-Num:C11($valObj.paddingRight); "text-anchor"; "end")
 					
 			End case 
 			
@@ -1433,11 +1437,11 @@ End for each
 					DOM GET XML ATTRIBUTE BY NAME:C728($elemRef; "y"; $yPos)
 					$part1Ref:=DOM Create XML element:C865($elemRef; "text"; "style"; $styleStr)
 					$part2Ref:=DOM Create XML element:C865($elemRef; "text"; "style"; $styleStr)
-					DOM SET XML ATTRIBUTE:C866($part1Ref; "x"; $valObj.x+2; "y"; $yPos)
+					DOM SET XML ATTRIBUTE:C866($part1Ref; "x"; $valObj.x+2+Num:C11($valObj.paddingLeft); "y"; $yPos)
 					If ($valObj.textOrientation#0) & ($valObj.textOrientation#NONE_TEXT_ORIENTATION)
 						DOM SET XML ATTRIBUTE:C866($part2Ref; "x"; $valObj.x+svg_getTextWidth($valObj.strPart.part1)+2; "y"; $yPos)
 					Else 
-						DOM SET XML ATTRIBUTE:C866($part2Ref; "x"; $valObj.x+$valObj.width; "y"; $yPos; "text-anchor"; "end")
+						DOM SET XML ATTRIBUTE:C866($part2Ref; "x"; $valObj.x+$valObj.width-Num:C11($valObj.paddingRight); "y"; $yPos; "text-anchor"; "end")
 					End if 
 					DOM SET XML ELEMENT VALUE:C868($part2Ref; $valObj.strPart.part2)
 					DOM SET XML ELEMENT VALUE:C868($part1Ref; $valObj.strPart.part1)
